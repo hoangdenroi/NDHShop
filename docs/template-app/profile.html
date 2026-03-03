@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>User Account Dashboard - CodeMarket</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0d59f2",
+                        "background-light": "#f8f9fc",
+                        "background-dark": "#101622",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display min-h-screen flex flex-col overflow-x-hidden">
+<!-- Top Navigation Bar -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-slate-200 bg-white dark:bg-slate-900 dark:border-slate-800 px-10 py-3 sticky top-0 z-50">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-4 text-slate-900 dark:text-white">
+<div class="size-8 bg-primary rounded-lg flex items-center justify-center text-white">
+<span class="material-symbols-outlined text-xl">code</span>
+</div>
+<h2 class="text-slate-900 dark:text-white text-lg font-bold leading-tight tracking-[-0.015em]">CodeMarket</h2>
+</div>
+<nav class="hidden md:flex items-center gap-9">
+<a class="text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-primary transition-colors text-sm font-medium leading-normal" href="#">Home</a>
+<a class="text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-primary transition-colors text-sm font-medium leading-normal" href="#">Categories</a>
+<a class="text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-primary transition-colors text-sm font-medium leading-normal" href="#">Sell</a>
+<a class="text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-primary transition-colors text-sm font-medium leading-normal" href="#">Community</a>
+</nav>
+</div>
+<div class="flex flex-1 justify-end gap-6 items-center">
+<div class="hidden lg:flex w-full max-w-xs relative group">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-slate-400">search</span>
+</div>
+<input class="block w-full rounded-lg border-0 py-2 pl-10 pr-3 text-slate-900 ring-1 ring-inset ring-slate-200 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6 bg-slate-50 dark:bg-slate-800 dark:ring-slate-700 dark:text-white" placeholder="Search resources..." type="text"/>
+</div>
+<div class="flex gap-3 items-center">
+<button class="hidden sm:flex h-10 px-4 bg-primary hover:bg-blue-700 text-white text-sm font-bold rounded-lg items-center justify-center transition-colors">
+                    Upload
+                </button>
+<button class="p-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors relative">
+<span class="material-symbols-outlined">shopping_cart</span>
+<span class="absolute top-1.5 right-1.5 flex h-2 w-2">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+</span>
+</button>
+<div class="h-10 w-10 rounded-full bg-cover bg-center border border-slate-200 dark:border-slate-700 ml-2 cursor-pointer" data-alt="User profile avatar of a man" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBBn39Ss6WXB1nziHjZ188HAsIFscSKaEC-54nS14QUPBMkF-NLcOqJVz7xaz78ucTpcyw-TcTV4Vk3oX6OgoifwJ6S30o5ouTN7IS2E0nNyO92Xn6oLbLMoKg1MESLKf2dq5ueYoD_dHQrpH5FJm8SWfQZyUYt8KA-MQFZWJrBQflATboXL5mkzuuBuNABBZeMK-WIQb6sRqn0pKriBwXK9bskbyI-U6TTUiWDmfitc6XIqPOJkuVidCSuqJpRqgs9fC_WEwYrCFA");'></div>
+</div>
+</div>
+</header>
+<!-- Main Layout -->
+<div class="flex-1 w-full max-w-[1400px] mx-auto p-6 md:p-8 lg:p-10">
+<div class="flex flex-col lg:flex-row gap-8">
+<!-- Sidebar -->
+<aside class="w-full lg:w-72 shrink-0 flex flex-col gap-6">
+<!-- User Profile Card -->
+<div class="bg-white dark:bg-slate-800 rounded-xl p-6 border border-slate-100 dark:border-slate-700 shadow-sm flex flex-col items-center text-center">
+<div class="h-24 w-24 rounded-full bg-cover bg-center mb-4 ring-4 ring-slate-50 dark:ring-slate-700" data-alt="User profile avatar close up" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCtpcfas4p_AXlTeXyNRccpt8xjPF2eyGQ90zV1bZBSyiENjVvpQ8JLDct7ehyfddgmn0l1XyTSZletQb7YV_ORE1I_fQ3IX0ZTO0b8eUD27K9oZjwgtxuxnL7pkFUnncKsglfgNp5glEMTI-YcXc2UdWVmUSiv2mzoNsJ-S_UcAKuZRCzXTTUowdAaD7k5uxUI1MWHab5gm4ssR9hYtzP21XfUnwT0OgRR0Kmv-SxFyGkRTtw2EeutWp5XT7R2pi0IP6Ztirn1F58");'></div>
+<h1 class="text-slate-900 dark:text-white text-lg font-bold">John Doe</h1>
+<p class="text-slate-500 dark:text-slate-400 text-sm font-medium">Full Stack Developer</p>
+<div class="mt-4 flex gap-2">
+<span class="px-2 py-1 bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300 text-xs font-semibold rounded">Pro Member</span>
+</div>
+</div>
+<!-- Navigation Menu -->
+<nav class="bg-white dark:bg-slate-800 rounded-xl overflow-hidden border border-slate-100 dark:border-slate-700 shadow-sm">
+<div class="flex flex-col p-2 gap-1">
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors group" href="#">
+<span class="material-symbols-outlined text-slate-400 group-hover:text-primary transition-colors">person</span>
+<span class="font-medium text-sm">Profile Info</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg bg-primary/10 text-primary dark:bg-primary/20 dark:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-primary">download</span>
+<span class="font-medium text-sm">My Downloads</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors group" href="#">
+<span class="material-symbols-outlined text-slate-400 group-hover:text-primary transition-colors">history</span>
+<span class="font-medium text-sm">Purchase History</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors group" href="#">
+<span class="material-symbols-outlined text-slate-400 group-hover:text-primary transition-colors">favorite</span>
+<span class="font-medium text-sm">Wishlist</span>
+<span class="ml-auto bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 text-xs font-bold px-2 py-0.5 rounded-full">3</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors group" href="#">
+<span class="material-symbols-outlined text-slate-400 group-hover:text-primary transition-colors">settings</span>
+<span class="font-medium text-sm">Settings</span>
+</a>
+</div>
+<div class="border-t border-slate-100 dark:border-slate-700 p-2 mt-1">
+<button class="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-red-600 hover:bg-red-50 dark:text-red-400 dark:hover:bg-red-900/10 transition-colors text-left">
+<span class="material-symbols-outlined">logout</span>
+<span class="font-medium text-sm">Sign Out</span>
+</button>
+</div>
+</nav>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 flex flex-col gap-6">
+<!-- Breadcrumb & Title -->
+<div class="flex flex-col gap-2">
+<div class="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400">
+<a class="hover:text-primary transition-colors" href="#">Account</a>
+<span class="material-symbols-outlined text-sm">chevron_right</span>
+<span class="text-slate-900 dark:text-white font-medium">My Downloads</span>
+</div>
+<h2 class="text-2xl font-bold text-slate-900 dark:text-white">My Downloads</h2>
+</div>
+<!-- Stats Overview (Optional Enhancement) -->
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+<div class="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-100 dark:border-slate-700 shadow-sm flex items-center gap-4">
+<div class="size-10 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center text-blue-600 dark:text-blue-400">
+<span class="material-symbols-outlined">cloud_download</span>
+</div>
+<div>
+<p class="text-xs text-slate-500 dark:text-slate-400 font-medium uppercase tracking-wider">Total Downloads</p>
+<p class="text-xl font-bold text-slate-900 dark:text-white">24</p>
+</div>
+</div>
+<div class="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-100 dark:border-slate-700 shadow-sm flex items-center gap-4">
+<div class="size-10 rounded-full bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center text-emerald-600 dark:text-emerald-400">
+<span class="material-symbols-outlined">update</span>
+</div>
+<div>
+<p class="text-xs text-slate-500 dark:text-slate-400 font-medium uppercase tracking-wider">Updates Available</p>
+<p class="text-xl font-bold text-slate-900 dark:text-white">3</p>
+</div>
+</div>
+<div class="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-100 dark:border-slate-700 shadow-sm flex items-center gap-4">
+<div class="size-10 rounded-full bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center text-purple-600 dark:text-purple-400">
+<span class="material-symbols-outlined">license</span>
+</div>
+<div>
+<p class="text-xs text-slate-500 dark:text-slate-400 font-medium uppercase tracking-wider">Active Licenses</p>
+<p class="text-xl font-bold text-slate-900 dark:text-white">18</p>
+</div>
+</div>
+</div>
+<!-- Downloads List -->
+<div class="bg-white dark:bg-slate-800 rounded-xl border border-slate-100 dark:border-slate-700 shadow-sm overflow-hidden">
+<!-- Filters/Search within list -->
+<div class="p-4 border-b border-slate-100 dark:border-slate-700 flex flex-col sm:flex-row gap-4 justify-between items-center">
+<div class="relative w-full sm:max-w-xs">
+<span class="material-symbols-outlined absolute left-3 top-2.5 text-slate-400 text-lg">search</span>
+<input class="w-full pl-9 pr-4 py-2 text-sm border border-slate-200 dark:border-slate-600 rounded-lg bg-slate-50 dark:bg-slate-700/50 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary/50" placeholder="Search purchased items..." type="text"/>
+</div>
+<div class="flex gap-2">
+<select class="text-sm border-none bg-slate-50 dark:bg-slate-700/50 rounded-lg py-2 pl-3 pr-8 text-slate-700 dark:text-slate-200 focus:ring-2 focus:ring-primary/50">
+<option>All Categories</option>
+<option>Mobile Apps</option>
+<option>Web Templates</option>
+<option>Plugins</option>
+</select>
+</div>
+</div>
+<!-- Items -->
+<div class="divide-y divide-slate-100 dark:divide-slate-700">
+<!-- Item 1 -->
+<div class="p-4 sm:p-6 flex flex-col sm:flex-row gap-4 sm:items-center hover:bg-slate-50 dark:hover:bg-slate-700/30 transition-colors">
+<div class="h-16 w-16 sm:h-20 sm:w-20 rounded-lg bg-cover bg-center shrink-0 border border-slate-200 dark:border-slate-600" data-alt="Dashboard analytics dashboard abstract colorful" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuD5Rl6tYeW16y87g19oB8FyCMyQk7-eEFLwxYEA626jFZoV4eKdKij3PZbYcIoKBhj7Pa_OkFPR_5C1AeHhmZF9-_HViDhqDnbK7h1h5ge_80iLfeGXvL_HD63pNYPZHSAFiHPRu1YS732vdRO_WzCVRMir12XU9Oz1NKDtMJ0CZFzJHhmW6rlW8bQohdzsKi0lrtGvocd3X4Dq_-oLXw703uTymN0huMx6_7KHKYu3QVFD6HelT-rbljucUVPyfAdlF-JHeAgQPpY");'></div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-start">
+<h3 class="text-base font-bold text-slate-900 dark:text-white truncate">E-Commerce App Source Code</h3>
+<span class="inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20 dark:bg-green-900/30 dark:text-green-400">Active</span>
+</div>
+<p class="text-sm text-slate-500 dark:text-slate-400 mt-1 line-clamp-1">Full flutter e-commerce application with admin panel backend included.</p>
+<div class="flex items-center gap-4 mt-2">
+<div class="flex items-center gap-1 text-xs text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-700 px-2 py-0.5 rounded">
+<span class="font-medium">v.2.4.1</span>
+</div>
+<div class="text-xs text-slate-400 dark:text-slate-500">Purchased: Oct 24, 2023</div>
+</div>
+</div>
+<div class="flex sm:flex-col gap-2 shrink-0">
+<button class="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary transition-all">
+<span class="material-symbols-outlined text-[18px]">download</span>
+                                    Download
+                                </button>
+<button class="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 rounded-lg bg-white dark:bg-slate-700 px-4 py-2 text-sm font-medium text-slate-700 dark:text-slate-200 shadow-sm ring-1 ring-inset ring-slate-300 dark:ring-slate-600 hover:bg-slate-50 dark:hover:bg-slate-600 transition-all">
+                                    Documentation
+                                </button>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="p-4 sm:p-6 flex flex-col sm:flex-row gap-4 sm:items-center hover:bg-slate-50 dark:hover:bg-slate-700/30 transition-colors">
+<div class="h-16 w-16 sm:h-20 sm:w-20 rounded-lg bg-cover bg-center shrink-0 border border-slate-200 dark:border-slate-600" data-alt="Social media app interface abstract" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAKdct0-2Y5RZx9nDPidLqTKJQfKX5TEljgb7soRuTv6a9DlTTYz6qQaLgzCOqec9Mmtd_aPMnF_ZEZ7sYzSfR6o-kEK9HFf2UmWkxSd65GqrHGeTDhYbe2J23gfR-DBuNyAJSSjsHZu4-pFzu3B9bAIo10F4F82jslRslxQDTkNcj4BS66B-TaQzrbFyt-to94Ai9CCgDGqPIq040gpDSHuQmv4EnFc9zH_KtTGj3kBkLkWWi_crhTTAPurC7Wbo2HT2-JtKkAWgA");'></div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-start">
+<h3 class="text-base font-bold text-slate-900 dark:text-white truncate">Social Network UI Kit</h3>
+<span class="inline-flex items-center rounded-md bg-yellow-50 px-2 py-1 text-xs font-medium text-yellow-800 ring-1 ring-inset ring-yellow-600/20 dark:bg-yellow-900/30 dark:text-yellow-400">Update Available</span>
+</div>
+<p class="text-sm text-slate-500 dark:text-slate-400 mt-1 line-clamp-1">Complete social networking UI kit for React Native compatible with iOS and Android.</p>
+<div class="flex items-center gap-4 mt-2">
+<div class="flex items-center gap-1 text-xs text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-700 px-2 py-0.5 rounded">
+<span class="font-medium">v.1.0.5</span>
+</div>
+<div class="text-xs text-slate-400 dark:text-slate-500">Purchased: Sep 12, 2023</div>
+</div>
+</div>
+<div class="flex sm:flex-col gap-2 shrink-0">
+<button class="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary transition-all">
+<span class="material-symbols-outlined text-[18px]">download</span>
+                                    Download
+                                </button>
+<button class="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 rounded-lg bg-white dark:bg-slate-700 px-4 py-2 text-sm font-medium text-slate-700 dark:text-slate-200 shadow-sm ring-1 ring-inset ring-slate-300 dark:ring-slate-600 hover:bg-slate-50 dark:hover:bg-slate-600 transition-all">
+                                    Details
+                                </button>
+</div>
+</div>
+<!-- Item 3 -->
+<div class="p-4 sm:p-6 flex flex-col sm:flex-row gap-4 sm:items-center hover:bg-slate-50 dark:hover:bg-slate-700/30 transition-colors">
+<div class="h-16 w-16 sm:h-20 sm:w-20 rounded-lg bg-cover bg-center shrink-0 border border-slate-200 dark:border-slate-600" data-alt="Game controller neon purple abstract" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuB0xjgXcbTMjfq-o9VfdQXmeodFq_2pKfypN30LE9I15WIe3_gtACZ8dBZWT_t9L92hdB_jr_h29XbyT3DKk_NrgKrJAMNkGJeZWmO6nayhpqH8C0pG9gQEb_X3YEyr9RNN8_pClEspaiHATrRyuHoElOUFu9yfKbmtbboRVKc6Q9ATaMchNKQ1U67F_Z2MQOoiZy-s9rAhMZF0eNknrimQXgi-kL10yXpcLkf9437_iHYd1Ft-O8exGg08kEMDvKjOT7e69WMK-B4");'></div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-start">
+<h3 class="text-base font-bold text-slate-900 dark:text-white truncate">Space Shooter 2D Game Asset</h3>
+<span class="inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20 dark:bg-green-900/30 dark:text-green-400">Active</span>
+</div>
+<p class="text-sm text-slate-500 dark:text-slate-400 mt-1 line-clamp-1">High quality sprites, backgrounds and sound effects for space shooter games.</p>
+<div class="flex items-center gap-4 mt-2">
+<div class="flex items-center gap-1 text-xs text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-700 px-2 py-0.5 rounded">
+<span class="font-medium">v.3.2</span>
+</div>
+<div class="text-xs text-slate-400 dark:text-slate-500">Purchased: Aug 05, 2023</div>
+</div>
+</div>
+<div class="flex sm:flex-col gap-2 shrink-0">
+<button class="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary transition-all">
+<span class="material-symbols-outlined text-[18px]">download</span>
+                                    Download
+                                </button>
+<button class="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 rounded-lg bg-white dark:bg-slate-700 px-4 py-2 text-sm font-medium text-slate-700 dark:text-slate-200 shadow-sm ring-1 ring-inset ring-slate-300 dark:ring-slate-600 hover:bg-slate-50 dark:hover:bg-slate-600 transition-all">
+                                    Assets
+                                </button>
+</div>
+</div>
+<!-- Item 4 -->
+<div class="p-4 sm:p-6 flex flex-col sm:flex-row gap-4 sm:items-center hover:bg-slate-50 dark:hover:bg-slate-700/30 transition-colors">
+<div class="h-16 w-16 sm:h-20 sm:w-20 rounded-lg bg-cover bg-center shrink-0 border border-slate-200 dark:border-slate-600" data-alt="Code matrix security digital lock" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDAO9uD8tHH01DTcsc1JaNgpvYm9Ns6krOZRoqC9KSRqQVwFIM79qqG9TFRgGCB4s2HYlGJBGLHNfIeVANcFU3lxqgLLyyHkM-L_H7_k_pIKEZ0a5tD8rwuoSRpaE_trpIPoA4rCNKIJstp_lnfItzU0ZLGH27k_k-hjdjIDgIpgXzGa6ZriIHIZFih6YbNMj8DD79-XQ4hcsb2hP7COblp33k4q170OuZzanYOqR4qtXpJsj9XUIAgxa3l4p7WjZxNhxBNj62erDc");'></div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-start">
+<h3 class="text-base font-bold text-slate-900 dark:text-white truncate">Admin Dashboard Template Pro</h3>
+<span class="inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20 dark:bg-green-900/30 dark:text-green-400">Active</span>
+</div>
+<p class="text-sm text-slate-500 dark:text-slate-400 mt-1 line-clamp-1">VueJS 3 + Tailwind CSS Admin template with 50+ pre-built components.</p>
+<div class="flex items-center gap-4 mt-2">
+<div class="flex items-center gap-1 text-xs text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-700 px-2 py-0.5 rounded">
+<span class="font-medium">v.5.0.0</span>
+</div>
+<div class="text-xs text-slate-400 dark:text-slate-500">Purchased: Jul 19, 2023</div>
+</div>
+</div>
+<div class="flex sm:flex-col gap-2 shrink-0">
+<button class="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary transition-all">
+<span class="material-symbols-outlined text-[18px]">download</span>
+                                    Download
+                                </button>
+<button class="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 rounded-lg bg-white dark:bg-slate-700 px-4 py-2 text-sm font-medium text-slate-700 dark:text-slate-200 shadow-sm ring-1 ring-inset ring-slate-300 dark:ring-slate-600 hover:bg-slate-50 dark:hover:bg-slate-600 transition-all">
+                                    Preview
+                                </button>
+</div>
+</div>
+</div>
+<!-- Pagination -->
+<div class="flex items-center justify-between border-t border-slate-100 dark:border-slate-700 px-4 py-3 sm:px-6">
+<div class="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
+<div>
+<p class="text-sm text-slate-700 dark:text-slate-400">
+                                    Showing <span class="font-medium text-slate-900 dark:text-white">1</span> to <span class="font-medium text-slate-900 dark:text-white">4</span> of <span class="font-medium text-slate-900 dark:text-white">24</span> results
+                                </p>
+</div>
+<div>
+<nav aria-label="Pagination" class="isolate inline-flex -space-x-px rounded-md shadow-sm">
+<a class="relative inline-flex items-center rounded-l-md px-2 py-2 text-slate-400 ring-1 ring-inset ring-slate-300 dark:ring-slate-600 hover:bg-slate-50 dark:hover:bg-slate-700 focus:z-20 focus:outline-offset-0" href="#">
+<span class="sr-only">Previous</span>
+<span class="material-symbols-outlined text-sm">chevron_left</span>
+</a>
+<a aria-current="page" class="relative z-10 inline-flex items-center bg-primary px-4 py-2 text-sm font-semibold text-white focus:z-20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary" href="#">1</a>
+<a class="relative inline-flex items-center px-4 py-2 text-sm font-semibold text-slate-900 dark:text-white ring-1 ring-inset ring-slate-300 dark:ring-slate-600 hover:bg-slate-50 dark:hover:bg-slate-700 focus:z-20 focus:outline-offset-0" href="#">2</a>
+<a class="relative hidden items-center px-4 py-2 text-sm font-semibold text-slate-900 dark:text-white ring-1 ring-inset ring-slate-300 dark:ring-slate-600 hover:bg-slate-50 dark:hover:bg-slate-700 focus:z-20 focus:outline-offset-0 md:inline-flex" href="#">3</a>
+<span class="relative inline-flex items-center px-4 py-2 text-sm font-semibold text-slate-700 dark:text-slate-400 ring-1 ring-inset ring-slate-300 dark:ring-slate-600 focus:outline-offset-0">...</span>
+<a class="relative hidden items-center px-4 py-2 text-sm font-semibold text-slate-900 dark:text-white ring-1 ring-inset ring-slate-300 dark:ring-slate-600 hover:bg-slate-50 dark:hover:bg-slate-700 focus:z-20 focus:outline-offset-0 md:inline-flex" href="#">8</a>
+<a class="relative inline-flex items-center rounded-r-md px-2 py-2 text-slate-400 ring-1 ring-inset ring-slate-300 dark:ring-slate-600 hover:bg-slate-50 dark:hover:bg-slate-700 focus:z-20 focus:outline-offset-0" href="#">
+<span class="sr-only">Next</span>
+<span class="material-symbols-outlined text-sm">chevron_right</span>
+</a>
+</nav>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</div>
+</body></html>

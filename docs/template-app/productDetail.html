@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Product Detail Page - CodeMarket</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0d59f2",
+                        "background-light": "#f5f6f8",
+                        "background-dark": "#101622",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 antialiased overflow-x-hidden">
+<!-- Top Navigation -->
+<header class="sticky top-0 z-50 w-full border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md">
+<div class="mx-auto max-w-[1280px] px-6 py-4">
+<div class="flex items-center justify-between gap-8">
+<!-- Logo -->
+<div class="flex items-center gap-2">
+<div class="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-white">
+<span class="material-symbols-outlined">terminal</span>
+</div>
+<span class="text-xl font-bold tracking-tight text-slate-900 dark:text-white">CodeMarket</span>
+</div>
+<!-- Nav Links -->
+<nav class="hidden md:flex items-center gap-8">
+<a class="text-sm font-medium text-slate-600 hover:text-primary dark:text-slate-400 dark:hover:text-white transition-colors" href="#">Home</a>
+<a class="text-sm font-medium text-slate-600 hover:text-primary dark:text-slate-400 dark:hover:text-white transition-colors" href="#">Apps</a>
+<a class="text-sm font-medium text-slate-900 dark:text-white" href="#">Games</a>
+<a class="text-sm font-medium text-slate-600 hover:text-primary dark:text-slate-400 dark:hover:text-white transition-colors" href="#">Scripts</a>
+<a class="text-sm font-medium text-slate-600 hover:text-primary dark:text-slate-400 dark:hover:text-white transition-colors" href="#">Support</a>
+</nav>
+<!-- Search & Actions -->
+<div class="flex flex-1 items-center justify-end gap-4">
+<div class="relative hidden w-full max-w-xs sm:block">
+<div class="absolute inset-y-0 left-0 flex items-center pl-3 text-slate-400">
+<span class="material-symbols-outlined text-[20px]">search</span>
+</div>
+<input class="w-full rounded-lg border-0 bg-slate-100 py-2 pl-10 pr-4 text-sm text-slate-900 focus:ring-2 focus:ring-primary dark:bg-slate-800 dark:text-white placeholder:text-slate-400" placeholder="Search resources..." type="text"/>
+</div>
+<div class="flex items-center gap-3">
+<button class="hidden sm:flex h-9 items-center justify-center rounded-lg border border-slate-200 bg-white px-4 text-sm font-semibold text-slate-700 hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-700 transition-colors">
+                            Sign In
+                        </button>
+<button class="flex h-9 items-center justify-center rounded-lg bg-primary px-4 text-sm font-bold text-white shadow-lg shadow-primary/30 hover:bg-blue-600 transition-all">
+                            Sign Up
+                        </button>
+</div>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="mx-auto max-w-[1280px] px-6 py-8">
+<!-- Breadcrumb -->
+<nav class="mb-6 flex items-center text-sm font-medium text-slate-500 dark:text-slate-400">
+<a class="hover:text-primary transition-colors" href="#">Marketplace</a>
+<span class="mx-2 text-slate-300 dark:text-slate-600">/</span>
+<a class="hover:text-primary transition-colors" href="#">Games</a>
+<span class="mx-2 text-slate-300 dark:text-slate-600">/</span>
+<span class="text-slate-900 dark:text-white">Unity Templates</span>
+</nav>
+<!-- Product Hero Section -->
+<div class="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:gap-12">
+<!-- Left: Gallery -->
+<div class="lg:col-span-8 space-y-4">
+<div class="group relative aspect-video w-full overflow-hidden rounded-xl bg-slate-100 shadow-sm dark:bg-slate-800">
+<img alt="Main gameplay screenshot showing character in action RPG setting" class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="Main gameplay screenshot showing character in action RPG setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDK71GBRYSrsQuKOX5tNRS_gMGixxALHDV_CvaqiLoqrO0Mm7L03_QWzYebh_NG9vhhxO2tbnm88cXPiLBlOun6VaEC8GVFE2f6hoNIO2I6G8zjjHzAQd5gHtQyAzGtGk-Vi5QGeGkXD_awc1btGAbq67DHQBHC4iYt1EoGd9hTdQQwV_IZwpCT9nGoMl2LwaWCMD4jXajHA3bRlCUYjjUnRcf__HEtniiGwa3cizqXRcCCaZ0JC1l44HbcOi0YVOXokezLeWY7Q2Y"/>
+<div class="absolute bottom-4 right-4 flex gap-2">
+<button class="flex h-8 w-8 items-center justify-center rounded-full bg-white/90 text-slate-900 backdrop-blur-sm shadow-sm hover:bg-white">
+<span class="material-symbols-outlined text-[20px]">fullscreen</span>
+</button>
+</div>
+</div>
+<div class="flex gap-4 overflow-x-auto pb-2 scrollbar-hide">
+<button class="relative h-20 w-36 flex-shrink-0 overflow-hidden rounded-lg border-2 border-primary p-0.5">
+<img alt="Thumbnail 1" class="h-full w-full rounded-[4px] object-cover" data-alt="Action RPG gameplay close-up" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCJfPx1oEuOJH1OyDV8TSoZBQFUgnTUDbQFtBMh8fbcyluUo_b0CS8INIc2JUPk1drak9r0ajEp9fxQoYqMeeEendKimutjBI5wW0JcxwROGmyVYLmeWnSQyPSbQUyXkbU3EWfngHyelJM2RTi0yUEHhM74lzztBdkxlhdZLfRN6lAF_qFmSngmdU64nPSHHavY9yEmcmtzxiU8mjC7rpbQ4Wa59FXHV0k8XhN1RHcadd5qm-NU_74AfeMEfUmNqCGrhp5GuT8w_8Y"/>
+</button>
+<button class="relative h-20 w-36 flex-shrink-0 overflow-hidden rounded-lg border border-transparent bg-slate-100 hover:border-slate-300">
+<img alt="Thumbnail 2" class="h-full w-full rounded-lg object-cover opacity-70 hover:opacity-100 transition-opacity" data-alt="Inventory system UI layout" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAJYVj0UxGqQ-1Sfw_uUpFyawhnN4kLMKwYosyODtIRS8QWIA1fZXwats4ychQ1SifAt6Mq74Muol5gNJxyBGxDiZwH4zbAnYlvJSzuQ44hVIgyxBgt9ZKNfuUunokEYFLjBc-Wa4rhWJbvYylt6py-F1lBowYF90TQgQbcXb_UHjsv6T5OZrkaEgLttXXuiyuFzHiArsOpk-RwGpmfpgYL6YX-lnyvsoO6WPZ0mJv3GaAFckY4NS2nk8tj-YnZcHzlzJUN85I12SE"/>
+</button>
+<button class="relative h-20 w-36 flex-shrink-0 overflow-hidden rounded-lg border border-transparent bg-slate-100 hover:border-slate-300">
+<img alt="Thumbnail 3" class="h-full w-full rounded-lg object-cover opacity-70 hover:opacity-100 transition-opacity" data-alt="Level editor tools preview" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCz53Aqek-CawBBOzCT4gPwKD-U5MnXIjNjuH6ytz8oNODxreeSaGK87ifB8C4IlLr8vpUpp4Ghtk0yvwuLyoEotOqp2g4foIqQVHG7dgoXmPhdXim-1q-hjsvI_6Sh08-YLk6clyavmjeHlxphF2bfRyCgKbV3hagZWyVmubEkeOhPMU3JnVaZLgFnQbT7-AYgvsrC-VWPn6XMgbFhKUWSVXzL0cCmMPtCyeH1YzwaeavVkcv7fGgRq1biCeO6VIrVdJxmjGt9vE4"/>
+</button>
+<button class="relative h-20 w-36 flex-shrink-0 overflow-hidden rounded-lg border border-transparent bg-slate-100 hover:border-slate-300">
+<img alt="Thumbnail 4" class="h-full w-full rounded-lg object-cover opacity-70 hover:opacity-100 transition-opacity" data-alt="Character customization screen" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCyAV_ZGCE-9OcLNVCG9DTEAgMk-kzlyXPwyEAnqAHlwwTblIWgVLJxKtIvAjw_KeDmquxbbcz2HMGlcafq-UsgmMU7Fh-sZSdC6bWlIcj1c1PzogK173xoQ_X6j3CwbUVjRU-7WLeQ4BHX7Ue0g-tWTJjlhHJk9_eWl6Uzp3C3Sr1aawOkD5dFj9czPoC4WYnKX57LSZbqZKkAxVgseY2kFNn18kbnrNsdS5INyaHSmlnT8vdNhaC2oPHTOTWuvJLnMNuB-dE6EwM"/>
+</button>
+</div>
+</div>
+<!-- Right: Product Info -->
+<div class="lg:col-span-4">
+<div class="sticky top-24 flex flex-col gap-6 rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-900/5 dark:bg-slate-900 dark:ring-slate-800">
+<div>
+<div class="mb-2 flex items-center gap-2">
+<span class="inline-flex items-center rounded-full bg-blue-50 px-2.5 py-0.5 text-xs font-medium text-blue-700 dark:bg-blue-900/30 dark:text-blue-300">Unity 3D</span>
+<span class="inline-flex items-center rounded-full bg-green-50 px-2.5 py-0.5 text-xs font-medium text-green-700 dark:bg-green-900/30 dark:text-green-300">Verified</span>
+</div>
+<h1 class="text-3xl font-bold leading-tight text-slate-900 dark:text-white">Ultimate Action RPG Kit</h1>
+<p class="mt-2 text-sm text-slate-500 dark:text-slate-400">
+                            By <a class="font-medium text-primary hover:underline" href="#">PixelStudios</a>
+<span class="mx-1">•</span> v2.4
+                        </p>
+</div>
+<div class="flex items-baseline gap-2 border-b border-slate-100 pb-6 dark:border-slate-800">
+<span class="text-4xl font-extrabold text-slate-900 dark:text-white">$49</span>
+<span class="text-lg text-slate-400 line-through decoration-slate-400/50">$89</span>
+<span class="ml-auto text-sm font-medium text-green-600 dark:text-green-400">Save 45%</span>
+</div>
+<div class="space-y-3">
+<button class="flex w-full items-center justify-center gap-2 rounded-xl bg-primary py-3.5 text-base font-bold text-white shadow-lg shadow-blue-500/25 hover:bg-blue-600 active:scale-[0.98] transition-all">
+<span class="material-symbols-outlined">shopping_cart</span>
+                            Add to Cart
+                        </button>
+<button class="flex w-full items-center justify-center gap-2 rounded-xl bg-slate-100 py-3.5 text-base font-bold text-slate-700 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-700 transition-all">
+<span class="material-symbols-outlined filled">favorite</span>
+                            Add to Wishlist
+                        </button>
+</div>
+<div class="space-y-4 pt-2">
+<div class="flex items-center gap-3 text-sm text-slate-600 dark:text-slate-300">
+<span class="material-symbols-outlined text-slate-400">update</span>
+<span>Last updated: 2 days ago</span>
+</div>
+<div class="flex items-center gap-3 text-sm text-slate-600 dark:text-slate-300">
+<span class="material-symbols-outlined text-slate-400">download</span>
+<span>1.2k+ Sales</span>
+</div>
+<div class="flex items-center gap-3 text-sm text-slate-600 dark:text-slate-300">
+<span class="material-symbols-outlined text-slate-400">star</span>
+<div class="flex items-center gap-1">
+<span class="font-bold text-slate-900 dark:text-white">4.8</span>
+<span class="text-slate-400">(240 Reviews)</span>
+</div>
+</div>
+<div class="flex items-center gap-3 text-sm text-slate-600 dark:text-slate-300">
+<span class="material-symbols-outlined text-slate-400">license</span>
+<span>Standard License</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Details Section -->
+<div class="mt-12 grid grid-cols-1 gap-12 lg:grid-cols-12">
+<!-- Main Description & Reviews -->
+<div class="lg:col-span-8 space-y-12">
+<!-- Description -->
+<section class="space-y-6">
+<h2 class="text-2xl font-bold text-slate-900 dark:text-white">About this asset</h2>
+<div class="prose prose-slate max-w-none text-slate-600 dark:prose-invert dark:text-slate-400">
+<p class="leading-relaxed">
+                            Create your dream Action RPG with this complete project template. Built from the ground up for modularity and scalability, the Ultimate Action RPG Kit gives you everything you need to start building immediately. 
+                        </p>
+<p class="leading-relaxed">
+                            Featuring a robust combat system, inventory management, questing, and dialogue systems, this template saves you hundreds of hours of coding. Whether you are targeting mobile or PC, the optimized code ensures smooth performance across devices.
+                        </p>
+<h3 class="text-lg font-bold text-slate-900 dark:text-white mt-6 mb-3">Key Features</h3>
+<ul class="grid grid-cols-1 gap-y-2 sm:grid-cols-2 gap-x-4">
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined mt-0.5 text-primary text-[20px]">check_circle</span>
+<span>Advanced Combat System</span>
+</li>
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined mt-0.5 text-primary text-[20px]">check_circle</span>
+<span>Inventory &amp; Equipment</span>
+</li>
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined mt-0.5 text-primary text-[20px]">check_circle</span>
+<span>Quest System with Markers</span>
+</li>
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined mt-0.5 text-primary text-[20px]">check_circle</span>
+<span>Save/Load System</span>
+</li>
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined mt-0.5 text-primary text-[20px]">check_circle</span>
+<span>Skill Trees &amp; Leveling</span>
+</li>
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined mt-0.5 text-primary text-[20px]">check_circle</span>
+<span>Enemy AI &amp; Boss Battles</span>
+</li>
+</ul>
+</div>
+</section>
+<hr class="border-slate-200 dark:border-slate-800"/>
+<!-- Reviews -->
+<section>
+<div class="flex items-center justify-between mb-8">
+<h2 class="text-2xl font-bold text-slate-900 dark:text-white">Customer Reviews</h2>
+<button class="text-sm font-bold text-primary hover:text-blue-700">Write a Review</button>
+</div>
+<div class="space-y-6">
+<!-- Review Card 1 -->
+<div class="rounded-xl bg-white p-6 shadow-sm ring-1 ring-slate-900/5 dark:bg-slate-900 dark:ring-slate-800">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-3">
+<div class="h-10 w-10 rounded-full bg-gradient-to-br from-blue-400 to-indigo-500" data-alt="User avatar gradient"></div>
+<div>
+<h4 class="font-bold text-slate-900 dark:text-white">Alex Morgan</h4>
+<div class="flex items-center gap-2 text-xs text-slate-500">
+<span>2 weeks ago</span>
+<span class="h-1 w-1 rounded-full bg-slate-300"></span>
+<span class="text-green-600 font-medium">Verified Purchase</span>
+</div>
+</div>
+</div>
+<div class="flex text-yellow-400">
+<span class="material-symbols-outlined text-[20px] filled" style="font-variation-settings: 'FILL' 1">star</span>
+<span class="material-symbols-outlined text-[20px] filled" style="font-variation-settings: 'FILL' 1">star</span>
+<span class="material-symbols-outlined text-[20px] filled" style="font-variation-settings: 'FILL' 1">star</span>
+<span class="material-symbols-outlined text-[20px] filled" style="font-variation-settings: 'FILL' 1">star</span>
+<span class="material-symbols-outlined text-[20px] filled" style="font-variation-settings: 'FILL' 1">star</span>
+</div>
+</div>
+<p class="mt-4 text-slate-600 dark:text-slate-300">
+                                Honestly one of the best templates on the market. The code is clean and well-commented. I was able to reskin the entire project in a weekend. Highly recommended for beginners and pros alike.
+                            </p>
+</div>
+<!-- Review Card 2 -->
+<div class="rounded-xl bg-white p-6 shadow-sm ring-1 ring-slate-900/5 dark:bg-slate-900 dark:ring-slate-800">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-3">
+<div class="h-10 w-10 rounded-full bg-gradient-to-br from-purple-400 to-pink-500" data-alt="User avatar gradient"></div>
+<div>
+<h4 class="font-bold text-slate-900 dark:text-white">Sarah Jenkins</h4>
+<div class="flex items-center gap-2 text-xs text-slate-500">
+<span>1 month ago</span>
+<span class="h-1 w-1 rounded-full bg-slate-300"></span>
+<span class="text-green-600 font-medium">Verified Purchase</span>
+</div>
+</div>
+</div>
+<div class="flex text-yellow-400">
+<span class="material-symbols-outlined text-[20px] filled" style="font-variation-settings: 'FILL' 1">star</span>
+<span class="material-symbols-outlined text-[20px] filled" style="font-variation-settings: 'FILL' 1">star</span>
+<span class="material-symbols-outlined text-[20px] filled" style="font-variation-settings: 'FILL' 1">star</span>
+<span class="material-symbols-outlined text-[20px] filled" style="font-variation-settings: 'FILL' 1">star</span>
+<span class="material-symbols-outlined text-[20px] text-slate-300 dark:text-slate-600">star</span>
+</div>
+</div>
+<p class="mt-4 text-slate-600 dark:text-slate-300">
+                                Great asset, but the documentation could use a little more detail on the quest system. The developer was super responsive on Discord though and helped me figure it out quickly.
+                            </p>
+</div>
+</div>
+<button class="mt-6 w-full rounded-lg border border-slate-200 py-3 text-sm font-semibold text-slate-600 hover:bg-slate-50 dark:border-slate-700 dark:text-slate-400 dark:hover:bg-slate-800">
+                        Load More Reviews
+                    </button>
+</section>
+</div>
+<!-- Sidebar: Tech Specs & More -->
+<div class="lg:col-span-4 space-y-8">
+<!-- Tech Specs -->
+<div class="rounded-xl bg-white p-6 shadow-sm ring-1 ring-slate-900/5 dark:bg-slate-900 dark:ring-slate-800">
+<h3 class="mb-4 text-lg font-bold text-slate-900 dark:text-white">Technical Details</h3>
+<div class="space-y-3">
+<div class="flex justify-between border-b border-slate-100 pb-2 dark:border-slate-800">
+<span class="text-sm text-slate-500 dark:text-slate-400">Engine Version</span>
+<span class="text-sm font-medium text-slate-900 dark:text-white">Unity 2022.3+</span>
+</div>
+<div class="flex justify-between border-b border-slate-100 pb-2 dark:border-slate-800">
+<span class="text-sm text-slate-500 dark:text-slate-400">Render Pipeline</span>
+<span class="text-sm font-medium text-slate-900 dark:text-white">URP / Built-in</span>
+</div>
+<div class="flex justify-between border-b border-slate-100 pb-2 dark:border-slate-800">
+<span class="text-sm text-slate-500 dark:text-slate-400">File Size</span>
+<span class="text-sm font-medium text-slate-900 dark:text-white">450 MB</span>
+</div>
+<div class="flex justify-between border-b border-slate-100 pb-2 dark:border-slate-800">
+<span class="text-sm text-slate-500 dark:text-slate-400">Language</span>
+<span class="text-sm font-medium text-slate-900 dark:text-white">C#</span>
+</div>
+<div class="flex justify-between pt-1">
+<span class="text-sm text-slate-500 dark:text-slate-400">Platform</span>
+<span class="text-sm font-medium text-slate-900 dark:text-white">PC, Mobile, Console</span>
+</div>
+</div>
+</div>
+<!-- Tags -->
+<div>
+<h3 class="mb-3 text-sm font-bold uppercase tracking-wider text-slate-400">Tags</h3>
+<div class="flex flex-wrap gap-2">
+<a class="rounded-md bg-slate-100 px-3 py-1.5 text-sm font-medium text-slate-600 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700 transition-colors" href="#">RPG</a>
+<a class="rounded-md bg-slate-100 px-3 py-1.5 text-sm font-medium text-slate-600 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700 transition-colors" href="#">Action</a>
+<a class="rounded-md bg-slate-100 px-3 py-1.5 text-sm font-medium text-slate-600 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700 transition-colors" href="#">Template</a>
+<a class="rounded-md bg-slate-100 px-3 py-1.5 text-sm font-medium text-slate-600 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700 transition-colors" href="#">Mobile</a>
+<a class="rounded-md bg-slate-100 px-3 py-1.5 text-sm font-medium text-slate-600 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700 transition-colors" href="#">Inventory System</a>
+</div>
+</div>
+<!-- Related Products -->
+<div>
+<h3 class="mb-4 text-lg font-bold text-slate-900 dark:text-white">You may also like</h3>
+<div class="space-y-4">
+<!-- Related Item 1 -->
+<a class="group flex gap-3" href="#">
+<div class="h-16 w-24 flex-shrink-0 overflow-hidden rounded-lg bg-slate-200">
+<img alt="Strategy game map view" class="h-full w-full object-cover transition-transform group-hover:scale-110" data-alt="Strategy game map view" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBt3eu9nUbm6gvWipBFTo8Haqr692LMTmNWlAoUKJMy6VJNZN7ne7gMLdngH71v3n-V0_mpsBnVh-PhLkhp03JWI5qVLitaGL8SD7wi199uUOS943-_k0WSj6yLRXKEZtL7D0QJRqjJFwHdetqj555TJZ6etvQ1mEgYxGJS5Nn-Ntj_1CDSXGvPHH7egx6tP03GR1Ws8_yx_vqbHuXZP0J8vN2ZPfTzbOWEhrGBZ7B98j-cJxAY7TBqv31vlcaxmtOrCajXisR3jmI"/>
+</div>
+<div>
+<h4 class="font-bold text-slate-900 group-hover:text-primary dark:text-white transition-colors line-clamp-2">RTS Commander Kit</h4>
+<span class="text-sm font-medium text-slate-500">$35.00</span>
+</div>
+</a>
+<!-- Related Item 2 -->
+<a class="group flex gap-3" href="#">
+<div class="h-16 w-24 flex-shrink-0 overflow-hidden rounded-lg bg-slate-200">
+<img alt="Space shooter gameplay" class="h-full w-full object-cover transition-transform group-hover:scale-110" data-alt="Space shooter gameplay" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC6iDqajQlWHozNCBIRXE1la4r3v2ilCIUTek4TUBIACfGhGOjZfJQv5TaND0jlTlwqjyDlQN0saTjyC5ScdVqAi0h3hDiArBshdyvW8nPLqbIceUDDMfvU44c1bxbb10WU7_CzFSofvLEVrQtj6IRUEOy4l2HmIUujtuCl0w5Ca8GWNgU1A5cT_ZjgKgFJoGbTVx3LZsPmIv-hu6lbUCtjNquHnHU1O_CCrZxwqoOzt__dqkV7DRUrjl9njcvtoWvMPh178gf9r4Q"/>
+</div>
+<div>
+<h4 class="font-bold text-slate-900 group-hover:text-primary dark:text-white transition-colors line-clamp-2">Space Shooter Pro</h4>
+<span class="text-sm font-medium text-slate-500">$29.00</span>
+</div>
+</a>
+<!-- Related Item 3 -->
+<a class="group flex gap-3" href="#">
+<div class="h-16 w-24 flex-shrink-0 overflow-hidden rounded-lg bg-slate-200">
+<img alt="Cyberpunk city environment asset" class="h-full w-full object-cover transition-transform group-hover:scale-110" data-alt="Cyberpunk city environment asset" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBCCTfFwpLr-FbSr2-ONxmonncqSpSRdt5w24HDw19Cx6KcgW5rs7UyviMALRDUX8xABs8mCekP1xfsItG8JelJsyrOvT0VjjKw3quaZumCme6GpIDtBNqXNKSL-ahrm6UpwjHoVDLbxBHlH5eE0kT38jTDbotgRMygBTTwg001lzEJYYo_I8twsqmNV4dlxF5sogw_1XQcKpWxE-gt23AhxYhQoWDfUvVduh_L06MR-H3oLfM5ea0l32mbuRezz1pBtPnofDvNLIA"/>
+</div>
+<div>
+<h4 class="font-bold text-slate-900 group-hover:text-primary dark:text-white transition-colors line-clamp-2">Cyberpunk City Assets</h4>
+<span class="text-sm font-medium text-slate-500">$55.00</span>
+</div>
+</a>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="mt-20 border-t border-slate-200 bg-white pt-16 pb-8 dark:border-slate-800 dark:bg-slate-900">
+<div class="mx-auto max-w-[1280px] px-6">
+<div class="grid grid-cols-2 gap-8 md:grid-cols-4 lg:grid-cols-5">
+<div class="col-span-2 lg:col-span-2">
+<div class="flex items-center gap-2 mb-4">
+<div class="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-white">
+<span class="material-symbols-outlined">terminal</span>
+</div>
+<span class="text-xl font-bold tracking-tight text-slate-900 dark:text-white">CodeMarket</span>
+</div>
+<p class="max-w-xs text-sm text-slate-500 dark:text-slate-400">
+                        The #1 marketplace for buying and selling high-quality game templates, app source codes, and scripts.
+                    </p>
+</div>
+<div>
+<h3 class="mb-4 text-sm font-bold text-slate-900 dark:text-white">Marketplace</h3>
+<ul class="space-y-3 text-sm text-slate-600 dark:text-slate-400">
+<li><a class="hover:text-primary transition-colors" href="#">All Products</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Games</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Apps</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Sell Your Code</a></li>
+</ul>
+</div>
+<div>
+<h3 class="mb-4 text-sm font-bold text-slate-900 dark:text-white">Support</h3>
+<ul class="space-y-3 text-sm text-slate-600 dark:text-slate-400">
+<li><a class="hover:text-primary transition-colors" href="#">Help Center</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Terms of Service</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Privacy Policy</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Contact Us</a></li>
+</ul>
+</div>
+<div>
+<h3 class="mb-4 text-sm font-bold text-slate-900 dark:text-white">Social</h3>
+<ul class="space-y-3 text-sm text-slate-600 dark:text-slate-400">
+<li><a class="hover:text-primary transition-colors" href="#">Twitter</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Facebook</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Instagram</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Discord</a></li>
+</ul>
+</div>
+</div>
+<div class="mt-12 flex flex-col items-center justify-between gap-4 border-t border-slate-100 pt-8 dark:border-slate-800 md:flex-row">
+<p class="text-sm text-slate-500 dark:text-slate-400">© 2024 CodeMarket. All rights reserved.</p>
+<div class="flex gap-4">
+<span class="h-8 w-12 rounded bg-slate-100 dark:bg-slate-800" title="Visa"></span>
+<span class="h-8 w-12 rounded bg-slate-100 dark:bg-slate-800" title="Mastercard"></span>
+<span class="h-8 w-12 rounded bg-slate-100 dark:bg-slate-800" title="PayPal"></span>
+</div>
+</div>
+</div>
+</footer>
+</body></html>

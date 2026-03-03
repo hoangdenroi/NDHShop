@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>System Settings Configuration</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#135bec",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101622",
+                        "surface-dark": "#1e2430", // Slightly lighter for cards
+                        "border-dark": "#2d3646", // Border color
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+<style>::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #101622;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2d3646;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #3b4354;
+        }.toggle-checkbox:checked {
+            right: 0;
+            border-color: #135bec;
+        }
+        .toggle-checkbox:checked + .toggle-label {
+            background-color: #135bec;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-white font-display overflow-hidden flex h-screen w-full">
+<aside class="w-64 flex-shrink-0 flex flex-col bg-[#0b0f17] border-r border-border-dark hidden lg:flex">
+<div class="p-6 flex items-center gap-3">
+<div class="bg-primary/20 p-2 rounded-lg text-primary">
+<span class="material-symbols-outlined">grid_view</span>
+</div>
+<div>
+<h1 class="text-white text-base font-bold leading-tight">AdminPanel</h1>
+<p class="text-slate-500 text-xs font-medium">Enterprise v2.4</p>
+</div>
+</div>
+<div class="px-4 py-2 flex flex-col gap-1 flex-1 overflow-y-auto">
+<div class="text-xs font-bold text-slate-500 uppercase tracking-wider px-3 mb-2 mt-2">Main Menu</div>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-white hover:bg-surface-dark transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">dashboard</span>
+<span class="text-sm font-medium">Overview</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-white hover:bg-surface-dark transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">bar_chart</span>
+<span class="text-sm font-medium">Analytics</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-white hover:bg-surface-dark transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">group</span>
+<span class="text-sm font-medium">Customers</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-white hover:bg-surface-dark transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">credit_card</span>
+<span class="text-sm font-medium">Finance</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-white hover:bg-surface-dark transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">folder</span>
+<span class="text-sm font-medium">Projects</span>
+</a>
+<div class="text-xs font-bold text-slate-500 uppercase tracking-wider px-3 mb-2 mt-6">System</div>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-white hover:bg-surface-dark transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">dns</span>
+<span class="text-sm font-medium">Server Health</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-primary text-white" href="#">
+<span class="material-symbols-outlined text-[20px]">settings</span>
+<span class="text-sm font-medium">Settings</span>
+</a>
+</div>
+<div class="p-4 border-t border-border-dark">
+<div class="flex items-center gap-3 p-2 rounded-lg hover:bg-surface-dark cursor-pointer transition-colors">
+<div class="bg-center bg-no-repeat bg-cover rounded-full size-9 relative" data-alt="User avatar profile picture" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAFIVJGrseRQphdphToGMmrAxagUQu-7mGL_65zAh_GJKy6dV8HcFohGCRcF0Org4sUipu_aTpkgNj6FUuY2ueTWQ_ld986bOgRdiigMPpbSx-PmqM8WIjzklAbLXpjpkQf2Dsti6-M0kpgaILOej3cLib-E_iEWL0blGd0DxyACN5suFf5rG1Yl9lAuepnrVXpL10EKSei96O8oCvdwnkUwqD7NqT0XQuagaCYEvSDaCljvMAhO1E9_R9pdbYQh7MKhPhmV1G_3tI");'>
+<div class="absolute bottom-0 right-0 size-2.5 bg-green-500 border-2 border-[#0b0f17] rounded-full"></div>
+</div>
+<div class="flex flex-col overflow-hidden">
+<p class="text-white text-sm font-medium truncate">Alexander Hall</p>
+<p class="text-slate-500 text-xs truncate">Super Admin</p>
+</div>
+</div>
+</div>
+</aside>
+<main class="flex-1 flex flex-col h-full overflow-hidden relative">
+<header class="flex items-center justify-between px-6 py-4 border-b border-border-dark bg-background-dark z-20">
+<div class="flex items-center gap-4">
+<button class="lg:hidden text-white">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<h2 class="text-white text-lg font-bold">System Settings</h2>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative hidden md:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 text-[20px]">search</span>
+<input class="bg-surface-dark border border-border-dark text-white text-sm rounded-lg pl-10 pr-4 py-2 w-64 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary placeholder-slate-500" placeholder="Search settings..." type="text"/>
+</div>
+<div class="flex items-center gap-2">
+<button class="flex items-center justify-center size-9 rounded-lg bg-surface-dark border border-border-dark text-slate-400 hover:text-white hover:border-slate-500 transition-colors">
+<span class="material-symbols-outlined text-[20px]">notifications</span>
+</button>
+<button class="flex items-center justify-center size-9 rounded-lg bg-surface-dark border border-border-dark text-slate-400 hover:text-white hover:border-slate-500 transition-colors">
+<span class="material-symbols-outlined text-[20px]">help</span>
+</button>
+</div>
+</div>
+</header>
+<div class="flex-1 overflow-y-auto p-6 scroll-smooth">
+<div class="flex flex-col gap-6 max-w-[1000px] mx-auto">
+<div class="border-b border-border-dark">
+<nav aria-label="Tabs" class="-mb-px flex space-x-8">
+<a class="border-primary text-primary whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm flex items-center gap-2" href="#">
+<span class="material-symbols-outlined text-[20px]">tune</span>
+                            General
+                        </a>
+<a class="border-transparent text-slate-400 hover:text-white hover:border-slate-400 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm flex items-center gap-2" href="#">
+<span class="material-symbols-outlined text-[20px]">shield</span>
+                            Security
+                        </a>
+<a class="border-transparent text-slate-400 hover:text-white hover:border-slate-400 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm flex items-center gap-2" href="#">
+<span class="material-symbols-outlined text-[20px]">notifications_active</span>
+                            Notifications
+                        </a>
+<a class="border-transparent text-slate-400 hover:text-white hover:border-slate-400 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm flex items-center gap-2" href="#">
+<span class="material-symbols-outlined text-[20px]">key</span>
+                            API Keys
+                        </a>
+</nav>
+</div>
+<div class="bg-surface-dark border border-border-dark rounded-lg p-8">
+<div class="flex justify-between items-center mb-8">
+<div>
+<h3 class="text-white text-xl font-bold">General Configuration</h3>
+<p class="text-slate-400 text-sm mt-1">Manage basic information and site-wide settings.</p>
+</div>
+<button class="px-4 py-2 bg-primary hover:bg-blue-600 text-white text-sm font-semibold rounded-lg transition-colors flex items-center gap-2 shadow-sm">
+<span class="material-symbols-outlined text-[18px]">save</span>
+                            Save Changes
+                        </button>
+</div>
+<form action="#" class="space-y-8">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8 pb-8 border-b border-border-dark">
+<div class="md:col-span-1">
+<h4 class="text-white font-medium text-base">Site Information</h4>
+<p class="text-slate-500 text-xs mt-1 leading-relaxed">Basic details that appear throughout the platform dashboard and emails.</p>
+</div>
+<div class="md:col-span-2 space-y-6">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="col-span-2">
+<label class="block text-sm font-medium text-slate-300 mb-2" for="site-name">Site Name</label>
+<input class="bg-background-dark border border-border-dark text-white text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5" id="site-name" name="site-name" placeholder="SaaS Platform Enterprise" type="text" value="AdminPanel Enterprise"/>
+</div>
+<div class="col-span-2 md:col-span-1">
+<label class="block text-sm font-medium text-slate-300 mb-2" for="support-email">Support Email</label>
+<div class="relative">
+<div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+<span class="material-symbols-outlined text-slate-500 text-[18px]">mail</span>
+</div>
+<input class="bg-background-dark border border-border-dark text-white text-sm rounded-lg focus:ring-primary focus:border-primary block w-full pl-10 p-2.5" id="support-email" placeholder="support@company.com" type="email" value="help@adminpanel.io"/>
+</div>
+</div>
+<div class="col-span-2 md:col-span-1">
+<label class="block text-sm font-medium text-slate-300 mb-2" for="contact-phone">Contact Phone</label>
+<div class="relative">
+<div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+<span class="material-symbols-outlined text-slate-500 text-[18px]">call</span>
+</div>
+<input class="bg-background-dark border border-border-dark text-white text-sm rounded-lg focus:ring-primary focus:border-primary block w-full pl-10 p-2.5" id="contact-phone" placeholder="+1 (555) 000-0000" type="text"/>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8 pb-8 border-b border-border-dark">
+<div class="md:col-span-1">
+<h4 class="text-white font-medium text-base">Localization</h4>
+<p class="text-slate-500 text-xs mt-1 leading-relaxed">Set the default language and timezone for new users.</p>
+</div>
+<div class="md:col-span-2 space-y-6">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div>
+<label class="block text-sm font-medium text-slate-300 mb-2" for="language">Default Language</label>
+<select class="bg-background-dark border border-border-dark text-white text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5" id="language">
+<option selected="">English (US)</option>
+<option>Spanish</option>
+<option>French</option>
+<option>German</option>
+<option>Japanese</option>
+</select>
+</div>
+<div>
+<label class="block text-sm font-medium text-slate-300 mb-2" for="timezone">Timezone</label>
+<select class="bg-background-dark border border-border-dark text-white text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5" id="timezone">
+<option>(GMT-08:00) Pacific Time</option>
+<option selected="">(GMT-05:00) Eastern Time</option>
+<option>(GMT+00:00) UTC</option>
+<option>(GMT+01:00) Central European Time</option>
+</select>
+</div>
+<div class="col-span-2">
+<label class="block text-sm font-medium text-slate-300 mb-2" for="date-format">Date Format</label>
+<div class="flex gap-4">
+<div class="flex items-center pl-4 border border-border-dark rounded-lg bg-background-dark flex-1">
+<input class="w-4 h-4 text-primary bg-gray-100 border-gray-300 focus:ring-primary focus:ring-2 dark:bg-gray-700 dark:border-gray-600" id="date-format-1" name="date-format" type="radio" value=""/>
+<label class="w-full py-3 ml-2 text-sm font-medium text-slate-300 cursor-pointer" for="date-format-1">MM/DD/YYYY</label>
+</div>
+<div class="flex items-center pl-4 border border-border-dark rounded-lg bg-background-dark flex-1">
+<input checked="" class="w-4 h-4 text-primary bg-gray-100 border-gray-300 focus:ring-primary focus:ring-2 dark:bg-gray-700 dark:border-gray-600" id="date-format-2" name="date-format" type="radio" value=""/>
+<label class="w-full py-3 ml-2 text-sm font-medium text-slate-300 cursor-pointer" for="date-format-2">DD/MM/YYYY</label>
+</div>
+<div class="flex items-center pl-4 border border-border-dark rounded-lg bg-background-dark flex-1">
+<input class="w-4 h-4 text-primary bg-gray-100 border-gray-300 focus:ring-primary focus:ring-2 dark:bg-gray-700 dark:border-gray-600" id="date-format-3" name="date-format" type="radio" value=""/>
+<label class="w-full py-3 ml-2 text-sm font-medium text-slate-300 cursor-pointer" for="date-format-3">YYYY-MM-DD</label>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<div class="md:col-span-1">
+<h4 class="text-white font-medium text-base">System Status</h4>
+<p class="text-slate-500 text-xs mt-1 leading-relaxed">Control system availability for end-users.</p>
+</div>
+<div class="md:col-span-2">
+<div class="bg-background-dark border border-border-dark rounded-lg p-4 flex items-center justify-between">
+<div class="flex flex-col">
+<span class="text-sm font-medium text-white">Maintenance Mode</span>
+<span class="text-xs text-slate-500 mt-1">When active, the site will show a maintenance page to all non-admin users.</span>
+</div>
+<div class="relative inline-block w-12 mr-2 align-middle select-none transition duration-200 ease-in">
+<input class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer" id="maintenance-mode" name="toggle" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-6 rounded-full bg-slate-700 cursor-pointer" for="maintenance-mode"></label>
+</div>
+</div>
+<div class="mt-4 p-4 rounded-lg bg-yellow-500/10 border border-yellow-500/20 flex gap-3">
+<span class="material-symbols-outlined text-yellow-500">info</span>
+<div class="text-sm">
+<p class="text-yellow-500 font-bold mb-1">Important Note</p>
+<p class="text-slate-400">Enabling maintenance mode will terminate all active user sessions except for Super Admins. Please ensure scheduled tasks are paused.</p>
+</div>
+</div>
+</div>
+</div>
+</form>
+</div>
+</div>
+</div>
+</main>
+
+</body></html>

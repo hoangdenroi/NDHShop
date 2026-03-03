@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Finance and Billing Overview</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0d9488", // Teal-600
+                        "primary-hover": "#0f766e", // Teal-700
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101622",
+                        "surface-dark": "#1e2430", 
+                        "border-dark": "#2d3646", 
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+<style>::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #101622;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2d3646;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #3b4354;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-white font-display overflow-hidden flex h-screen w-full">
+<aside class="w-64 flex-shrink-0 flex flex-col bg-[#0b0f17] border-r border-border-dark hidden lg:flex">
+<div class="p-6 flex items-center gap-3">
+<div class="bg-primary/20 p-2 rounded-lg text-primary">
+<span class="material-symbols-outlined">grid_view</span>
+</div>
+<div>
+<h1 class="text-white text-base font-bold leading-tight">AdminPanel</h1>
+<p class="text-slate-500 text-xs font-medium">Enterprise v2.4</p>
+</div>
+</div>
+<div class="px-4 py-2 flex flex-col gap-1 flex-1 overflow-y-auto">
+<div class="text-xs font-bold text-slate-500 uppercase tracking-wider px-3 mb-2 mt-2">Main Menu</div>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-white hover:bg-surface-dark transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">dashboard</span>
+<span class="text-sm font-medium">Overview</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-white hover:bg-surface-dark transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">bar_chart</span>
+<span class="text-sm font-medium">Analytics</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-white hover:bg-surface-dark transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">group</span>
+<span class="text-sm font-medium">Customers</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-primary text-white" href="#">
+<span class="material-symbols-outlined text-[20px]">credit_card</span>
+<span class="text-sm font-medium">Finance</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-white hover:bg-surface-dark transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">folder</span>
+<span class="text-sm font-medium">Projects</span>
+</a>
+<div class="text-xs font-bold text-slate-500 uppercase tracking-wider px-3 mb-2 mt-6">System</div>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-white hover:bg-surface-dark transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">dns</span>
+<span class="text-sm font-medium">Server Health</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-white hover:bg-surface-dark transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">settings</span>
+<span class="text-sm font-medium">Settings</span>
+</a>
+</div>
+<div class="p-4 border-t border-border-dark">
+<div class="flex items-center gap-3 p-2 rounded-lg hover:bg-surface-dark cursor-pointer transition-colors">
+<div class="bg-center bg-no-repeat bg-cover rounded-full size-9 relative" data-alt="User avatar profile picture" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAFIVJGrseRQphdphToGMmrAxagUQu-7mGL_65zAh_GJKy6dV8HcFohGCRcF0Org4sUipu_aTpkgNj6FUuY2ueTWQ_ld986bOgRdiigMPpbSx-PmqM8WIjzklAbLXpjpkQf2Dsti6-M0kpgaILOej3cLib-E_iEWL0blGd0DxyACN5suFf5rG1Yl9lAuepnrVXpL10EKSei96O8oCvdwnkUwqD7NqT0XQuagaCYEvSDaCljvMAhO1E9_R9pdbYQh7MKhPhmV1G_3tI");'>
+<div class="absolute bottom-0 right-0 size-2.5 bg-green-500 border-2 border-[#0b0f17] rounded-full"></div>
+</div>
+<div class="flex flex-col overflow-hidden">
+<p class="text-white text-sm font-medium truncate">Alexander Hall</p>
+<p class="text-slate-500 text-xs truncate">Super Admin</p>
+</div>
+</div>
+</div>
+</aside>
+<main class="flex-1 flex flex-col h-full overflow-hidden relative">
+<header class="flex items-center justify-between px-6 py-4 border-b border-border-dark bg-background-dark z-20">
+<div class="flex items-center gap-4">
+<button class="lg:hidden text-white">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<h2 class="text-white text-lg font-bold">Finance &amp; Billing Overview</h2>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative hidden md:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 text-[20px]">search</span>
+<input class="bg-surface-dark border border-border-dark text-white text-sm rounded-lg pl-10 pr-4 py-2 w-64 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary placeholder-slate-500" placeholder="Search transactions..." type="text"/>
+</div>
+<div class="flex items-center gap-2">
+<button class="flex items-center justify-center size-9 rounded-lg bg-surface-dark border border-border-dark text-slate-400 hover:text-white hover:border-slate-500 transition-colors">
+<span class="material-symbols-outlined text-[20px]">notifications</span>
+</button>
+<button class="flex items-center justify-center size-9 rounded-lg bg-surface-dark border border-border-dark text-slate-400 hover:text-white hover:border-slate-500 transition-colors">
+<span class="material-symbols-outlined text-[20px]">help</span>
+</button>
+<button class="hidden sm:flex items-center gap-2 px-4 h-9 bg-primary hover:bg-primary-hover text-white text-sm font-semibold rounded-lg transition-colors">
+<span class="material-symbols-outlined text-[18px]">add_card</span>
+                        New Invoice
+                    </button>
+</div>
+</div>
+</header>
+<div class="flex-1 overflow-y-auto p-6 scroll-smooth">
+<div class="flex flex-col gap-6 max-w-[1400px] mx-auto">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+<div class="flex flex-col gap-3 rounded-lg p-5 border border-border-dark bg-surface-dark/50">
+<div class="flex justify-between items-start">
+<div>
+<p class="text-slate-400 text-sm font-medium">Monthly Recurring Revenue</p>
+<p class="text-xs text-slate-500">Recurring payments normalized</p>
+</div>
+<div class="p-2 bg-primary/10 rounded-lg">
+<span class="material-symbols-outlined text-primary text-[24px]">currency_exchange</span>
+</div>
+</div>
+<div class="flex items-baseline gap-2 mt-2">
+<h3 class="text-white text-3xl font-bold tracking-tight">$84,250</h3>
+<span class="text-emerald-500 text-xs font-bold bg-emerald-500/10 px-1.5 py-0.5 rounded flex items-center gap-0.5">
+<span class="material-symbols-outlined text-[12px]">arrow_upward</span> 8.2%
+                            </span>
+</div>
+</div>
+<div class="flex flex-col gap-3 rounded-lg p-5 border border-border-dark bg-surface-dark/50">
+<div class="flex justify-between items-start">
+<div>
+<p class="text-slate-400 text-sm font-medium">Churn Rate</p>
+<p class="text-xs text-slate-500">Customers lost vs total</p>
+</div>
+<div class="p-2 bg-rose-500/10 rounded-lg">
+<span class="material-symbols-outlined text-rose-500 text-[24px]">trending_down</span>
+</div>
+</div>
+<div class="flex items-baseline gap-2 mt-2">
+<h3 class="text-white text-3xl font-bold tracking-tight">1.8%</h3>
+<span class="text-emerald-500 text-xs font-bold bg-emerald-500/10 px-1.5 py-0.5 rounded flex items-center gap-0.5">
+<span class="material-symbols-outlined text-[12px]">arrow_downward</span> 0.4%
+                            </span>
+</div>
+</div>
+<div class="flex flex-col gap-3 rounded-lg p-5 border border-border-dark bg-surface-dark/50">
+<div class="flex justify-between items-start">
+<div>
+<p class="text-slate-400 text-sm font-medium">Net Profit</p>
+<p class="text-xs text-slate-500">Total earnings after expenses</p>
+</div>
+<div class="p-2 bg-emerald-500/10 rounded-lg">
+<span class="material-symbols-outlined text-emerald-500 text-[24px]">account_balance_wallet</span>
+</div>
+</div>
+<div class="flex items-baseline gap-2 mt-2">
+<h3 class="text-white text-3xl font-bold tracking-tight">$56,300</h3>
+<span class="text-emerald-500 text-xs font-bold bg-emerald-500/10 px-1.5 py-0.5 rounded flex items-center gap-0.5">
+<span class="material-symbols-outlined text-[12px]">arrow_upward</span> 14.5%
+                            </span>
+</div>
+</div>
+</div>
+<div class="rounded-lg border border-border-dark bg-surface-dark p-6">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between mb-6 gap-4">
+<div>
+<h3 class="text-white text-lg font-bold">Invoice History</h3>
+<p class="text-slate-400 text-sm">Overview of collected vs outstanding payments over the last 6 months</p>
+</div>
+<div class="flex items-center gap-2">
+<span class="text-sm text-slate-400">Sort by:</span>
+<select class="bg-background-dark border border-border-dark text-white text-sm rounded-lg p-2 focus:ring-0 focus:border-primary">
+<option>Last 6 Months</option>
+<option>Last 12 Months</option>
+<option>YTD</option>
+</select>
+</div>
+</div>
+<div class="h-64 flex items-end gap-2 sm:gap-6 justify-between px-2 pt-8">
+<div class="hidden sm:flex flex-col justify-between h-full text-xs text-slate-500 pb-6 -mr-2">
+<span>$100k</span>
+<span>$75k</span>
+<span>$50k</span>
+<span>$25k</span>
+<span>$0</span>
+</div>
+<div class="flex flex-col justify-end items-center gap-3 h-full w-full group">
+<div class="w-full flex justify-center items-end gap-1.5 h-[65%]">
+<div class="w-4 md:w-8 bg-primary rounded-t-sm h-full opacity-90 group-hover:opacity-100 transition-opacity relative group/bar">
+<div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-surface-dark border border-border-dark text-white text-[10px] py-1 px-2 rounded opacity-0 group-hover/bar:opacity-100 transition-opacity z-10 pointer-events-none">$65k</div>
+</div>
+<div class="w-4 md:w-8 bg-slate-700 rounded-t-sm h-[20%] opacity-90 group-hover:opacity-100 transition-opacity"></div>
+</div>
+<span class="text-xs text-slate-500 font-medium">Mar</span>
+</div>
+<div class="flex flex-col justify-end items-center gap-3 h-full w-full group">
+<div class="w-full flex justify-center items-end gap-1.5 h-[72%]">
+<div class="w-4 md:w-8 bg-primary rounded-t-sm h-full opacity-90 group-hover:opacity-100 transition-opacity relative group/bar">
+<div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-surface-dark border border-border-dark text-white text-[10px] py-1 px-2 rounded opacity-0 group-hover/bar:opacity-100 transition-opacity z-10 pointer-events-none">$72k</div>
+</div>
+<div class="w-4 md:w-8 bg-slate-700 rounded-t-sm h-[25%] opacity-90 group-hover:opacity-100 transition-opacity"></div>
+</div>
+<span class="text-xs text-slate-500 font-medium">Apr</span>
+</div>
+<div class="flex flex-col justify-end items-center gap-3 h-full w-full group">
+<div class="w-full flex justify-center items-end gap-1.5 h-[58%]">
+<div class="w-4 md:w-8 bg-primary rounded-t-sm h-full opacity-90 group-hover:opacity-100 transition-opacity relative group/bar">
+<div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-surface-dark border border-border-dark text-white text-[10px] py-1 px-2 rounded opacity-0 group-hover/bar:opacity-100 transition-opacity z-10 pointer-events-none">$58k</div>
+</div>
+<div class="w-4 md:w-8 bg-slate-700 rounded-t-sm h-[30%] opacity-90 group-hover:opacity-100 transition-opacity"></div>
+</div>
+<span class="text-xs text-slate-500 font-medium">May</span>
+</div>
+<div class="flex flex-col justify-end items-center gap-3 h-full w-full group">
+<div class="w-full flex justify-center items-end gap-1.5 h-[80%]">
+<div class="w-4 md:w-8 bg-primary rounded-t-sm h-full opacity-90 group-hover:opacity-100 transition-opacity relative group/bar">
+<div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-surface-dark border border-border-dark text-white text-[10px] py-1 px-2 rounded opacity-0 group-hover/bar:opacity-100 transition-opacity z-10 pointer-events-none">$80k</div>
+</div>
+<div class="w-4 md:w-8 bg-slate-700 rounded-t-sm h-[15%] opacity-90 group-hover:opacity-100 transition-opacity"></div>
+</div>
+<span class="text-xs text-slate-500 font-medium">Jun</span>
+</div>
+<div class="flex flex-col justify-end items-center gap-3 h-full w-full group">
+<div class="w-full flex justify-center items-end gap-1.5 h-[76%]">
+<div class="w-4 md:w-8 bg-primary rounded-t-sm h-full opacity-90 group-hover:opacity-100 transition-opacity relative group/bar">
+<div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-surface-dark border border-border-dark text-white text-[10px] py-1 px-2 rounded opacity-0 group-hover/bar:opacity-100 transition-opacity z-10 pointer-events-none">$76k</div>
+</div>
+<div class="w-4 md:w-8 bg-slate-700 rounded-t-sm h-[35%] opacity-90 group-hover:opacity-100 transition-opacity"></div>
+</div>
+<span class="text-xs text-slate-500 font-medium">Jul</span>
+</div>
+<div class="flex flex-col justify-end items-center gap-3 h-full w-full group">
+<div class="w-full flex justify-center items-end gap-1.5 h-[88%]">
+<div class="w-4 md:w-8 bg-primary rounded-t-sm h-full opacity-100 shadow-[0_0_15px_rgba(13,148,136,0.3)] relative group/bar">
+<div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-surface-dark border border-border-dark text-white text-[10px] py-1 px-2 rounded z-10 whitespace-nowrap">$88.2k</div>
+</div>
+<div class="w-4 md:w-8 bg-slate-700 rounded-t-sm h-[40%] opacity-90 group-hover:opacity-100 transition-opacity"></div>
+</div>
+<span class="text-xs text-white font-bold">Aug</span>
+</div>
+</div>
+<div class="flex items-center justify-center gap-6 mt-6 border-t border-border-dark pt-4">
+<div class="flex items-center gap-2">
+<div class="size-3 bg-primary rounded-sm"></div>
+<span class="text-sm text-slate-400">Paid Invoices</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="size-3 bg-slate-700 rounded-sm"></div>
+<span class="text-sm text-slate-400">Outstanding</span>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-4">
+<div class="flex items-center justify-between">
+<h3 class="text-white text-lg font-bold">Recent Transactions</h3>
+<div class="flex gap-2">
+<button class="px-3 py-1.5 text-xs font-medium bg-surface-dark border border-border-dark rounded text-white hover:bg-border-dark transition-colors">All</button>
+<button class="px-3 py-1.5 text-xs font-medium bg-transparent text-slate-400 hover:text-white transition-colors">Paid</button>
+<button class="px-3 py-1.5 text-xs font-medium bg-transparent text-slate-400 hover:text-white transition-colors">Pending</button>
+<button class="px-3 py-1.5 text-xs font-medium bg-transparent text-slate-400 hover:text-white transition-colors">Failed</button>
+</div>
+</div>
+<div class="overflow-hidden rounded-lg border border-border-dark bg-surface-dark">
+<div class="overflow-x-auto">
+<table class="w-full text-left text-sm text-slate-400">
+<thead class="bg-background-dark text-xs uppercase font-medium text-slate-500">
+<tr>
+<th class="px-6 py-4">Invoice ID</th>
+<th class="px-6 py-4">Client</th>
+<th class="px-6 py-4">Date</th>
+<th class="px-6 py-4">Amount</th>
+<th class="px-6 py-4">Status</th>
+<th class="px-6 py-4 text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-border-dark">
+<tr class="hover:bg-background-dark/50 transition-colors group">
+<td class="px-6 py-4 font-medium text-white">#INV-2024-001</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="size-8 rounded-full bg-slate-700 bg-center bg-cover" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuC6U2qKEjyikTuM4pcKKBS8-cf3xNUH9iV-1Gsmd7m67AxgJAjCtvvcVYxrjgDpKLB5zDlFhBi7UaQS2Ri0X9vsbGZ-w18T01whsP1iOJflPp-fA2tL5qZFMEbHrAPtG-UiZZ0bpG5KO5OTKm0-d6KoAfl9oYp6UmORIdz3RCctlLbA7A9-sBvMBGZicnZoJGCsZZctKtOIOQD84A9UucUSNryWAArOuXZZJOPcMVoMMFVPKTTPr_izZs1p4BXSVYNGBOUu59g7GD8");'></div>
+<span class="text-white">Acme Corp</span>
+</div>
+</td>
+<td class="px-6 py-4">Oct 24, 2023</td>
+<td class="px-6 py-4 text-white font-medium">$2,400.00</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-500 border border-emerald-500/20">
+<span class="size-1.5 rounded-full bg-emerald-500"></span>
+                                                Paid
+                                            </span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-slate-500 hover:text-white p-1 rounded hover:bg-background-light/5"><span class="material-symbols-outlined text-[20px]">more_vert</span></button>
+</td>
+</tr>
+<tr class="hover:bg-background-dark/50 transition-colors group">
+<td class="px-6 py-4 font-medium text-white">#INV-2024-002</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="size-8 rounded-full bg-slate-700 bg-center bg-cover" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuD5OZbDJlxE5wDWhrkOyP6Szi6Gch34ZCeY2ShkMwtx-2HJMMYZfbq5253oWKcP01qCY9NL0d4ysdAPo_ag3GOqcKLtIBL_6Ic2BtjO4q5Zm2MyA9SN9k_mQJYGF-RuB-lVAJFFiEBN9TSkyQ1LTLmb9AnWJhQ81_MXeK1kIwtfT47aOtMnejOeJlj-bsrz6sTjVvaSzOI3vUjvONBZxLkXEJMlMHWKj1ShkcFQmtViJMUB3NYa2YI3hFYgxxeFNIvTy7TWhVlS3BE");'></div>
+<span class="text-white">Globex Inc</span>
+</div>
+</td>
+<td class="px-6 py-4">Oct 23, 2023</td>
+<td class="px-6 py-4 text-white font-medium">$850.00</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-amber-500/10 text-amber-500 border border-amber-500/20">
+<span class="size-1.5 rounded-full bg-amber-500"></span>
+                                                Pending
+                                            </span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-slate-500 hover:text-white p-1 rounded hover:bg-background-light/5"><span class="material-symbols-outlined text-[20px]">more_vert</span></button>
+</td>
+</tr>
+<tr class="hover:bg-background-dark/50 transition-colors group">
+<td class="px-6 py-4 font-medium text-white">#INV-2024-003</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="size-8 rounded-full bg-slate-700 bg-center bg-cover" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCdtX11SykJkI9rERe4tFYzxPHN0IT2HPITgX7qD3HXfr-38K50FzbZSVeQGjya2AGvOkslR-1TKWjkFfxIUg-GwJuCV_HGYulK2WiYBp29FSIFWhkv1Spo4l-rvxa5nRfxCoA2G9J9LjaDCrkQf8J8FOmTkKS5QB_sLKJo__gatMcVdlBkIp0LjyJWMXHL3zLRFZeWtQ0kqQZ-FLLLYfIqawwCm_HiJBLJ5ZdPiwYBwMuKxf2a8ylU-5sidhtlwM88BSPkeDe45mM");'></div>
+<span class="text-white">Stark Ind</span>
+</div>
+</td>
+<td class="px-6 py-4">Oct 22, 2023</td>
+<td class="px-6 py-4 text-white font-medium">$12,000.00</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-500 border border-emerald-500/20">
+<span class="size-1.5 rounded-full bg-emerald-500"></span>
+                                                Paid
+                                            </span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-slate-500 hover:text-white p-1 rounded hover:bg-background-light/5"><span class="material-symbols-outlined text-[20px]">more_vert</span></button>
+</td>
+</tr>
+<tr class="hover:bg-background-dark/50 transition-colors group">
+<td class="px-6 py-4 font-medium text-white">#INV-2024-004</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="size-8 rounded-full bg-slate-700 bg-center bg-cover" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAEvAOLORImya3mpuH6XVlcQnw4shU2hUmG29-sW3QVC9IzDZJZhpENoOTTRmsZoTo0oIrsUxa_wr25BPgJtWy43t3vq_zuizK6Q8ufjNjxgJa0fcp9Lti-5nAlzwVKmIKmu6VAYzoigAjhZ5gRZ-TIn9VAa2otU5luY59mzo7wa4A1A_oEfXGJCzrydaNhM9wCz28fSAAcEDm98YZpZHDfY8FZrFipfaZ0Ti_9hRZqonyhvv9exR9KsnyLV5bw7_dnmPXU9dAME5E");'></div>
+<span class="text-white">Wayne Ent</span>
+</div>
+</td>
+<td class="px-6 py-4">Oct 20, 2023</td>
+<td class="px-6 py-4 text-white font-medium">$4,320.50</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-rose-500/10 text-rose-500 border border-rose-500/20">
+<span class="size-1.5 rounded-full bg-rose-500"></span>
+                                                Failed
+                                            </span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-slate-500 hover:text-white p-1 rounded hover:bg-background-light/5"><span class="material-symbols-outlined text-[20px]">more_vert</span></button>
+</td>
+</tr>
+<tr class="hover:bg-background-dark/50 transition-colors group">
+<td class="px-6 py-4 font-medium text-white">#INV-2024-005</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="size-8 rounded-full bg-slate-700 bg-center bg-cover" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuA0BU_sTVx6Cs1dycf8D7WuDGGX2MNzoCN5clXYYtcQSXcEa0ACB5liaPGUwB_DiwLnHbdqCtS6yKPNefZDWeNZ3ttX45RynWF782Zg8MenNM2QjcWYUmJXbcerNxgWQYW6axgkY4dZzOh9gcqbcMPVJlwWEAptqo7y6uJ1qeDu1a8Jy1ukI8d9VN1TN6DlVo7je4GMaZrj18vUAFiPZ-6HOBKEDfWP3uljknjJFfjX2KAdLJNgPXSJjDX09dHC9Dr1FR7ipp9jzTs");'></div>
+<span class="text-white">Cyberdyne</span>
+</div>
+</td>
+<td class="px-6 py-4">Oct 19, 2023</td>
+<td class="px-6 py-4 text-white font-medium">$1,200.00</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-500 border border-emerald-500/20">
+<span class="size-1.5 rounded-full bg-emerald-500"></span>
+                                                Paid
+                                            </span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-slate-500 hover:text-white p-1 rounded hover:bg-background-light/5"><span class="material-symbols-outlined text-[20px]">more_vert</span></button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="px-6 py-4 border-t border-border-dark flex items-center justify-between text-xs text-slate-500">
+<span>Showing 5 of 128 transactions</span>
+<div class="flex gap-2">
+<button class="px-3 py-1 bg-background-dark border border-border-dark rounded hover:text-white hover:border-slate-500 transition-colors">Previous</button>
+<button class="px-3 py-1 bg-background-dark border border-border-dark rounded hover:text-white hover:border-slate-500 transition-colors">Next</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+
+</body></html>

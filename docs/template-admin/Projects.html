@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Project Management Grid</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#135bec",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101622",
+                        "surface-dark": "#1e2430", // Slightly lighter for cards
+                        "border-dark": "#2d3646", // Border color
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+<style>::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #101622;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2d3646;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #3b4354;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-white font-display overflow-hidden flex h-screen w-full">
+<aside class="w-64 flex-shrink-0 flex flex-col bg-[#0b0f17] border-r border-border-dark hidden lg:flex">
+<div class="p-6 flex items-center gap-3">
+<div class="bg-primary/20 p-2 rounded-lg text-primary">
+<span class="material-symbols-outlined">grid_view</span>
+</div>
+<div>
+<h1 class="text-white text-base font-bold leading-tight">AdminPanel</h1>
+<p class="text-slate-500 text-xs font-medium">Enterprise v2.4</p>
+</div>
+</div>
+<div class="px-4 py-2 flex flex-col gap-1 flex-1 overflow-y-auto">
+<div class="text-xs font-bold text-slate-500 uppercase tracking-wider px-3 mb-2 mt-2">Main Menu</div>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-white hover:bg-surface-dark transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">dashboard</span>
+<span class="text-sm font-medium">Overview</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-white hover:bg-surface-dark transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">bar_chart</span>
+<span class="text-sm font-medium">Analytics</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-white hover:bg-surface-dark transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">group</span>
+<span class="text-sm font-medium">Customers</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-white hover:bg-surface-dark transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">credit_card</span>
+<span class="text-sm font-medium">Finance</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-primary text-white" href="#">
+<span class="material-symbols-outlined text-[20px]">folder</span>
+<span class="text-sm font-medium">Projects</span>
+</a>
+<div class="text-xs font-bold text-slate-500 uppercase tracking-wider px-3 mb-2 mt-6">System</div>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-white hover:bg-surface-dark transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">dns</span>
+<span class="text-sm font-medium">Server Health</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-white hover:bg-surface-dark transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">settings</span>
+<span class="text-sm font-medium">Settings</span>
+</a>
+</div>
+<div class="p-4 border-t border-border-dark">
+<div class="flex items-center gap-3 p-2 rounded-lg hover:bg-surface-dark cursor-pointer transition-colors">
+<div class="bg-center bg-no-repeat bg-cover rounded-full size-9 relative" data-alt="User avatar profile picture" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAFIVJGrseRQphdphToGMmrAxagUQu-7mGL_65zAh_GJKy6dV8HcFohGCRcF0Org4sUipu_aTpkgNj6FUuY2ueTWQ_ld986bOgRdiigMPpbSx-PmqM8WIjzklAbLXpjpkQf2Dsti6-M0kpgaILOej3cLib-E_iEWL0blGd0DxyACN5suFf5rG1Yl9lAuepnrVXpL10EKSei96O8oCvdwnkUwqD7NqT0XQuagaCYEvSDaCljvMAhO1E9_R9pdbYQh7MKhPhmV1G_3tI");'>
+<div class="absolute bottom-0 right-0 size-2.5 bg-green-500 border-2 border-[#0b0f17] rounded-full"></div>
+</div>
+<div class="flex flex-col overflow-hidden">
+<p class="text-white text-sm font-medium truncate">Alexander Hall</p>
+<p class="text-slate-500 text-xs truncate">Super Admin</p>
+</div>
+</div>
+</div>
+</aside>
+<main class="flex-1 flex flex-col h-full overflow-hidden relative">
+<header class="flex items-center justify-between px-6 py-4 border-b border-border-dark bg-background-dark z-20">
+<div class="flex items-center gap-4">
+<button class="lg:hidden text-white">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<h2 class="text-white text-lg font-bold">Projects</h2>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative hidden md:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 text-[20px]">search</span>
+<input class="bg-surface-dark border border-border-dark text-white text-sm rounded-lg pl-10 pr-4 py-2 w-64 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary placeholder-slate-500" placeholder="Search projects..." type="text"/>
+</div>
+<div class="flex items-center gap-2 border-r border-border-dark pr-4 mr-2">
+<div class="flex bg-surface-dark rounded-lg border border-border-dark p-1">
+<button class="p-1 rounded text-white bg-slate-700/50 shadow-sm transition-colors">
+<span class="material-symbols-outlined text-[20px]">grid_view</span>
+</button>
+<button class="p-1 rounded text-slate-400 hover:text-white transition-colors">
+<span class="material-symbols-outlined text-[20px]">view_list</span>
+</button>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<button class="flex items-center justify-center size-9 rounded-lg bg-surface-dark border border-border-dark text-slate-400 hover:text-white hover:border-slate-500 transition-colors relative">
+<span class="material-symbols-outlined text-[20px]">notifications</span>
+<span class="absolute top-2 right-2 size-2 bg-red-500 rounded-full border border-surface-dark"></span>
+</button>
+<button class="flex items-center gap-2 px-4 h-9 bg-primary hover:bg-blue-600 text-white text-sm font-semibold rounded-lg transition-colors shadow-lg shadow-blue-500/20">
+<span class="material-symbols-outlined text-[18px]">add</span>
+                    Create New Project
+                </button>
+</div>
+</div>
+</header>
+<div class="flex-1 overflow-y-auto p-6 scroll-smooth bg-background-dark/50">
+<div class="max-w-[1600px] mx-auto">
+<div class="flex flex-wrap items-center justify-between gap-4 mb-6">
+<div class="flex items-center gap-2">
+<button class="px-3 py-1.5 text-xs font-medium text-white bg-surface-dark border border-border-dark rounded-full hover:bg-slate-700 transition-colors">All Projects <span class="ml-1 text-slate-500">12</span></button>
+<button class="px-3 py-1.5 text-xs font-medium text-slate-400 hover:text-white transition-colors">In Progress <span class="ml-1 text-slate-600">8</span></button>
+<button class="px-3 py-1.5 text-xs font-medium text-slate-400 hover:text-white transition-colors">Completed <span class="ml-1 text-slate-600">3</span></button>
+<button class="px-3 py-1.5 text-xs font-medium text-slate-400 hover:text-white transition-colors">Delayed <span class="ml-1 text-slate-600">1</span></button>
+</div>
+<div class="flex items-center gap-2 text-sm text-slate-400">
+<span>Sort by:</span>
+<select class="bg-surface-dark border-none text-white text-sm font-medium rounded focus:ring-0 cursor-pointer py-1 px-2">
+<option>Recent Activity</option>
+<option>Deadline</option>
+<option>Name</option>
+</select>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+<div class="group bg-surface-dark border border-border-dark rounded-xl p-5 hover:border-primary/50 transition-all duration-300 hover:shadow-lg hover:shadow-primary/5 cursor-pointer flex flex-col h-full">
+<div class="flex justify-between items-start mb-4">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-lg bg-blue-500/10 flex items-center justify-center text-blue-500 border border-blue-500/20">
+<span class="material-symbols-outlined">web</span>
+</div>
+<div>
+<h3 class="text-white font-semibold text-sm leading-tight group-hover:text-primary transition-colors">SaaS Website Redesign</h3>
+<p class="text-slate-500 text-xs mt-1">Marketing</p>
+</div>
+</div>
+<button class="text-slate-500 hover:text-white transition-colors">
+<span class="material-symbols-outlined text-[20px]">more_vert</span>
+</button>
+</div>
+<div class="mb-6">
+<div class="flex justify-between text-xs mb-2">
+<span class="text-slate-400 font-medium">Progress</span>
+<span class="text-white font-bold">75%</span>
+</div>
+<div class="w-full bg-background-dark h-1.5 rounded-full overflow-hidden">
+<div class="bg-primary h-full rounded-full" style="width: 75%"></div>
+</div>
+</div>
+<div class="mt-auto pt-4 border-t border-border-dark flex items-center justify-between">
+<div class="flex -space-x-2">
+<div class="size-7 rounded-full bg-slate-700 border-2 border-surface-dark bg-center bg-cover" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuC6U2qKEjyikTuM4pcKKBS8-cf3xNUH9iV-1Gsmd7m67AxgJAjCtvvcVYxrjgDpKLB5zDlFhBi7UaQS2Ri0X9vsbGZ-w18T01whsP1iOJflPp-fA2tL5qZFMEbHrAPtG-UiZZ0bpG5KO5OTKm0-d6KoAfl9oYp6UmORIdz3RCctlLbA7A9-sBvMBGZicnZoJGCsZZctKtOIOQD84A9UucUSNryWAArOuXZZJOPcMVoMMFVPKTTPr_izZs1p4BXSVYNGBOUu59g7GD8");'></div>
+<div class="size-7 rounded-full bg-slate-700 border-2 border-surface-dark bg-center bg-cover" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuD5OZbDJlxE5wDWhrkOyP6Szi6Gch34ZCeY2ShkMwtx-2HJMMYZfbq5253oWKcP01qCY9NL0d4ysdAPo_ag3GOqcKLtIBL_6Ic2BtjO4q5Zm2MyA9SN9k_mQJYGF-RuB-lVAJFFiEBN9TSkyQ1LTLmb9AnWJhQ81_MXeK1kIwtfT47aOtMnejOeJlj-bsrz6sTjVvaSzOI3vUjvONBZxLkXEJMlMHWKj1ShkcFQmtViJMUB3NYa2YI3hFYgxxeFNIvTy7TWhVlS3BE");'></div>
+<div class="size-7 rounded-full bg-slate-700 border-2 border-surface-dark flex items-center justify-center text-[10px] text-white font-medium">
+                                +2
+                            </div>
+</div>
+<div class="flex items-center gap-1.5 bg-background-dark px-2 py-1 rounded text-xs text-slate-400 border border-border-dark">
+<span class="material-symbols-outlined text-[14px]">calendar_today</span>
+<span>Oct 24</span>
+</div>
+</div>
+</div>
+<div class="group bg-surface-dark border border-border-dark rounded-xl p-5 hover:border-primary/50 transition-all duration-300 hover:shadow-lg hover:shadow-primary/5 cursor-pointer flex flex-col h-full">
+<div class="flex justify-between items-start mb-4">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-lg bg-purple-500/10 flex items-center justify-center text-purple-500 border border-purple-500/20">
+<span class="material-symbols-outlined">smartphone</span>
+</div>
+<div>
+<h3 class="text-white font-semibold text-sm leading-tight group-hover:text-purple-400 transition-colors">Mobile App v2.0</h3>
+<p class="text-slate-500 text-xs mt-1">Development</p>
+</div>
+</div>
+<button class="text-slate-500 hover:text-white transition-colors">
+<span class="material-symbols-outlined text-[20px]">more_vert</span>
+</button>
+</div>
+<div class="mb-6">
+<div class="flex justify-between text-xs mb-2">
+<span class="text-slate-400 font-medium">Progress</span>
+<span class="text-white font-bold">32%</span>
+</div>
+<div class="w-full bg-background-dark h-1.5 rounded-full overflow-hidden">
+<div class="bg-purple-500 h-full rounded-full" style="width: 32%"></div>
+</div>
+</div>
+<div class="mt-auto pt-4 border-t border-border-dark flex items-center justify-between">
+<div class="flex -space-x-2">
+<div class="size-7 rounded-full bg-slate-700 border-2 border-surface-dark bg-center bg-cover" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAEvAOLORImya3mpuH6XVlcQnw4shU2hUmG29-sW3QVC9IzDZJZhpENoOTTRmsZoTo0oIrsUxa_wr25BPgJtWy43t3vq_zuizK6Q8ufjNjxgJa0fcp9Lti-5nAlzwVKmIKmu6VAYzoigAjhZ5gRZ-TIn9VAa2otU5luY59mzo7wa4A1A_oEfXGJCzrydaNhM9wCz28fSAAcEDm98YZpZHDfY8FZrFipfaZ0Ti_9hRZqonyhvv9exR9KsnyLV5bw7_dnmPXU9dAME5E");'></div>
+<div class="size-7 rounded-full bg-slate-700 border-2 border-surface-dark bg-center bg-cover" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCdtX11SykJkI9rERe4tFYzxPHN0IT2HPITgX7qD3HXfr-38K50FzbZSVeQGjya2AGvOkslR-1TKWjkFfxIUg-GwJuCV_HGYulK2WiYBp29FSIFWhkv1Spo4l-rvxa5nRfxCoA2G9J9LjaDCrkQf8J8FOmTkKS5QB_sLKJo__gatMcVdlBkIp0LjyJWMXHL3zLRFZeWtQ0kqQZ-FLLLYfIqawwCm_HiJBLJ5ZdPiwYBwMuKxf2a8ylU-5sidhtlwM88BSPkeDe45mM");'></div>
+</div>
+<div class="flex items-center gap-1.5 bg-purple-500/10 px-2 py-1 rounded text-xs text-purple-400 border border-purple-500/20">
+<span class="material-symbols-outlined text-[14px]">warning</span>
+<span>Dec 12</span>
+</div>
+</div>
+</div>
+<div class="group bg-surface-dark border border-border-dark rounded-xl p-5 hover:border-primary/50 transition-all duration-300 hover:shadow-lg hover:shadow-primary/5 cursor-pointer flex flex-col h-full">
+<div class="flex justify-between items-start mb-4">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-lg bg-emerald-500/10 flex items-center justify-center text-emerald-500 border border-emerald-500/20">
+<span class="material-symbols-outlined">api</span>
+</div>
+<div>
+<h3 class="text-white font-semibold text-sm leading-tight group-hover:text-emerald-400 transition-colors">API Integration</h3>
+<p class="text-slate-500 text-xs mt-1">Backend</p>
+</div>
+</div>
+<button class="text-slate-500 hover:text-white transition-colors">
+<span class="material-symbols-outlined text-[20px]">more_vert</span>
+</button>
+</div>
+<div class="mb-6">
+<div class="flex justify-between text-xs mb-2">
+<span class="text-slate-400 font-medium">Progress</span>
+<span class="text-white font-bold">90%</span>
+</div>
+<div class="w-full bg-background-dark h-1.5 rounded-full overflow-hidden">
+<div class="bg-emerald-500 h-full rounded-full" style="width: 90%"></div>
+</div>
+</div>
+<div class="mt-auto pt-4 border-t border-border-dark flex items-center justify-between">
+<div class="flex -space-x-2">
+<div class="size-7 rounded-full bg-slate-700 border-2 border-surface-dark bg-center bg-cover" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuA0BU_sTVx6Cs1dycf8D7WuDGGX2MNzoCN5clXYYtcQSXcEa0ACB5liaPGUwB_DiwLnHbdqCtS6yKPNefZDWeNZ3ttX45RynWF782Zg8MenNM2QjcWYUmJXbcerNxgWQYW6axgkY4dZzOh9gcqbcMPVJlwWEAptqo7y6uJ1qeDu1a8Jy1ukI8d9VN1TN6DlVo7je4GMaZrj18vUAFiPZ-6HOBKEDfWP3uljknjJFfjX2KAdLJNgPXSJjDX09dHC9Dr1FR7ipp9jzTs");'></div>
+</div>
+<div class="flex items-center gap-1.5 bg-background-dark px-2 py-1 rounded text-xs text-emerald-400 border border-border-dark">
+<span class="material-symbols-outlined text-[14px]">check_circle</span>
+<span>Ready</span>
+</div>
+</div>
+</div>
+<div class="group bg-surface-dark border border-border-dark rounded-xl p-5 hover:border-primary/50 transition-all duration-300 hover:shadow-lg hover:shadow-primary/5 cursor-pointer flex flex-col h-full">
+<div class="flex justify-between items-start mb-4">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-lg bg-amber-500/10 flex items-center justify-center text-amber-500 border border-amber-500/20">
+<span class="material-symbols-outlined">campaign</span>
+</div>
+<div>
+<h3 class="text-white font-semibold text-sm leading-tight group-hover:text-amber-400 transition-colors">Q4 Marketing</h3>
+<p class="text-slate-500 text-xs mt-1">Ads &amp; Social</p>
+</div>
+</div>
+<button class="text-slate-500 hover:text-white transition-colors">
+<span class="material-symbols-outlined text-[20px]">more_vert</span>
+</button>
+</div>
+<div class="mb-6">
+<div class="flex justify-between text-xs mb-2">
+<span class="text-slate-400 font-medium">Progress</span>
+<span class="text-white font-bold">15%</span>
+</div>
+<div class="w-full bg-background-dark h-1.5 rounded-full overflow-hidden">
+<div class="bg-amber-500 h-full rounded-full" style="width: 15%"></div>
+</div>
+</div>
+<div class="mt-auto pt-4 border-t border-border-dark flex items-center justify-between">
+<div class="flex -space-x-2">
+<div class="size-7 rounded-full bg-slate-700 border-2 border-surface-dark bg-center bg-cover" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAFIVJGrseRQphdphToGMmrAxagUQu-7mGL_65zAh_GJKy6dV8HcFohGCRcF0Org4sUipu_aTpkgNj6FUuY2ueTWQ_ld986bOgRdiigMPpbSx-PmqM8WIjzklAbLXpjpkQf2Dsti6-M0kpgaILOej3cLib-E_iEWL0blGd0DxyACN5suFf5rG1Yl9lAuepnrVXpL10EKSei96O8oCvdwnkUwqD7NqT0XQuagaCYEvSDaCljvMAhO1E9_R9pdbYQh7MKhPhmV1G_3tI");'></div>
+<div class="size-7 rounded-full bg-slate-700 border-2 border-surface-dark bg-center bg-cover" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuC6U2qKEjyikTuM4pcKKBS8-cf3xNUH9iV-1Gsmd7m67AxgJAjCtvvcVYxrjgDpKLB5zDlFhBi7UaQS2Ri0X9vsbGZ-w18T01whsP1iOJflPp-fA2tL5qZFMEbHrAPtG-UiZZ0bpG5KO5OTKm0-d6KoAfl9oYp6UmORIdz3RCctlLbA7A9-sBvMBGZicnZoJGCsZZctKtOIOQD84A9UucUSNryWAArOuXZZJOPcMVoMMFVPKTTPr_izZs1p4BXSVYNGBOUu59g7GD8");'></div>
+<div class="size-7 rounded-full bg-slate-700 border-2 border-surface-dark bg-center bg-cover" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuD5OZbDJlxE5wDWhrkOyP6Szi6Gch34ZCeY2ShkMwtx-2HJMMYZfbq5253oWKcP01qCY9NL0d4ysdAPo_ag3GOqcKLtIBL_6Ic2BtjO4q5Zm2MyA9SN9k_mQJYGF-RuB-lVAJFFiEBN9TSkyQ1LTLmb9AnWJhQ81_MXeK1kIwtfT47aOtMnejOeJlj-bsrz6sTjVvaSzOI3vUjvONBZxLkXEJMlMHWKj1ShkcFQmtViJMUB3NYa2YI3hFYgxxeFNIvTy7TWhVlS3BE");'></div>
+<div class="size-7 rounded-full bg-slate-700 border-2 border-surface-dark flex items-center justify-center text-[10px] text-white font-medium">
+                                +5
+                            </div>
+</div>
+<div class="flex items-center gap-1.5 bg-background-dark px-2 py-1 rounded text-xs text-slate-400 border border-border-dark">
+<span class="material-symbols-outlined text-[14px]">calendar_today</span>
+<span>Nov 01</span>
+</div>
+</div>
+</div>
+<div class="group bg-surface-dark border border-border-dark rounded-xl p-5 hover:border-primary/50 transition-all duration-300 hover:shadow-lg hover:shadow-primary/5 cursor-pointer flex flex-col h-full">
+<div class="flex justify-between items-start mb-4">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-lg bg-rose-500/10 flex items-center justify-center text-rose-500 border border-rose-500/20">
+<span class="material-symbols-outlined">security</span>
+</div>
+<div>
+<h3 class="text-white font-semibold text-sm leading-tight group-hover:text-rose-400 transition-colors">Security Audit</h3>
+<p class="text-slate-500 text-xs mt-1">Infrastructure</p>
+</div>
+</div>
+<button class="text-slate-500 hover:text-white transition-colors">
+<span class="material-symbols-outlined text-[20px]">more_vert</span>
+</button>
+</div>
+<div class="mb-6">
+<div class="flex justify-between text-xs mb-2">
+<span class="text-slate-400 font-medium">Progress</span>
+<span class="text-white font-bold">100%</span>
+</div>
+<div class="w-full bg-background-dark h-1.5 rounded-full overflow-hidden">
+<div class="bg-emerald-500 h-full rounded-full" style="width: 100%"></div>
+</div>
+</div>
+<div class="mt-auto pt-4 border-t border-border-dark flex items-center justify-between">
+<div class="flex -space-x-2">
+<div class="size-7 rounded-full bg-slate-700 border-2 border-surface-dark bg-center bg-cover" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAEvAOLORImya3mpuH6XVlcQnw4shU2hUmG29-sW3QVC9IzDZJZhpENoOTTRmsZoTo0oIrsUxa_wr25BPgJtWy43t3vq_zuizK6Q8ufjNjxgJa0fcp9Lti-5nAlzwVKmIKmu6VAYzoigAjhZ5gRZ-TIn9VAa2otU5luY59mzo7wa4A1A_oEfXGJCzrydaNhM9wCz28fSAAcEDm98YZpZHDfY8FZrFipfaZ0Ti_9hRZqonyhvv9exR9KsnyLV5bw7_dnmPXU9dAME5E");'></div>
+</div>
+<div class="flex items-center gap-1.5 bg-emerald-500/10 px-2 py-1 rounded text-xs text-emerald-400 border border-emerald-500/20">
+<span class="material-symbols-outlined text-[14px]">verified</span>
+<span>Done</span>
+</div>
+</div>
+</div>
+<div class="group bg-surface-dark border border-border-dark rounded-xl p-5 hover:border-primary/50 transition-all duration-300 hover:shadow-lg hover:shadow-primary/5 cursor-pointer flex flex-col h-full">
+<div class="flex justify-between items-start mb-4">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-lg bg-cyan-500/10 flex items-center justify-center text-cyan-500 border border-cyan-500/20">
+<span class="material-symbols-outlined">cloud_upload</span>
+</div>
+<div>
+<h3 class="text-white font-semibold text-sm leading-tight group-hover:text-cyan-400 transition-colors">Cloud Migration</h3>
+<p class="text-slate-500 text-xs mt-1">DevOps</p>
+</div>
+</div>
+<button class="text-slate-500 hover:text-white transition-colors">
+<span class="material-symbols-outlined text-[20px]">more_vert</span>
+</button>
+</div>
+<div class="mb-6">
+<div class="flex justify-between text-xs mb-2">
+<span class="text-slate-400 font-medium">Progress</span>
+<span class="text-white font-bold">45%</span>
+</div>
+<div class="w-full bg-background-dark h-1.5 rounded-full overflow-hidden">
+<div class="bg-cyan-500 h-full rounded-full" style="width: 45%"></div>
+</div>
+</div>
+<div class="mt-auto pt-4 border-t border-border-dark flex items-center justify-between">
+<div class="flex -space-x-2">
+<div class="size-7 rounded-full bg-slate-700 border-2 border-surface-dark bg-center bg-cover" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCdtX11SykJkI9rERe4tFYzxPHN0IT2HPITgX7qD3HXfr-38K50FzbZSVeQGjya2AGvOkslR-1TKWjkFfxIUg-GwJuCV_HGYulK2WiYBp29FSIFWhkv1Spo4l-rvxa5nRfxCoA2G9J9LjaDCrkQf8J8FOmTkKS5QB_sLKJo__gatMcVdlBkIp0LjyJWMXHL3zLRFZeWtQ0kqQZ-FLLLYfIqawwCm_HiJBLJ5ZdPiwYBwMuKxf2a8ylU-5sidhtlwM88BSPkeDe45mM");'></div>
+<div class="size-7 rounded-full bg-slate-700 border-2 border-surface-dark bg-center bg-cover" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuD5OZbDJlxE5wDWhrkOyP6Szi6Gch34ZCeY2ShkMwtx-2HJMMYZfbq5253oWKcP01qCY9NL0d4ysdAPo_ag3GOqcKLtIBL_6Ic2BtjO4q5Zm2MyA9SN9k_mQJYGF-RuB-lVAJFFiEBN9TSkyQ1LTLmb9AnWJhQ81_MXeK1kIwtfT47aOtMnejOeJlj-bsrz6sTjVvaSzOI3vUjvONBZxLkXEJMlMHWKj1ShkcFQmtViJMUB3NYa2YI3hFYgxxeFNIvTy7TWhVlS3BE");'></div>
+</div>
+<div class="flex items-center gap-1.5 bg-background-dark px-2 py-1 rounded text-xs text-slate-400 border border-border-dark">
+<span class="material-symbols-outlined text-[14px]">calendar_today</span>
+<span>Sep 30</span>
+</div>
+</div>
+</div>
+<div class="group bg-surface-dark border border-border-dark rounded-xl p-5 hover:border-primary/50 transition-all duration-300 hover:shadow-lg hover:shadow-primary/5 cursor-pointer flex flex-col h-full">
+<div class="flex justify-between items-start mb-4">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-lg bg-orange-500/10 flex items-center justify-center text-orange-500 border border-orange-500/20">
+<span class="material-symbols-outlined">design_services</span>
+</div>
+<div>
+<h3 class="text-white font-semibold text-sm leading-tight group-hover:text-orange-400 transition-colors">Brand Identity</h3>
+<p class="text-slate-500 text-xs mt-1">Design</p>
+</div>
+</div>
+<button class="text-slate-500 hover:text-white transition-colors">
+<span class="material-symbols-outlined text-[20px]">more_vert</span>
+</button>
+</div>
+<div class="mb-6">
+<div class="flex justify-between text-xs mb-2">
+<span class="text-slate-400 font-medium">Progress</span>
+<span class="text-white font-bold">10%</span>
+</div>
+<div class="w-full bg-background-dark h-1.5 rounded-full overflow-hidden">
+<div class="bg-orange-500 h-full rounded-full" style="width: 10%"></div>
+</div>
+</div>
+<div class="mt-auto pt-4 border-t border-border-dark flex items-center justify-between">
+<div class="flex -space-x-2">
+<div class="size-7 rounded-full bg-slate-700 border-2 border-surface-dark bg-center bg-cover" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuC6U2qKEjyikTuM4pcKKBS8-cf3xNUH9iV-1Gsmd7m67AxgJAjCtvvcVYxrjgDpKLB5zDlFhBi7UaQS2Ri0X9vsbGZ-w18T01whsP1iOJflPp-fA2tL5qZFMEbHrAPtG-UiZZ0bpG5KO5OTKm0-d6KoAfl9oYp6UmORIdz3RCctlLbA7A9-sBvMBGZicnZoJGCsZZctKtOIOQD84A9UucUSNryWAArOuXZZJOPcMVoMMFVPKTTPr_izZs1p4BXSVYNGBOUu59g7GD8");'></div>
+</div>
+<div class="flex items-center gap-1.5 bg-background-dark px-2 py-1 rounded text-xs text-slate-400 border border-border-dark">
+<span class="material-symbols-outlined text-[14px]">calendar_today</span>
+<span>Nov 15</span>
+</div>
+</div>
+</div>
+<div class="group border border-dashed border-border-dark rounded-xl p-5 hover:border-primary hover:bg-surface-dark/50 transition-all duration-300 cursor-pointer flex flex-col h-full justify-center items-center text-center">
+<div class="size-12 rounded-full bg-background-dark border border-border-dark flex items-center justify-center text-slate-400 mb-3 group-hover:text-primary group-hover:border-primary transition-colors">
+<span class="material-symbols-outlined text-[24px]">add</span>
+</div>
+<h3 class="text-slate-300 font-semibold text-sm group-hover:text-white">Create New Project</h3>
+<p class="text-slate-500 text-xs mt-1">Start a new initiative</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+
+</body></html>

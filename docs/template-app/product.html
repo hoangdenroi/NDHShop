@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>CodeMarket - Source Code</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Theme Configuration -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0d59f2",
+                        "primary-hover": "#0b4ecf",
+                        "background-light": "#ffffff",
+                        "background-subtle": "#f8f9fc",
+                        "background-dark": "#101622",
+                        "text-main": "#0d121c",
+                        "text-secondary": "#49659c",
+                        "border-color": "#e7ebf4"
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.5rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom scrollbar for sidebar if needed */
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="bg-background-light text-text-main font-display antialiased min-h-screen flex flex-col">
+<!-- Header -->
+<header class="sticky top-0 z-50 flex items-center justify-between whitespace-nowrap border-b border-solid border-border-color bg-background-light/95 backdrop-blur-md px-10 py-3">
+<div class="flex items-center gap-8">
+<a class="flex items-center gap-2 text-text-main hover:opacity-80 transition-opacity" href="#">
+<div class="size-8 rounded-lg bg-primary text-white flex items-center justify-center">
+<span class="material-symbols-outlined text-[20px]">code</span>
+</div>
+<h2 class="text-text-main text-lg font-bold leading-tight tracking-[-0.015em]">CodeMarket</h2>
+</a>
+<label class="hidden lg:flex flex-col min-w-40 !h-10 max-w-64 relative group">
+<div class="flex w-full flex-1 items-stretch rounded-lg h-full bg-background-subtle border border-transparent focus-within:border-primary/20 transition-all">
+<div class="text-text-secondary flex border-none items-center justify-center pl-3 rounded-l-lg">
+<span class="material-symbols-outlined text-[20px]">search</span>
+</div>
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-text-main focus:outline-0 focus:ring-0 border-none bg-transparent focus:border-none h-full placeholder:text-text-secondary px-3 rounded-l-none text-sm font-normal leading-normal" placeholder="Search resources..." value=""/>
+</div>
+</label>
+</div>
+<div class="flex flex-1 justify-end gap-8">
+<nav class="hidden md:flex items-center gap-6">
+<a class="text-text-main hover:text-primary transition-colors text-sm font-medium leading-normal" href="#">Source Code</a>
+<a class="text-text-secondary hover:text-primary transition-colors text-sm font-medium leading-normal" href="#">Apps</a>
+<a class="text-text-secondary hover:text-primary transition-colors text-sm font-medium leading-normal" href="#">Games</a>
+<a class="text-text-secondary hover:text-primary transition-colors text-sm font-medium leading-normal" href="#">Services</a>
+<a class="text-text-secondary hover:text-primary transition-colors text-sm font-medium leading-normal" href="#">Blog</a>
+</nav>
+<div class="flex gap-3 items-center">
+<button class="p-2 text-text-secondary hover:text-text-main rounded-lg hover:bg-background-subtle md:hidden">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<div class="hidden md:flex gap-3">
+<button class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-9 px-4 bg-background-subtle hover:bg-slate-200 transition-colors text-text-main text-sm font-bold leading-normal tracking-[0.015em]">
+<span class="truncate">Log In</span>
+</button>
+<button class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-9 px-4 bg-primary hover:bg-primary-hover transition-colors text-white text-sm font-bold leading-normal tracking-[0.015em]">
+<span class="truncate">Sign Up</span>
+</button>
+</div>
+<button class="relative p-2 text-text-secondary hover:text-primary transition-colors">
+<span class="material-symbols-outlined">shopping_cart</span>
+<span class="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
+</button>
+</div>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="layout-container flex grow flex-col w-full max-w-[1440px] mx-auto px-4 md:px-10 py-5">
+<!-- Breadcrumbs & Title -->
+<div class="flex flex-col gap-2 pb-6 border-b border-border-color mb-8">
+<div class="flex flex-wrap items-center gap-2 text-sm">
+<a class="text-text-secondary hover:text-primary transition-colors" href="#">Home</a>
+<span class="text-text-secondary">/</span>
+<a class="text-text-secondary hover:text-primary transition-colors" href="#">Products</a>
+<span class="text-text-secondary">/</span>
+<span class="text-text-main font-medium">Source Code</span>
+</div>
+<div class="flex justify-between items-end mt-4">
+<div>
+<h1 class="text-text-main text-3xl md:text-4xl font-extrabold tracking-tight leading-tight">Source Code</h1>
+<p class="text-text-secondary mt-2 text-base max-w-2xl">Discover premium source code for your next project. From mobile apps to web dashboards, find quality code to accelerate your development.</p>
+</div>
+<div class="hidden md:flex items-center gap-2">
+<span class="text-sm text-text-secondary">Sort by:</span>
+<select class="form-select bg-transparent border-none text-text-main font-bold text-sm focus:ring-0 cursor-pointer pr-8 py-0">
+<option>Most Popular</option>
+<option>Newest</option>
+<option>Price: Low to High</option>
+<option>Price: High to Low</option>
+</select>
+</div>
+</div>
+</div>
+<div class="flex flex-col lg:flex-row gap-8">
+<!-- Sidebar / Filters -->
+<aside class="w-full lg:w-64 shrink-0 flex flex-col gap-6">
+<!-- Mobile Filter Toggle -->
+<button class="lg:hidden flex items-center justify-between w-full p-3 bg-background-subtle rounded-lg border border-border-color font-bold text-text-main">
+<span>Filters</span>
+<span class="material-symbols-outlined">filter_list</span>
+</button>
+<div class="hidden lg:flex flex-col gap-4">
+<div class="flex items-center justify-between pb-2 border-b border-border-color/50">
+<h3 class="font-bold text-text-main">Filters</h3>
+<button class="text-xs text-primary font-medium hover:underline">Clear all</button>
+</div>
+<!-- Category Filter -->
+<div class="flex flex-col gap-2">
+<h4 class="text-sm font-bold text-text-main mb-1">Language</h4>
+<label class="flex items-center gap-3 cursor-pointer group">
+<input class="form-checkbox rounded border-gray-300 text-primary focus:ring-primary w-4 h-4" type="checkbox"/>
+<span class="text-sm text-text-secondary group-hover:text-text-main transition-colors">PHP (120)</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group">
+<input checked="" class="form-checkbox rounded border-gray-300 text-primary focus:ring-primary w-4 h-4" type="checkbox"/>
+<span class="text-sm text-text-secondary group-hover:text-text-main transition-colors">JavaScript (85)</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group">
+<input class="form-checkbox rounded border-gray-300 text-primary focus:ring-primary w-4 h-4" type="checkbox"/>
+<span class="text-sm text-text-secondary group-hover:text-text-main transition-colors">Python (64)</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group">
+<input class="form-checkbox rounded border-gray-300 text-primary focus:ring-primary w-4 h-4" type="checkbox"/>
+<span class="text-sm text-text-secondary group-hover:text-text-main transition-colors">Java (42)</span>
+</label>
+<button class="text-left text-xs text-primary font-medium mt-1">+ Show more</button>
+</div>
+<div class="h-px bg-border-color"></div>
+<!-- Platform Filter -->
+<div class="flex flex-col gap-2">
+<h4 class="text-sm font-bold text-text-main mb-1">Platform</h4>
+<label class="flex items-center gap-3 cursor-pointer group">
+<input class="form-checkbox rounded border-gray-300 text-primary focus:ring-primary w-4 h-4" type="checkbox"/>
+<span class="text-sm text-text-secondary group-hover:text-text-main transition-colors">Web</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group">
+<input class="form-checkbox rounded border-gray-300 text-primary focus:ring-primary w-4 h-4" type="checkbox"/>
+<span class="text-sm text-text-secondary group-hover:text-text-main transition-colors">iOS</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group">
+<input class="form-checkbox rounded border-gray-300 text-primary focus:ring-primary w-4 h-4" type="checkbox"/>
+<span class="text-sm text-text-secondary group-hover:text-text-main transition-colors">Android</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group">
+<input class="form-checkbox rounded border-gray-300 text-primary focus:ring-primary w-4 h-4" type="checkbox"/>
+<span class="text-sm text-text-secondary group-hover:text-text-main transition-colors">Unity</span>
+</label>
+</div>
+<div class="h-px bg-border-color"></div>
+<!-- Price Filter -->
+<div class="flex flex-col gap-3">
+<h4 class="text-sm font-bold text-text-main mb-1">Price Range</h4>
+<div class="flex items-center gap-2">
+<div class="relative flex-1">
+<span class="absolute left-3 top-1/2 -translate-y-1/2 text-text-secondary text-xs">$</span>
+<input class="w-full pl-6 py-1.5 text-sm border border-gray-300 rounded focus:ring-primary focus:border-primary" placeholder="Min" type="number"/>
+</div>
+<span class="text-text-secondary">-</span>
+<div class="relative flex-1">
+<span class="absolute left-3 top-1/2 -translate-y-1/2 text-text-secondary text-xs">$</span>
+<input class="w-full pl-6 py-1.5 text-sm border border-gray-300 rounded focus:ring-primary focus:border-primary" placeholder="Max" type="number"/>
+</div>
+</div>
+</div>
+</div>
+</aside>
+<!-- Product Grid -->
+<div class="flex-1">
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+<!-- Product Card 1 -->
+<div class="group flex flex-col bg-white rounded-xl border border-border-color overflow-hidden hover:shadow-lg hover:border-primary/30 transition-all duration-300">
+<div class="relative aspect-[4/3] w-full overflow-hidden bg-gray-100">
+<img alt="Product Thumbnail" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Modern code editor interface showing syntax highlighted javascript code" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBUKcp8QVyH8Fd7oHg9aUJiv1_pqAxKFxWjzxwm4okBp9GRkoyK_EqCVDQsCPuD_BtkcVdpP5g44uWQ3Azdl6DjhmLFJpPLCdkd9srDQSLQFRbgpf9gXNN8ak9dZAzdvEa6PiHT0x8eOGnPuiCqBw-KmoD_hbZykS-GzGSGexwjfzrojBr6f2hQKKqM5dVQQZDOQ_XwOUTX4fRzTXUiPFI85clH1NUn9UslRYPzFHJwv02BZ6riEqCAbRgYXakUe3il9r84vo3D3PM"/>
+<div class="absolute top-3 right-3 bg-white/90 backdrop-blur text-xs font-bold px-2 py-1 rounded text-text-main shadow-sm">
+                                JS
+                            </div>
+</div>
+<div class="p-4 flex flex-col flex-1">
+<div class="flex items-center justify-between mb-2">
+<span class="text-xs font-semibold text-primary bg-primary/10 px-2 py-0.5 rounded">Script</span>
+<div class="flex items-center gap-1 text-amber-400 text-xs font-bold">
+<span class="material-symbols-outlined text-[16px] fill-current">star</span>
+<span class="text-text-secondary">4.8 (24)</span>
+</div>
+</div>
+<h3 class="text-lg font-bold text-text-main mb-1 line-clamp-1 group-hover:text-primary transition-colors">FinDash - React Admin</h3>
+<p class="text-sm text-text-secondary mb-4 line-clamp-2">A comprehensive financial dashboard template built with React and Tailwind CSS.</p>
+<div class="mt-auto pt-4 border-t border-border-color flex items-center justify-between">
+<span class="text-lg font-bold text-text-main">$49.00</span>
+<button class="flex items-center gap-2 px-3 py-2 rounded-lg bg-background-subtle hover:bg-primary hover:text-white transition-all text-text-main text-sm font-bold group/btn">
+<span class="material-symbols-outlined text-[18px]">add_shopping_cart</span>
+                                    Add
+                                </button>
+</div>
+</div>
+</div>
+<!-- Product Card 2 -->
+<div class="group flex flex-col bg-white rounded-xl border border-border-color overflow-hidden hover:shadow-lg hover:border-primary/30 transition-all duration-300">
+<div class="relative aspect-[4/3] w-full overflow-hidden bg-gray-100">
+<img alt="Product Thumbnail" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Data visualization dashboard with charts and graphs on a dark background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDgIu93GAGWpe9pWoYaMe9kXw4e2SjJwQMQa9vqo675ZUS-Sigy9TMDsU1HLbtKTscpe_6lqZx7pfbIHYVCwGFerHpAt5BSvCPuU5ffbRgXPXSvk6kleuAZH0H2giWwhpxsYVNNaLD3WhdRTZbw3z7rub9KU8CnOZS-0FXijGHJwgTp3jWzf6PnVeiMaeydLR_bbdJuFSuGJIQgdnDotWqhNyRqoBvKhC6GWLQJexH6F_Wk5Y_JvRxM77Ph1bZK9fViLM1WamQM9gE"/>
+<div class="absolute top-3 right-3 bg-white/90 backdrop-blur text-xs font-bold px-2 py-1 rounded text-text-main shadow-sm">
+                                PHP
+                            </div>
+</div>
+<div class="p-4 flex flex-col flex-1">
+<div class="flex items-center justify-between mb-2">
+<span class="text-xs font-semibold text-primary bg-primary/10 px-2 py-0.5 rounded">Full App</span>
+<div class="flex items-center gap-1 text-amber-400 text-xs font-bold">
+<span class="material-symbols-outlined text-[16px] fill-current">star</span>
+<span class="text-text-secondary">5.0 (12)</span>
+</div>
+</div>
+<h3 class="text-lg font-bold text-text-main mb-1 line-clamp-1 group-hover:text-primary transition-colors">E-Commerce PHP Core</h3>
+<p class="text-sm text-text-secondary mb-4 line-clamp-2">Complete multi-vendor e-commerce solution with admin panel and analytics.</p>
+<div class="mt-auto pt-4 border-t border-border-color flex items-center justify-between">
+<span class="text-lg font-bold text-text-main">$129.00</span>
+<button class="flex items-center gap-2 px-3 py-2 rounded-lg bg-background-subtle hover:bg-primary hover:text-white transition-all text-text-main text-sm font-bold group/btn">
+<span class="material-symbols-outlined text-[18px]">add_shopping_cart</span>
+                                    Add
+                                </button>
+</div>
+</div>
+</div>
+<!-- Product Card 3 -->
+<div class="group flex flex-col bg-white rounded-xl border border-border-color overflow-hidden hover:shadow-lg hover:border-primary/30 transition-all duration-300">
+<div class="relative aspect-[4/3] w-full overflow-hidden bg-gray-100">
+<img alt="Product Thumbnail" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Mobile app interface design showing user profile and settings screens" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDgBmIzgq5UP6DQM1Z7acMsy7WxbGSoeuQEBfOJ1mk2GNFH7Ej8iPWtx-lgfWXTYZlpA9HRH3NcbF4NSNOMkikMbJiXJVKiAWg6PpWPamwZPCJt_5bNgEniBQUWfyNLVDUN8ZjcCXf8GVjVSoVfr9GvR3kh1tn7XFCy_c9bcoYeOPnf1Ftzdb3VGEs8DOf8v83yeRbZBuCFR3ma2sFjCirRlKdP9xi2gAaDc4FzMp7sZXVjQ36n9HURAI0nOw6ajOIgICofB7DtrEM"/>
+<div class="absolute top-3 right-3 bg-white/90 backdrop-blur text-xs font-bold px-2 py-1 rounded text-text-main shadow-sm">
+                                Flutter
+                            </div>
+</div>
+<div class="p-4 flex flex-col flex-1">
+<div class="flex items-center justify-between mb-2">
+<span class="text-xs font-semibold text-primary bg-primary/10 px-2 py-0.5 rounded">Mobile</span>
+<div class="flex items-center gap-1 text-amber-400 text-xs font-bold">
+<span class="material-symbols-outlined text-[16px] fill-current">star</span>
+<span class="text-text-secondary">4.5 (89)</span>
+</div>
+</div>
+<h3 class="text-lg font-bold text-text-main mb-1 line-clamp-1 group-hover:text-primary transition-colors">SocialConnect App</h3>
+<p class="text-sm text-text-secondary mb-4 line-clamp-2">Flutter based social networking app template with chat and feed features.</p>
+<div class="mt-auto pt-4 border-t border-border-color flex items-center justify-between">
+<span class="text-lg font-bold text-text-main">$79.00</span>
+<button class="flex items-center gap-2 px-3 py-2 rounded-lg bg-background-subtle hover:bg-primary hover:text-white transition-all text-text-main text-sm font-bold group/btn">
+<span class="material-symbols-outlined text-[18px]">add_shopping_cart</span>
+                                    Add
+                                </button>
+</div>
+</div>
+</div>
+<!-- Product Card 4 -->
+<div class="group flex flex-col bg-white rounded-xl border border-border-color overflow-hidden hover:shadow-lg hover:border-primary/30 transition-all duration-300">
+<div class="relative aspect-[4/3] w-full overflow-hidden bg-gray-100">
+<img alt="Product Thumbnail" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Abstract code snippets on a computer screen in dark mode" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC6Ufe141RrXg0rNZuAum7Y184SKEdoB-oGgCMbowFRp-uvQqA5_ZUMrm1-eZnX3PR78qf5Ll7fpa36ToMrTpGnmhdRxVh72cajtmP-Q7afh6Vvratl0BG6sq4z1ZvTbbfvQGNFZ2dxn2OhsG5gUsU_N-rKkpyFwDylpMmWoul4zejNZQCUuiUNwBNSAAA-z0LLBmEWMrxvMPqoUJMGpO99-HCcppuZ-OUerLz34-0T72eZJ3xTQ87pBxXfwCR-TzNcBLrzZZabPyk"/>
+<div class="absolute top-3 right-3 bg-white/90 backdrop-blur text-xs font-bold px-2 py-1 rounded text-text-main shadow-sm">
+                                Python
+                            </div>
+</div>
+<div class="p-4 flex flex-col flex-1">
+<div class="flex items-center justify-between mb-2">
+<span class="text-xs font-semibold text-primary bg-primary/10 px-2 py-0.5 rounded">Backend</span>
+<div class="flex items-center gap-1 text-amber-400 text-xs font-bold">
+<span class="material-symbols-outlined text-[16px] fill-current">star</span>
+<span class="text-text-secondary">4.9 (56)</span>
+</div>
+</div>
+<h3 class="text-lg font-bold text-text-main mb-1 line-clamp-1 group-hover:text-primary transition-colors">Django SaaS Starter</h3>
+<p class="text-sm text-text-secondary mb-4 line-clamp-2">Production-ready Django boilerplate with stripe payments and user auth.</p>
+<div class="mt-auto pt-4 border-t border-border-color flex items-center justify-between">
+<span class="text-lg font-bold text-text-main">$59.00</span>
+<button class="flex items-center gap-2 px-3 py-2 rounded-lg bg-background-subtle hover:bg-primary hover:text-white transition-all text-text-main text-sm font-bold group/btn">
+<span class="material-symbols-outlined text-[18px]">add_shopping_cart</span>
+                                    Add
+                                </button>
+</div>
+</div>
+</div>
+<!-- Product Card 5 -->
+<div class="group flex flex-col bg-white rounded-xl border border-border-color overflow-hidden hover:shadow-lg hover:border-primary/30 transition-all duration-300">
+<div class="relative aspect-[4/3] w-full overflow-hidden bg-gray-100">
+<img alt="Product Thumbnail" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Computer screen displaying clean programming code" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAmM8jJnCwCJ4fRO3Uj_2cCOUQewEeQxnMvSTPwrqyHN0MZvIMDNNubaCF62pHImhSsYaMWcjTZfPxFei2S2IC8VdM8tuTLmSzeH30F7Fp0h9uGtuOsWmQ9FuTXVjLlIyDUqOU_S13khRw9tFRjQc9Cc-e7mAgBKHtBfIa1BoHne0dUPV36Oz2122_z726G_3AhYMw81467ttVsEooKMAugkDBms9ZeT8P5pcyo8kxBytBlTMKOMJBRqJXEdJxu8DoMBt0XzpLCNE4"/>
+<div class="absolute top-3 right-3 bg-white/90 backdrop-blur text-xs font-bold px-2 py-1 rounded text-text-main shadow-sm">
+                                Node.js
+                            </div>
+</div>
+<div class="p-4 flex flex-col flex-1">
+<div class="flex items-center justify-between mb-2">
+<span class="text-xs font-semibold text-primary bg-primary/10 px-2 py-0.5 rounded">API</span>
+<div class="flex items-center gap-1 text-amber-400 text-xs font-bold">
+<span class="material-symbols-outlined text-[16px] fill-current">star</span>
+<span class="text-text-secondary">4.2 (14)</span>
+</div>
+</div>
+<h3 class="text-lg font-bold text-text-main mb-1 line-clamp-1 group-hover:text-primary transition-colors">Real-time Chat API</h3>
+<p class="text-sm text-text-secondary mb-4 line-clamp-2">Scalable WebSocket server built with Node.js and Redis.</p>
+<div class="mt-auto pt-4 border-t border-border-color flex items-center justify-between">
+<span class="text-lg font-bold text-text-main">$35.00</span>
+<button class="flex items-center gap-2 px-3 py-2 rounded-lg bg-background-subtle hover:bg-primary hover:text-white transition-all text-text-main text-sm font-bold group/btn">
+<span class="material-symbols-outlined text-[18px]">add_shopping_cart</span>
+                                    Add
+                                </button>
+</div>
+</div>
+</div>
+<!-- Product Card 6 -->
+<div class="group flex flex-col bg-white rounded-xl border border-border-color overflow-hidden hover:shadow-lg hover:border-primary/30 transition-all duration-300">
+<div class="relative aspect-[4/3] w-full overflow-hidden bg-gray-100">
+<img alt="Product Thumbnail" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Laptop keyboard and screen displaying code in a modern workspace" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDpWiDYBDKuTKvv6_r4CfXTgk2ZwLtmnoL2zz5ElDnYZbyE_DNLjvfA9JbJaRpMe84VOnN4C3oLyeBv6xQYih-kTOBdhuabw21rnbCFVEMq3wjaN0vlYtuPLw-0XBkEiO4377l3rSmfrgIlwUtCKANXo3d5C7WEzmGtGPoD7DERuezYDLD94gBS7Eh2qe7mn5w-LdWOSZfDKMbPvbND5WCbnDlUhry31n6axX5O3gTr7NxnqjDuOBqx0t4osLNvk5NdqBXCzAzEORw"/>
+<div class="absolute top-3 right-3 bg-white/90 backdrop-blur text-xs font-bold px-2 py-1 rounded text-text-main shadow-sm">
+                                Swift
+                            </div>
+</div>
+<div class="p-4 flex flex-col flex-1">
+<div class="flex items-center justify-between mb-2">
+<span class="text-xs font-semibold text-primary bg-primary/10 px-2 py-0.5 rounded">Mobile</span>
+<div class="flex items-center gap-1 text-amber-400 text-xs font-bold">
+<span class="material-symbols-outlined text-[16px] fill-current">star</span>
+<span class="text-text-secondary">5.0 (5)</span>
+</div>
+</div>
+<h3 class="text-lg font-bold text-text-main mb-1 line-clamp-1 group-hover:text-primary transition-colors">Fitness Tracker iOS</h3>
+<p class="text-sm text-text-secondary mb-4 line-clamp-2">Native iOS app for tracking workouts with HealthKit integration.</p>
+<div class="mt-auto pt-4 border-t border-border-color flex items-center justify-between">
+<span class="text-lg font-bold text-text-main">$89.00</span>
+<button class="flex items-center gap-2 px-3 py-2 rounded-lg bg-background-subtle hover:bg-primary hover:text-white transition-all text-text-main text-sm font-bold group/btn">
+<span class="material-symbols-outlined text-[18px]">add_shopping_cart</span>
+                                    Add
+                                </button>
+</div>
+</div>
+</div>
+</div>
+<!-- Pagination -->
+<div class="flex justify-center mt-12 mb-8">
+<nav class="flex items-center gap-2">
+<button class="flex items-center justify-center w-10 h-10 rounded-lg text-text-secondary hover:bg-background-subtle hover:text-text-main transition-colors">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<button class="flex items-center justify-center w-10 h-10 rounded-lg bg-primary text-white font-bold text-sm">1</button>
+<button class="flex items-center justify-center w-10 h-10 rounded-lg text-text-main hover:bg-background-subtle transition-colors font-medium text-sm">2</button>
+<button class="flex items-center justify-center w-10 h-10 rounded-lg text-text-main hover:bg-background-subtle transition-colors font-medium text-sm">3</button>
+<span class="flex items-center justify-center w-10 h-10 text-text-secondary">...</span>
+<button class="flex items-center justify-center w-10 h-10 rounded-lg text-text-main hover:bg-background-subtle transition-colors font-medium text-sm">12</button>
+<button class="flex items-center justify-center w-10 h-10 rounded-lg text-text-secondary hover:bg-background-subtle hover:text-text-main transition-colors">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</nav>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-background-subtle border-t border-border-color mt-auto">
+<div class="layout-container max-w-[1440px] mx-auto px-10 py-12">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-10">
+<div class="col-span-1 md:col-span-1">
+<div class="flex items-center gap-2 mb-4">
+<div class="size-6 rounded bg-primary text-white flex items-center justify-center">
+<span class="material-symbols-outlined text-[14px]">code</span>
+</div>
+<h2 class="text-text-main text-lg font-bold">CodeMarket</h2>
+</div>
+<p class="text-text-secondary text-sm mb-6">The world's largest marketplace for code scripts, app templates, and plugins.</p>
+<div class="flex gap-4">
+<a class="text-text-secondary hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">public</span>
+</a>
+<a class="text-text-secondary hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">mail</span>
+</a>
+</div>
+</div>
+<div>
+<h4 class="text-text-main font-bold mb-4">Marketplace</h4>
+<ul class="flex flex-col gap-2">
+<li><a class="text-text-secondary text-sm hover:text-primary transition-colors" href="#">All Products</a></li>
+<li><a class="text-text-secondary text-sm hover:text-primary transition-colors" href="#">Source Code</a></li>
+<li><a class="text-text-secondary text-sm hover:text-primary transition-colors" href="#">WordPress Themes</a></li>
+<li><a class="text-text-secondary text-sm hover:text-primary transition-colors" href="#">Plugins</a></li>
+</ul>
+</div>
+<div>
+<h4 class="text-text-main font-bold mb-4">Support</h4>
+<ul class="flex flex-col gap-2">
+<li><a class="text-text-secondary text-sm hover:text-primary transition-colors" href="#">Help Center</a></li>
+<li><a class="text-text-secondary text-sm hover:text-primary transition-colors" href="#">Terms of Service</a></li>
+<li><a class="text-text-secondary text-sm hover:text-primary transition-colors" href="#">Privacy Policy</a></li>
+<li><a class="text-text-secondary text-sm hover:text-primary transition-colors" href="#">Become a Seller</a></li>
+</ul>
+</div>
+<div>
+<h4 class="text-text-main font-bold mb-4">Stay in loop</h4>
+<p class="text-text-secondary text-sm mb-4">Join our newsletter to get top news and exclusive discounts.</p>
+<div class="flex gap-2">
+<input class="flex-1 rounded-lg border-none bg-white py-2 px-3 text-sm focus:ring-1 focus:ring-primary shadow-sm" placeholder="Enter your email" type="email"/>
+<button class="bg-primary hover:bg-primary-hover text-white rounded-lg px-4 py-2 text-sm font-bold transition-colors">Subscribe</button>
+</div>
+</div>
+</div>
+<div class="border-t border-border-color mt-12 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+<p class="text-text-secondary text-sm">© 2023 CodeMarket Inc. All rights reserved.</p>
+<div class="flex gap-6">
+<span class="text-text-secondary text-sm cursor-pointer hover:text-text-main">English (US)</span>
+<span class="text-text-secondary text-sm cursor-pointer hover:text-text-main">$ USD</span>
+</div>
+</div>
+</div>
+</footer>
+</body></html>

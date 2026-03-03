@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Customer Management Table</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#135bec",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101622",
+                        "surface-dark": "#1e2430", // Slightly lighter for cards
+                        "border-dark": "#2d3646", // Border color
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+    <style>
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #101622;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #2d3646;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #3b4354;
+        }
+
+        .checkbox-custom {
+            accent-color: #135bec;
+        }
+    </style>
+</head>
+
+<body
+    class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-white font-display overflow-hidden flex h-screen w-full">
+    <aside class="w-64 flex-shrink-0 flex flex-col bg-[#0b0f17] border-r border-border-dark hidden lg:flex">
+        <div class="p-6 flex items-center gap-3">
+            <div class="bg-primary/20 p-2 rounded-lg text-primary">
+                <span class="material-symbols-outlined">grid_view</span>
+            </div>
+            <div>
+                <h1 class="text-white text-base font-bold leading-tight">AdminPanel</h1>
+                <p class="text-slate-500 text-xs font-medium">Enterprise v2.4</p>
+            </div>
+        </div>
+        <div class="px-4 py-2 flex flex-col gap-1 flex-1 overflow-y-auto">
+            <div class="text-xs font-bold text-slate-500 uppercase tracking-wider px-3 mb-2 mt-2">Main Menu</div>
+            <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-white hover:bg-surface-dark transition-colors"
+                href="#">
+                <span class="material-symbols-outlined text-[20px]">dashboard</span>
+                <span class="text-sm font-medium">Overview</span>
+            </a>
+            <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-white hover:bg-surface-dark transition-colors"
+                href="#">
+                <span class="material-symbols-outlined text-[20px]">bar_chart</span>
+                <span class="text-sm font-medium">Analytics</span>
+            </a>
+            <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-primary text-white" href="#">
+                <span class="material-symbols-outlined text-[20px]">group</span>
+                <span class="text-sm font-medium">Customers</span>
+            </a>
+            <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-white hover:bg-surface-dark transition-colors"
+                href="#">
+                <span class="material-symbols-outlined text-[20px]">credit_card</span>
+                <span class="text-sm font-medium">Finance</span>
+            </a>
+            <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-white hover:bg-surface-dark transition-colors"
+                href="#">
+                <span class="material-symbols-outlined text-[20px]">folder</span>
+                <span class="text-sm font-medium">Projects</span>
+            </a>
+            <div class="text-xs font-bold text-slate-500 uppercase tracking-wider px-3 mb-2 mt-6">System</div>
+            <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-white hover:bg-surface-dark transition-colors"
+                href="#">
+                <span class="material-symbols-outlined text-[20px]">dns</span>
+                <span class="text-sm font-medium">Server Health</span>
+            </a>
+            <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-white hover:bg-surface-dark transition-colors"
+                href="#">
+                <span class="material-symbols-outlined text-[20px]">settings</span>
+                <span class="text-sm font-medium">Settings</span>
+            </a>
+        </div>
+        <div class="p-4 border-t border-border-dark">
+            <div class="flex items-center gap-3 p-2 rounded-lg hover:bg-surface-dark cursor-pointer transition-colors">
+                <div class="bg-center bg-no-repeat bg-cover rounded-full size-9 relative"
+                    data-alt="User avatar profile picture"
+                    style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAFIVJGrseRQphdphToGMmrAxagUQu-7mGL_65zAh_GJKy6dV8HcFohGCRcF0Org4sUipu_aTpkgNj6FUuY2ueTWQ_ld986bOgRdiigMPpbSx-PmqM8WIjzklAbLXpjpkQf2Dsti6-M0kpgaILOej3cLib-E_iEWL0blGd0DxyACN5suFf5rG1Yl9lAuepnrVXpL10EKSei96O8oCvdwnkUwqD7NqT0XQuagaCYEvSDaCljvMAhO1E9_R9pdbYQh7MKhPhmV1G_3tI");'>
+                    <div class="absolute bottom-0 right-0 size-2.5 bg-green-500 border-2 border-[#0b0f17] rounded-full">
+                    </div>
+                </div>
+                <div class="flex flex-col overflow-hidden">
+                    <p class="text-white text-sm font-medium truncate">Alexander Hall</p>
+                    <p class="text-slate-500 text-xs truncate">Super Admin</p>
+                </div>
+            </div>
+        </div>
+    </aside>
+    <main class="flex-1 flex flex-col h-full overflow-hidden relative">
+        <header class="flex items-center justify-between px-6 py-4 border-b border-border-dark bg-background-dark z-20">
+            <div class="flex items-center gap-4">
+                <button class="lg:hidden text-white">
+                    <span class="material-symbols-outlined">menu</span>
+                </button>
+                <h2 class="text-white text-lg font-bold">Customers</h2>
+            </div>
+            <div class="flex items-center gap-4">
+                <div class="relative hidden md:block">
+                    <span
+                        class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 text-[20px]">search</span>
+                    <input
+                        class="bg-surface-dark border border-border-dark text-white text-sm rounded-lg pl-10 pr-4 py-2 w-64 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary placeholder-slate-500"
+                        placeholder="Search customers..." type="text" />
+                </div>
+                <div class="flex items-center gap-2">
+                    <button
+                        class="flex items-center justify-center size-9 rounded-lg bg-surface-dark border border-border-dark text-slate-400 hover:text-white hover:border-slate-500 transition-colors">
+                        <span class="material-symbols-outlined text-[20px]">notifications</span>
+                    </button>
+                    <button
+                        class="flex items-center justify-center size-9 rounded-lg bg-surface-dark border border-border-dark text-slate-400 hover:text-white hover:border-slate-500 transition-colors">
+                        <span class="material-symbols-outlined text-[20px]">help</span>
+                    </button>
+                    <button
+                        class="hidden sm:flex items-center gap-2 px-4 h-9 bg-primary hover:bg-blue-600 text-white text-sm font-semibold rounded-lg transition-colors shadow-lg shadow-blue-900/20">
+                        <span class="material-symbols-outlined text-[18px]">add</span>
+                        Add Customer
+                    </button>
+                </div>
+            </div>
+        </header>
+        <div class="flex-1 overflow-y-auto p-6 scroll-smooth">
+            <div class="flex flex-col gap-6 max-w-[1600px] mx-auto h-full">
+                <div
+                    class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-surface-dark border border-border-dark p-4 rounded-lg">
+                    <div class="flex items-center gap-2 w-full sm:w-auto">
+                        <div class="relative flex-1 sm:flex-none">
+                            <span
+                                class="material-symbols-outlined absolute left-2.5 top-1/2 -translate-y-1/2 text-slate-500 text-[18px]">filter_list</span>
+                            <select
+                                class="bg-background-dark border border-border-dark text-slate-300 text-sm rounded-lg pl-9 pr-8 py-2 w-full sm:w-40 focus:outline-none focus:border-primary cursor-pointer appearance-none">
+                                <option>All Status</option>
+                                <option>Active</option>
+                                <option>Inactive</option>
+                                <option>Suspended</option>
+                            </select>
+                            <span
+                                class="material-symbols-outlined absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-500 text-[18px] pointer-events-none">expand_more</span>
+                        </div>
+                        <div class="relative flex-1 sm:flex-none">
+                            <span
+                                class="material-symbols-outlined absolute left-2.5 top-1/2 -translate-y-1/2 text-slate-500 text-[18px]">card_membership</span>
+                            <select
+                                class="bg-background-dark border border-border-dark text-slate-300 text-sm rounded-lg pl-9 pr-8 py-2 w-full sm:w-40 focus:outline-none focus:border-primary cursor-pointer appearance-none">
+                                <option>All Plans</option>
+                                <option>Enterprise</option>
+                                <option>Pro</option>
+                                <option>Basic</option>
+                            </select>
+                            <span
+                                class="material-symbols-outlined absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-500 text-[18px] pointer-events-none">expand_more</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <button
+                            class="flex items-center gap-2 px-3 py-2 bg-background-dark border border-border-dark hover:bg-slate-800 text-slate-300 text-sm font-medium rounded-lg transition-colors">
+                            <span class="material-symbols-outlined text-[18px]">download</span>
+                            Export
+                        </button>
+                        <button
+                            class="flex items-center gap-2 px-3 py-2 bg-background-dark border border-border-dark hover:bg-slate-800 text-slate-300 text-sm font-medium rounded-lg transition-colors">
+                            <span class="material-symbols-outlined text-[18px]">settings</span>
+                            Columns
+                        </button>
+                    </div>
+                </div>
+                <div class="flex-1 rounded-lg border border-border-dark bg-surface-dark overflow-hidden flex flex-col">
+                    <div class="overflow-x-auto flex-1">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="bg-background-dark/50 border-b border-border-dark">
+                                    <th class="p-4 w-12">
+                                        <input
+                                            class="checkbox-custom rounded bg-background-dark border-border-dark text-primary focus:ring-0 w-4 h-4 cursor-pointer"
+                                            type="checkbox" />
+                                    </th>
+                                    <th class="p-4 text-xs font-bold text-slate-400 uppercase tracking-wider">Customer
+                                        Name</th>
+                                    <th class="p-4 text-xs font-bold text-slate-400 uppercase tracking-wider">Email
+                                        Address</th>
+                                    <th class="p-4 text-xs font-bold text-slate-400 uppercase tracking-wider">Status
+                                    </th>
+                                    <th class="p-4 text-xs font-bold text-slate-400 uppercase tracking-wider">Plan</th>
+                                    <th class="p-4 text-xs font-bold text-slate-400 uppercase tracking-wider">Last
+                                        Active</th>
+                                    <th
+                                        class="p-4 text-xs font-bold text-slate-400 uppercase tracking-wider text-right">
+                                        Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-border-dark">
+                                <tr class="hover:bg-background-dark/30 transition-colors group">
+                                    <td class="p-4">
+                                        <input
+                                            class="checkbox-custom rounded bg-background-dark border-border-dark text-primary focus:ring-0 w-4 h-4 cursor-pointer"
+                                            type="checkbox" />
+                                    </td>
+                                    <td class="p-4">
+                                        <div class="flex items-center gap-3">
+                                            <div class="size-9 rounded-full bg-slate-700 bg-center bg-cover border border-border-dark"
+                                                style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAEvAOLORImya3mpuH6XVlcQnw4shU2hUmG29-sW3QVC9IzDZJZhpENoOTTRmsZoTo0oIrsUxa_wr25BPgJtWy43t3vq_zuizK6Q8ufjNjxgJa0fcp9Lti-5nAlzwVKmIKmu6VAYzoigAjhZ5gRZ-TIn9VAa2otU5luY59mzo7wa4A1A_oEfXGJCzrydaNhM9wCz28fSAAcEDm98YZpZHDfY8FZrFipfaZ0Ti_9hRZqonyhvv9exR9KsnyLV5bw7_dnmPXU9dAME5E");'>
+                                            </div>
+                                            <div>
+                                                <p class="text-white text-sm font-medium">Sarah Miller</p>
+                                                <p class="text-slate-500 text-xs">@sarahm_design</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="p-4 text-sm text-slate-400">sarah.miller@example.com</td>
+                                    <td class="p-4">
+                                        <span
+                                            class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-500 border border-emerald-500/20">
+                                            <span class="size-1.5 rounded-full bg-emerald-500"></span>
+                                            Active
+                                        </span>
+                                    </td>
+                                    <td class="p-4">
+                                        <div class="flex items-center gap-2">
+                                            <span
+                                                class="material-symbols-outlined text-purple-400 text-[18px]">diamond</span>
+                                            <span class="text-sm text-white">Enterprise</span>
+                                        </div>
+                                    </td>
+                                    <td class="p-4 text-sm text-slate-400">2 mins ago</td>
+                                    <td class="p-4 text-right">
+                                        <div
+                                            class="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                                            <button
+                                                class="p-1.5 text-slate-400 hover:text-white hover:bg-slate-700 rounded transition-colors">
+                                                <span class="material-symbols-outlined text-[18px]">edit</span>
+                                            </button>
+                                            <button
+                                                class="p-1.5 text-slate-400 hover:text-rose-400 hover:bg-rose-500/10 rounded transition-colors">
+                                                <span class="material-symbols-outlined text-[18px]">delete</span>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-background-dark/30 transition-colors group">
+                                    <td class="p-4">
+                                        <input
+                                            class="checkbox-custom rounded bg-background-dark border-border-dark text-primary focus:ring-0 w-4 h-4 cursor-pointer"
+                                            type="checkbox" />
+                                    </td>
+                                    <td class="p-4">
+                                        <div class="flex items-center gap-3">
+                                            <div class="size-9 rounded-full bg-slate-700 bg-center bg-cover border border-border-dark"
+                                                style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuD5OZbDJlxE5wDWhrkOyP6Szi6Gch34ZCeY2ShkMwtx-2HJMMYZfbq5253oWKcP01qCY9NL0d4ysdAPo_ag3GOqcKLtIBL_6Ic2BtjO4q5Zm2MyA9SN9k_mQJYGF-RuB-lVAJFFiEBN9TSkyQ1LTLmb9AnWJhQ81_MXeK1kIwtfT47aOtMnejOeJlj-bsrz6sTjVvaSzOI3vUjvONBZxLkXEJMlMHWKj1ShkcFQmtViJMUB3NYa2YI3hFYgxxeFNIvTy7TWhVlS3BE");'>
+                                            </div>
+                                            <div>
+                                                <p class="text-white text-sm font-medium">James Cooper</p>
+                                                <p class="text-slate-500 text-xs">@cooper_dev</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="p-4 text-sm text-slate-400">james.cooper@techflow.io</td>
+                                    <td class="p-4">
+                                        <span
+                                            class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-500 border border-emerald-500/20">
+                                            <span class="size-1.5 rounded-full bg-emerald-500"></span>
+                                            Active
+                                        </span>
+                                    </td>
+                                    <td class="p-4">
+                                        <div class="flex items-center gap-2">
+                                            <span
+                                                class="material-symbols-outlined text-blue-400 text-[18px]">rocket_launch</span>
+                                            <span class="text-sm text-white">Pro Plan</span>
+                                        </div>
+                                    </td>
+                                    <td class="p-4 text-sm text-slate-400">4 hours ago</td>
+                                    <td class="p-4 text-right">
+                                        <div
+                                            class="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                                            <button
+                                                class="p-1.5 text-slate-400 hover:text-white hover:bg-slate-700 rounded transition-colors">
+                                                <span class="material-symbols-outlined text-[18px]">edit</span>
+                                            </button>
+                                            <button
+                                                class="p-1.5 text-slate-400 hover:text-rose-400 hover:bg-rose-500/10 rounded transition-colors">
+                                                <span class="material-symbols-outlined text-[18px]">delete</span>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-background-dark/30 transition-colors group">
+                                    <td class="p-4">
+                                        <input
+                                            class="checkbox-custom rounded bg-background-dark border-border-dark text-primary focus:ring-0 w-4 h-4 cursor-pointer"
+                                            type="checkbox" />
+                                    </td>
+                                    <td class="p-4">
+                                        <div class="flex items-center gap-3">
+                                            <div
+                                                class="size-9 rounded-full bg-slate-700 bg-center bg-cover border border-border-dark flex items-center justify-center text-xs font-bold text-slate-300">
+                                                MR
+                                            </div>
+                                            <div>
+                                                <p class="text-white text-sm font-medium">Michael Ross</p>
+                                                <p class="text-slate-500 text-xs">@mike_ross</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="p-4 text-sm text-slate-400">michael.ross@lawfirm.com</td>
+                                    <td class="p-4">
+                                        <span
+                                            class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-slate-500/10 text-slate-400 border border-slate-500/20">
+                                            <span class="size-1.5 rounded-full bg-slate-500"></span>
+                                            Inactive
+                                        </span>
+                                    </td>
+                                    <td class="p-4">
+                                        <div class="flex items-center gap-2">
+                                            <span
+                                                class="material-symbols-outlined text-slate-400 text-[18px]">star</span>
+                                            <span class="text-sm text-white">Basic</span>
+                                        </div>
+                                    </td>
+                                    <td class="p-4 text-sm text-slate-400">2 weeks ago</td>
+                                    <td class="p-4 text-right">
+                                        <div
+                                            class="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                                            <button
+                                                class="p-1.5 text-slate-400 hover:text-white hover:bg-slate-700 rounded transition-colors">
+                                                <span class="material-symbols-outlined text-[18px]">edit</span>
+                                            </button>
+                                            <button
+                                                class="p-1.5 text-slate-400 hover:text-rose-400 hover:bg-rose-500/10 rounded transition-colors">
+                                                <span class="material-symbols-outlined text-[18px]">delete</span>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-background-dark/30 transition-colors group">
+                                    <td class="p-4">
+                                        <input
+                                            class="checkbox-custom rounded bg-background-dark border-border-dark text-primary focus:ring-0 w-4 h-4 cursor-pointer"
+                                            type="checkbox" />
+                                    </td>
+                                    <td class="p-4">
+                                        <div class="flex items-center gap-3">
+                                            <div class="size-9 rounded-full bg-slate-700 bg-center bg-cover border border-border-dark"
+                                                style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuA0BU_sTVx6Cs1dycf8D7WuDGGX2MNzoCN5clXYYtcQSXcEa0ACB5liaPGUwB_DiwLnHbdqCtS6yKPNefZDWeNZ3ttX45RynWF782Zg8MenNM2QjcWYUmJXbcerNxgWQYW6axgkY4dZzOh9gcqbcMPVJlwWEAptqo7y6uJ1qeDu1a8Jy1ukI8d9VN1TN6DlVo7je4GMaZrj18vUAFiPZ-6HOBKEDfWP3uljknjJFfjX2KAdLJNgPXSJjDX09dHC9Dr1FR7ipp9jzTs");'>
+                                            </div>
+                                            <div>
+                                                <p class="text-white text-sm font-medium">Emma Wilson</p>
+                                                <p class="text-slate-500 text-xs">@emma_w</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="p-4 text-sm text-slate-400">emma.wilson@studio.net</td>
+                                    <td class="p-4">
+                                        <span
+                                            class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-amber-500/10 text-amber-500 border border-amber-500/20">
+                                            <span class="size-1.5 rounded-full bg-amber-500"></span>
+                                            Pending
+                                        </span>
+                                    </td>
+                                    <td class="p-4">
+                                        <div class="flex items-center gap-2">
+                                            <span
+                                                class="material-symbols-outlined text-blue-400 text-[18px]">rocket_launch</span>
+                                            <span class="text-sm text-white">Pro Plan</span>
+                                        </div>
+                                    </td>
+                                    <td class="p-4 text-sm text-slate-400">1 day ago</td>
+                                    <td class="p-4 text-right">
+                                        <div
+                                            class="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                                            <button
+                                                class="p-1.5 text-slate-400 hover:text-white hover:bg-slate-700 rounded transition-colors">
+                                                <span class="material-symbols-outlined text-[18px]">edit</span>
+                                            </button>
+                                            <button
+                                                class="p-1.5 text-slate-400 hover:text-rose-400 hover:bg-rose-500/10 rounded transition-colors">
+                                                <span class="material-symbols-outlined text-[18px]">delete</span>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-background-dark/30 transition-colors group">
+                                    <td class="p-4">
+                                        <input
+                                            class="checkbox-custom rounded bg-background-dark border-border-dark text-primary focus:ring-0 w-4 h-4 cursor-pointer"
+                                            type="checkbox" />
+                                    </td>
+                                    <td class="p-4">
+                                        <div class="flex items-center gap-3">
+                                            <div class="size-9 rounded-full bg-slate-700 bg-center bg-cover border border-border-dark"
+                                                style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuC6U2qKEjyikTuM4pcKKBS8-cf3xNUH9iV-1Gsmd7m67AxgJAjCtvvcVYxrjgDpKLB5zDlFhBi7UaQS2Ri0X9vsbGZ-w18T01whsP1iOJflPp-fA2tL5qZFMEbHrAPtG-UiZZ0bpG5KO5OTKm0-d6KoAfl9oYp6UmORIdz3RCctlLbA7A9-sBvMBGZicnZoJGCsZZctKtOIOQD84A9UucUSNryWAArOuXZZJOPcMVoMMFVPKTTPr_izZs1p4BXSVYNGBOUu59g7GD8");'>
+                                            </div>
+                                            <div>
+                                                <p class="text-white text-sm font-medium">David Chen</p>
+                                                <p class="text-slate-500 text-xs">@david_chen</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="p-4 text-sm text-slate-400">david.chen@startuplab.co</td>
+                                    <td class="p-4">
+                                        <span
+                                            class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-500 border border-emerald-500/20">
+                                            <span class="size-1.5 rounded-full bg-emerald-500"></span>
+                                            Active
+                                        </span>
+                                    </td>
+                                    <td class="p-4">
+                                        <div class="flex items-center gap-2">
+                                            <span
+                                                class="material-symbols-outlined text-purple-400 text-[18px]">diamond</span>
+                                            <span class="text-sm text-white">Enterprise</span>
+                                        </div>
+                                    </td>
+                                    <td class="p-4 text-sm text-slate-400">5 mins ago</td>
+                                    <td class="p-4 text-right">
+                                        <div
+                                            class="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                                            <button
+                                                class="p-1.5 text-slate-400 hover:text-white hover:bg-slate-700 rounded transition-colors">
+                                                <span class="material-symbols-outlined text-[18px]">edit</span>
+                                            </button>
+                                            <button
+                                                class="p-1.5 text-slate-400 hover:text-rose-400 hover:bg-rose-500/10 rounded transition-colors">
+                                                <span class="material-symbols-outlined text-[18px]">delete</span>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-background-dark/30 transition-colors group">
+                                    <td class="p-4">
+                                        <input
+                                            class="checkbox-custom rounded bg-background-dark border-border-dark text-primary focus:ring-0 w-4 h-4 cursor-pointer"
+                                            type="checkbox" />
+                                    </td>
+                                    <td class="p-4">
+                                        <div class="flex items-center gap-3">
+                                            <div
+                                                class="size-9 rounded-full bg-slate-700 bg-center bg-cover border border-border-dark flex items-center justify-center text-xs font-bold text-slate-300">
+                                                LK
+                                            </div>
+                                            <div>
+                                                <p class="text-white text-sm font-medium">Linda King</p>
+                                                <p class="text-slate-500 text-xs">@linda_k</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="p-4 text-sm text-slate-400">linda.king@enterprise.org</td>
+                                    <td class="p-4">
+                                        <span
+                                            class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-rose-500/10 text-rose-500 border border-rose-500/20">
+                                            <span class="size-1.5 rounded-full bg-rose-500"></span>
+                                            Suspended
+                                        </span>
+                                    </td>
+                                    <td class="p-4">
+                                        <div class="flex items-center gap-2">
+                                            <span
+                                                class="material-symbols-outlined text-slate-400 text-[18px]">star</span>
+                                            <span class="text-sm text-white">Basic</span>
+                                        </div>
+                                    </td>
+                                    <td class="p-4 text-sm text-slate-400">Oct 12, 2023</td>
+                                    <td class="p-4 text-right">
+                                        <div
+                                            class="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                                            <button
+                                                class="p-1.5 text-slate-400 hover:text-white hover:bg-slate-700 rounded transition-colors">
+                                                <span class="material-symbols-outlined text-[18px]">edit</span>
+                                            </button>
+                                            <button
+                                                class="p-1.5 text-slate-400 hover:text-rose-400 hover:bg-rose-500/10 rounded transition-colors">
+                                                <span class="material-symbols-outlined text-[18px]">delete</span>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-background-dark/30 transition-colors group">
+                                    <td class="p-4">
+                                        <input
+                                            class="checkbox-custom rounded bg-background-dark border-border-dark text-primary focus:ring-0 w-4 h-4 cursor-pointer"
+                                            type="checkbox" />
+                                    </td>
+                                    <td class="p-4">
+                                        <div class="flex items-center gap-3">
+                                            <div class="size-9 rounded-full bg-slate-700 bg-center bg-cover border border-border-dark"
+                                                style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCdtX11SykJkI9rERe4tFYzxPHN0IT2HPITgX7qD3HXfr-38K50FzbZSVeQGjya2AGvOkslR-1TKWjkFfxIUg-GwJuCV_HGYulK2WiYBp29FSIFWhkv1Spo4l-rvxa5nRfxCoA2G9J9LjaDCrkQf8J8FOmTkKS5QB_sLKJo__gatMcVdlBkIp0LjyJWMXHL3zLRFZeWtQ0kqQZ-FLLLYfIqawwCm_HiJBLJ5ZdPiwYBwMuKxf2a8ylU-5sidhtlwM88BSPkeDe45mM");'>
+                                            </div>
+                                            <div>
+                                                <p class="text-white text-sm font-medium">Robert Fox</p>
+                                                <p class="text-slate-500 text-xs">@robert_fox</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="p-4 text-sm text-slate-400">robert.fox@dummymail.com</td>
+                                    <td class="p-4">
+                                        <span
+                                            class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-500 border border-emerald-500/20">
+                                            <span class="size-1.5 rounded-full bg-emerald-500"></span>
+                                            Active
+                                        </span>
+                                    </td>
+                                    <td class="p-4">
+                                        <div class="flex items-center gap-2">
+                                            <span
+                                                class="material-symbols-outlined text-purple-400 text-[18px]">diamond</span>
+                                            <span class="text-sm text-white">Enterprise</span>
+                                        </div>
+                                    </td>
+                                    <td class="p-4 text-sm text-slate-400">2 hours ago</td>
+                                    <td class="p-4 text-right">
+                                        <div
+                                            class="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                                            <button
+                                                class="p-1.5 text-slate-400 hover:text-white hover:bg-slate-700 rounded transition-colors">
+                                                <span class="material-symbols-outlined text-[18px]">edit</span>
+                                            </button>
+                                            <button
+                                                class="p-1.5 text-slate-400 hover:text-rose-400 hover:bg-rose-500/10 rounded transition-colors">
+                                                <span class="material-symbols-outlined text-[18px]">delete</span>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div
+                        class="flex flex-col sm:flex-row items-center justify-between p-4 border-t border-border-dark bg-background-dark/30 gap-4">
+                        <div class="text-sm text-slate-400">
+                            Showing <span class="font-bold text-white">1</span> to <span
+                                class="font-bold text-white">7</span> of <span class="font-bold text-white">128</span>
+                            customers
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <button
+                                class="flex items-center gap-1 px-3 py-1.5 rounded-lg border border-border-dark bg-surface-dark text-slate-400 text-sm hover:text-white hover:border-slate-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                                disabled="">
+                                <span class="material-symbols-outlined text-[16px]">chevron_left</span>
+                                Previous
+                            </button>
+                            <div class="flex items-center gap-1 hidden sm:flex">
+                                <button
+                                    class="size-8 flex items-center justify-center rounded-lg bg-primary text-white text-sm font-medium">1</button>
+                                <button
+                                    class="size-8 flex items-center justify-center rounded-lg border border-border-dark bg-surface-dark text-slate-400 hover:text-white hover:border-slate-500 text-sm font-medium transition-colors">2</button>
+                                <button
+                                    class="size-8 flex items-center justify-center rounded-lg border border-border-dark bg-surface-dark text-slate-400 hover:text-white hover:border-slate-500 text-sm font-medium transition-colors">3</button>
+                                <span class="text-slate-500">...</span>
+                                <button
+                                    class="size-8 flex items-center justify-center rounded-lg border border-border-dark bg-surface-dark text-slate-400 hover:text-white hover:border-slate-500 text-sm font-medium transition-colors">12</button>
+                            </div>
+                            <button
+                                class="flex items-center gap-1 px-3 py-1.5 rounded-lg border border-border-dark bg-surface-dark text-slate-400 text-sm hover:text-white hover:border-slate-500 transition-colors">
+                                Next
+                                <span class="material-symbols-outlined text-[16px]">chevron_right</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+</body>
+
+</html>

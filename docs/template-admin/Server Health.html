@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Server Health Monitoring</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#135bec",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101622",
+                        "surface-dark": "#1e2430", // Slightly lighter for cards
+                        "border-dark": "#2d3646", // Border color
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"],
+                        "mono": ["Roboto Mono", "monospace"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+<style>::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #101622;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2d3646;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #3b4354;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-white font-display overflow-hidden flex h-screen w-full">
+<aside class="w-64 flex-shrink-0 flex flex-col bg-[#0b0f17] border-r border-border-dark hidden lg:flex">
+<div class="p-6 flex items-center gap-3">
+<div class="bg-primary/20 p-2 rounded-lg text-primary">
+<span class="material-symbols-outlined">grid_view</span>
+</div>
+<div>
+<h1 class="text-white text-base font-bold leading-tight">AdminPanel</h1>
+<p class="text-slate-500 text-xs font-medium">Enterprise v2.4</p>
+</div>
+</div>
+<div class="px-4 py-2 flex flex-col gap-1 flex-1 overflow-y-auto">
+<div class="text-xs font-bold text-slate-500 uppercase tracking-wider px-3 mb-2 mt-2">Main Menu</div>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-white hover:bg-surface-dark transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">dashboard</span>
+<span class="text-sm font-medium">Overview</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-white hover:bg-surface-dark transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">bar_chart</span>
+<span class="text-sm font-medium">Analytics</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-white hover:bg-surface-dark transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">group</span>
+<span class="text-sm font-medium">Customers</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-white hover:bg-surface-dark transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">credit_card</span>
+<span class="text-sm font-medium">Finance</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-white hover:bg-surface-dark transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">folder</span>
+<span class="text-sm font-medium">Projects</span>
+</a>
+<div class="text-xs font-bold text-slate-500 uppercase tracking-wider px-3 mb-2 mt-6">System</div>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-primary text-white" href="#">
+<span class="material-symbols-outlined text-[20px]">dns</span>
+<span class="text-sm font-medium">Server Health</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-white hover:bg-surface-dark transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">settings</span>
+<span class="text-sm font-medium">Settings</span>
+</a>
+</div>
+<div class="p-4 border-t border-border-dark">
+<div class="flex items-center gap-3 p-2 rounded-lg hover:bg-surface-dark cursor-pointer transition-colors">
+<div class="bg-center bg-no-repeat bg-cover rounded-full size-9 relative" data-alt="User avatar profile picture" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAFIVJGrseRQphdphToGMmrAxagUQu-7mGL_65zAh_GJKy6dV8HcFohGCRcF0Org4sUipu_aTpkgNj6FUuY2ueTWQ_ld986bOgRdiigMPpbSx-PmqM8WIjzklAbLXpjpkQf2Dsti6-M0kpgaILOej3cLib-E_iEWL0blGd0DxyACN5suFf5rG1Yl9lAuepnrVXpL10EKSei96O8oCvdwnkUwqD7NqT0XQuagaCYEvSDaCljvMAhO1E9_R9pdbYQh7MKhPhmV1G_3tI");'>
+<div class="absolute bottom-0 right-0 size-2.5 bg-green-500 border-2 border-[#0b0f17] rounded-full"></div>
+</div>
+<div class="flex flex-col overflow-hidden">
+<p class="text-white text-sm font-medium truncate">Alexander Hall</p>
+<p class="text-slate-500 text-xs truncate">Super Admin</p>
+</div>
+</div>
+</div>
+</aside>
+<main class="flex-1 flex flex-col h-full overflow-hidden relative">
+<header class="flex items-center justify-between px-6 py-4 border-b border-border-dark bg-background-dark z-20">
+<div class="flex items-center gap-4">
+<button class="lg:hidden text-white">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<h2 class="text-white text-lg font-bold">Server Health</h2>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative hidden md:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 text-[20px]">search</span>
+<input class="bg-surface-dark border border-border-dark text-white text-sm rounded-lg pl-10 pr-4 py-2 w-64 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary placeholder-slate-500" placeholder="Search servers or logs..." type="text"/>
+</div>
+<div class="flex items-center gap-2">
+<button class="flex items-center justify-center size-9 rounded-lg bg-surface-dark border border-border-dark text-slate-400 hover:text-white hover:border-slate-500 transition-colors">
+<span class="material-symbols-outlined text-[20px]">notifications</span>
+</button>
+<button class="flex items-center justify-center size-9 rounded-lg bg-surface-dark border border-border-dark text-slate-400 hover:text-white hover:border-slate-500 transition-colors">
+<span class="material-symbols-outlined text-[20px]">refresh</span>
+</button>
+<button class="hidden sm:flex items-center gap-2 px-4 h-9 bg-primary hover:bg-blue-600 text-white text-sm font-semibold rounded-lg transition-colors">
+<span class="material-symbols-outlined text-[18px]">add</span>
+                    New Instance
+                </button>
+</div>
+</div>
+</header>
+<div class="flex-1 overflow-y-auto p-6 scroll-smooth">
+<div class="flex flex-col gap-6 max-w-[1400px] mx-auto">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="bg-surface-dark border border-border-dark rounded-lg p-5 flex flex-col gap-4 relative overflow-hidden group">
+<div class="flex justify-between items-start z-10">
+<div>
+<p class="text-slate-400 text-sm font-medium">CPU Usage</p>
+<h3 class="text-white text-3xl font-bold mt-1">42%</h3>
+</div>
+<div class="bg-primary/20 p-2 rounded text-primary">
+<span class="material-symbols-outlined">memory</span>
+</div>
+</div>
+<div class="z-10">
+<p class="text-xs text-slate-500">8 Cores Active</p>
+<p class="text-xs text-emerald-500 font-medium mt-1">running smoothly</p>
+</div>
+<div class="absolute bottom-0 left-0 right-0 h-16 opacity-30 group-hover:opacity-50 transition-opacity">
+<svg class="w-full h-full" preserveAspectRatio="none" viewBox="0 0 100 40">
+<path d="M0,35 L10,32 L20,36 L30,25 L40,28 L50,15 L60,20 L70,10 L80,18 L90,12 L100,20 V40 H0 Z" fill="#135bec"></path>
+<path d="M0,35 L10,32 L20,36 L30,25 L40,28 L50,15 L60,20 L70,10 L80,18 L90,12 L100,20" fill="none" stroke="#135bec" stroke-width="2"></path>
+</svg>
+</div>
+</div>
+<div class="bg-surface-dark border border-border-dark rounded-lg p-5 flex flex-col gap-4 relative overflow-hidden group">
+<div class="flex justify-between items-start z-10">
+<div>
+<p class="text-slate-400 text-sm font-medium">RAM Usage</p>
+<h3 class="text-white text-3xl font-bold mt-1">12.4<span class="text-lg text-slate-500 font-medium">GB</span></h3>
+</div>
+<div class="bg-purple-500/20 p-2 rounded text-purple-500">
+<span class="material-symbols-outlined">sd_card</span>
+</div>
+</div>
+<div class="z-10">
+<div class="w-full bg-background-dark h-1.5 rounded-full mt-2 mb-1">
+<div class="bg-purple-500 h-full rounded-full" style="width: 76%"></div>
+</div>
+<p class="text-xs text-slate-500">Total 16GB • 3.6GB Available</p>
+</div>
+<div class="absolute bottom-0 left-0 right-0 h-16 opacity-30 group-hover:opacity-50 transition-opacity">
+<svg class="w-full h-full" preserveAspectRatio="none" viewBox="0 0 100 40">
+<path d="M0,30 L10,28 L20,29 L30,28 L40,26 L50,25 L60,27 L70,24 L80,22 L90,20 L100,18 V40 H0 Z" fill="#a855f7"></path>
+<path d="M0,30 L10,28 L20,29 L30,28 L40,26 L50,25 L60,27 L70,24 L80,22 L90,20 L100,18" fill="none" stroke="#a855f7" stroke-width="2"></path>
+</svg>
+</div>
+</div>
+<div class="bg-surface-dark border border-border-dark rounded-lg p-5 flex flex-col gap-4 relative overflow-hidden group">
+<div class="flex justify-between items-start z-10">
+<div>
+<p class="text-slate-400 text-sm font-medium">Network I/O</p>
+<div class="flex items-baseline gap-2 mt-1">
+<span class="material-symbols-outlined text-emerald-500 text-[18px]">arrow_downward</span>
+<h3 class="text-white text-2xl font-bold">450 <span class="text-sm text-slate-500 font-medium">MB/s</span></h3>
+</div>
+<div class="flex items-baseline gap-2">
+<span class="material-symbols-outlined text-sky-500 text-[18px]">arrow_upward</span>
+<h3 class="text-slate-300 text-lg font-bold">128 <span class="text-xs text-slate-500 font-medium">MB/s</span></h3>
+</div>
+</div>
+<div class="bg-emerald-500/20 p-2 rounded text-emerald-500">
+<span class="material-symbols-outlined">language</span>
+</div>
+</div>
+<div class="absolute bottom-0 left-0 right-0 h-16 opacity-30 group-hover:opacity-50 transition-opacity">
+<svg class="w-full h-full" preserveAspectRatio="none" viewBox="0 0 100 40">
+<path d="M0,35 L15,20 L25,30 L40,10 L50,25 L65,15 L75,28 L90,5 L100,20 V40 H0 Z" fill="#10b981"></path>
+<path d="M0,35 L15,20 L25,30 L40,10 L50,25 L65,15 L75,28 L90,5 L100,20" fill="none" stroke="#10b981" stroke-width="2"></path>
+</svg>
+</div>
+</div>
+</div>
+<div class="bg-surface-dark border border-border-dark rounded-lg overflow-hidden">
+<div class="p-5 border-b border-border-dark flex flex-col sm:flex-row justify-between items-center gap-4">
+<h3 class="text-white text-lg font-bold">Active Instances</h3>
+<div class="flex items-center gap-2">
+<div class="flex items-center bg-background-dark border border-border-dark rounded-lg px-3 py-1.5">
+<span class="size-2 rounded-full bg-emerald-500 mr-2"></span>
+<span class="text-xs text-slate-300 font-medium">Online (4)</span>
+</div>
+<div class="flex items-center bg-background-dark border border-border-dark rounded-lg px-3 py-1.5">
+<span class="size-2 rounded-full bg-rose-500 mr-2"></span>
+<span class="text-xs text-slate-300 font-medium">Offline (1)</span>
+</div>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="text-xs text-slate-500 uppercase border-b border-border-dark bg-background-dark/50">
+<th class="px-6 py-4 font-semibold tracking-wider">Status</th>
+<th class="px-6 py-4 font-semibold tracking-wider">Instance Name</th>
+<th class="px-6 py-4 font-semibold tracking-wider">IP Address</th>
+<th class="px-6 py-4 font-semibold tracking-wider">Region</th>
+<th class="px-6 py-4 font-semibold tracking-wider w-32">Load</th>
+<th class="px-6 py-4 font-semibold tracking-wider">Uptime</th>
+<th class="px-6 py-4 font-semibold tracking-wider text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-border-dark">
+<tr class="hover:bg-background-dark/30 transition-colors">
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-500 border border-emerald-500/20">
+<span class="size-1.5 rounded-full bg-emerald-500 animate-pulse"></span> Online
+                                    </span>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="bg-slate-700 p-1.5 rounded text-white">
+<span class="material-symbols-outlined text-[18px]">dns</span>
+</div>
+<div>
+<p class="text-white text-sm font-medium">prod-api-server-01</p>
+<p class="text-slate-500 text-xs">t3.large</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4">
+<p class="text-slate-300 text-sm font-mono">192.168.1.104</p>
+</td>
+<td class="px-6 py-4">
+<p class="text-slate-400 text-sm">US East (N. Virginia)</p>
+</td>
+<td class="px-6 py-4">
+<div class="w-full bg-background-dark h-1.5 rounded-full overflow-hidden">
+<div class="bg-emerald-500 h-full rounded-full" style="width: 45%"></div>
+</div>
+<p class="text-xs text-right text-slate-500 mt-1">45%</p>
+</td>
+<td class="px-6 py-4 text-slate-300 text-sm">14d 2h 15m</td>
+<td class="px-6 py-4 text-right">
+<button class="text-slate-400 hover:text-white transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-background-dark/30 transition-colors">
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-500 border border-emerald-500/20">
+<span class="size-1.5 rounded-full bg-emerald-500 animate-pulse"></span> Online
+                                    </span>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="bg-slate-700 p-1.5 rounded text-white">
+<span class="material-symbols-outlined text-[18px]">dns</span>
+</div>
+<div>
+<p class="text-white text-sm font-medium">prod-db-shard-02</p>
+<p class="text-slate-500 text-xs">r5.2xlarge</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4">
+<p class="text-slate-300 text-sm font-mono">10.0.4.21</p>
+</td>
+<td class="px-6 py-4">
+<p class="text-slate-400 text-sm">EU West (London)</p>
+</td>
+<td class="px-6 py-4">
+<div class="w-full bg-background-dark h-1.5 rounded-full overflow-hidden">
+<div class="bg-amber-500 h-full rounded-full" style="width: 78%"></div>
+</div>
+<p class="text-xs text-right text-slate-500 mt-1">78%</p>
+</td>
+<td class="px-6 py-4 text-slate-300 text-sm">45d 12h 01m</td>
+<td class="px-6 py-4 text-right">
+<button class="text-slate-400 hover:text-white transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-background-dark/30 transition-colors">
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-rose-500/10 text-rose-500 border border-rose-500/20">
+<span class="size-1.5 rounded-full bg-rose-500"></span> Offline
+                                    </span>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="bg-slate-700 p-1.5 rounded text-white">
+<span class="material-symbols-outlined text-[18px]">dns</span>
+</div>
+<div>
+<p class="text-white text-sm font-medium">staging-worker-01</p>
+<p class="text-slate-500 text-xs">t3.micro</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4">
+<p class="text-slate-300 text-sm font-mono">192.168.2.55</p>
+</td>
+<td class="px-6 py-4">
+<p class="text-slate-400 text-sm">US West (Oregon)</p>
+</td>
+<td class="px-6 py-4">
+<div class="w-full bg-background-dark h-1.5 rounded-full overflow-hidden">
+<div class="bg-slate-600 h-full rounded-full" style="width: 0%"></div>
+</div>
+<p class="text-xs text-right text-slate-500 mt-1">0%</p>
+</td>
+<td class="px-6 py-4 text-slate-300 text-sm">-</td>
+<td class="px-6 py-4 text-right">
+<button class="text-slate-400 hover:text-white transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-background-dark/30 transition-colors">
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-500 border border-emerald-500/20">
+<span class="size-1.5 rounded-full bg-emerald-500 animate-pulse"></span> Online
+                                    </span>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="bg-slate-700 p-1.5 rounded text-white">
+<span class="material-symbols-outlined text-[18px]">dns</span>
+</div>
+<div>
+<p class="text-white text-sm font-medium">cache-redis-01</p>
+<p class="text-slate-500 text-xs">m5.large</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4">
+<p class="text-slate-300 text-sm font-mono">172.16.0.45</p>
+</td>
+<td class="px-6 py-4">
+<p class="text-slate-400 text-sm">US East (Ohio)</p>
+</td>
+<td class="px-6 py-4">
+<div class="w-full bg-background-dark h-1.5 rounded-full overflow-hidden">
+<div class="bg-emerald-500 h-full rounded-full" style="width: 12%"></div>
+</div>
+<p class="text-xs text-right text-slate-500 mt-1">12%</p>
+</td>
+<td class="px-6 py-4 text-slate-300 text-sm">88d 4h 32m</td>
+<td class="px-6 py-4 text-right">
+<button class="text-slate-400 hover:text-white transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="flex flex-col gap-2 h-[300px]">
+<div class="flex justify-between items-end px-1">
+<h3 class="text-white text-lg font-bold">System Events Log</h3>
+<div class="flex gap-4 text-xs font-mono">
+<span class="text-slate-400 flex items-center gap-1"><span class="size-2 bg-blue-500 rounded-full"></span> INFO</span>
+<span class="text-slate-400 flex items-center gap-1"><span class="size-2 bg-amber-500 rounded-full"></span> WARN</span>
+<span class="text-slate-400 flex items-center gap-1"><span class="size-2 bg-rose-500 rounded-full"></span> ERROR</span>
+</div>
+</div>
+<div class="bg-[#0b0f17] border border-border-dark rounded-lg p-4 font-mono text-sm overflow-y-auto h-full shadow-inner custom-scrollbar">
+<div class="flex flex-col gap-1.5">
+<div class="flex gap-3">
+<span class="text-slate-500 select-none">[10:42:05]</span>
+<span class="text-blue-400 font-bold select-none">INFO</span>
+<span class="text-slate-300">System backup initialized successfully on vol-0a82b.</span>
+</div>
+<div class="flex gap-3">
+<span class="text-slate-500 select-none">[10:42:12]</span>
+<span class="text-blue-400 font-bold select-none">INFO</span>
+<span class="text-slate-300">Snapshot created: snap-0382910398.</span>
+</div>
+<div class="flex gap-3">
+<span class="text-slate-500 select-none">[10:43:45]</span>
+<span class="text-amber-500 font-bold select-none">WARN</span>
+<span class="text-slate-300">High latency detected on <span class="text-white font-semibold">prod-db-shard-02</span> (320ms).</span>
+</div>
+<div class="flex gap-3">
+<span class="text-slate-500 select-none">[10:44:01]</span>
+<span class="text-blue-400 font-bold select-none">INFO</span>
+<span class="text-slate-300">Auto-scaling group triggered. Launching new instance.</span>
+</div>
+<div class="flex gap-3">
+<span class="text-slate-500 select-none">[10:45:22]</span>
+<span class="text-rose-500 font-bold select-none">ERROR</span>
+<span class="text-slate-300">Connection timeout: <span class="text-white font-semibold">staging-worker-01</span> is unreachable.</span>
+</div>
+<div class="flex gap-3">
+<span class="text-slate-500 select-none">[10:45:23]</span>
+<span class="text-blue-400 font-bold select-none">INFO</span>
+<span class="text-slate-300">Retry attempt 1/3 for staging-worker-01...</span>
+</div>
+<div class="flex gap-3">
+<span class="text-slate-500 select-none">[10:45:30]</span>
+<span class="text-rose-500 font-bold select-none">ERROR</span>
+<span class="text-slate-300">Retry failed. Marking node as offline.</span>
+</div>
+<div class="flex gap-3">
+<span class="text-slate-500 select-none">[10:46:15]</span>
+<span class="text-blue-400 font-bold select-none">INFO</span>
+<span class="text-slate-300">User admin_01 logged in from IP 192.168.0.1.</span>
+</div>
+<div class="flex gap-3">
+<span class="text-slate-500 select-none">[10:48:00]</span>
+<span class="text-blue-400 font-bold select-none">INFO</span>
+<span class="text-slate-300">Cron job "LogRotation" completed in 2.4s.</span>
+</div>
+<div class="flex gap-3 animate-pulse">
+<span class="text-slate-500 select-none">[10:48:05]</span>
+<span class="text-slate-500 font-bold select-none">_</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+
+</body></html>

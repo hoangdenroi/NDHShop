@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Checkout - CodeMarket</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#0d59f2",
+              "background-light": "#f5f6f8",
+              "background-dark": "#101622",
+            },
+            fontFamily: {
+              "display": ["Manrope"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 min-h-screen flex flex-col">
+<!-- Header -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-10 py-3 sticky top-0 z-50">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-4 text-slate-900 dark:text-white">
+<div class="size-8 flex items-center justify-center bg-primary rounded-lg text-white">
+<span class="material-symbols-outlined text-[24px]">code</span>
+</div>
+<h2 class="text-slate-900 dark:text-white text-lg font-bold leading-tight tracking-[-0.015em]">CodeMarket</h2>
+</div>
+<div class="hidden lg:flex items-center gap-9">
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary transition-colors text-sm font-medium leading-normal" href="#">Browse</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary transition-colors text-sm font-medium leading-normal" href="#">Sell</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary transition-colors text-sm font-medium leading-normal" href="#">Community</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary transition-colors text-sm font-medium leading-normal" href="#">Blog</a>
+</div>
+</div>
+<div class="flex flex-1 justify-end gap-6 items-center">
+<label class="hidden md:flex flex-col min-w-40 !h-10 max-w-64">
+<div class="flex w-full flex-1 items-stretch rounded-lg h-full group focus-within:ring-2 focus-within:ring-primary/20">
+<div class="text-slate-500 dark:text-slate-400 flex border-none bg-slate-100 dark:bg-slate-800 items-center justify-center pl-4 rounded-l-lg border-r-0">
+<span class="material-symbols-outlined text-[20px]">search</span>
+</div>
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-slate-900 dark:text-white focus:outline-0 focus:ring-0 border-none bg-slate-100 dark:bg-slate-800 focus:border-none h-full placeholder:text-slate-500 dark:placeholder:text-slate-400 px-4 rounded-l-none border-l-0 pl-2 text-sm font-normal leading-normal" placeholder="Search resources..." value=""/>
+</div>
+</label>
+<div class="flex gap-2">
+<button class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-900 dark:text-white text-sm font-bold leading-normal transition-colors">
+<span class="truncate">Sign Up</span>
+</button>
+<button class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary hover:bg-blue-700 text-white text-sm font-bold leading-normal transition-colors">
+<span class="truncate">Login</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="flex-1 px-4 py-8 md:px-10 lg:px-40 flex justify-center">
+<div class="layout-content-container flex flex-col max-w-[1200px] flex-1">
+<div class="flex flex-wrap items-end justify-between gap-4 mb-8">
+<div>
+<h1 class="text-slate-900 dark:text-white text-3xl md:text-4xl font-black leading-tight tracking-[-0.033em] mb-2">Checkout</h1>
+<p class="text-slate-500 dark:text-slate-400 text-base font-normal">Complete your purchase securely to access your files.</p>
+</div>
+<div class="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400">
+<span class="material-symbols-outlined text-[18px]">lock</span>
+<span>Secure SSL Encrypted Transaction</span>
+</div>
+</div>
+<div class="flex flex-col lg:flex-row gap-8 lg:gap-16">
+<!-- Left Column: Forms -->
+<div class="flex-1 flex flex-col gap-10">
+<!-- Billing Info -->
+<section>
+<h3 class="text-slate-900 dark:text-white text-xl font-bold leading-tight mb-6 flex items-center gap-3">
+<span class="flex items-center justify-center size-8 rounded-full bg-primary/10 text-primary text-sm font-bold">1</span>
+                            Billing Information
+                        </h3>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+<label class="flex flex-col">
+<span class="text-slate-700 dark:text-slate-300 text-sm font-medium pb-2">First Name</span>
+<input class="form-input w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 h-12 px-4 text-slate-900 dark:text-white placeholder:text-slate-400 focus:border-primary focus:ring-1 focus:ring-primary transition-colors" placeholder="e.g. John"/>
+</label>
+<label class="flex flex-col">
+<span class="text-slate-700 dark:text-slate-300 text-sm font-medium pb-2">Last Name</span>
+<input class="form-input w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 h-12 px-4 text-slate-900 dark:text-white placeholder:text-slate-400 focus:border-primary focus:ring-1 focus:ring-primary transition-colors" placeholder="e.g. Doe"/>
+</label>
+<label class="flex flex-col md:col-span-2">
+<span class="text-slate-700 dark:text-slate-300 text-sm font-medium pb-2">Email Address</span>
+<input class="form-input w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 h-12 px-4 text-slate-900 dark:text-white placeholder:text-slate-400 focus:border-primary focus:ring-1 focus:ring-primary transition-colors" placeholder="name@company.com" type="email"/>
+</label>
+<label class="flex flex-col md:col-span-2">
+<span class="text-slate-700 dark:text-slate-300 text-sm font-medium pb-2">Country</span>
+<div class="relative">
+<select class="form-select w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 h-12 pl-4 pr-10 text-slate-900 dark:text-white focus:border-primary focus:ring-1 focus:ring-primary transition-colors appearance-none">
+<option>United States</option>
+<option>Canada</option>
+<option>United Kingdom</option>
+<option>Germany</option>
+<option>Japan</option>
+</select>
+</div>
+</label>
+</div>
+</section>
+<!-- Payment Method -->
+<section>
+<h3 class="text-slate-900 dark:text-white text-xl font-bold leading-tight mb-6 flex items-center gap-3">
+<span class="flex items-center justify-center size-8 rounded-full bg-primary/10 text-primary text-sm font-bold">2</span>
+                            Payment Method
+                        </h3>
+<div class="grid grid-cols-3 gap-4 mb-6">
+<label class="cursor-pointer">
+<input checked="" class="peer sr-only" name="payment_method" type="radio"/>
+<div class="h-14 w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 peer-checked:border-primary peer-checked:bg-primary/5 peer-checked:ring-1 peer-checked:ring-primary flex items-center justify-center gap-2 hover:bg-slate-50 dark:hover:bg-slate-700 transition-all">
+<span class="material-symbols-outlined text-primary">credit_card</span>
+<span class="text-sm font-semibold text-slate-700 dark:text-slate-200">Card</span>
+</div>
+</label>
+<label class="cursor-pointer">
+<input class="peer sr-only" name="payment_method" type="radio"/>
+<div class="h-14 w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 peer-checked:border-primary peer-checked:bg-primary/5 peer-checked:ring-1 peer-checked:ring-primary flex items-center justify-center gap-2 hover:bg-slate-50 dark:hover:bg-slate-700 transition-all">
+<span class="material-symbols-outlined text-[#003087]">account_balance_wallet</span>
+<span class="text-sm font-semibold text-slate-700 dark:text-slate-200">PayPal</span>
+</div>
+</label>
+<label class="cursor-pointer">
+<input class="peer sr-only" name="payment_method" type="radio"/>
+<div class="h-14 w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 peer-checked:border-primary peer-checked:bg-primary/5 peer-checked:ring-1 peer-checked:ring-primary flex items-center justify-center gap-2 hover:bg-slate-50 dark:hover:bg-slate-700 transition-all">
+<span class="material-symbols-outlined text-[#F7931A]">currency_bitcoin</span>
+<span class="text-sm font-semibold text-slate-700 dark:text-slate-200">Crypto</span>
+</div>
+</label>
+</div>
+<!-- Card Details Form -->
+<div class="p-6 border border-slate-200 dark:border-slate-700 rounded-xl bg-white dark:bg-slate-800 shadow-sm">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+<label class="flex flex-col md:col-span-2">
+<span class="text-slate-700 dark:text-slate-300 text-sm font-medium pb-2">Card Number</span>
+<div class="relative">
+<input class="form-input w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 h-12 pl-12 pr-4 text-slate-900 dark:text-white placeholder:text-slate-400 focus:border-primary focus:ring-1 focus:ring-primary transition-colors" placeholder="0000 0000 0000 0000"/>
+<div class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">
+<span class="material-symbols-outlined text-[20px]">credit_card</span>
+</div>
+</div>
+</label>
+<label class="flex flex-col">
+<span class="text-slate-700 dark:text-slate-300 text-sm font-medium pb-2">Expiration Date</span>
+<input class="form-input w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 h-12 px-4 text-slate-900 dark:text-white placeholder:text-slate-400 focus:border-primary focus:ring-1 focus:ring-primary transition-colors" placeholder="MM/YY"/>
+</label>
+<label class="flex flex-col">
+<span class="text-slate-700 dark:text-slate-300 text-sm font-medium pb-2">CVC</span>
+<div class="relative">
+<input class="form-input w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 h-12 px-4 text-slate-900 dark:text-white placeholder:text-slate-400 focus:border-primary focus:ring-1 focus:ring-primary transition-colors" placeholder="123"/>
+<div class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 cursor-help" title="3 digits on back of card">
+<span class="material-symbols-outlined text-[18px]">help</span>
+</div>
+</div>
+</label>
+</div>
+</div>
+</section>
+</div>
+<!-- Right Column: Order Summary -->
+<div class="w-full lg:w-[380px] shrink-0">
+<div class="sticky top-28 bg-white dark:bg-slate-800 rounded-xl shadow-lg shadow-slate-200/50 dark:shadow-black/20 overflow-hidden border border-slate-100 dark:border-slate-700">
+<div class="p-6 border-b border-slate-100 dark:border-slate-700">
+<h3 class="text-slate-900 dark:text-white text-lg font-bold">Order Summary</h3>
+</div>
+<!-- Items List -->
+<div class="p-6 flex flex-col gap-6 max-h-[400px] overflow-y-auto">
+<!-- Item 1 -->
+<div class="flex gap-4">
+<div class="w-16 h-16 rounded-lg bg-slate-100 dark:bg-slate-700 shrink-0 overflow-hidden relative">
+<img alt="Product thumbnail" class="w-full h-full object-cover" data-alt="Code editor screen showing modern syntax highlighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBwMH1-v-G0BAu0PeCPp9KzjtOsf7fnXG57IxuW96cxQvgfqeMUoH1iosX86XYGvFCNN4rFRwPANcfq2gVgzXb2iQQ_yQeuTXqMqv9OXZ14MigG27ops7WEWXWfSnsdBNTEkLXf8Hk0xEPxHyWstkvCdIC4eHABdcBwbcBojzmn17Xs00_Rdknn-AVub7T6lPt2mM8wzzrqRyGb1edRoXve7RewWR72ItnOaSnRbsczccrJ1lw0sfeHZSMl_fpwcCmnfIy6Fmn4e98"/>
+</div>
+<div class="flex flex-col flex-1 justify-center">
+<h4 class="text-slate-900 dark:text-white font-semibold text-sm line-clamp-1">FinTech Dashboard UI Kit</h4>
+<p class="text-slate-500 dark:text-slate-400 text-xs">Personal License</p>
+</div>
+<div class="flex flex-col justify-center items-end">
+<span class="text-slate-900 dark:text-white font-bold text-sm">$49.00</span>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="flex gap-4">
+<div class="w-16 h-16 rounded-lg bg-slate-100 dark:bg-slate-700 shrink-0 overflow-hidden relative">
+<img alt="Product thumbnail" class="w-full h-full object-cover" data-alt="Laptop displaying code on a desk" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBbbo8WV1GbIFA-jvwBVpU1cZpTr8IALhXgyE262J1FtW7ka_o-qkHPdymje0O8ScCofnBwtO29DgDwlbpuTmjUkHjYvbmRzIdkpJha0YTWxL27_-IPvryk9AjcKVV8P7tLsK0WXJRnomp4aXX44YpM8oD1NwoXD1bZKLzZ9MpNhwObch3QA2nyMttU0xmJ_fqIww5eE6hdw3rPM7tHUq3GcjVx8usuPfWLAnqPxGLw1m4MCs8H4cFtNJ2vc2uo6v-S32nPb1sZvpU"/>
+</div>
+<div class="flex flex-col flex-1 justify-center">
+<h4 class="text-slate-900 dark:text-white font-semibold text-sm line-clamp-1">E-Commerce React Native App</h4>
+<p class="text-slate-500 dark:text-slate-400 text-xs">Commercial License</p>
+</div>
+<div class="flex flex-col justify-center items-end">
+<span class="text-slate-900 dark:text-white font-bold text-sm">$129.00</span>
+</div>
+</div>
+</div>
+<!-- Divider -->
+<div class="h-px bg-slate-100 dark:bg-slate-700 mx-6"></div>
+<!-- Totals -->
+<div class="p-6 space-y-3">
+<div class="flex justify-between text-sm">
+<span class="text-slate-500 dark:text-slate-400">Subtotal</span>
+<span class="text-slate-900 dark:text-white font-medium">$178.00</span>
+</div>
+<div class="flex justify-between text-sm">
+<span class="text-slate-500 dark:text-slate-400">Tax (VAT 0%)</span>
+<span class="text-slate-900 dark:text-white font-medium">$0.00</span>
+</div>
+<div class="flex justify-between items-center pt-3 mt-3 border-t border-slate-100 dark:border-slate-700">
+<span class="text-slate-900 dark:text-white font-bold text-lg">Total</span>
+<span class="text-primary font-bold text-2xl">$178.00</span>
+</div>
+</div>
+<!-- Actions -->
+<div class="p-6 pt-0">
+<button class="w-full bg-primary hover:bg-blue-700 text-white font-bold h-12 rounded-lg transition-all shadow-md shadow-blue-500/20 active:scale-[0.98] flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[20px]">lock</span>
+                                Complete Purchase
+                            </button>
+<p class="text-center text-xs text-slate-400 mt-4 px-2">
+                                By completing this purchase you agree to our <a class="text-primary hover:underline" href="#">Terms of Service</a>.
+                            </p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Simple Footer -->
+<footer class="border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 py-8 px-10 mt-12">
+<div class="layout-content-container max-w-[1200px] mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+<p class="text-slate-500 dark:text-slate-400 text-sm">© 2023 CodeMarket Inc. All rights reserved.</p>
+<div class="flex gap-6">
+<a class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200" href="#">
+<span class="sr-only">Twitter</span>
+<svg class="w-5 h-5" fill="currentColor" viewbox="0 0 24 24"><path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.84 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"></path></svg>
+</a>
+<a class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200" href="#">
+<span class="sr-only">GitHub</span>
+<svg class="w-5 h-5" fill="currentColor" viewbox="0 0 24 24"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"></path></svg>
+</a>
+</div>
+</div>
+</footer>
+</body></html>

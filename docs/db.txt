@@ -1,0 +1,163 @@
+Cấu trúc CSDL Chi tiết cho Shop (Sản phẩm số, Source, Game Crack)
+Dưới đây là thiết kế Schema chi tiết (tương thích trực tiếp với các Migration của Laravel) để bạn có cái nhìn cụ thể về hệ thống và chuẩn bị để php artisan view:clear hoặc migrate.
+
+1. Bảng users
+(Dùng chung cho cả Admin & Khách hàng)
+
+id (bigint, PK)
+name (string)
+email (string, unique)
+email_verified_at (timestamp, nullable)
+password (string)
+role (string) - Giá trị: 'admin' hoặc 'user' (Mặc định 'user')
+remember_token (string, nullable)
+created_at, updated_at
+2. Bảng categories
+(Phân loại danh mục đa cấp: Web Source, Game PC, App Mobile...)
+
+id (bigint, PK)
+parent_id (bigint, FK trỏ về chính bảng categories, nullable)
+name (string)
+slug (string, unique)
+description (text, nullable)
+metadata (json, nullable) - Lưu cấu hình đặc thù (VD: GamePC thì filter yêu cầu CPU/RAM, App Mobile thì filter theo OS)
+is_active (boolean, mặc định true)
+created_at, updated_at
+3. Bảng 
+products
+(Đại diện cho App, Source Code, Game - không có tồn kho)
+
+id (bigint, PK)
+category_id (bigint, FK trỏ về categories.id)
+name (string)
+slug (string, unique) - Để làm URL SEO
+description (longText) - Nội dung bài viết chi tiết, tính năng, hướng dẫn cài đặt
+price (decimal, 10,2) - Giá bán gốc
+sale_price (decimal, 10,2, nullable) - Giá sau khi giảm
+version (string, nullable) - Phiên bản hiện tại (v1.0.4)
+platform (string, nullable) - Nền tảng (Windows, Mac, Android, iOS, Web)
+developer (string, nullable) - Tên Team Crack hoặc Tác giả Source
+is_active (boolean, mặc định true)
+created_at, updated_at
+4. Bảng product_assets
+(Chứa tất tần tật tài nguyên dạng File/Link của Product)
+
+id (bigint, PK)
+product_id (bigint, FK trỏ về products.id)
+type (string) - Giá trị enum: 'THUMBNAIL', 'SCREENSHOT', 'VIDEO', 'SOURCE_CODE_LINK', 'CRACK_LINK'
+url_or_path (string) - Đường dẫn file local hoặc Link Google Drive/Mega
+file_size (string, nullable) - Lưu dung lượng file text (VD: "2.5 GB")
+is_primary (boolean, mặc định false) - Dùng để phân biệt ảnh Thumbnail chính
+sort_order (integer, mặc định 0) - Thứ tự hiển thị
+created_at, updated_at
+5. Bảng orders
+(Đơn hàng)
+
+id (bigint, PK)
+user_id (bigint, FK trỏ về users.id)
+order_code (string, unique) - Mã đơn hàng (VD: ORD-20261129A)
+status (string) - Trạng thái (pending, processing, completed, cancelled)
+payment_method (string) - Phương thức (Momo, VNPay, Crypto...)
+payment_status (string) - Trạng thái tiền (unpaid, paid, refunded)
+total_amount (decimal, 10,2)
+note (text, nullable)
+created_at, updated_at
+6. Bảng order_items
+(Chi tiết từng App/Game đã mua trên 1 đơn)
+
+id (bigint, PK)
+order_id (bigint, FK trỏ về orders.id)
+product_id (bigint, FK trỏ về products.id)
+price (decimal, 10,2) - Giá chụp lại tại thời điểm mua (Tránh trường hợp App đổi giá sau này)
+created_at, updated_at
+7. Bảng user_licenses
+(Bảng QUAN TRỌNG NHẤT: Bằng chứng user sở hữu App và cho phép tải)
+
+id (bigint, PK)
+unitcode (ulid, unique) - Mã định danh duy nhất dạng ULID
+user_id (bigint, FK trỏ về users.id)
+product_id (bigint, FK trỏ về products.id)
+order_id (bigint, FK trỏ về orders.id) - Sinh ra từ đơn hàng nào
+license_key (string, nullable) - Dành riêng cho app trả phí cần Key Active (không cần cho Game Crack)
+granted_at (timestamp) - Thời điểm tự động cấp phép mở khóa link
+expires_at (timestamp, nullable) - Thời điểm hết hạn (nếu dạng thuê/bán acc vip theo tháng)
+is_active (boolean, mặc định true)
+created_at, updated_at
+8. Bảng reviews
+(Đánh giá, bình luận sau khi mua)
+
+id (bigint, PK)
+unitcode (ulid, unique) - Mã định danh duy nhất dạng ULID
+user_id (bigint, FK trỏ về users.id)
+product_id (bigint, FK trỏ về products.id)
+rating (integer) - Số sao (1 - 5)
+comment (text, nullable)
+created_at, updated_at
+9. Bảng carts & cart_items (Giỏ hàng)
+carts
+
+id (bigint, PK)
+unitcode (ulid, unique) - Mã định danh duy nhất dạng ULID
+user_id (bigint, FK trỏ về users.id, nullable)
+session_id (string, nullable) - Dành cho khách vãng lai chưa log in
+created_at, updated_at
+cart_items
+
+id (bigint, PK)
+cart_id (bigint, FK trỏ về carts.id)
+product_id (bigint, FK trỏ về products.id)
+created_at, updated_at
+(Ghi chú: Giỏ hàng dạng Product số không cần cột quantity vì người dùng chỉ mua Source / App 1 lần cho 1 tải khoản, không cần tăng Số Lượng thành 2 hoặc 3 như quần áo vật lý).
+
+10. Bảng settings
+(Lưu trữ các cấu hình chung của hệ thống dưới dạng Key/Value thay vì Hardcode)
+
+id (bigint, PK)
+unitcode (ulid, unique)
+key (string, unique) - Khóa cài đặt (VD: site_name, maintenance_mode, payment_momo_config)
+value (json, nullable) - Giá trị cài đặt, linh hoạt lưu mảng hoặc chuỗi text
+description (string, nullable) - Mô tả ngắn cho dễ hiểu ở Admin
+created_at, updated_at
+11. Bảng audit_logs
+(Ghi lại nhật ký các hoạt động quan trọng trong hệ thống, đặc biệt hữu ích cho Admin quản lý gian lận hoặc fix lỗi)
+
+id (bigint, PK)
+unitcode (ulid, unique)
+user_id (bigint, FK trỏ về users.id, nullable)
+action (string) - Hành động (VD: 'created', 'updated', 'deleted', 'login', 'download')
+model_type (string, nullable) - Tên Class liên quan (VD: App\Models\Product)
+model_id (bigint, nullable) - ID của model liên quan (VD: ID của Product bị sửa)
+old_values (json, nullable) - Giá trị cũ trước khi bị sửa đổi
+new_values (json, nullable) - Giá trị mới sau khi sửa đổi
+ip_address (string, nullable)
+user_agent (string, nullable)
+created_at, updated_at
+12. Bảng post_categories
+(Danh mục bài viết Blog)
+
+id (bigint, PK)
+unitcode (ulid, unique)
+name (string)
+slug (string, unique)
+description (text, nullable)
+is_active (boolean, mặc định true)
+created_at, updated_at
+13. Bảng posts
+(Bài viết Blog phục vụ tính năng SEO cho Website)
+
+id (bigint, PK)
+unitcode (ulid, unique)
+user_id (bigint, FK trỏ về users.id) - Tác giả bài đăng
+category_id (bigint, FK trỏ về post_categories.id, nullable)
+title (string)
+slug (string, unique) - URL chuẩn SEO
+thumbnail (string, nullable) - Ảnh bìa
+summary (text, nullable) - Đoạn mô tả ngắn (Sapo)
+content (longText) - Nội dung HTML/Rich text
+meta_title (string, nullable) - SEO: Thẻ Title tùy chỉnh
+meta_description (text, nullable) - SEO: Thẻ Meta Description
+meta_keywords (string, nullable) - SEO: Keywords chia bằng dấu phẩy
+is_published (boolean, mặc định false) - Trạng thái ẩn/hiện
+published_at (timestamp, nullable) - Tính năng hẹn giờ lên bài hoặc ngày hiển thị chính thức
+view_count (integer, mặc định 0) - Lượt xem
+created_at, updated_at
