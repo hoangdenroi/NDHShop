@@ -5,10 +5,11 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+        <title>{{ config('app.name', 'NDHShop') }}</title>
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
+        <link rel="shortcut icon" href="{{ asset('NDHShop.jpg') }}" type="image/x-icon">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
         <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet" />
         <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
@@ -17,12 +18,22 @@
         <script>
             (function() {
                 try {
-                    // Nhận JSON từ biến DB do Blade render
-                    const dbThemeJson = '{!! addslashes(json_encode(auth()->check() ? \App\Models\Setting::getForUser(auth()->id(), "theme") : null)) !!}';
+                    const dbThemeJson = '{!! addslashes(json_encode(auth()->check() ? auth()->user()->theme : null)) !!}';
                     const dbTheme = dbThemeJson && dbThemeJson !== 'null' ? JSON.parse(dbThemeJson) : null;
                     
+                    const dbNotiJson = '{!! addslashes(json_encode(auth()->check() ? auth()->user()->notification : null)) !!}';
+                    if (dbNotiJson && dbNotiJson !== 'null') {
+                        let notiObj = JSON.parse(dbNotiJson);
+                        localStorage.setItem('notifications', JSON.stringify(typeof notiObj === 'string' ? JSON.parse(notiObj) : notiObj));
+                    }
+
+                    const dbLang = '{!! addslashes(auth()->check() ? auth()->user()->language : "") !!}';
+                    if (dbLang) {
+                        localStorage.setItem('language', dbLang);
+                    }
+
                     let mode = 'auto';
-                    let primaryColor = '#0d59f2'; // Default color
+                    let primaryColor = '#0d59f2';
 
                     if (dbTheme) {
                         let config = typeof dbTheme === 'string' ? JSON.parse(dbTheme) : dbTheme;
@@ -64,5 +75,28 @@
                 {{ $slot }}
             </main>
         </div>
+
+        {{-- Toast Notifications Component --}}
+        <x-app.toast />
+
+        @stack('scripts')
+
+        {{-- Dispatch toast từ session flash (ví dụ: khi bị redirect do chưa đăng nhập) --}}
+        @if(session('toast_message'))
+        <script>
+            // Dùng setTimeout để đảm bảo Alpine.js đã khởi tạo xong toast component
+            document.addEventListener('DOMContentLoaded', () => {
+                setTimeout(() => {
+                    window.dispatchEvent(new CustomEvent('toast', { detail: {
+                        type: '{{ session('toast_type', 'info') }}',
+                        title: '{{ session('toast_type') === 'warning' ? 'Cảnh báo' : (session('toast_type') === 'error' ? 'Lỗi' : (session('toast_type') === 'success' ? 'Thành công' : 'Thông báo')) }}',
+                        message: '{{ session('toast_message') }}',
+                        link: '{{ session('toast_link', '') }}' || null,
+                        linkText: '{{ session('toast_link_text', '') }}' || null
+                    }}));
+                }, 100);
+            });
+        </script>
+        @endif
     </body>
 </html>

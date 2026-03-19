@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0d59f2",
+                        "background-light": "#f5f6f8",
+                        "background-dark": "#101622",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<title>About Us | CodeMarket</title>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100">
+<div class="relative flex min-h-screen flex-col overflow-x-hidden">
+<!-- Navigation Bar -->
+<header class="sticky top-0 z-50 w-full border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-background-dark/80 backdrop-blur-md">
+<div class="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-2 text-primary">
+<div class="size-6">
+<svg fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path d="M4 4H17.3334V17.3334H30.6666V30.6666H44V44H4V4Z" fill="currentColor"></path>
+</svg>
+</div>
+<h2 class="text-xl font-bold tracking-tight text-slate-900 dark:text-slate-100">CodeMarket</h2>
+</div>
+<nav class="hidden md:flex items-center gap-6">
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#">Browse</a>
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#">Sell</a>
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#">Pricing</a>
+<a class="text-sm font-medium text-primary" href="#">About</a>
+</nav>
+</div>
+<div class="flex flex-1 justify-end gap-4 items-center">
+<div class="relative hidden sm:block w-full max-w-xs">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">search</span>
+<input class="w-full rounded-lg border-none bg-slate-100 dark:bg-slate-800 py-2 pl-10 pr-4 text-sm focus:ring-2 focus:ring-primary" placeholder="Search components..." type="text"/>
+</div>
+<button class="hidden sm:block px-5 py-2 rounded-lg bg-primary text-white text-sm font-bold hover:bg-primary/90 transition-all">Sign Up</button>
+<div class="size-10 rounded-full bg-slate-200 dark:bg-slate-700 bg-cover bg-center" data-alt="User profile placeholder" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCEmi3Ete_Up2eEQJze8GX_HUYyigSuBm9plPo9MtrcJwzivwc8buYubfPrhamSMGNSs2SP0pT4m0nQYXWZHNihCTLJjZgpDiaNzoPATpBHnmL0BEKbWM3pbzkaLj1UTezJdCxwTPBqzYYjW0kpVTA96CievgrJozq4FjyxwJbFKjEmLTPkjwO50NCYAn-ekkmoQ6fnqJOQI5nCenza-xjR3pfWF8noqYpijwnF0QmfB2qGPqaRZK9wqcKHXzBRYssOsIYehHVWw1I");'></div>
+</div>
+</div>
+</header>
+<main class="flex-1">
+<!-- Hero Section -->
+<section class="relative py-20 px-6 bg-white dark:bg-background-dark overflow-hidden">
+<div class="mx-auto max-w-7xl">
+<div class="grid lg:grid-cols-2 gap-12 items-center">
+<div class="flex flex-col gap-6">
+<span class="inline-block w-fit px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold uppercase tracking-wider">Since 2020</span>
+<h1 class="text-5xl font-extrabold tracking-tight lg:text-6xl text-slate-900 dark:text-slate-100">
+                                Empowering developers <span class="text-primary">worldwide</span>
+</h1>
+<p class="text-lg text-slate-600 dark:text-slate-400 leading-relaxed max-w-xl">
+                                CodeMarket is the leading destination for production-ready source code, helping developers build faster and smarter by providing high-quality reusable components.
+                            </p>
+</div>
+<div class="relative h-[400px] w-full rounded-2xl overflow-hidden shadow-2xl">
+<div class="absolute inset-0 bg-gradient-to-tr from-primary/20 to-transparent z-10"></div>
+<img class="h-full w-full object-cover" data-alt="Diverse development team collaborating in modern office space" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDyy83w8LhP3TCdlnTSmU-Ok8buvpHnCUjiNAfZf4UFgec4jsy4-jllnP9nSp8WZU84uWhQBiXV3K83AuyJkrM41pbknNJLdZx5vHImyBHNfpxpht8-Iugl0zEhCKEbZCG0bBh2MScsph6urxyLIzkHir8B8s0qYPx_FOFrq4DCSDlY5UgCTU_mp8L19w6_zsy1mxYKX4f7TAhaaxB5u4pd4R5Ad2ZtMT1elylTCOsnZ6gaepDuGaaKoFGp31_tJ0cvn8yb-vFh-kk"/>
+</div>
+</div>
+</div>
+</section>
+<!-- Stats Section -->
+<section class="py-12 border-y border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
+<div class="mx-auto max-w-7xl px-6">
+<div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+<div class="text-center">
+<p class="text-4xl font-black text-primary">50k+</p>
+<p class="text-sm text-slate-500 uppercase font-bold tracking-widest mt-2">Active Users</p>
+</div>
+<div class="text-center">
+<p class="text-4xl font-black text-primary">10k+</p>
+<p class="text-sm text-slate-500 uppercase font-bold tracking-widest mt-2">Digital Assets</p>
+</div>
+<div class="text-center">
+<p class="text-4xl font-black text-primary">120+</p>
+<p class="text-sm text-slate-500 uppercase font-bold tracking-widest mt-2">Frameworks</p>
+</div>
+<div class="text-center">
+<p class="text-4xl font-black text-primary">24/7</p>
+<p class="text-sm text-slate-500 uppercase font-bold tracking-widest mt-2">Expert Support</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Our Mission & Story -->
+<section class="py-24 bg-white dark:bg-background-dark">
+<div class="mx-auto max-w-4xl px-6">
+<div class="flex flex-col gap-16">
+<div>
+<h2 class="text-3xl font-bold mb-6 flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">rocket_launch</span>
+                                Our Mission
+                            </h2>
+<p class="text-xl text-slate-600 dark:text-slate-300 leading-relaxed italic border-l-4 border-primary pl-6">
+                                "To provide a seamless marketplace where developers can find high-quality source code to accelerate their projects and focus on what truly matters: innovation."
+                            </p>
+</div>
+<div>
+<h2 class="text-3xl font-bold mb-6 flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">history_edu</span>
+                                Our Story
+                            </h2>
+<div class="space-y-4 text-slate-600 dark:text-slate-400 leading-relaxed">
+<p>
+                                    Founded in 2020, CodeMarket started as a small project to help developers share reusable components. We noticed a recurring problem: developers were spending 80% of their time building the same foundational features for every new project.
+                                </p>
+<p>
+                                    What began as a library of shared React components quickly evolved into a comprehensive marketplace. Today, we are the leading destination for production-ready source code across multiple frameworks including Vue, Angular, Flutter, and more.
+                                </p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Core Values -->
+<section class="py-24 bg-slate-50 dark:bg-slate-900/30">
+<div class="mx-auto max-w-7xl px-6">
+<div class="text-center mb-16">
+<h2 class="text-3xl font-bold">Our Core Values</h2>
+<p class="text-slate-500 mt-2">The principles that guide everything we do</p>
+</div>
+<div class="grid md:grid-cols-3 gap-8">
+<div class="bg-white dark:bg-slate-800 p-8 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700">
+<div class="size-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary mb-6">
+<span class="material-symbols-outlined">verified</span>
+</div>
+<h3 class="text-xl font-bold mb-3">Quality First</h3>
+<p class="text-slate-600 dark:text-slate-400">Every piece of code on our platform undergoes a rigorous manual review process to ensure security and performance.</p>
+</div>
+<div class="bg-white dark:bg-slate-800 p-8 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700">
+<div class="size-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary mb-6">
+<span class="material-symbols-outlined">diversity_3</span>
+</div>
+<h3 class="text-xl font-bold mb-3">Community Driven</h3>
+<p class="text-slate-600 dark:text-slate-400">We believe in the power of collaboration. Our roadmap is shaped by the feedback of the thousands of developers who use CodeMarket.</p>
+</div>
+<div class="bg-white dark:bg-slate-800 p-8 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700">
+<div class="size-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary mb-6">
+<span class="material-symbols-outlined">lightbulb</span>
+</div>
+<h3 class="text-xl font-bold mb-3">Constant Innovation</h3>
+<p class="text-slate-600 dark:text-slate-400">The tech landscape changes fast. We continuously update our catalog and features to keep up with the latest industry standards.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Team Members -->
+<section class="py-24 bg-white dark:bg-background-dark">
+<div class="mx-auto max-w-7xl px-6">
+<div class="text-center mb-16">
+<h2 class="text-3xl font-bold">Meet the Team</h2>
+<p class="text-slate-500 mt-2">The people behind the code</p>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+<div class="group text-center">
+<div class="relative mb-4 aspect-square rounded-2xl overflow-hidden bg-slate-100 dark:bg-slate-800">
+<img class="h-full w-full object-cover transition-transform group-hover:scale-105" data-alt="Portrait of Alexander Thorne, CEO" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAsufma_56kHu2Ci88dSIrRxHScUNPFKStjImYU3533cdSWWzOJnRU2ewhY6aXq1FzNEHMsqo04RNIrbwUSuw_R9xDfIOZRNNBarN1KwBkHz7IXV0Q3alGN5DMMpQm6vqDZoRuvBcqnYrSYmdk95Bm_Qr8-JKXbSBv_7kilyT4kdb1fqDsNybFOgZP7LH9ifHKI8XWdOJ9fvtuyHa-btoPNouS7tffs-0hXV2qaJmrr_Tw6p92dMF-O-AXmthxFGeg_Af12PwaQVRE"/>
+</div>
+<h4 class="text-lg font-bold">Alexander Thorne</h4>
+<p class="text-primary text-sm font-medium">Founder &amp; CEO</p>
+</div>
+<div class="group text-center">
+<div class="relative mb-4 aspect-square rounded-2xl overflow-hidden bg-slate-100 dark:bg-slate-800">
+<img class="h-full w-full object-cover transition-transform group-hover:scale-105" data-alt="Portrait of Sarah Jenkins, CTO" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC91SynLdPwkfxfh8aE6IHxbr7C9HZE0PGT2wzhXDlZDaLQSqunyl_j6AZEaP9IrS7uaNvLmsTH3Z5Nvh8c31a7XpWhPNcX6AJRqxT1mE5lr29tEF5Cjno-DlLBps6waGOi-lBRXSqm7UWzJYIJ_Ts6tLC2Hg9QG6_FhPjVCfHMJ8h9BN6OlC21gHvGYyZ22MktGuo_icn2qegB0k8q5MgmAPzOOMif9yoRBX3UHqWgwy4IXGGtKigborWBgpBDG0IXUbsIFCrUDLI"/>
+</div>
+<h4 class="text-lg font-bold">Sarah Jenkins</h4>
+<p class="text-primary text-sm font-medium">CTO</p>
+</div>
+<div class="group text-center">
+<div class="relative mb-4 aspect-square rounded-2xl overflow-hidden bg-slate-100 dark:bg-slate-800">
+<img class="h-full w-full object-cover transition-transform group-hover:scale-105" data-alt="Portrait of David Chen, Head of Engineering" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDAS_SQxWhF4TL0sgxjZ0CYqe1k-S2OcONeTdnXgGb4pOfnwM2lHV7lMiOcT1wim3XX_4RCuEuqKkkmF3dyuBloi6i2h07DEyYYpCq2MU-Z5sYwzIAQygkztgBtQY9_nuZvRwZD6FHzhuOoe22Wlhpg7mjvZW4UzTqqWJ264OWJb-629q7nwmRyidoM3-5urf7FJhVGbaUDznwFAE0xOY3VC-OyuB1sO1x3uljsHUQ1SuNMxLtRRi-Kvjhx2chkwWu7ZNTcE-CiHo8"/>
+</div>
+<h4 class="text-lg font-bold">David Chen</h4>
+<p class="text-primary text-sm font-medium">Head of Engineering</p>
+</div>
+<div class="group text-center">
+<div class="relative mb-4 aspect-square rounded-2xl overflow-hidden bg-slate-100 dark:bg-slate-800">
+<img class="h-full w-full object-cover transition-transform group-hover:scale-105" data-alt="Portrait of Elena Rodriguez, Product Designer" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAXqZzdEngtq0GlM1H1_xCJVcNrvL2EYPAK57Y1yXL0B6iNfwCYQwQ75hbX9l1mu77zkzGean5YKGpTRWxfnRRtk_FeRRusIbqyS9-fNgIxtqQM7x27Ob3fNs-pmCJvD4_QbrDHLpxb01itAnLssCynaW0qanF7MuWfAN2OSgROvyoGE5GDsJI6xKggzhgoRqKIvMv8qgJSde_Bqfe_X0V0c9XuibiVTrvpy8qYNmU0tlKCsZhvwgWKDKYba6BOD7HI1MqtDrklL0U"/>
+</div>
+<h4 class="text-lg font-bold">Elena Rodriguez</h4>
+<p class="text-primary text-sm font-medium">Product Designer</p>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-white dark:bg-background-dark border-t border-slate-200 dark:border-slate-800 py-12 px-6">
+<div class="mx-auto max-w-7xl">
+<div class="grid md:grid-cols-4 gap-12">
+<div class="col-span-1 md:col-span-1">
+<div class="flex items-center gap-2 text-primary mb-6">
+<div class="size-5">
+<svg fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path d="M4 4H17.3334V17.3334H30.6666V30.6666H44V44H4V4Z" fill="currentColor"></path>
+</svg>
+</div>
+<h2 class="text-lg font-bold tracking-tight text-slate-900 dark:text-slate-100">CodeMarket</h2>
+</div>
+<p class="text-sm text-slate-500 leading-relaxed">
+                            The world's premier destination for high-quality, production-ready code components and assets.
+                        </p>
+</div>
+<div>
+<h4 class="font-bold mb-6 text-sm uppercase tracking-widest text-slate-900 dark:text-slate-100">Marketplace</h4>
+<ul class="space-y-4 text-sm text-slate-500">
+<li><a class="hover:text-primary transition-colors" href="#">Web Templates</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Mobile Apps</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">UI Kits</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Backend Modules</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-bold mb-6 text-sm uppercase tracking-widest text-slate-900 dark:text-slate-100">Company</h4>
+<ul class="space-y-4 text-sm text-slate-500">
+<li><a class="text-primary font-bold" href="#">About Us</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Careers</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Press Kit</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Contact</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-bold mb-6 text-sm uppercase tracking-widest text-slate-900 dark:text-slate-100">Social</h4>
+<div class="flex gap-4">
+<a class="size-10 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-600 dark:text-slate-400 hover:bg-primary hover:text-white transition-all" href="#">
+<span class="material-symbols-outlined text-[20px]">public</span>
+</a>
+<a class="size-10 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-600 dark:text-slate-400 hover:bg-primary hover:text-white transition-all" href="#">
+<span class="material-symbols-outlined text-[20px]">code</span>
+</a>
+<a class="size-10 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-600 dark:text-slate-400 hover:bg-primary hover:text-white transition-all" href="#">
+<span class="material-symbols-outlined text-[20px]">share</span>
+</a>
+</div>
+</div>
+</div>
+<div class="mt-12 pt-8 border-t border-slate-100 dark:border-slate-800 flex flex-col md:flex-row justify-between items-center gap-4">
+<p class="text-xs text-slate-400">© 2024 CodeMarket Inc. All rights reserved.</p>
+<div class="flex gap-6 text-xs text-slate-400">
+<a class="hover:underline" href="#">Privacy Policy</a>
+<a class="hover:underline" href="#">Terms of Service</a>
+<a class="hover:underline" href="#">Cookie Policy</a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+</body></html>

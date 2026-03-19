@@ -1,6 +1,10 @@
 <div x-show="activeTab === 'settings'" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-cloak
+    data-theme="{{ json_encode(auth()->user()->theme) }}"
+    data-notification="{{ json_encode(auth()->user()->notification) }}"
+    data-language="{{ auth()->user()->language }}"
     x-data="{ 
-        settingsView: 'menu', 
+        settingsView: '{{ session('status') == 'password-updated' || session('status') == 'profile-updated' ? 'security' : 'menu' }}', 
+        securityView: '{{ $errors->updatePassword->isNotEmpty() ? 'password' : ($errors->has('email') ? 'email' : 'list') }}', // list | password | email
         theme: 'auto', 
         accentColor: 'blue', 
         lang: 'vi', 
@@ -29,14 +33,41 @@
             'stone': '#78716c'
         },
         init() {
-            let stored = localStorage.getItem('theme');
-            if(stored) {
-                let parsed = JSON.parse(stored);
-                this.theme = parsed.mode || 'auto';
-                let hexVal = parsed.primaryColor || '#0d59f2';
-                // Tìm ngược từ hexVal ra tên màu (accentColor), nếu ko thấy set null
+            let themeData = this.$el.dataset.theme;
+            let serverTheme = themeData && themeData !== 'null' ? JSON.parse(themeData) : null;
+            if (serverTheme) {
+                this.theme = serverTheme.mode || 'auto';
+                let hexVal = serverTheme.primaryColor || '#0d59f2';
                 let foundKey = Object.keys(this.colorMap).find(key => this.colorMap[key] === hexVal);
                 if(foundKey) this.accentColor = foundKey;
+            } else {
+                let stored = localStorage.getItem('theme');
+                if(stored) {
+                    let parsed = JSON.parse(stored);
+                    this.theme = parsed.mode || 'auto';
+                    let hexVal = parsed.primaryColor || '#0d59f2';
+                    let foundKey = Object.keys(this.colorMap).find(key => this.colorMap[key] === hexVal);
+                    if(foundKey) this.accentColor = foundKey;
+                }
+            }
+
+            let notiData = this.$el.dataset.notification;
+            let serverNoti = notiData && notiData !== 'null' ? JSON.parse(notiData) : null;
+            if (serverNoti) {
+                this.notiPush = serverNoti.push !== false;
+                this.notiEmail = serverNoti.email !== false;
+            } else {
+                let storedNoti = localStorage.getItem('notifications');
+                if(storedNoti) {
+                    let parsed = JSON.parse(storedNoti);
+                    this.notiPush = parsed.push !== false;
+                    this.notiEmail = parsed.email !== false;
+                }
+            }
+
+            let serverLang = this.$el.dataset.language;
+            if (serverLang) {
+                this.lang = serverLang;
             }
 
             // Theo dõi thay đổi theme (chế độ sáng tối)
@@ -56,6 +87,42 @@
                     this.updateThemeSettings();
                 }
             });
+
+            // Theo dõi phần Bật tắt thông báo
+            this.$watch('notiPush', value => this.updateNotiSettings());
+            this.$watch('notiEmail', value => this.updateNotiSettings());
+
+            // Theo dõi thay đổi ngôn ngữ
+            this.$watch('lang', value => this.updateLangSettings());
+        },
+        updateNotiSettings() {
+            localStorage.setItem('notifications', JSON.stringify({ push: this.notiPush, email: this.notiEmail }));
+            
+            fetch('{{ route("api.v1.settings.notification") }}', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name=csrf-token]').getAttribute('content'),
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({
+                    push: this.notiPush,
+                    email: this.notiEmail
+                })
+            }).catch(e => console.error('Lỗi lưu cấu hình thông báo', e));
+        },
+        updateLangSettings() {
+            fetch('{{ route("api.v1.settings.language") }}', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name=csrf-token]').getAttribute('content'),
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({
+                    lang: this.lang
+                })
+            }).catch(e => console.error('Lỗi lưu ngôn ngữ', e));
         },
         updateThemeSettings() {
             let hexColor = this.colorMap[this.accentColor] || '#0d59f2';
@@ -63,7 +130,7 @@
             localStorage.setItem('theme', JSON.stringify({ mode: this.theme, primaryColor: hexColor }));
             
             // Call API lưu DB
-            fetch('{{ route("api.settings.theme") }}', {
+            fetch('{{ route("api.v1.settings.theme") }}', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -314,82 +381,160 @@
 
     {{-- Sub: Bảo mật --}}
     <div x-show="settingsView === 'security'" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0 translate-x-4" x-transition:enter-end="opacity-100 translate-x-0">
-        <div class="bg-white dark:bg-slate-800 rounded-xl border border-slate-100 dark:border-slate-700 shadow-sm overflow-hidden">
+        
+        {{-- Màn hình danh sách Bảo mật --}}
+        <div x-show="securityView === 'list'" class="bg-white dark:bg-slate-800 rounded-xl border border-slate-100 dark:border-slate-700 shadow-sm overflow-hidden" x-cloak>
             <div class="p-6 border-b border-slate-100 dark:border-slate-700 flex items-center gap-3">
                 <button @click="settingsView = 'menu'" class="flex size-8 items-center justify-center rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 transition-colors">
                     <span class="material-symbols-outlined text-[20px]">arrow_back</span>
                 </button>
                 <h2 class="text-lg font-bold text-slate-900 dark:text-white">Bảo mật</h2>
             </div>
-            <div class="p-6 space-y-8">
-                {{-- Đổi mật khẩu --}}
-                <div class="space-y-4">
-                    <h3 class="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
-                        <span class="material-symbols-outlined text-[20px] text-slate-400">lock</span>
+            <div class="p-6 flex flex-col gap-4">
+                
+                {{-- Mật khẩu --}}
+                <div class="flex items-center justify-between p-3 sm:p-4 gap-2 sm:gap-3 rounded-xl border border-slate-100 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 overflow-hidden">
+                    <div class="flex items-center gap-3 flex-1 min-w-0">
+                        <div class="size-10 sm:size-12 rounded-xl bg-slate-200/50 dark:bg-slate-700 flex items-center justify-center shrink-0">
+                            <span class="material-symbols-outlined text-slate-600 dark:text-slate-300">lock</span>
+                        </div>
+                        <div class="min-w-0">
+                            <p class="font-bold text-slate-900 dark:text-white text-sm sm:text-base truncate">Mật khẩu</p>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5 truncate w-full">
+                                Thay đổi: 
+                                @if (Auth::user()->last_change_password_at)
+                                    <span class="font-medium text-slate-700 dark:text-slate-300">{{ Auth::user()->last_change_password_at->diffForHumans() }}</span>
+                                @else
+                                    <span class="font-medium text-emerald-600 dark:text-emerald-400">Chưa đổi</span>
+                                @endif
+                            </p>
+                        </div>
+                    </div>
+                    <button @click="securityView = 'password'" class="px-3 sm:px-4 py-2 border border-slate-200 dark:border-slate-600 rounded-lg text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors shadow-sm shrink-0">
                         Đổi mật khẩu
-                    </h3>
-                    <div class="space-y-3">
-                        <div class="space-y-1.5">
-                            <label class="block text-sm font-medium text-slate-700 dark:text-slate-300">Mật khẩu hiện tại</label>
-                            <input class="form-input block w-full rounded-xl border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 text-slate-900 dark:text-white placeholder:text-slate-400 focus:border-primary focus:ring-primary h-11 sm:text-sm"
-                                type="password" placeholder="Nhập mật khẩu hiện tại" />
-                        </div>
-                        <div class="space-y-1.5">
-                            <label class="block text-sm font-medium text-slate-700 dark:text-slate-300">Mật khẩu mới</label>
-                            <input class="form-input block w-full rounded-xl border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 text-slate-900 dark:text-white placeholder:text-slate-400 focus:border-primary focus:ring-primary h-11 sm:text-sm"
-                                type="password" placeholder="Nhập mật khẩu mới" />
-                        </div>
-                        <div class="space-y-1.5">
-                            <label class="block text-sm font-medium text-slate-700 dark:text-slate-300">Xác nhận mật khẩu</label>
-                            <input class="form-input block w-full rounded-xl border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 text-slate-900 dark:text-white placeholder:text-slate-400 focus:border-primary focus:ring-primary h-11 sm:text-sm"
-                                type="password" placeholder="Nhập lại mật khẩu mới" />
-                        </div>
-                    </div>
-                    <button class="h-10 px-6 bg-primary hover:bg-blue-700 text-white font-bold text-sm rounded-xl transition-all shadow-sm shadow-primary/20 active:scale-[0.98]">
-                        Cập nhật mật khẩu
                     </button>
                 </div>
 
-                <hr class="border-slate-100 dark:border-slate-700">
-
-                {{-- Đổi email --}}
-                <div class="space-y-4">
-                    <h3 class="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
-                        <span class="material-symbols-outlined text-[20px] text-slate-400">mail</span>
-                        Đổi email
-                    </h3>
-                    <div class="space-y-3">
-                        <div class="space-y-1.5">
-                            <label class="block text-sm font-medium text-slate-700 dark:text-slate-300">Email mới</label>
-                            <input class="form-input block w-full rounded-xl border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 text-slate-900 dark:text-white placeholder:text-slate-400 focus:border-primary focus:ring-primary h-11 sm:text-sm"
-                                type="email" placeholder="Nhập email mới" />
+                {{-- Email xác thực --}}
+                <div class="flex items-center justify-between p-3 sm:p-4 gap-2 sm:gap-3 rounded-xl border border-slate-100 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 overflow-hidden">
+                    <div class="flex items-center gap-3 flex-1 min-w-0">
+                        <div class="size-10 sm:size-12 rounded-xl bg-slate-200/50 dark:bg-slate-700 flex items-center justify-center shrink-0">
+                            <span class="material-symbols-outlined text-slate-600 dark:text-slate-300">mail</span>
                         </div>
-                        <div class="space-y-1.5">
-                            <label class="block text-sm font-medium text-slate-700 dark:text-slate-300">Mật khẩu xác nhận</label>
-                            <input class="form-input block w-full rounded-xl border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 text-slate-900 dark:text-white placeholder:text-slate-400 focus:border-primary focus:ring-primary h-11 sm:text-sm"
-                                type="password" placeholder="Nhập mật khẩu để xác nhận" />
+                        <div class="min-w-0">
+                            <p class="font-bold text-slate-900 dark:text-white text-sm sm:text-base truncate">Email xác thực</p>
+                            <p class="text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 mt-0.5 truncate" title="{{ Auth::user()->email }}">{{ Auth::user()->email }}</p>
                         </div>
                     </div>
-                    <button class="h-10 px-6 bg-primary hover:bg-blue-700 text-white font-bold text-sm rounded-xl transition-all shadow-sm shadow-primary/20 active:scale-[0.98]">
-                        Cập nhật email
+                    <button @click="securityView = 'email'" class="px-3 sm:px-4 py-2 border border-slate-200 dark:border-slate-600 rounded-lg text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors shadow-sm shrink-0">
+                        Thay đổi
                     </button>
                 </div>
 
-                <hr class="border-slate-100 dark:border-slate-700">
+                <hr class="border-slate-100 dark:border-slate-700 my-2">
 
                 {{-- Xóa tài khoản --}}
-                <div class="space-y-3">
-                    <h3 class="text-base font-bold text-red-600 dark:text-red-400 flex items-center gap-2">
-                        <span class="material-symbols-outlined text-[20px]">warning</span>
-                        Xóa tài khoản
-                    </h3>
-                    <p class="text-sm text-slate-500 dark:text-slate-400">Sau khi xóa, tất cả dữ liệu sẽ bị mất vĩnh viễn và không thể khôi phục.</p>
-                    <button class="h-10 px-6 border border-red-200 dark:border-red-800 text-red-600 dark:text-red-400 font-bold text-sm rounded-xl hover:bg-red-50 dark:hover:bg-red-900/10 transition-colors">
-                        Xóa tài khoản
+                <div class="flex items-center justify-between p-3 sm:p-4 gap-2 sm:gap-3 rounded-xl border border-red-100 dark:border-red-900/30 bg-red-50/50 dark:bg-red-900/10 overflow-hidden">
+                    <div class="flex items-center gap-3 flex-1 min-w-0">
+                        <div class="size-10 sm:size-12 rounded-xl bg-red-100 dark:bg-red-900/50 flex items-center justify-center shrink-0">
+                            <span class="material-symbols-outlined text-red-600 dark:text-red-400">warning</span>
+                        </div>
+                        <div class="min-w-0">
+                            <p class="font-bold text-red-600 dark:text-red-400 text-sm sm:text-base truncate">Xóa tài khoản</p>
+                            <p class="text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 mt-0.5 truncate" title="Sau khi xóa, tất cả dữ liệu bị mất vĩnh viễn.">Sau khi xóa, tất cả dữ liệu bị mất vĩnh viễn.</p>
+                        </div>
+                    </div>
+                    <button class="px-3 sm:px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg text-xs sm:text-sm font-bold transition-colors shadow-sm shrink-0">
+                        Xóa
                     </button>
                 </div>
+
             </div>
         </div>
+
+        {{-- Form: Đổi mật khẩu --}}
+        <form method="post" action="{{ route('password.update') }}" x-show="securityView === 'password'" class="bg-white dark:bg-slate-800 rounded-xl border border-slate-100 dark:border-slate-700 shadow-sm overflow-hidden" x-cloak>
+            @csrf
+            @method('put')
+            <div class="p-6 border-b border-slate-100 dark:border-slate-700 flex items-center gap-3">
+                <button type="button" @click="securityView = 'list'" class="flex size-8 items-center justify-center rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 transition-colors">
+                    <span class="material-symbols-outlined text-[20px]">arrow_back</span>
+                </button>
+                <h2 class="text-lg font-bold text-slate-900 dark:text-white">Đổi mật khẩu</h2>
+            </div>
+            <div class="p-6 space-y-4">
+                <div class="space-y-3">
+                    <div class="space-y-1.5">
+                        <label class="block text-sm font-medium text-slate-700 dark:text-slate-300">Mật khẩu hiện tại</label>
+                        <input name="current_password" class="form-input block w-full rounded-xl border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 text-slate-900 dark:text-white placeholder:text-slate-400 focus:border-primary focus:ring-primary h-11 sm:text-sm"
+                            type="password" placeholder="Nhập mật khẩu hiện tại" />
+                        <x-ui.input-error :messages="$errors->updatePassword->get('current_password')" class="mt-1" />
+                    </div>
+                    <div class="space-y-1.5">
+                        <label class="block text-sm font-medium text-slate-700 dark:text-slate-300">Mật khẩu mới</label>
+                        <input name="password" class="form-input block w-full rounded-xl border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 text-slate-900 dark:text-white placeholder:text-slate-400 focus:border-primary focus:ring-primary h-11 sm:text-sm"
+                            type="password" placeholder="Nhập mật khẩu mới" />
+                        <x-ui.input-error :messages="$errors->updatePassword->get('password')" class="mt-1" />
+                    </div>
+                    <div class="space-y-1.5">
+                        <label class="block text-sm font-medium text-slate-700 dark:text-slate-300">Xác nhận mật khẩu</label>
+                        <input name="password_confirmation" class="form-input block w-full rounded-xl border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 text-slate-900 dark:text-white placeholder:text-slate-400 focus:border-primary focus:ring-primary h-11 sm:text-sm"
+                            type="password" placeholder="Nhập lại mật khẩu mới" />
+                        <x-ui.input-error :messages="$errors->updatePassword->get('password_confirmation')" class="mt-1" />
+                    </div>
+                </div>
+                <div class="flex items-center gap-4">
+                    <button type="submit" class="h-10 px-6 bg-primary hover:bg-blue-700 text-white font-bold text-sm rounded-xl transition-all shadow-sm shadow-primary/20 active:scale-[0.98]">
+                        Cập nhật mật khẩu
+                    </button>
+                    @if (session('status') === 'password-updated')
+                        <p class="text-sm text-emerald-600 dark:text-emerald-400 font-medium">Đã cập nhật mật khẩu.</p>
+                    @endif
+                </div>
+            </div>
+        </form>
+
+        {{-- Form: Đổi email --}}
+        <form method="post" action="{{ route('app.profile.update') }}" x-show="securityView === 'email'" class="bg-white dark:bg-slate-800 rounded-xl border border-slate-100 dark:border-slate-700 shadow-sm overflow-hidden" x-cloak>
+            @csrf
+            @method('patch')
+            <input type="hidden" name="name" value="{{ Auth::user()->name }}">
+            <input type="hidden" name="phone" value="{{ Auth::user()->phone }}">
+            <input type="hidden" name="avatar_url" value="{{ Auth::user()->avatar_url }}">
+            
+            <div class="p-6 border-b border-slate-100 dark:border-slate-700 flex items-center gap-3">
+                <button type="button" @click="securityView = 'list'" class="flex size-8 items-center justify-center rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 transition-colors">
+                    <span class="material-symbols-outlined text-[20px]">arrow_back</span>
+                </button>
+                <h2 class="text-lg font-bold text-slate-900 dark:text-white">Đổi email</h2>
+            </div>
+            <div class="p-6 space-y-4">
+                <div class="space-y-3">
+                    <div class="space-y-1.5">
+                        <label class="block text-sm font-medium text-slate-700 dark:text-slate-300">Email hiện tại</label>
+                        <input class="form-input block w-full rounded-xl border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 h-11 sm:text-sm"
+                            type="email" value="{{ Auth::user()->email }}" disabled />
+                    </div>
+                    <div class="space-y-1.5">
+                        <label class="block text-sm font-medium text-slate-700 dark:text-slate-300">Email bổ sung</label>
+                        <input name="email" class="form-input block w-full rounded-xl border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 text-slate-900 dark:text-white placeholder:text-slate-400 focus:border-primary focus:ring-primary h-11 sm:text-sm"
+                            type="email" value="{{ old('email') }}" placeholder="Nhập email mới" />
+                        <x-ui.input-error :messages="$errors->get('email')" class="mt-1" />
+                    </div>
+                    
+                    {{-- Ghi chú: Yêu cầu mật khẩu trong update profile là bắt buộc hay không thì tùy logic Breeze --}}
+                </div>
+                <div class="flex items-center gap-4">
+                    <button type="submit" class="h-10 px-6 bg-primary hover:bg-blue-700 text-white font-bold text-sm rounded-xl transition-all shadow-sm shadow-primary/20 active:scale-[0.98]">
+                        Lưu email
+                    </button>
+                    @if (session('status') === 'profile-updated' && !session('password-updated'))
+                        <p class="text-sm text-emerald-600 dark:text-emerald-400 font-medium">Đã cập nhật email.</p>
+                    @endif
+                </div>
+            </div>
+        </form>
+
     </div>
 
     {{-- Sub: Trợ giúp --}}

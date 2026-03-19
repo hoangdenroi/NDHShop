@@ -1,4 +1,4 @@
-<x-guest-layout>
+<x-auth-layout>
     {{-- Card xác nhận mật khẩu --}}
     <div class="w-full max-w-md bg-white dark:bg-[#151c2b] rounded-2xl shadow-xl shadow-slate-200/50 dark:shadow-black/20 border border-slate-100 dark:border-slate-800 overflow-hidden">
         <div class="p-8 sm:p-10">
@@ -34,7 +34,7 @@
                             <span class="material-symbols-outlined text-[20px]">visibility</span>
                         </button>
                     </div>
-                    <x-input-error :messages="$errors->get('password')" class="mt-1" />
+                    <x-ui.input-error :messages="$errors->get('password')" class="mt-1" />
                 </div>
 
                 {{-- Nút xác nhận --}}
@@ -45,4 +45,4 @@
             </form>
         </div>
     </div>
-</x-guest-layout>
+</x-auth-layout>

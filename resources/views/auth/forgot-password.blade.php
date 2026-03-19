@@ -1,4 +1,4 @@
-<x-guest-layout>
+<x-auth-layout>
     {{-- Card quên mật khẩu --}}
     <div class="w-full max-w-md bg-white dark:bg-[#151c2b] rounded-2xl shadow-xl shadow-slate-200/50 dark:shadow-black/20 border border-slate-100 dark:border-slate-800 overflow-hidden">
         <div class="p-8 sm:p-10">
@@ -16,7 +16,7 @@
             </div>
 
             {{-- Trạng thái session --}}
-            <x-auth-session-status class="mb-4" :status="session('status')" />
+            <x-ui.auth-session-status class="mb-4" :status="session('status')" />
 
             {{-- Form --}}
             <form method="POST" action="{{ route('password.email') }}" class="space-y-5">
@@ -32,7 +32,7 @@
                             id="email" name="email" type="email" value="{{ old('email') }}"
                             placeholder="email@example.com" required autofocus />
                     </div>
-                    <x-input-error :messages="$errors->get('email')" class="mt-1" />
+                    <x-ui.input-error :messages="$errors->get('email')" class="mt-1" />
                 </div>
 
                 {{-- Nút gửi --}}
@@ -52,4 +52,4 @@
             </p>
         </div>
     </div>
-</x-guest-layout>
+</x-auth-layout>

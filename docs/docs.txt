@@ -1,0 +1,42 @@
+// ngrok run
+ngrok http 8000
+
+// Chạy lệnh expire
+php artisan gift:expire
+ 2>&1
+
+TÀI LIỆU TỔNG KẾT KIẾN TRÚC DỰ ÁN (SAAS CUSTOM GIFT PLATFORM)
+
+1. TỔNG QUAN HỆ THỐNG
+   - Mục tiêu: Xây dựng nền tảng cho phép khách hàng mua, tùy chỉnh và chia sẻ các trang web quà tặng (pháo hoa, hiệu ứng, album ảnh...).
+   - Kiến trúc: Host-Plugin (Core-Plugin). Dự án chính (Host) chỉ quản lý người dùng và dữ liệu. Mã nguồn hiệu ứng (Plugin) được tải động.
+
+2. CẤU TRÚC LƯU TRỮ VÀ DỮ LIỆU
+   - Lưu trữ mã nguồn mẫu (Template Code): Lưu trực tiếp HTML, CSS, JS của từng mẫu vào Database để dễ dàng quản lý và cập nhật từ trang Admin.
+   - Mã nguồn tài nguyên (Assets): Ảnh, âm thanh do khách hàng upload sẽ được lưu trên Cloud Storage (Cloudinary/S3). Dự án chỉ lưu đường dẫn (URL) để giữ hệ thống siêu nhẹ.
+   - Mapping dữ liệu: Sử dụng "Placeholder" (Ví dụ: {{IMAGE1}}) trong code mẫu để nhúng dữ liệu khách hàng.
+
+3. GIẢI PHÁP HIỆU NĂNG VÀ BẢO MẬT (KHI FILE CODE LỚN)
+   - Hiệu năng:
+     + Redis Caching: Lưu code từ DB vào RAM để truy xuất dưới 1ms.
+     + Compression: Nén code bằng Gzip/Brotli trước khi gửi (giảm từ 5MB xuống còn < 1MB).
+     + Browser Cache: Tận dụng bộ nhớ trình duyệt của khách hàng để không phải tải lại mẫu nhiều lần.
+   - Bảo mật:
+     + iFrame Sandbox: Chạy code mẫu trong môi trường cách ly để tránh lỗ hổng XSS (mã độc chiếm quyền điều khiển trang web chính).
+
+4. QUẢN LÝ MẪU (DYNAMIC FORM GENERATION)
+   - Template Schema: Mỗi mẫu có một file JSON định nghĩa các thành phần cần nhập (ví dụ: cần 5 ảnh, 2 lời chúc).
+   - Auto-gen Form: Trang Dashboard khách hàng sẽ tự động sinh ra các ô nhập liệu đúng theo Schema của mẫu đã chọn.
+
+5. MÔ HÌNH KINH DOANH (MONETIZATION)
+   - Gói Cơ bản: Thu phí 1 lần, link có thời hạn (30-60 ngày) để tối ưu dung lượng Database.
+   - Gói Cao cấp (Upsell):
+     + Lưu trữ vĩnh viễn (Trả thêm phí duy trì).
+     + Xóa Logo thương hiệu (White-label).
+     + Tên miền tùy chỉnh (Custom Domain).
+     + Thống kê lượt xem (Analytics).
+
+6. CÁC ĐIỂM LƯU Ý KHÁC
+   - SEO & Social: Cần xử lý OpenGraph động để hiển thị ảnh bìa đẹp khi chia sẻ link qua mạng xã hội.
+   - Trải nghiệm người dùng: Cần màn hình "Mở quà" (Intro) để lách luật chặn tự động phát âm thanh của trình duyệt.
+   - Công cụ Admin: Tích hợp trình soạn thảo Monaco Editor để Admin viết code ngay trên giao diện web.

@@ -19,6 +19,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        // Cấu hình Carbon hiển thị tiếng Việt (diffForHumans, v.v.)
+        \Carbon\Carbon::setLocale('vi');
+
         // --- 1. Cấu hình Timeout ---
         // PHP Execution Timeout: 120 giây
         // set_time_limit(120);

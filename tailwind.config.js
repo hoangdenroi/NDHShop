@@ -1,5 +1,6 @@
 import defaultTheme from "tailwindcss/defaultTheme";
 import forms from "@tailwindcss/forms";
+import containerQueries from "@tailwindcss/container-queries";
 
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -17,6 +18,8 @@ export default {
                 primary: "var(--color-primary, #0d59f2)",
                 "background-light": "#f5f6f8",
                 "background-dark": "#101622",
+                "surface-dark": "#1e2430",
+                "border-dark": "#2d3646",
             },
             fontFamily: {
                 sans: ["Figtree", ...defaultTheme.fontFamily.sans],
@@ -25,5 +28,5 @@ export default {
         },
     },
 
-    plugins: [forms],
+    plugins: [forms, containerQueries],
 };

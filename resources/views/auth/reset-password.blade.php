@@ -1,4 +1,4 @@
-<x-guest-layout>
+<x-auth-layout>
     {{-- Card đặt lại mật khẩu --}}
     <div class="w-full max-w-md bg-white dark:bg-[#151c2b] rounded-2xl shadow-xl shadow-slate-200/50 dark:shadow-black/20 border border-slate-100 dark:border-slate-800 overflow-hidden">
         <div class="p-8 sm:p-10">
@@ -32,7 +32,7 @@
                             id="email" name="email" type="email" value="{{ old('email', $request->email) }}"
                             placeholder="email@example.com" required autofocus autocomplete="username" />
                     </div>
-                    <x-input-error :messages="$errors->get('email')" class="mt-1" />
+                    <x-ui.input-error :messages="$errors->get('email')" class="mt-1" />
                 </div>
 
                 {{-- Mật khẩu mới --}}
@@ -50,7 +50,7 @@
                             <span class="material-symbols-outlined text-[20px]">visibility</span>
                         </button>
                     </div>
-                    <x-input-error :messages="$errors->get('password')" class="mt-1" />
+                    <x-ui.input-error :messages="$errors->get('password')" class="mt-1" />
                 </div>
 
                 {{-- Xác nhận mật khẩu --}}
@@ -68,7 +68,7 @@
                             <span class="material-symbols-outlined text-[20px]">visibility</span>
                         </button>
                     </div>
-                    <x-input-error :messages="$errors->get('password_confirmation')" class="mt-1" />
+                    <x-ui.input-error :messages="$errors->get('password_confirmation')" class="mt-1" />
                 </div>
 
                 {{-- Nút đặt lại --}}
@@ -79,4 +79,4 @@
             </form>
         </div>
     </div>
-</x-guest-layout>
+</x-auth-layout>

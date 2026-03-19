@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0d59f2",
+                        "background-light": "#f5f6f8",
+                        "background-dark": "#101622",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<title>CodeMarket Blog - Latest in Development</title>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100">
+<div class="relative flex min-h-screen flex-col overflow-x-hidden">
+<header class="sticky top-0 z-50 w-full border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-background-dark/80 backdrop-blur-md">
+<div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-2">
+<div class="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-white">
+<span class="material-symbols-outlined text-xl">terminal</span>
+</div>
+<h2 class="text-xl font-bold tracking-tight">CodeMarket</h2>
+</div>
+<nav class="hidden md:flex items-center gap-8">
+<a class="text-sm font-semibold hover:text-primary transition-colors" href="#">Home</a>
+<a class="text-sm font-semibold text-primary transition-colors" href="#">Blog</a>
+<a class="text-sm font-semibold hover:text-primary transition-colors" href="#">Components</a>
+<a class="text-sm font-semibold hover:text-primary transition-colors" href="#">Docs</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative hidden sm:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-lg">search</span>
+<input class="h-10 w-64 rounded-lg border-none bg-slate-100 dark:bg-slate-800 pl-10 pr-4 text-sm focus:ring-2 focus:ring-primary/50" placeholder="Search articles..." type="text"/>
+</div>
+<button class="rounded-lg bg-primary px-5 py-2 text-sm font-bold text-white hover:bg-primary/90 transition-colors">Sign In</button>
+</div>
+</div>
+</header>
+<main class="mx-auto w-full max-w-7xl flex-1 px-4 py-8 sm:px-6 lg:px-8">
+<section class="mb-12">
+<div class="group relative overflow-hidden rounded-xl bg-white dark:bg-slate-900 shadow-sm transition-all hover:shadow-md border border-slate-200 dark:border-slate-800">
+<div class="flex flex-col lg:flex-row">
+<div class="h-64 w-full lg:h-auto lg:w-3/5">
+<div class="h-full w-full bg-slate-200 dark:bg-slate-800 bg-cover bg-center transition-transform duration-500 group-hover:scale-105" data-alt="Modern React dashboard code displayed on a monitor screen" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAJPAL_47MQuAEkO0sVm9Bj7X3PiSwIIUEGpQDFlnHbqonBj60rWAi2WRw4cvZGTbJ0fC5A_qPwbemWGDVpZxZ2BuJN_O_9AbgA_KAHyKscYxGRF6LbY1Y1i0PVZ4vjr-VHhhTJVQz0551NemOm7t8pbTjieOx2Kar7FNyN8aeErUVsDx639qOkfqIrNbIuRis0AzzUL8HmtOMt92MHOGM_Ob41o6_ZQOfaR609_Sgs17ixcXaaeBao4nxVRRxIHIM3Aihi6pSyzJY')">
+</div>
+</div>
+<div class="flex flex-1 flex-col justify-center p-8 lg:p-12">
+<div class="mb-4 inline-flex items-center rounded-full bg-primary/10 px-3 py-1 text-xs font-bold uppercase tracking-wider text-primary">
+                                Featured Post
+                            </div>
+<h1 class="mb-4 text-3xl font-extrabold leading-tight text-slate-900 dark:text-white lg:text-4xl">
+                                Mastering React Server Components: A Deep Dive into Performance
+                            </h1>
+<p class="mb-6 text-lg text-slate-600 dark:text-slate-400">
+                                Learn how to optimize your application performance with the latest React patterns and best practices for server-side rendering in 2024.
+                            </p>
+<div class="mb-8 flex items-center gap-4 text-sm text-slate-500">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-base">calendar_today</span> Jan 15, 2024</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-base">schedule</span> 12 min read</span>
+</div>
+<a class="inline-flex w-fit items-center justify-center gap-2 rounded-lg bg-primary px-6 py-3 text-sm font-bold text-white hover:bg-primary/90 transition-all" href="#">
+                                Read Full Article <span class="material-symbols-outlined text-base">arrow_forward</span>
+</a>
+</div>
+</div>
+</div>
+</section>
+<section class="mb-8">
+<div class="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
+<h2 class="text-2xl font-bold tracking-tight text-slate-900 dark:text-white">Recent Posts</h2>
+<div class="flex flex-wrap gap-2">
+<button class="rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-white">All Posts</button>
+<button class="rounded-lg bg-white dark:bg-slate-800 px-4 py-2 text-sm font-semibold border border-slate-200 dark:border-slate-700 hover:border-primary/50 transition-colors">Tutorials</button>
+<button class="rounded-lg bg-white dark:bg-slate-800 px-4 py-2 text-sm font-semibold border border-slate-200 dark:border-slate-700 hover:border-primary/50 transition-colors">News</button>
+<button class="rounded-lg bg-white dark:bg-slate-800 px-4 py-2 text-sm font-semibold border border-slate-200 dark:border-slate-700 hover:border-primary/50 transition-colors">Dev Tips</button>
+</div>
+</div>
+</section>
+<section class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+<div class="group flex flex-col rounded-xl bg-white dark:bg-slate-900 overflow-hidden border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md transition-all">
+<div class="aspect-video w-full overflow-hidden bg-slate-200 dark:bg-slate-800">
+<div class="h-full w-full bg-cover bg-center transition-transform duration-500 group-hover:scale-105" data-alt="Colorful abstract geometric shapes with software code overlays" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAY5io8DmA7-TOaq8_ESrJ2Z7HfjoSBMkV0Pj9dVZpxghHAuZIbb89wXSjS14nZatkrWNTchvMO2CJ-vU2oPXIOQw-I6EpfxYSMUQ_3takgxyEPEWb2g6Ue11hWsoCrKTTIyYUu53UqO4hIxpnY0EykJBPfW_NgPqZNSbp8Xh2VWZBv_DdXH5tjVA7FELdjh_6qgkADIg2dX6HvovYO2MxQBVyrbNJfY4nlUlzLxgAdbj2WOwsojVLrrijkRjYX_TOoNJt_6MApeZk')"></div>
+</div>
+<div class="flex flex-1 flex-col p-6">
+<div class="mb-3 flex items-center justify-between">
+<span class="text-xs font-bold uppercase tracking-widest text-primary">Tutorials</span>
+<span class="text-xs text-slate-500">Jan 12, 2024</span>
+</div>
+<h3 class="mb-3 text-xl font-bold text-slate-900 dark:text-white group-hover:text-primary transition-colors">
+                            Building a SaaS with Next.js 14 and Tailwind
+                        </h3>
+<p class="mb-6 line-clamp-2 text-sm text-slate-600 dark:text-slate-400">
+                            A comprehensive guide to building modern software as a service applications using the latest web stack.
+                        </p>
+<div class="mt-auto flex items-center justify-between border-t border-slate-100 dark:border-slate-800 pt-4">
+<span class="text-xs text-slate-500 flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">timer</span> 8 min read
+                            </span>
+<a class="text-sm font-bold text-primary hover:underline" href="#">Read more</a>
+</div>
+</div>
+</div>
+<div class="group flex flex-col rounded-xl bg-white dark:bg-slate-900 overflow-hidden border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md transition-all">
+<div class="aspect-video w-full overflow-hidden bg-slate-200 dark:bg-slate-800">
+<div class="h-full w-full bg-cover bg-center transition-transform duration-500 group-hover:scale-105" data-alt="Visual studio code interface with dark theme and syntax highlighting" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBCs0lImNbvHJJiOgjbgbatAn8WaNuled5UNN3QHrbmRdjvmzLWj1N8cwhhoulsH5uh73kFfY06ETzDIdEeIuPCC2CoHzmsB-bW7wXpbCHvSiZKXqckgu_dinlxwsB7EuYVIZ7gg_3gb50m1DCK7_T1Hg8cGZzmWVrY-DFKNn6SLRdhNlPUoGM2iiiTwKeHI9chIqUM4LLKy2YOXjGPpMsYH7akJE0KTBGUO3rwRVifmDoQgCz8rubJ2Me7J_xuBYfmiaWpPfj1H8I')"></div>
+</div>
+<div class="flex flex-1 flex-col p-6">
+<div class="mb-3 flex items-center justify-between">
+<span class="text-xs font-bold uppercase tracking-widest text-primary">News</span>
+<span class="text-xs text-slate-500">Jan 10, 2024</span>
+</div>
+<h3 class="mb-3 text-xl font-bold text-slate-900 dark:text-white group-hover:text-primary transition-colors">
+                            Top 10 VS Code Extensions for 2024 Productivity
+                        </h3>
+<p class="mb-6 line-clamp-2 text-sm text-slate-600 dark:text-slate-400">
+                            Boost your development workflow with these essential extensions for Visual Studio Code.
+                        </p>
+<div class="mt-auto flex items-center justify-between border-t border-slate-100 dark:border-slate-800 pt-4">
+<span class="text-xs text-slate-500 flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">timer</span> 5 min read
+                            </span>
+<a class="text-sm font-bold text-primary hover:underline" href="#">Read more</a>
+</div>
+</div>
+</div>
+<div class="group flex flex-col rounded-xl bg-white dark:bg-slate-900 overflow-hidden border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md transition-all">
+<div class="aspect-video w-full overflow-hidden bg-slate-200 dark:bg-slate-800">
+<div class="h-full w-full bg-cover bg-center transition-transform duration-500 group-hover:scale-105" data-alt="Modern typescript code on a dark background with interface definitions" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDa5TYCC3yRcJVDuUV3vkR1M-_1ZAAP0LnBwhIv6EkiW3pZFW7dgPHgHwVKFwl-JuXMZatyX0OeGNiO3GsVZlkxFCjfF8JK1v93hcF3vzynMByveOTXNWDEP4TMuds4Gi0uiWUj50pqspKNZAWHoOwSKOr-V1Yi1PHRNqiiUWVbvCxCvbDu3NhntQEzi3RSofxBUzcAQ8QaJhK1NB6QlYjUDJH4tWBrI5ZX_Ns4in94S9rSqSFbasZceqcaubbyex5hN0IdfbXdyh0')"></div>
+</div>
+<div class="flex flex-1 flex-col p-6">
+<div class="mb-3 flex items-center justify-between">
+<span class="text-xs font-bold uppercase tracking-widest text-primary">Development Tips</span>
+<span class="text-xs text-slate-500">Jan 08, 2024</span>
+</div>
+<h3 class="mb-3 text-xl font-bold text-slate-900 dark:text-white group-hover:text-primary transition-colors">
+                            Understanding TypeScript Generics: The Easy Way
+                        </h3>
+<p class="mb-6 line-clamp-2 text-sm text-slate-600 dark:text-slate-400">
+                            Clear and concise explanations for one of the most powerful features in TypeScript.
+                        </p>
+<div class="mt-auto flex items-center justify-between border-t border-slate-100 dark:border-slate-800 pt-4">
+<span class="text-xs text-slate-500 flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">timer</span> 10 min read
+                            </span>
+<a class="text-sm font-bold text-primary hover:underline" href="#">Read more</a>
+</div>
+</div>
+</div>
+<div class="group flex flex-col rounded-xl bg-white dark:bg-slate-900 overflow-hidden border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md transition-all">
+<div class="aspect-video w-full overflow-hidden bg-slate-200 dark:bg-slate-800">
+<div class="h-full w-full bg-cover bg-center transition-transform duration-500 group-hover:scale-105" data-alt="Server rack blue lights in a data center facility" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDBBTnq_G-bzoPiKAaKvIeiXPT7st7sUiajaxIl47X_Dl-FQfvVZzB2F8jBfhafZb6EX6fDcOGyNnuPKfsJ5k7_ODBw53P3eqiZUiL3C8MZZbjxyHRvAf4gR6wCL205PRG3s1sewNalaccxABt9LkgCeX5U-L6TMpzUcWOzeh7y6deMRx0j3Msiux7PiupKAnKFsrdb3nDxm4AK5lLZGaKVjxY8pB5TNpZ2FtYB6hQifyI4qUjLbS9_rxVxgEQYcZP4aCsKsoGWFpY')"></div>
+</div>
+<div class="flex flex-1 flex-col p-6">
+<div class="mb-3 flex items-center justify-between">
+<span class="text-xs font-bold uppercase tracking-widest text-primary">Tutorials</span>
+<span class="text-xs text-slate-500">Jan 05, 2024</span>
+</div>
+<h3 class="mb-3 text-xl font-bold text-slate-900 dark:text-white group-hover:text-primary transition-colors">
+                            Deploying to Vercel: A Complete CI/CD Guide
+                        </h3>
+<p class="mb-6 line-clamp-2 text-sm text-slate-600 dark:text-slate-400">
+                            Master the deployment pipeline and automate your workflow with Vercel and GitHub.
+                        </p>
+<div class="mt-auto flex items-center justify-between border-t border-slate-100 dark:border-slate-800 pt-4">
+<span class="text-xs text-slate-500 flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">timer</span> 6 min read
+                            </span>
+<a class="text-sm font-bold text-primary hover:underline" href="#">Read more</a>
+</div>
+</div>
+</div>
+<div class="group flex flex-col rounded-xl bg-white dark:bg-slate-900 overflow-hidden border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md transition-all">
+<div class="aspect-video w-full overflow-hidden bg-slate-200 dark:bg-slate-800">
+<div class="h-full w-full bg-cover bg-center transition-transform duration-500 group-hover:scale-105" data-alt="Abstract code on a dark background with glowing syntax colors" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAaomW8yh9miA3byQi-sKU9LexY_iYBX-cznkKIC3pBIF02-MI6x2FNMfdfQKdyKbx9h8lCfRY0dRFoIfrEbdJBcduUXsRDdgZf5EI6Pt3wBYyF_DkfNjUrCaHR4PP8raslDh3UanNKdQLEJazmfPbEb5HUe8gPQ19wM40sGt2DiIslArjQ2RMFn2oBYexidP9G641ahSRCpwG1J5wKmuZHKjgo1mrT9aXAKet3C-xOROxPtAf_P7X4gwpvMx2QXK6Jtat0bwkucpU')"></div>
+</div>
+<div class="flex flex-1 flex-col p-6">
+<div class="mb-3 flex items-center justify-between">
+<span class="text-xs font-bold uppercase tracking-widest text-primary">News</span>
+<span class="text-xs text-slate-500">Jan 03, 2024</span>
+</div>
+<h3 class="mb-3 text-xl font-bold text-slate-900 dark:text-white group-hover:text-primary transition-colors">
+                            State Management in Modern React Apps
+                        </h3>
+<p class="mb-6 line-clamp-2 text-sm text-slate-600 dark:text-slate-400">
+                            Comparing Redux, Zustand, and React Context for your next large-scale project.
+                        </p>
+<div class="mt-auto flex items-center justify-between border-t border-slate-100 dark:border-slate-800 pt-4">
+<span class="text-xs text-slate-500 flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">timer</span> 12 min read
+                            </span>
+<a class="text-sm font-bold text-primary hover:underline" href="#">Read more</a>
+</div>
+</div>
+</div>
+<div class="group flex flex-col rounded-xl bg-white dark:bg-slate-900 overflow-hidden border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md transition-all">
+<div class="aspect-video w-full overflow-hidden bg-slate-200 dark:bg-slate-800">
+<div class="h-full w-full bg-cover bg-center transition-transform duration-500 group-hover:scale-105" data-alt="Minimalist design workspace with keyboard and plant" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBy9WmYSuzj3lfEXaWdMXj0bKO-BuwDco0HtrdbCZidWJCoX3cI7F_dGlngOnWm0a7T75WSbt9wL-Wc-dffm7o6sSeshs3-KMkcqe7PihtMl1sdKKMnrprjLdxrJc3yVc_efUBXuThFyrrKSwxvXk5yaF7wuZUtgefezRkfQhbq3dS3jgPzm8RSxUNA8gm89NbydAgJ46rjvh6ApDBaHy7XCI2OxtkWuklzj_p3B1qBGGY1ZguW9NMs1-2v7Cjh0ydtviSHqfxXYpo')"></div>
+</div>
+<div class="flex flex-1 flex-col p-6">
+<div class="mb-3 flex items-center justify-between">
+<span class="text-xs font-bold uppercase tracking-widest text-primary">Development Tips</span>
+<span class="text-xs text-slate-500">Jan 01, 2024</span>
+</div>
+<h3 class="mb-3 text-xl font-bold text-slate-900 dark:text-white group-hover:text-primary transition-colors">
+                            CSS Grid vs Flexbox: When to use which?
+                        </h3>
+<p class="mb-6 line-clamp-2 text-sm text-slate-600 dark:text-slate-400">
+                            Stop the confusion and learn the definitive rules for layout positioning in modern CSS.
+                        </p>
+<div class="mt-auto flex items-center justify-between border-t border-slate-100 dark:border-slate-800 pt-4">
+<span class="text-xs text-slate-500 flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">timer</span> 7 min read
+                            </span>
+<a class="text-sm font-bold text-primary hover:underline" href="#">Read more</a>
+</div>
+</div>
+</div>
+</section>
+<div class="mt-16 flex items-center justify-center gap-2">
+<button class="flex h-10 w-10 items-center justify-center rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-600 hover:text-primary hover:border-primary transition-all">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<button class="flex h-10 w-10 items-center justify-center rounded-lg bg-primary text-sm font-bold text-white">1</button>
+<button class="flex h-10 w-10 items-center justify-center rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-sm font-bold text-slate-600 hover:text-primary hover:border-primary transition-all">2</button>
+<button class="flex h-10 w-10 items-center justify-center rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-sm font-bold text-slate-600 hover:text-primary hover:border-primary transition-all">3</button>
+<span class="px-2 text-slate-400">...</span>
+<button class="flex h-10 w-10 items-center justify-center rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-sm font-bold text-slate-600 hover:text-primary hover:border-primary transition-all">10</button>
+<button class="flex h-10 w-10 items-center justify-center rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-600 hover:text-primary hover:border-primary transition-all">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+<section class="mt-20 rounded-2xl bg-slate-900 p-8 text-center sm:p-16">
+<h2 class="mb-4 text-3xl font-extrabold text-white">Get the latest developer updates</h2>
+<p class="mx-auto mb-8 max-w-xl text-slate-400">Join 15,000+ developers receiving our weekly newsletter on React, Next.js, and modern web development.</p>
+<form class="mx-auto flex max-w-md flex-col gap-3 sm:flex-row">
+<input class="h-12 flex-1 rounded-lg border-none bg-white/10 px-4 text-white placeholder:text-slate-500 focus:ring-2 focus:ring-primary/50" placeholder="Enter your email" type="email"/>
+<button class="h-12 rounded-lg bg-primary px-8 font-bold text-white hover:bg-primary/90 transition-colors" type="submit">Subscribe</button>
+</form>
+</section>
+</main>
+<footer class="border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-background-dark py-12">
+<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+<div class="grid grid-cols-1 gap-12 md:grid-cols-4">
+<div class="col-span-1 md:col-span-1">
+<div class="mb-4 flex items-center gap-2">
+<div class="flex h-6 w-6 items-center justify-center rounded bg-primary text-white">
+<span class="material-symbols-outlined text-sm">terminal</span>
+</div>
+<h2 class="text-lg font-bold">CodeMarket</h2>
+</div>
+<p class="text-sm text-slate-500">The premium marketplace for reusable code components, templates, and full application architectures.</p>
+</div>
+<div>
+<h4 class="mb-4 text-sm font-bold uppercase tracking-wider text-slate-900 dark:text-white">Product</h4>
+<ul class="space-y-2 text-sm text-slate-500">
+<li><a class="hover:text-primary transition-colors" href="#">Components</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Templates</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Design Kit</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Pricing</a></li>
+</ul>
+</div>
+<div>
+<h4 class="mb-4 text-sm font-bold uppercase tracking-wider text-slate-900 dark:text-white">Resources</h4>
+<ul class="space-y-2 text-sm text-slate-500">
+<li><a class="text-primary font-semibold" href="#">Blog</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Documentation</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Community</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Help Center</a></li>
+</ul>
+</div>
+<div>
+<h4 class="mb-4 text-sm font-bold uppercase tracking-wider text-slate-900 dark:text-white">Legal</h4>
+<ul class="space-y-2 text-sm text-slate-500">
+<li><a class="hover:text-primary transition-colors" href="#">Terms of Service</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Privacy Policy</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">License Agreement</a></li>
+</ul>
+</div>
+</div>
+<div class="mt-12 flex flex-col items-center justify-between border-t border-slate-100 dark:border-slate-800 pt-8 sm:flex-row">
+<p class="text-sm text-slate-400">© 2024 CodeMarket. All rights reserved.</p>
+<div class="mt-4 flex gap-6 sm:mt-0">
+<a class="text-slate-400 hover:text-primary transition-colors" href="#"><span class="material-symbols-outlined">public</span></a>
+<a class="text-slate-400 hover:text-primary transition-colors" href="#"><span class="material-symbols-outlined">forum</span></a>
+<a class="text-slate-400 hover:text-primary transition-colors" href="#"><span class="material-symbols-outlined">mail</span></a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+</body></html>

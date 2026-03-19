@@ -21,8 +21,22 @@ return Application::configure(basePath: dirname(__DIR__))
         },
     )
     ->withMiddleware(function (Middleware $middleware): void {
+        // Khi user chưa đăng nhập, flash toast rồi redirect về trang login
+        $middleware->redirectGuestsTo(function () {
+            session()->flash('toast_type', 'warning');
+            session()->flash('toast_message', 'Bạn cần đăng nhập để sử dụng tính năng này!');
+            return route('login');
+        });
+
         $middleware->web(append: [
             \Illuminate\Routing\Middleware\ThrottleRequests::class.':web',
+        ]);
+
+        // Thêm session/cookie vào API để hỗ trợ auth:web từ AJAX
+        $middleware->api(prepend: [
+            \Illuminate\Cookie\Middleware\EncryptCookies::class,
+            \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
+            \Illuminate\Session\Middleware\StartSession::class,
         ]);
 
         // Bỏ qua kiểm tra CSRF cho các route API (bao gồm webhook từ SePay)

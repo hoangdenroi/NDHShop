@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Wishlist - CodeMarket</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0d59f2",
+                        "background-light": "#f5f6f8",
+                        "background-dark": "#101622",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Manrope', sans-serif;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen flex flex-col">
+<!-- Top Navigation Bar -->
+<header class="sticky top-0 z-50 w-full border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-background-dark/80 backdrop-blur-md">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex h-16 items-center justify-between gap-8">
+<div class="flex items-center gap-8">
+<a class="flex items-center gap-2 group" href="#">
+<div class="size-8 bg-primary rounded-lg flex items-center justify-center text-white">
+<span class="material-symbols-outlined">terminal</span>
+</div>
+<h2 class="text-xl font-extrabold tracking-tight text-slate-900 dark:text-white">CodeMarket</h2>
+</a>
+<nav class="hidden md:flex items-center gap-6">
+<a class="text-sm font-semibold hover:text-primary transition-colors" href="#">Browse</a>
+<a class="text-sm font-semibold hover:text-primary transition-colors" href="#">Deals</a>
+<a class="text-sm font-semibold hover:text-primary transition-colors" href="#">Sell</a>
+</nav>
+</div>
+<div class="flex flex-1 items-center justify-end gap-4">
+<div class="hidden lg:flex w-full max-w-sm">
+<div class="relative w-full group">
+<div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-slate-400 group-focus-within:text-primary">
+<span class="material-symbols-outlined text-[20px]">search</span>
+</div>
+<input class="block w-full rounded-lg border-0 py-2 pl-10 bg-slate-100 dark:bg-slate-800 focus:ring-2 focus:ring-primary text-sm" placeholder="Search resources..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<button class="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 relative">
+<span class="material-symbols-outlined">shopping_cart</span>
+<span class="absolute top-1 right-1 size-4 bg-primary text-white text-[10px] flex items-center justify-center rounded-full">3</span>
+</button>
+<button class="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800">
+<span class="material-symbols-outlined">favorite</span>
+</button>
+<div class="h-8 w-[1px] bg-slate-200 dark:bg-slate-700 mx-1"></div>
+<div class="flex items-center gap-2 cursor-pointer hover:opacity-80">
+<div class="size-8 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center overflow-hidden">
+<img alt="User profile" class="w-full h-full object-cover" data-alt="User profile avatar illustration" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAO2Jgf_DYVFXzu9KNleB7-ZAmFO-fETUE-XCG7fO2sgxF48Img9p8rES8LLrOK-V-afuKFUgIrpeUZKplum_rHUc6KcUOWpDqDkLQPK6asw6tRPfX9k_KJ0IY6L9-iN1V9nB1JxqTfGYkt4F0Wg9td090T1iQ-MuEZ8-lLgcAPeaAOWB1Ok57QXK45maNyGXTe3fXfkt7gYvIr0wUQ2zy7zGCQVn4pASCWBATbb6sAUXkcw6L7rm5jNgV5UUkoFFEvJRvg06NOahA"/>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="flex-grow max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8">
+<!-- Wishlist Header -->
+<div class="mb-8 flex flex-col md:flex-row md:items-end justify-between gap-6">
+<div>
+<nav class="flex mb-4 text-sm text-slate-500 gap-2">
+<a class="hover:text-primary" href="#">Home</a>
+<span>/</span>
+<span class="text-slate-900 dark:text-slate-100 font-medium">Wishlist</span>
+</nav>
+<h1 class="text-4xl font-extrabold text-slate-900 dark:text-white mb-2">My Wishlist</h1>
+<p class="text-slate-500 dark:text-slate-400">You have <span class="text-primary font-bold">5 items</span> saved for later.</p>
+</div>
+<div class="w-full md:w-80">
+<div class="relative w-full">
+<div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-slate-400">
+<span class="material-symbols-outlined text-[20px]">filter_list</span>
+</div>
+<input class="block w-full rounded-lg border border-slate-200 dark:border-slate-800 py-2.5 pl-10 bg-white dark:bg-slate-900 focus:ring-2 focus:ring-primary text-sm shadow-sm" placeholder="Search in wishlist..." type="text"/>
+</div>
+</div>
+</div>
+<!-- Wishlist Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+<!-- Item 1 -->
+<div class="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm hover:shadow-md transition-shadow group">
+<div class="aspect-video relative overflow-hidden bg-slate-100 dark:bg-slate-800">
+<img alt="Dashboard Template" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-alt="Sleek dashboard UI template analytics screen" src="https://lh3.googleusercontent.com/aida-public/AB6AXuARJ9qgD1Smtg7uoX6VMNP6pW6kom18uW1YZy4nlRjbkl4qkzZXXDtljr2-KUzTkw23zTPUnzRRUl4vpv-WKcJ4BhAV-aj0djWTUSj5DMek368eTGDebo_6OkPooLro-kTmrwdj1nNaHnkVj4p1Rgab81et5M4dmIbrjy8xVZ8pcwzd9Os7-36IvBvLo4UITgbQtQF-Z3CGjVkigGEd_gSjqPjKax3bckXX7yhl8vdqIBEuGW1m1cb0PUVIU9yFAiJSmTASKFqGkx8"/>
+<div class="absolute top-2 right-2">
+<span class="bg-white/90 dark:bg-slate-900/90 backdrop-blur px-2 py-1 rounded text-xs font-bold text-primary">Source Code</span>
+</div>
+</div>
+<div class="p-4">
+<div class="flex justify-between items-start mb-1">
+<h3 class="font-bold text-slate-900 dark:text-white truncate pr-2">Horizon Admin Dashboard</h3>
+<div class="flex items-center text-amber-500 text-sm font-bold shrink-0">
+<span class="material-symbols-outlined text-[16px] mr-0.5">star</span> 4.9
+                        </div>
+</div>
+<p class="text-xs text-slate-500 dark:text-slate-400 mb-3 uppercase tracking-wider font-bold">React • Tailwind</p>
+<div class="flex items-center justify-between mb-4">
+<span class="text-xl font-extrabold text-slate-900 dark:text-white">$49.00</span>
+</div>
+<div class="flex flex-col gap-2">
+<button class="w-full bg-primary text-white py-2 rounded-lg font-bold text-sm flex items-center justify-center gap-2 hover:bg-blue-700 transition-colors">
+<span class="material-symbols-outlined text-[18px]">add_shopping_cart</span>
+                            Add to Cart
+                        </button>
+<button class="w-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 py-2 rounded-lg font-bold text-sm flex items-center justify-center gap-2 hover:bg-red-50 hover:text-red-600 dark:hover:bg-red-900/20 dark:hover:text-red-400 transition-colors">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+                            Remove
+                        </button>
+</div>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm hover:shadow-md transition-shadow group">
+<div class="aspect-video relative overflow-hidden bg-slate-100 dark:bg-slate-800">
+<img alt="Game Kit" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-alt="Colorful space shooter game interface assets" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCUl_8bBALJN_-gWJqKDTIZyTPD0vSVBtfaf0AT6DWIgidQf2Ok0dy3YEdlL1KMknIpjJ3omscI0jVQLQeQlYTgAEcAq2ikEYglMKcYKeyZc-KIiy2-HAJq9gSmTv3eis7kJh0sNWMg3tmZuqr8OSfCcX30kgQlrqibBbg4pGRMMO_z8UUCvPjpQ37j0Yp6k7kI8vzMG0xTuQ4RMuK0SKvNh25-MFDc1ZACrFOTTiGSV_OIBYlQWc0bQnspRDM9zQh8QTIXtBv_jnE"/>
+<div class="absolute top-2 right-2">
+<span class="bg-white/90 dark:bg-slate-900/90 backdrop-blur px-2 py-1 rounded text-xs font-bold text-primary">Game</span>
+</div>
+</div>
+<div class="p-4">
+<div class="flex justify-between items-start mb-1">
+<h3 class="font-bold text-slate-900 dark:text-white truncate pr-2">Cosmic Strike Starter Kit</h3>
+<div class="flex items-center text-amber-500 text-sm font-bold shrink-0">
+<span class="material-symbols-outlined text-[16px] mr-0.5">star</span> 4.7
+                        </div>
+</div>
+<p class="text-xs text-slate-500 dark:text-slate-400 mb-3 uppercase tracking-wider font-bold">Unity • C#</p>
+<div class="flex items-center justify-between mb-4">
+<span class="text-xl font-extrabold text-slate-900 dark:text-white">$29.00</span>
+</div>
+<div class="flex flex-col gap-2">
+<button class="w-full bg-primary text-white py-2 rounded-lg font-bold text-sm flex items-center justify-center gap-2 hover:bg-blue-700 transition-colors">
+<span class="material-symbols-outlined text-[18px]">add_shopping_cart</span>
+                            Add to Cart
+                        </button>
+<button class="w-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 py-2 rounded-lg font-bold text-sm flex items-center justify-center gap-2 hover:bg-red-50 hover:text-red-600 dark:hover:bg-red-900/20 dark:hover:text-red-400 transition-colors">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+                            Remove
+                        </button>
+</div>
+</div>
+</div>
+<!-- Item 3 -->
+<div class="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm hover:shadow-md transition-shadow group">
+<div class="aspect-video relative overflow-hidden bg-slate-100 dark:bg-slate-800">
+<img alt="Mobile App" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-alt="Fitness mobile application user interface screens" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCiczYqfp27FqS0QPeI7M3rvLOgmjqzS1VQV-ZCvMc0WAeBhTLy5qH_bkRx0eN8v4dMRWnjJgQjwtjkCXY48TLPzMqOTpB3nHqxx0XopyOhX6xMM6T6cg0_UEvbOJopj89ORqcMqXa11EszqQEl0bduBCevgvG5A3l6O-f9UfkroM46UXE7AdkiufuJ9hYbnB49AbjrTD8zvCSUm4PRCGIGQ7KoWbPSoYjCbjCbbXJa-cEbG_5p3CB39_O_Jv0T1gd0MU9rW399Nn8"/>
+<div class="absolute top-2 right-2">
+<span class="bg-white/90 dark:bg-slate-900/90 backdrop-blur px-2 py-1 rounded text-xs font-bold text-primary">App</span>
+</div>
+</div>
+<div class="p-4">
+<div class="flex justify-between items-start mb-1">
+<h3 class="font-bold text-slate-900 dark:text-white truncate pr-2">FitFlow Workout Tracker</h3>
+<div class="flex items-center text-amber-500 text-sm font-bold shrink-0">
+<span class="material-symbols-outlined text-[16px] mr-0.5">star</span> 4.5
+                        </div>
+</div>
+<p class="text-xs text-slate-500 dark:text-slate-400 mb-3 uppercase tracking-wider font-bold">Flutter • Firebase</p>
+<div class="flex items-center justify-between mb-4">
+<span class="text-xl font-extrabold text-slate-900 dark:text-white">$35.00</span>
+</div>
+<div class="flex flex-col gap-2">
+<button class="w-full bg-primary text-white py-2 rounded-lg font-bold text-sm flex items-center justify-center gap-2 hover:bg-blue-700 transition-colors">
+<span class="material-symbols-outlined text-[18px]">add_shopping_cart</span>
+                            Add to Cart
+                        </button>
+<button class="w-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 py-2 rounded-lg font-bold text-sm flex items-center justify-center gap-2 hover:bg-red-50 hover:text-red-600 dark:hover:bg-red-900/20 dark:hover:text-red-400 transition-colors">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+                            Remove
+                        </button>
+</div>
+</div>
+</div>
+<!-- Item 4 -->
+<div class="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm hover:shadow-md transition-shadow group">
+<div class="aspect-video relative overflow-hidden bg-slate-100 dark:bg-slate-800">
+<img alt="E-commerce UI" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-alt="Modern e-commerce landing page design kit" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB2x0P19QgOrnqdR_wJoBJ7Kp18erpMUfuLd1t33hMvBEYMouSxETHC9N8r4KNQwyq_Lg_dOwBiWuNf3wkK9kZfgoht_aab2wtXNNOa-WGXoFSmZZDWG90e8wkbghwUK0UCeG04IZttxL3pinIhak0wvNN2bbbQenaz7zYxY2qe7QkL6mnXt8xBUocqGg3f_wb0gkLsJW18QWoO6Z-HyILVtfUanuzaArG1ZTKEpqIHX976LBkoJzBPpPTge41P9VX3L87mFAbqAws"/>
+<div class="absolute top-2 right-2">
+<span class="bg-white/90 dark:bg-slate-900/90 backdrop-blur px-2 py-1 rounded text-xs font-bold text-primary">Source Code</span>
+</div>
+</div>
+<div class="p-4">
+<div class="flex justify-between items-start mb-1">
+<h3 class="font-bold text-slate-900 dark:text-white truncate pr-2">Shopify Theme Template</h3>
+<div class="flex items-center text-amber-500 text-sm font-bold shrink-0">
+<span class="material-symbols-outlined text-[16px] mr-0.5">star</span> 4.8
+                        </div>
+</div>
+<p class="text-xs text-slate-500 dark:text-slate-400 mb-3 uppercase tracking-wider font-bold">Liquid • CSS</p>
+<div class="flex items-center justify-between mb-4">
+<span class="text-xl font-extrabold text-slate-900 dark:text-white">$19.00</span>
+</div>
+<div class="flex flex-col gap-2">
+<button class="w-full bg-primary text-white py-2 rounded-lg font-bold text-sm flex items-center justify-center gap-2 hover:bg-blue-700 transition-colors">
+<span class="material-symbols-outlined text-[18px]">add_shopping_cart</span>
+                            Add to Cart
+                        </button>
+<button class="w-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 py-2 rounded-lg font-bold text-sm flex items-center justify-center gap-2 hover:bg-red-50 hover:text-red-600 dark:hover:bg-red-900/20 dark:hover:text-red-400 transition-colors">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+                            Remove
+                        </button>
+</div>
+</div>
+</div>
+</div>
+<!-- Optional: Recommendation Section -->
+<div class="mt-16 border-t border-slate-200 dark:border-slate-800 pt-12">
+<div class="flex items-center justify-between mb-6">
+<h2 class="text-2xl font-bold text-slate-900 dark:text-white">Recommended for You</h2>
+<a class="text-primary font-bold text-sm hover:underline" href="#">See more</a>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 opacity-60">
+<!-- Tiny Preview Card 1 -->
+<div class="bg-white dark:bg-slate-900 rounded-lg p-3 border border-slate-200 dark:border-slate-800 flex gap-4">
+<div class="size-16 rounded bg-slate-100 dark:bg-slate-800 shrink-0 overflow-hidden">
+<img alt="Code" class="w-full h-full object-cover" data-alt="Abstract code on a dark screen" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDLGNgFAXrEvw2bmpF2u8U2ubeaTwmNmI-JRZoQ4x-LrPBGsljUjTKXtQMxLqYyuBsJvoWRCt2lRCcGZQQzMRVWSG4E97Wkh9Mo3ZWy0ipxxSqahfCnjSXuBT8OpGqnCbtu_8Jqzp3NWHRvUXpNPJ5nAaC4fgzTdRpA5c4LC8lHgQCNcv1cAHLrG8vJsnc4Wb-HvjWyrWHTgNofQjDNkOtgiBEIDJT4bfoOJgORybc4Ohp8xNeWsMM-jmsIr2BOUiRGs_MpoHGTNhY"/>
+</div>
+<div class="flex flex-col justify-center overflow-hidden">
+<p class="font-bold text-sm truncate">Auth Library Pro</p>
+<p class="text-xs text-slate-500">$12.00</p>
+</div>
+</div>
+<!-- Tiny Preview Card 2 -->
+<div class="bg-white dark:bg-slate-900 rounded-lg p-3 border border-slate-200 dark:border-slate-800 flex gap-4">
+<div class="size-16 rounded bg-slate-100 dark:bg-slate-800 shrink-0 overflow-hidden">
+<img alt="Design" class="w-full h-full object-cover" data-alt="Gradient background for software asset" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAa4fj-vkuWcqh86cUVimQC6aS_O4lDmI3pGpP8xDrJWMIe46eM0jRsYxl8Wty1SbJ4UHXMCB9S0qMtfvMVzZGIkcE2GhfLvYw-F6C28sGsvNkKJhEJI2esM7jaX4BOa8N9th3qRIjaz4eL135qnlkLuVTBzcM-Q2xfGCQo1hEc6Jk_Vc-g5yszd2UCj7uv6kbIIIqHrsT3TtiETKjsQ6tbCK2okaM5656QGnr32HYig64kf0XsQYxzeCW37avf9MwMS9OsNUJPiSQ"/>
+</div>
+<div class="flex flex-col justify-center overflow-hidden">
+<p class="font-bold text-sm truncate">Neon UI Kit</p>
+<p class="text-xs text-slate-500">$25.00</p>
+</div>
+</div>
+<!-- More slots could go here -->
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 mt-20">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+<div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8">
+<div class="col-span-2">
+<a class="flex items-center gap-2 mb-4" href="#">
+<div class="size-8 bg-primary rounded-lg flex items-center justify-center text-white">
+<span class="material-symbols-outlined">terminal</span>
+</div>
+<h2 class="text-xl font-extrabold tracking-tight text-slate-900 dark:text-white">CodeMarket</h2>
+</a>
+<p class="text-slate-500 dark:text-slate-400 max-w-xs mb-6">
+                        Premium source code, app templates, and digital assets for developers and entrepreneurs.
+                    </p>
+<div class="flex gap-4">
+<a class="text-slate-400 hover:text-primary" href="#"><span class="material-symbols-outlined">public</span></a>
+<a class="text-slate-400 hover:text-primary" href="#"><span class="material-symbols-outlined">share</span></a>
+<a class="text-slate-400 hover:text-primary" href="#"><span class="material-symbols-outlined">alternate_email</span></a>
+</div>
+</div>
+<div>
+<h3 class="font-bold text-slate-900 dark:text-white mb-4 uppercase text-xs tracking-widest">Marketplace</h3>
+<ul class="space-y-2 text-sm text-slate-500 dark:text-slate-400">
+<li><a class="hover:text-primary" href="#">Source Code</a></li>
+<li><a class="hover:text-primary" href="#">App Templates</a></li>
+<li><a class="hover:text-primary" href="#">Game Assets</a></li>
+<li><a class="hover:text-primary" href="#">UI Kits</a></li>
+</ul>
+</div>
+<div>
+<h3 class="font-bold text-slate-900 dark:text-white mb-4 uppercase text-xs tracking-widest">Support</h3>
+<ul class="space-y-2 text-sm text-slate-500 dark:text-slate-400">
+<li><a class="hover:text-primary" href="#">Help Center</a></li>
+<li><a class="hover:text-primary" href="#">Licensing</a></li>
+<li><a class="hover:text-primary" href="#">Refund Policy</a></li>
+<li><a class="hover:text-primary" href="#">Contact Us</a></li>
+</ul>
+</div>
+<div>
+<h3 class="font-bold text-slate-900 dark:text-white mb-4 uppercase text-xs tracking-widest">Company</h3>
+<ul class="space-y-2 text-sm text-slate-500 dark:text-slate-400">
+<li><a class="hover:text-primary" href="#">About Us</a></li>
+<li><a class="hover:text-primary" href="#">Careers</a></li>
+<li><a class="hover:text-primary" href="#">Terms of Service</a></li>
+<li><a class="hover:text-primary" href="#">Privacy Policy</a></li>
+</ul>
+</div>
+</div>
+<div class="mt-12 pt-8 border-t border-slate-200 dark:border-slate-800 flex flex-col md:flex-row justify-between items-center gap-4">
+<p class="text-sm text-slate-500">© 2024 CodeMarket Inc. All rights reserved.</p>
+<div class="flex items-center gap-4">
+<span class="text-xs text-slate-400">Secure Payments</span>
+<div class="flex gap-2">
+<div class="h-6 w-10 bg-slate-100 dark:bg-slate-800 rounded"></div>
+<div class="h-6 w-10 bg-slate-100 dark:bg-slate-800 rounded"></div>
+<div class="h-6 w-10 bg-slate-100 dark:bg-slate-800 rounded"></div>
+</div>
+</div>
+</div>
+</div>
+</footer>
+<!-- Empty Wishlist State (Hidden by default, used for logic demonstration) -->
+<!-- 
+    <div class="flex flex-col items-center justify-center py-20 px-4 text-center">
+        <div class="size-48 bg-primary/5 rounded-full flex items-center justify-center mb-8">
+            <span class="material-symbols-outlined text-[80px] text-primary/40">favorite</span>
+        </div>
+        <h2 class="text-2xl font-extrabold text-slate-900 dark:text-white mb-2">Your wishlist is empty</h2>
+        <p class="text-slate-500 dark:text-slate-400 max-w-sm mb-8">Looks like you haven't added any digital assets to your wishlist yet. Start exploring our marketplace!</p>
+        <button class="bg-primary text-white px-8 py-3 rounded-lg font-bold hover:bg-blue-700 transition-transform active:scale-95">
+            Start Shopping
+        </button>
+    </div>
+    -->
+</body></html>

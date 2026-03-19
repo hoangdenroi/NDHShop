@@ -25,11 +25,15 @@ class User extends Authenticatable
         'avatar_url',
         'balance',
         'password',
+        'google_id',
         'role',
         'status',
         'is_deleted',
         'last_change_password_at',
         'last_login_at',
+        'theme',
+        'notification',
+        'language',
     ];
 
     /**
@@ -56,6 +60,8 @@ class User extends Authenticatable
             'password' => 'hashed',
             'balance' => 'decimal:2',
             'is_deleted' => 'boolean',
+            'theme' => 'array',
+            'notification' => 'array',
         ];
     }
 }

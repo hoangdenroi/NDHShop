@@ -47,6 +47,26 @@ class TopupController extends Controller
         ]);
     }
 
+    /**
+     * Lấy lịch sử nạp tiền của user hiện tại
+     */
+    public function history(Request $request)
+    {
+        $unitcode = Auth::user()->unitcode;
+
+        $transactions = Transaction::where(function ($query) use ($unitcode) {
+            $query->where('user_id', Auth::id())
+                  ->orWhere('order_info', 'like', "%{$unitcode}%");
+        })
+        ->orderBy('created_at', 'desc')
+        ->paginate(10);
+
+        return response()->json([
+            'success' => true,
+            'data' => $transactions
+        ]);
+    }
+
     public function sepayHook(Request $request)
     {
         // Debug API Key
@@ -113,8 +133,9 @@ class TopupController extends Controller
             $failureReason = null;
 
             // Nếu là tiền vào và đúng cú pháp
-            if ($validated['transferType'] === 'in' && str_starts_with($transferContent, strtoupper(trim($prefix)))) {
-                $unitcode = trim(str_replace(strtoupper(trim($prefix)), '', $transferContent));
+            $prefixPattern = preg_quote(strtoupper(trim($prefix)), '/');
+            if ($validated['transferType'] === 'in' && preg_match('/' . $prefixPattern . '\s+([A-Z0-9]+)/', $transferContent, $matches)) {
+                $unitcode = trim($matches[1]);
                 $user = User::where('unitcode', $unitcode)->first();
 
                 if ($user) {
@@ -122,6 +143,18 @@ class TopupController extends Controller
                     // Cộng tiền cho user
                     $user->balance = ($user->balance ?? 0) + $validated['transferAmount'];
                     $user->save();
+
+                    // Tạo thông báo Gửi SSE Real-time
+                    \App\Models\Notification::create([
+                        'user_id' => $userId,
+                        'scope' => 'user',
+                        'title' => 'Nạp tiền thành công',
+                        'message' => 'Bạn vừa nạp thành công ' . number_format($validated['transferAmount']) . 'đ vào tài khoản.',
+                        'type' => 'success',
+                        'data' => [
+                            'action' => 'update_balance',
+                        ]
+                    ]);
                 } else {
                     $txStatus = 'FAILED';
                     $failureReason = 'Không tìm thấy user với mã unitcode: ' . $unitcode;

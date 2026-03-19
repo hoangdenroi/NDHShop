@@ -1,7 +1,7 @@
 {{-- Component Footer --}}
 <footer
-    class="bg-white dark:bg-gray-950 border-t border-gray-200 dark:border-gray-800 py-12 px-4 sm:px-6 md:px-10 lg:px-20 xl:px-40">
-    <div class="max-w-[1200px] mx-auto grid grid-cols-1 md:grid-cols-3 gap-12">
+    class="bg-white dark:bg-gray-950 border-t border-gray-200 dark:border-gray-800 flex flex-col items-center w-full px-4 lg:px-20 py-12">
+    <div class="max-w-[1400px] w-full grid grid-cols-1 md:grid-cols-3 gap-12">
         <!-- Column 1: Company Info -->
         <div class="flex flex-col gap-4">
             <div>
@@ -27,7 +27,7 @@
             </div>
 
             <div class="pt-6 border-t border-gray-100 dark:border-gray-800">
-                <p class="text-xs text-gray-500 mb-2">Copyright © 2026 NDHShop</p>
+                <p class="text-xs text-gray-500 mb-2">Copyright © {{ date('Y') }} NDHShop. All rights reserved.</p>
                 <p class="text-xs text-gray-500 mb-2">Version: 1.0.0</p>
                 <!-- <div class="flex gap-4 text-xs font-bold text-gray-800 dark:text-gray-300">
                     <a routerLink="/apps/privacy" class="hover:text-primary transition-colors">Privacy Policy</a>
@@ -110,7 +110,7 @@
                     tin mới nhất</h3>
                 <div class="flex flex-col gap-4">
                     <p class="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">
-                        Nhận các bài viết mới về thiết kế và mã giảm giá template hàng tháng trực tiếp qua email của
+                        Nhận các bài viết mới về thiết kế, sản phẩm và mã giảm giá hàng tháng trực tiếp qua email của
                         bạn.
                     </p>
                     <form class="flex flex-col gap-2">

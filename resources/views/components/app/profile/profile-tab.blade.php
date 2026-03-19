@@ -15,7 +15,7 @@
                     <input class="form-input block w-full rounded-xl border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 text-slate-900 dark:text-white placeholder:text-slate-400 focus:border-primary focus:ring-primary pl-10 h-12 sm:text-sm"
                         id="name" name="name" type="text" value="{{ old('name', Auth::user()->name) }}" required />
                 </div>
-                <x-input-error :messages="$errors->get('name')" class="mt-1" />
+                <x-ui.input-error :messages="$errors->get('name')" class="mt-1" />
             </div>
 
             {{-- Số điện thoại --}}
@@ -26,18 +26,18 @@
                     <input class="form-input block w-full rounded-xl border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 text-slate-900 dark:text-white placeholder:text-slate-400 focus:border-primary focus:ring-primary pl-10 h-12 sm:text-sm"
                         id="phone" name="phone" type="number" value="{{ old('phone', Auth::user()->phone) }}" required />
                 </div>
-                <x-input-error :messages="$errors->get('phone')" class="mt-1" />
+                <x-ui.input-error :messages="$errors->get('phone')" class="mt-1" />
             </div>
 
-            {{-- Link ảnh --}}
+            {{-- Link ảnh đại diện --}}
             <div class="space-y-1.5">
-                <label class="block text-sm font-medium text-slate-700 dark:text-slate-300" for="avatar">Link ảnh</label>
+                <label class="block text-sm font-medium text-slate-700 dark:text-slate-300" for="avatar_url">Link ảnh đại diện (Tùy chọn)</label>
                 <div class="relative">
                     <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-[20px] pointer-events-none">image</span>
                     <input class="form-input block w-full rounded-xl border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 text-slate-900 dark:text-white placeholder:text-slate-400 focus:border-primary focus:ring-primary pl-10 h-12 sm:text-sm"
-                        id="avatar" name="avatar" type="text" value="{{ old('avatar', Auth::user()->avatar) }}" required />
+                        id="avatar_url" name="avatar_url" type="text" value="{{ old('avatar_url', Auth::user()->avatar_url) }}" placeholder="https://domain.com/image.jpg" />
                 </div>
-                <x-input-error :messages="$errors->get('avatar')" class="mt-1" />
+                <x-ui.input-error :messages="$errors->get('avatar_url')" class="mt-1" />
             </div>
 
             {{-- Thông tin chỉ xem (không sửa được) --}}

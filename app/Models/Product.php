@@ -33,4 +33,9 @@ class Product extends BaseModel
     {
         return $this->hasMany(ProductAsset::class);
     }
+
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
+    }
 }

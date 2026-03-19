@@ -1,16 +1,27 @@
 @extends('layouts.app.app-layout')
 
 @section('content')
-<div x-data="{ activeTab: 'profile' }" class="flex flex-col lg:flex-row gap-8 w-full">
+<div x-data="{ 
+    activeTab: new URLSearchParams(window.location.search).get('tab') || 
+               {{ session('status') === 'password-updated' || session('status') === 'profile-updated' || $errors->updatePassword->isNotEmpty() || $errors->has('email') ? "'settings'" : "'profile'" }} 
+}" class="flex flex-col lg:flex-row gap-8 w-full">
     {{-- Sidebar --}}
     <aside class="w-full lg:w-72 shrink-0 flex flex-col gap-6">
         {{-- Thẻ thông tin người dùng --}}
         <div class="bg-white dark:bg-slate-800 rounded-xl p-6 border border-slate-100 dark:border-slate-700 shadow-sm flex flex-col items-center text-center">
-            <div class="h-24 w-24 rounded-full bg-primary text-white flex items-center justify-center mb-4 ring-4 ring-slate-50 dark:ring-slate-700 text-3xl font-bold">
-                {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
+            <div class="h-24 w-24 rounded-full bg-primary text-white flex items-center justify-center mb-4 ring-4 ring-slate-50 dark:ring-slate-700 text-3xl font-bold overflow-hidden">
+                @if(Auth::user()->avatar_url)
+                    <img src="{{ Auth::user()->avatar_url }}" alt="Avatar" class="h-full w-full object-cover">
+                @else
+                    {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
+                @endif
             </div>
             <h1 class="text-slate-900 dark:text-white text-lg font-bold">{{ Auth::user()->name }}</h1>
             <p class="text-slate-500 dark:text-slate-400 text-sm font-medium">{{ Auth::user()->email }}</p>
+            <p class="text-slate-500 dark:text-slate-400 text-sm font-medium">Số dư: {{ number_format(Auth::user()->balance, 0, ',', '.') }} VND</p>
+            @if(Auth::user()->role == 'admin')
+                <a target="_blank" href="{{ route('admin.dashboard') }}" class="text-red-500 dark:text-red-400 text-sm font-medium"><span class="material-symbols-outlined">admin_panel_settings</span> Vào trang quản trị</a>
+            @endif
         </div>
 
         {{-- Menu điều hướng (Alpine.js tabs) --}}
