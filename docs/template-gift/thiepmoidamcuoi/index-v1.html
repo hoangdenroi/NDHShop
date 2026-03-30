@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="en"><head><base href="https://api.vesey.vn/templates/">
+<meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Vesey - Thiệp cưới</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&amp;family=Great+Vibes&amp;family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&amp;family=Nunito:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&amp;subset=vietnamese&amp;display=swap" rel="stylesheet">
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
+
+        <style>
+            .font-baskerville {
+                font-family: "Libre Baskerville", serif;
+            }
+            .font-vibes {
+                font-family: "Great Vibes", cursive;
+            }
+            .font-cormorant {
+                font-family: "Cormorant Garamond", serif;
+            }
+            .font-nunito {
+                font-family: "Nunito", sans-serif;
+            }
+
+            :root {
+                --olive: #5d6a57;
+                --olive-light: #697a62;
+                --olive-muted: #8a9a84;
+                --olive-border: #bdcdc1;
+                --olive-bg: rgba(105, 122, 98, 0.08);
+                --cream: #fefdfb;
+            }
+
+            .text-olive {
+                color: var(--olive);
+            }
+            .bg-olive {
+                background-color: var(--olive);
+            }
+            .text-olive-light {
+                color: var(--olive-light);
+            }
+            .text-olive-muted {
+                color: var(--olive-muted);
+            }
+            .border-olive {
+                border-color: var(--olive-border);
+            }
+
+            /* Horizontal leaf divider */
+            .leaf-divider {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 12px;
+            }
+            .leaf-divider::before,
+            .leaf-divider::after {
+                content: "";
+                width: 50px;
+                height: 1px;
+                background: var(--olive-border);
+            }
+
+            /* Calendar day block */
+            .calendar-block {
+                display: inline-flex;
+                flex-direction: column;
+                align-items: center;
+                background: var(--olive);
+                color: white;
+                border-radius: 14px;
+                padding: 14px 24px;
+                min-width: 90px;
+            }
+
+            /* Staggered photos */
+            .stagger-left {
+                transform: rotate(-2deg);
+            }
+            .stagger-right {
+                transform: rotate(2deg);
+            }
+
+            .countdown-circle {
+                width: 64px;
+                height: 64px;
+                border-radius: 50%;
+                border: 1.5px solid var(--olive-border);
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                background: white;
+            }
+
+            /* ===== QR TOGGLE ===== */
+            .vs-qr-content.vs-hidden {
+                display: none;
+            }
+            .vs-qr-content.vs-reveal {
+                animation: qr-reveal 0.4s ease-out;
+            }
+            @keyframes qr-reveal {
+                from {
+                    opacity: 0;
+                    transform: translateY(-8px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+</style></head><body>
+            <link rel="stylesheet" href="/css/vesey.css?v=20260313b"><div class="max-w-[640px] mx-auto min-h-screen bg-[#fefdfb] text-[#2c2c2c] pb-20" style="font-family: &quot;Nunito&quot;, sans-serif" data-uuid="69b380dde530c">
+    <!-- ===== HERO — Full-height photo with names at bottom ===== -->
+    <header data-moveable="true" data-hidable="true" data-copyable="true" data-removable="true" class="w-full relative wow animate__fadeIn" data-uuid="69b380dde5327">
+        <!-- Decorative top-left leaf SVG -->
+        <svg class="absolute top-0 left-0 w-36 h-36 opacity-20 pointer-events-none z-20" viewBox="0 0 150 150" fill="none" data-uuid="69b380dde532f">
+            <path d="M10 140 Q30 80 80 50 Q50 90 45 130 Z" fill="#5d6a57" opacity="0.5" data-uuid="69b380dde5336">
+            </path>
+            <path d="M5 120 Q25 60 90 20 Q55 70 40 120 Z" fill="#8a9a84" opacity="0.4" data-uuid="69b380dde533c"></path>
+            <path d="M20 145 Q50 100 100 80" stroke="#5d6a57" stroke-width="1" fill="none" opacity="0.3" data-uuid="69b380dde5342"></path>
+        </svg>
+        <!-- Decorative top-right leaf SVG (mirrored) -->
+        <svg class="absolute top-0 right-0 w-36 h-36 opacity-20 pointer-events-none z-20" viewBox="0 0 150 150" fill="none" style="transform: scaleX(-1)" data-uuid="69b380dde5349">
+            <path d="M10 140 Q30 80 80 50 Q50 90 45 130 Z" fill="#5d6a57" opacity="0.5" data-uuid="69b380dde534f">
+            </path>
+            <path d="M5 120 Q25 60 90 20 Q55 70 40 120 Z" fill="#8a9a84" opacity="0.4" data-uuid="69b380dde5355"></path>
+            <path d="M20 145 Q50 100 100 80" stroke="#5d6a57" stroke-width="1" fill="none" opacity="0.3" data-uuid="69b380dde535b"></path>
+        </svg>
+
+        <div class="relative h-[680px] overflow-hidden" data-uuid="69b380dde5362">
+            <img src="https://api.vesey.vn/templates/vs-template-41/images/img-header.webp" alt="" class="w-full h-full object-cover object-top" data-editable="true" data-uuid="69b380dde5367">
+            <div class="absolute inset-0 bg-gradient-to-t from-[#fefdfb] via-[#fefdfb]/30 to-transparent pointer-events-none" data-uuid="69b380dde536f"></div>
+
+            <!-- Names pinned to bottom of hero -->
+            <div class="absolute bottom-6 left-0 right-0 text-center z-10" data-uuid="69b380dde5375">
+                <p class="font-vibes text-olive text-[52px] leading-[1.1] drop-shadow-sm" data-editable="true" data-uuid="69b380dde537b">
+                    Minh Khôi
+                </p>
+                <p class="font-cormorant text-olive-muted text-2xl my-1" data-editable="true" data-uuid="69b380dde5382">
+                    &amp;
+                </p>
+                <p class="font-vibes text-olive text-[52px] leading-[1.1] drop-shadow-sm" data-editable="true" data-uuid="69b380dde5389">
+                    Hạ Vy
+                </p>
+                <p class="font-nunito text-olive-muted text-[10px] tracking-[0.35em] uppercase mt-4" data-editable="true" data-uuid="69b380dde5390">
+                    20 . 03 . 2027
+                </p>
+            </div>
+        </div>
+    </header>
+
+    <main data-uuid="69b380dde5398">
+        <!-- ===== SECTION 1: Opening quote with botanical SVG accents ===== -->
+        <section data-moveable="true" data-hidable="true" data-copyable="true" data-removable="true" class="px-8 py-14 relative overflow-hidden wow animate__fadeInUp" data-uuid="69b380dde539f">
+            <!-- Decorative branch SVG left -->
+            <svg class="absolute left-0 top-4 w-24 opacity-15 pointer-events-none" viewBox="0 0 100 200" fill="none" data-uuid="69b380dde53a7">
+                <path d="M80 0 Q70 40 50 70 Q40 90 30 130 Q25 160 30 200" stroke="#5d6a57" stroke-width="1.5" fill="none" data-uuid="69b380dde53ae"></path>
+                <ellipse cx="55" cy="50" rx="12" ry="18" fill="#8a9a84" opacity="0.5" transform="rotate(-25 55 50)" data-uuid="69b380dde53b6"></ellipse>
+                <ellipse cx="40" cy="85" rx="10" ry="16" fill="#5d6a57" opacity="0.4" transform="rotate(15 40 85)" data-uuid="69b380dde53be"></ellipse>
+                <ellipse cx="35" cy="120" rx="11" ry="17" fill="#8a9a84" opacity="0.35" transform="rotate(-10 35 120)" data-uuid="69b380dde53c6"></ellipse>
+                <ellipse cx="28" cy="155" rx="9" ry="14" fill="#5d6a57" opacity="0.3" transform="rotate(20 28 155)" data-uuid="69b380dde53ce"></ellipse>
+            </svg>
+            <!-- Decorative branch SVG right -->
+            <svg class="absolute right-0 bottom-4 w-20 opacity-12 pointer-events-none" viewBox="0 0 80 160" fill="none" style="transform: scaleX(-1)" data-uuid="69b380dde53d6">
+                <path d="M60 0 Q55 35 40 60 Q30 85 25 120 Q22 140 28 160" stroke="#5d6a57" stroke-width="1.5" fill="none" data-uuid="69b380dde53de"></path>
+                <ellipse cx="45" cy="40" rx="10" ry="15" fill="#8a9a84" opacity="0.4" transform="rotate(-20 45 40)" data-uuid="69b380dde53e6"></ellipse>
+                <ellipse cx="32" cy="75" rx="9" ry="14" fill="#5d6a57" opacity="0.35" transform="rotate(15 32 75)" data-uuid="69b380dde53ef"></ellipse>
+                <ellipse cx="27" cy="110" rx="8" ry="13" fill="#8a9a84" opacity="0.3" transform="rotate(-10 27 110)" data-uuid="69b380dde53f8"></ellipse>
+            </svg>
+
+            <div class="relative z-10 ml-4 pl-5 border-l-2 border-olive/20" data-uuid="69b380dde5400">
+                <p class="font-cormorant text-[16px] leading-[2.1] italic text-olive/70" data-editable="true" data-uuid="69b380dde5409">
+                    "Giữa vạn lần gặp gỡ trên đời, chúng mình chọn nhau
+                    — không phải vì hoàn hảo, mà vì đủ duyên để trọn vẹn
+                    bên nhau."
+                </p>
+                <!-- SVG ornament -->
+                <svg class="w-20 mt-4 opacity-40" viewBox="0 0 80 20" fill="none" data-uuid="69b380dde5412">
+                    <path d="M0 10 Q20 0 40 10 Q60 20 80 10" stroke="#5d6a57" stroke-width="1" fill="none" data-uuid="69b380dde541c"></path>
+                    <circle cx="40" cy="10" r="2.5" fill="#5d6a57" data-uuid="69b380dde5425"></circle>
+                </svg>
+                <p class="font-vibes text-olive text-xl mt-3" data-editable="true" data-uuid="69b380dde542d">
+                    Mong bạn đến chung vui cùng chúng mình
+                </p>
+            </div>
+        </section>
+
+        <!-- ===== SECTION 2: Photo album — asymmetric masonry ===== -->
+        <section data-moveable="true" data-hidable="true" data-copyable="true" data-removable="true" class="px-6 pb-12 wow animate__fadeIn" data-uuid="69b380dde5436">
+            <!-- Camera SVG icon -->
+            <div class="text-center mb-3" data-uuid="69b380dde5440">
+                <svg class="w-7 h-7 mx-auto opacity-25" viewBox="0 0 28 28" fill="none" data-uuid="69b380dde5448">
+                    <rect x="2" y="8" width="24" height="16" rx="3" stroke="#5d6a57" stroke-width="1.2" fill="none" data-uuid="69b380dde5452"></rect>
+                    <circle cx="14" cy="16" r="5" stroke="#5d6a57" stroke-width="1.2" fill="#5d6a57" opacity="0.1" data-uuid="69b380dde545b"></circle>
+                    <circle cx="14" cy="16" r="2.5" stroke="#5d6a57" stroke-width="0.8" fill="none" data-uuid="69b380dde5465"></circle>
+                    <path d="M9 8 L11 4 L17 4 L19 8" stroke="#5d6a57" stroke-width="1.2" fill="none" data-uuid="69b380dde546e"></path>
+                </svg>
+            </div>
+            <div class="leaf-divider mb-8" data-uuid="69b380dde5478">
+                <p class="font-baskerville text-olive text-sm uppercase tracking-[0.1em]" data-editable="true" data-uuid="69b380dde5481">
+                    Album Ảnh Cưới
+                </p>
+            </div>
+
+            <div class="grid grid-cols-2 gap-3 max-w-[440px] mx-auto" data-uuid="69b380dde548a">
+                <div class="aspect-square rounded-xl overflow-hidden border border-olive/15" data-uuid="69b380dde5493">
+                    <img class="w-full h-full object-cover transition-transform duration-200 hover:scale-[1.03]" src="https://api.vesey.vn/templates/vs-template-41/images/img-content-1-2.webp" alt="" data-editable="true" data-uuid="69b380dde549d">
+                </div>
+                <div class="aspect-square rounded-xl overflow-hidden border border-olive/15" data-uuid="69b380dde54a6">
+                    <img class="w-full h-full object-cover transition-transform duration-200 hover:scale-[1.03]" src="https://api.vesey.vn/templates/vs-template-41/images/img-content-2-3.webp" alt="" data-editable="true" data-uuid="69b380dde54b0">
+                </div>
+                <div class="aspect-square rounded-xl overflow-hidden border border-olive/15" data-uuid="69b380dde54b9">
+                    <img class="w-full h-full object-cover transition-transform duration-200 hover:scale-[1.03]" src="https://api.vesey.vn/templates/vs-template-41/images/img-content-2-1.webp" alt="" data-editable="true" data-uuid="69b380dde54c3">
+                </div>
+                <div class="aspect-square rounded-xl overflow-hidden border border-olive/15" data-uuid="69b380dde54cd">
+                    <img class="w-full h-full object-cover transition-transform duration-200 hover:scale-[1.03]" src="https://api.vesey.vn/templates/vs-template-41/images/img-content-2-2.webp" alt="" data-editable="true" data-uuid="69b380dde54d7">
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== SECTION 3: Wedding info ===== -->
+        <section data-moveable="true" data-hidable="true" data-copyable="true" data-removable="true" class="px-5 py-14 relative wow animate__fadeInUp" data-uuid="69b380dde54e2">
+            <div class="leaf-divider mb-10" data-uuid="69b380dde54ed">
+                <!-- SVG wreath ornament around title -->
+                <svg class="w-5 h-5 opacity-40" viewBox="0 0 24 24" fill="none" data-uuid="69b380dde54f6">
+                    <path d="M12 2 Q8 6 6 12 Q8 18 12 22" stroke="#5d6a57" stroke-width="1.2" fill="none" data-uuid="69b380dde54fd"></path>
+                    <path d="M12 2 Q16 6 18 12 Q16 18 12 22" stroke="#5d6a57" stroke-width="1.2" fill="none" data-uuid="69b380dde5504"></path>
+                </svg>
+                <p class="font-baskerville text-olive text-sm uppercase tracking-[0.1em]" data-editable="true" data-uuid="69b380dde550b">
+                    Thông Tin Lễ Cưới
+                </p>
+                <svg class="w-5 h-5 opacity-40" viewBox="0 0 24 24" fill="none" data-uuid="69b380dde5512">
+                    <path d="M12 2 Q8 6 6 12 Q8 18 12 22" stroke="#5d6a57" stroke-width="1.2" fill="none" data-uuid="69b380dde5519"></path>
+                    <path d="M12 2 Q16 6 18 12 Q16 18 12 22" stroke="#5d6a57" stroke-width="1.2" fill="none" data-uuid="69b380dde5520"></path>
+                </svg>
+            </div>
+
+            <!-- Families — side by side -->
+            <div class="grid grid-cols-2 gap-3 text-center max-w-[92%] mx-auto mb-10" data-uuid="69b380dde5527">
+                <div class="flex flex-col gap-1.5 py-4 px-3 border-r border-olive/15" data-uuid="69b380dde552e">
+                    <p class="font-baskerville text-olive text-xs tracking-[0.3em] uppercase font-bold mb-2" data-editable="true" data-uuid="69b380dde5535">
+                        Nhà Trai
+                    </p>
+                    <p class="font-cormorant text-sm text-olive-light" data-editable="true" data-uuid="69b380dde553c">
+                        Ông: LÊ VĂN THẮNG
+                    </p>
+                    <p class="font-cormorant text-sm text-olive-light" data-editable="true" data-uuid="69b380dde5544">
+                        Bà: TRẦN THỊ HƯƠNG
+                    </p>
+                    <p class="font-nunito text-[10px] text-olive-muted leading-relaxed mt-1" data-editable="true" data-uuid="69b380dde554b">
+                        Hồ Chí Minh
+                    </p>
+                </div>
+                <div class="flex flex-col gap-1.5 py-4 px-3" data-uuid="69b380dde5552">
+                    <p class="font-baskerville text-olive text-xs tracking-[0.3em] uppercase font-bold mb-2" data-editable="true" data-uuid="69b380dde5559">
+                        Nhà Gái
+                    </p>
+                    <p class="font-cormorant text-sm text-olive-light" data-editable="true" data-uuid="69b380dde5561">
+                        Ông: NGUYỄN VĂN HẢI
+                    </p>
+                    <p class="font-cormorant text-sm text-olive-light" data-editable="true" data-uuid="69b380dde5568">
+                        Bà: PHẠM THỊ NGỌC
+                    </p>
+                    <p class="font-nunito text-[10px] text-olive-muted leading-relaxed mt-1" data-editable="true" data-uuid="69b380dde5570">
+                        Hà Nội
+                    </p>
+                </div>
+            </div>
+
+            <!-- Announcement banner -->
+            <div class="text-center mb-10 mx-4" data-uuid="69b380dde5578">
+                <!-- SVG ornamental line -->
+                <svg class="w-32 mx-auto mb-4 opacity-30" viewBox="0 0 120 12" fill="none" data-uuid="69b380dde5580">
+                    <path d="M0 6 L45 6" stroke="#5d6a57" stroke-width="0.8" data-uuid="69b380dde5587"></path>
+                    <circle cx="60" cy="6" r="3" stroke="#5d6a57" stroke-width="0.8" fill="none" data-uuid="69b380dde558f"></circle>
+                    <circle cx="60" cy="6" r="1" fill="#5d6a57" data-uuid="69b380dde5598"></circle>
+                    <path d="M75 6 L120 6" stroke="#5d6a57" stroke-width="0.8" data-uuid="69b380dde55a0"></path>
+                </svg>
+                <p class="font-baskerville text-olive text-[13px] uppercase tracking-[0.05em]" data-editable="true" data-uuid="69b380dde55a8">
+                    Trân trọng báo tin lễ thành hôn của con chúng tôi
+                </p>
+            </div>
+
+            <!-- Kính mời -->
+            <div class="text-center mb-8" data-uuid="69b380dde55b0">
+                <p class="font-nunito text-olive-muted text-[11px] uppercase tracking-[0.15em] mb-2" data-editable="true" data-uuid="69b380dde55b8">
+                    Trân trọng kính mời
+                </p>
+                <p class="vs-attendance-name-text font-vibes text-olive text-4xl" data-editable="true" data-uuid="69b380dde55c1">
+                    Bạn
+                </p>
+                <p class="font-cormorant text-sm italic text-olive-muted mt-1" data-editable="true" data-uuid="69b380dde55c9">
+                    (Tới dự Lễ Thành Hôn của hai con chúng tôi)
+                </p>
+            </div>
+
+            <!-- Couple names — horizontal with center ornament -->
+            <div class="flex items-center justify-center gap-5 mb-6" data-uuid="69b380dde55d1">
+                <div class="text-right flex-1" data-uuid="69b380dde55d9">
+                    <p class="font-vibes text-olive text-[38px] leading-tight" data-editable="true" data-uuid="69b380dde55e2">
+                        Minh Khôi
+                    </p>
+                    <p class="font-baskerville text-olive-muted text-[10px] uppercase tracking-[0.15em] mt-1" data-editable="true" data-uuid="69b380dde55eb">
+                        Trưởng nam
+                    </p>
+                </div>
+                <div class="flex flex-col items-center" data-uuid="69b380dde55f3">
+                    <!-- SVG heart leaf ornament -->
+                    <svg class="w-10 h-10" viewBox="0 0 40 40" fill="none" data-uuid="69b380dde55fc">
+                        <path d="M20 8 Q12 2 6 8 Q0 14 8 22 L20 34 L32 22 Q40 14 34 8 Q28 2 20 8Z" fill="#5d6a57" opacity="0.15" data-uuid="69b380dde5605"></path>
+                        <path d="M20 12 Q14 7 10 12 Q6 17 12 23 L20 30 L28 23 Q34 17 30 12 Q26 7 20 12Z" stroke="#5d6a57" stroke-width="0.8" fill="none" opacity="0.4" data-uuid="69b380dde560e">
+                        </path>
+                        <path d="M17 18 L20 20 L23 18" stroke="#5d6a57" stroke-width="0.6" fill="none" opacity="0.5" data-uuid="69b380dde5617"></path>
+                    </svg>
+                </div>
+                <div class="text-left flex-1" data-uuid="69b380dde5621">
+                    <p class="font-vibes text-olive text-[38px] leading-tight" data-editable="true" data-uuid="69b380dde562a">
+                        Hạ Vy
+                    </p>
+                    <p class="font-baskerville text-olive-muted text-[10px] uppercase tracking-[0.15em] mt-1" data-editable="true" data-uuid="69b380dde5633">
+                        Thứ nữ
+                    </p>
+                </div>
+            </div>
+
+            <!-- SVG flourish -->
+            <div class="text-center" data-uuid="69b380dde563d">
+                <svg class="w-40 mx-auto opacity-25" viewBox="0 0 160 20" fill="none" data-uuid="69b380dde5646">
+                    <path d="M0 10 Q30 0 50 10 Q60 15 80 10 Q100 5 110 10 Q130 20 160 10" stroke="#5d6a57" stroke-width="1" fill="none" data-uuid="69b380dde56b0"></path>
+                    <circle cx="80" cy="10" r="2" fill="#5d6a57" data-uuid="69b380dde56ce"></circle>
+                </svg>
+            </div>
+        </section>
+
+        <!-- ===== SECTION 4: Ceremony + Reception — side-by-side cards ===== -->
+        <section data-moveable="true" data-hidable="true" data-copyable="true" data-removable="true" class="px-5 pb-14 relative wow animate__bounceIn" data-uuid="69b380dde56de">
+            <!-- Decorative corner vine top-right -->
+            <svg class="absolute top-0 right-3 w-16 h-16 opacity-15 pointer-events-none" viewBox="0 0 60 60" fill="none" data-uuid="69b380dde56ef">
+                <path d="M60 0 Q50 20 40 30 Q30 40 10 45" stroke="#5d6a57" stroke-width="1.2" fill="none" data-uuid="69b380dde5700"></path>
+                <ellipse cx="45" cy="18" rx="6" ry="10" fill="#8a9a84" opacity="0.5" transform="rotate(-30 45 18)" data-uuid="69b380dde570a"></ellipse>
+                <ellipse cx="28" cy="36" rx="5" ry="9" fill="#5d6a57" opacity="0.4" transform="rotate(10 28 36)" data-uuid="69b380dde5714"></ellipse>
+            </svg>
+
+            <div class="grid grid-cols-2 gap-3" data-uuid="69b380dde571f">
+                <!-- Ceremony card -->
+                <div class="bg-white rounded-2xl shadow-sm border border-olive/10 p-5 text-center" data-uuid="69b380dde572a">
+                    <!-- Small ring SVG icon -->
+                    <svg class="w-6 h-6 mx-auto mb-2 opacity-35" viewBox="0 0 24 24" fill="none" data-uuid="69b380dde5733">
+                        <circle cx="10" cy="12" r="6" stroke="#5d6a57" stroke-width="1.2" fill="none" data-uuid="69b380dde573e"></circle>
+                        <circle cx="14" cy="12" r="6" stroke="#5d6a57" stroke-width="1.2" fill="none" data-uuid="69b380dde5749"></circle>
+                    </svg>
+                    <p class="font-baskerville text-olive text-[10px] uppercase tracking-[0.15em] mb-4" data-editable="true" data-uuid="69b380dde5753">
+                        Lễ cưới tại tư gia
+                    </p>
+                    <div class="calendar-block mx-auto mb-4" data-uuid="69b380dde575e">
+                        <span class="font-baskerville text-[28px] font-bold leading-none" data-editable="true" data-uuid="69b380dde5768">20</span>
+                        <span class="font-nunito text-[9px] uppercase tracking-wider opacity-80" data-editable="true" data-uuid="69b380dde577f">Tháng 03</span>
+                    </div>
+                    <p class="font-baskerville text-olive text-lg" data-editable="true" data-uuid="69b380dde578a">
+                        09:00
+                    </p>
+                    <p class="font-nunito text-olive-muted text-[10px] mt-1" data-editable="true" data-uuid="69b380dde579b">
+                        Chủ nhật, 2027
+                    </p>
+                    <p class="font-cormorant text-olive-muted text-[11px] italic mt-1" data-editable="true" data-uuid="69b380dde57a6">
+                        (Nhằm 02/02 Đinh Mùi)
+                    </p>
+                </div>
+                <!-- Reception card -->
+                <div class="bg-[#f2f7f3] rounded-2xl shadow-sm border border-olive/10 p-5 text-center" data-uuid="69b380dde57b1">
+                    <!-- Small champagne SVG icon -->
+                    <svg class="w-6 h-6 mx-auto mb-2 opacity-35" viewBox="0 0 24 24" fill="none" data-uuid="69b380dde57bc">
+                        <path d="M8 2 L6 10 Q6 14 12 14 Q18 14 18 10 L16 2" stroke="#5d6a57" stroke-width="1.2" fill="none" data-uuid="69b380dde57c7"></path>
+                        <path d="M12 14 L12 20" stroke="#5d6a57" stroke-width="1.2" data-uuid="69b380dde57d3"></path>
+                        <path d="M8 20 L16 20" stroke="#5d6a57" stroke-width="1.2" data-uuid="69b380dde57de"></path>
+                    </svg>
+                    <p class="font-baskerville text-olive text-[10px] uppercase tracking-[0.15em] mb-4" data-editable="true" data-uuid="69b380dde57e9">
+                        Tiệc cưới
+                    </p>
+                    <div class="calendar-block mx-auto mb-4" data-uuid="69b380dde57f5">
+                        <span class="font-baskerville text-[28px] font-bold leading-none" data-editable="true" data-uuid="69b380dde5800">20</span>
+                        <span class="font-nunito text-[9px] uppercase tracking-wider opacity-80" data-editable="true" data-uuid="69b380dde580b">Tháng 03</span>
+                    </div>
+                    <p class="font-baskerville text-olive text-lg" data-editable="true" data-uuid="69b380dde5817">
+                        11:00
+                    </p>
+                    <p class="font-nunito text-olive-muted text-[10px] mt-1" data-editable="true" data-uuid="69b380dde5822">
+                        Chủ nhật, 2027
+                    </p>
+                    <p class="font-cormorant text-olive-muted text-[11px] italic mt-1" data-editable="true" data-uuid="69b380dde582e">
+                        (Nhằm 02/02 Đinh Mùi)
+                    </p>
+                </div>
+            </div>
+
+            <!-- Full-width quote -->
+            <div class="mt-8 text-center px-4" data-uuid="69b380dde583a">
+                <svg class="w-8 h-8 mx-auto mb-3 opacity-25" viewBox="0 0 32 32" fill="none" data-uuid="69b380dde5850">
+                    <path d="M16 4 Q10 8 8 14 Q6 20 10 26 L16 22 L22 26 Q26 20 24 14 Q22 8 16 4Z" fill="#5d6a57" opacity="0.3" data-uuid="69b380dde585b"></path>
+                    <path d="M16 8 L16 20" stroke="#5d6a57" stroke-width="0.8" opacity="0.5" data-uuid="69b380dde5865">
+                    </path>
+                </svg>
+                <p class="font-cormorant text-olive/50 text-sm leading-[2] italic" data-editable="true" data-uuid="69b380dde586f">
+                    Sự hiện diện của Quý khách là niềm vinh hạnh lớn lao
+                    cho gia đình chúng tôi
+                </p>
+            </div>
+        </section>
+
+        <!-- ===== SECTION 5: Venue — map card with address ===== -->
+        <section data-moveable="true" data-hidable="true" data-copyable="true" data-removable="true" class="px-5 pb-14 wow animate__fadeIn" data-uuid="69b380dde587a">
+            <div class="bg-white rounded-3xl shadow-md border border-olive/10 overflow-hidden relative" data-uuid="69b380dde5884">
+                <!-- Decorative corner SVG inside card -->
+                <svg class="absolute top-3 left-3 w-8 h-8 opacity-15 pointer-events-none" viewBox="0 0 30 30" fill="none" data-uuid="69b380dde588e">
+                    <path d="M2 28 L2 8 Q2 2 8 2 L28 2" stroke="#5d6a57" stroke-width="1.5" fill="none" data-uuid="69b380dde5898"></path>
+                    <circle cx="8" cy="8" r="1.5" fill="#5d6a57" data-uuid="69b380dde58a3"></circle>
+                </svg>
+                <svg class="absolute top-3 right-3 w-8 h-8 opacity-15 pointer-events-none" viewBox="0 0 30 30" fill="none" style="transform: scaleX(-1)" data-uuid="69b380dde58ae">
+                    <path d="M2 28 L2 8 Q2 2 8 2 L28 2" stroke="#5d6a57" stroke-width="1.5" fill="none" data-uuid="69b380dde58b8"></path>
+                    <circle cx="8" cy="8" r="1.5" fill="#5d6a57" data-uuid="69b380dde58c2"></circle>
+                </svg>
+
+                <!-- Venue image -->
+                <div class="relative h-52 overflow-hidden" data-uuid="69b380dde58cd">
+                    <img class="w-full h-full object-cover object-top" src="https://api.vesey.vn/templates/vs-template-41/images/img-content-4-1.webp" alt="" data-editable="true" data-uuid="69b380dde58d8">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent pointer-events-none" data-uuid="69b380dde58e3"></div>
+                    <!-- Venue info overlaid on image -->
+                    <div class="absolute bottom-0 left-0 right-0 p-5 text-center pointer-events-none z-10" data-uuid="69b380dde58ed">
+                        <svg class="w-7 h-7 mx-auto mb-2 opacity-60 pointer-events-auto" viewBox="0 0 32 32" fill="none" data-uuid="69b380dde58f8">
+                            <path d="M16 2 C10 2 5 7 5 13 C5 21 16 30 16 30 C16 30 27 21 27 13 C27 7 22 2 16 2Z" stroke="white" stroke-width="1.5" fill="none" data-uuid="69b380dde5903"></path>
+                            <circle cx="16" cy="13" r="4" stroke="white" stroke-width="1.2" fill="white" opacity="0.2" data-uuid="69b380dde590e"></circle>
+                        </svg>
+                        <p class="font-baskerville text-white font-bold text-lg uppercase pointer-events-auto" data-editable="true" data-uuid="69b380dde5919">
+                            Nhà Hàng The Garden
+                        </p>
+                        <p class="font-baskerville text-white/80 text-sm mt-1 pointer-events-auto" data-editable="true" data-uuid="69b380dde5924">
+                            Sảnh Emerald
+                        </p>
+                        <p class="font-nunito text-white/60 text-xs mt-1 pointer-events-auto" data-editable="true" data-uuid="69b380dde592f">
+                            25 Nguyễn Đình Chiểu, Quận 3, TP. Hồ Chí
+                            Minh
+                        </p>
+                    </div>
+                </div>
+                <!-- Map button below image -->
+                <div class="p-5 text-center" data-uuid="69b380dde593b">
+                    <a class="vs-popup-gmaps inline-flex items-center gap-2 bg-olive text-white font-nunito font-semibold px-6 py-2.5 text-sm rounded-full hover:opacity-90 transition-all duration-300" href="https://www.google.com/maps?q=25%20Nguy%E1%BB%85n%20%C4%90%C3%ACnh%20Chi%E1%BB%83u,%20Qu%E1%BA%ADn%203,%20TP.%20H%E1%BB%93%20Ch%C3%AD%20Minh&amp;output=embed" target="_blank" rel="noopener noreferrer" data-name="25 Nguyễn Đình Chiểu, Quận 3, TP. Hồ Chí Minh" data-uuid="69b380dde5946">
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" data-uuid="69b380dde5952">
+                            <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" data-uuid="69b380dde595e"></path>
+                        </svg>
+                        Xem bản đồ
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== SECTION 6: Countdown ===== -->
+        <section data-moveable="true" data-hidable="true" data-copyable="true" data-removable="true" class="py-12 px-6 relative overflow-hidden wow animate__fadeInUp" data-uuid="69b380dde596a">
+            <!-- Decorative background leaves -->
+            <svg class="absolute -left-4 top-1/2 -translate-y-1/2 w-28 opacity-[0.06] pointer-events-none" viewBox="0 0 100 200" fill="none" data-uuid="69b380dde5975">
+                <path d="M70 20 Q50 50 45 80 Q40 110 50 150 Q55 170 60 190" stroke="#5d6a57" stroke-width="2" fill="none" data-uuid="69b380dde5981"></path>
+                <ellipse cx="55" cy="55" rx="18" ry="28" fill="#5d6a57" transform="rotate(-20 55 55)" data-uuid="69b380dde598d"></ellipse>
+                <ellipse cx="48" cy="100" rx="16" ry="25" fill="#5d6a57" transform="rotate(15 48 100)" data-uuid="69b380dde5999"></ellipse>
+                <ellipse cx="52" cy="145" rx="14" ry="22" fill="#5d6a57" transform="rotate(-10 52 145)" data-uuid="69b380dde59a5"></ellipse>
+            </svg>
+            <svg class="absolute -right-4 top-1/2 -translate-y-1/2 w-28 opacity-[0.06] pointer-events-none" viewBox="0 0 100 200" fill="none" style="transform: translateY(-50%) scaleX(-1)" data-uuid="69b380dde59b2">
+                <path d="M70 20 Q50 50 45 80 Q40 110 50 150 Q55 170 60 190" stroke="#5d6a57" stroke-width="2" fill="none" data-uuid="69b380dde59bd"></path>
+                <ellipse cx="55" cy="55" rx="18" ry="28" fill="#5d6a57" transform="rotate(-20 55 55)" data-uuid="69b380dde59c9"></ellipse>
+                <ellipse cx="48" cy="100" rx="16" ry="25" fill="#5d6a57" transform="rotate(15 48 100)" data-uuid="69b380dde59d5"></ellipse>
+                <ellipse cx="52" cy="145" rx="14" ry="22" fill="#5d6a57" transform="rotate(-10 52 145)" data-uuid="69b380dde59e1"></ellipse>
+            </svg>
+
+            <!-- Hourglass SVG icon -->
+            <div class="text-center mb-4" data-uuid="69b380dde59ed">
+                <svg class="w-8 h-8 mx-auto opacity-30" viewBox="0 0 32 32" fill="none" data-uuid="69b380dde59f9">
+                    <path d="M8 4 L24 4 L24 6 Q24 12 16 16 Q8 12 8 6 Z" stroke="#5d6a57" stroke-width="1.2" fill="#5d6a57" opacity="0.1" data-uuid="69b380dde5a05"></path>
+                    <path d="M8 28 L24 28 L24 26 Q24 20 16 16 Q8 20 8 26 Z" stroke="#5d6a57" stroke-width="1.2" fill="#5d6a57" opacity="0.15" data-uuid="69b380dde5a12"></path>
+                    <path d="M6 4 L26 4" stroke="#5d6a57" stroke-width="1.5" data-uuid="69b380dde5a1e"></path>
+                    <path d="M6 28 L26 28" stroke="#5d6a57" stroke-width="1.5" data-uuid="69b380dde5a2b"></path>
+                </svg>
+            </div>
+            <div class="leaf-divider mb-8" data-uuid="69b380dde5a49">
+                <p class="font-baskerville text-olive text-sm uppercase tracking-[0.1em]" data-editable="true" data-uuid="69b380dde5a5c">
+                    Đếm Ngược
+                </p>
+            </div>
+            <div id="vs-start-time" style="display: none" data-uuid="69b380dde5a69">2027-03-20T09:00:00</div>
+            <div class="flex justify-center gap-3 relative z-10" data-hidable="true" data-uuid="69b380dde5a76">
+                <div class="countdown-circle" data-uuid="69b380dde5a82">
+                    <p class="vs-time-days font-baskerville text-lg text-olive leading-none" data-uuid="69b380dde5a8f">
+                        0
+                    </p>
+                    <p class="font-nunito text-[7px] tracking-[0.1em] uppercase text-olive-muted mt-0.5" data-editable="true" data-uuid="69b380dde5a9c">
+                        Ngày
+                    </p>
+                </div>
+                <div class="countdown-circle" data-uuid="69b380dde5aa8">
+                    <p class="vs-time-hours font-baskerville text-lg text-olive leading-none" data-uuid="69b380dde5ab5">
+                        0
+                    </p>
+                    <p class="font-nunito text-[7px] tracking-[0.1em] uppercase text-olive-muted mt-0.5" data-editable="true" data-uuid="69b380dde5ac3">
+                        Giờ
+                    </p>
+                </div>
+                <div class="countdown-circle" data-uuid="69b380dde5ad0">
+                    <p class="vs-time-minutes font-baskerville text-lg text-olive leading-none" data-uuid="69b380dde5add">
+                        0
+                    </p>
+                    <p class="font-nunito text-[7px] tracking-[0.1em] uppercase text-olive-muted mt-0.5" data-editable="true" data-uuid="69b380dde5aea">
+                        Phút
+                    </p>
+                </div>
+                <div class="countdown-circle" data-uuid="69b380dde5af7">
+                    <p class="vs-time-seconds font-baskerville text-lg text-olive leading-none" data-uuid="69b380dde5b04">
+                        0
+                    </p>
+                    <p class="font-nunito text-[7px] tracking-[0.1em] uppercase text-olive-muted mt-0.5" data-editable="true" data-uuid="69b380dde5b11">
+                        Giây
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== SECTION 7: Full-width photo break ===== -->
+        <section data-moveable="true" data-hidable="true" data-copyable="true" data-removable="true" class="wow animate__fadeIn" data-uuid="69b380dde5b1f">
+            <div class="relative h-72 overflow-hidden" data-uuid="69b380dde5b2c">
+                <img class="w-full h-full object-cover blur-[2px] brightness-75" src="https://api.vesey.vn/templates/vs-template-41/images/img-content-5-1.webp" alt="" data-editable="true" data-uuid="69b380dde5b3a">
+                <div class="absolute inset-0 flex items-center justify-center pointer-events-none" data-uuid="69b380dde5b48">
+                    <p class="font-vibes text-white text-3xl text-center drop-shadow-lg pointer-events-auto" data-editable="true" data-uuid="69b380dde5b56">
+                        Từ hai người lạ trở thành một gia đình
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== SECTION 8: RSVP — rounded card ===== -->
+        <section data-moveable="true" data-hidable="true" data-copyable="true" data-removable="true" class="px-5 py-14 wow animate__fadeInUp" data-uuid="69b380dde5b63">
+            <div class="bg-[#f2f7f3] rounded-3xl p-6 border border-olive/10 relative overflow-hidden" data-hidable="true" data-uuid="69b380dde5b72">
+                <!-- Decorative corner botanicals -->
+                <svg class="absolute -top-2 -right-2 w-24 h-24 opacity-[0.07] pointer-events-none" viewBox="0 0 100 100" fill="none" data-uuid="69b380dde5b7f">
+                    <path d="M100 0 Q80 20 70 40 Q60 55 55 80 Q52 90 50 100" stroke="#5d6a57" stroke-width="2" fill="none" data-uuid="69b380dde5b8d"></path>
+                    <ellipse cx="80" cy="25" rx="14" ry="20" fill="#5d6a57" transform="rotate(-35 80 25)" data-uuid="69b380dde5b9b"></ellipse>
+                    <ellipse cx="65" cy="50" rx="12" ry="18" fill="#5d6a57" transform="rotate(10 65 50)" data-uuid="69b380dde5ba9"></ellipse>
+                    <ellipse cx="55" cy="75" rx="10" ry="16" fill="#5d6a57" transform="rotate(-15 55 75)" data-uuid="69b380dde5bb7"></ellipse>
+                </svg>
+                <svg class="absolute -bottom-2 -left-2 w-20 h-20 opacity-[0.07] pointer-events-none" viewBox="0 0 80 80" fill="none" style="transform: rotate(180deg)" data-uuid="69b380dde5bc6">
+                    <path d="M80 0 Q65 18 55 35 Q48 48 42 70" stroke="#5d6a57" stroke-width="2" fill="none" data-uuid="69b380dde5bd4"></path>
+                    <ellipse cx="65" cy="20" rx="10" ry="16" fill="#5d6a57" transform="rotate(-30 65 20)" data-uuid="69b380dde5be2"></ellipse>
+                    <ellipse cx="50" cy="42" rx="9" ry="14" fill="#5d6a57" transform="rotate(15 50 42)" data-uuid="69b380dde5bf0"></ellipse>
+                </svg>
+
+                <!-- Book/pen SVG icon -->
+                <div class="text-center mb-3" data-uuid="69b380dde5bff">
+                    <svg class="w-7 h-7 mx-auto opacity-30" viewBox="0 0 28 28" fill="none" data-uuid="69b380dde5c0d">
+                        <rect x="4" y="3" width="16" height="22" rx="2" stroke="#5d6a57" stroke-width="1.2" fill="none" data-uuid="69b380dde5c1b"></rect>
+                        <path d="M8 3 L8 25" stroke="#5d6a57" stroke-width="0.8" opacity="0.5" data-uuid="69b380dde5c2a"></path>
+                        <path d="M22 6 L26 2 L28 4 L24 8 Z" fill="#5d6a57" opacity="0.3" data-uuid="69b380dde5c39">
+                        </path>
+                        <path d="M22 6 L24 8" stroke="#5d6a57" stroke-width="1" data-uuid="69b380dde5c48"></path>
+                    </svg>
+                </div>
+                <div class="leaf-divider mb-6" data-uuid="69b380dde5c57">
+                    <p class="font-baskerville text-olive text-sm uppercase tracking-[0.1em]" data-editable="true" data-uuid="69b380dde5c65">
+                        Sổ Lưu Bút
+                    </p>
+                </div>
+
+                <form class="vs-attendance-form space-y-4" data-uuid="69b380dde5c75">
+                    <div data-uuid="69b380dde5c83">
+                        <input type="text" name="name" required="" class="vs-attendance-name w-full rounded-xl border border-olive/15 px-4 py-3 text-sm focus:outline-none focus:border-olive/40 font-nunito bg-white/80 text-olive" placeholder="Nhập tên của bạn *" data-uuid="69b380dde5c92">
+                    </div>
+                    <div class="flex gap-5 py-1" data-uuid="69b380dde5ca1">
+                        <label class="flex items-center font-nunito text-sm cursor-pointer text-olive" data-uuid="69b380dde5cb0">
+                                    <input class="mr-2 accent-[#5d6a57]" type="radio" name="decision" value="yes" required="" data-uuid="69b380dde5cbf">
+                                    <span data-editable="true" data-uuid="69b380dde5cce">Sẽ tham dự</span>
+                                </label>
+                        <label class="flex items-center font-nunito text-sm cursor-pointer text-olive" data-uuid="69b380dde5cdd">
+                                    <input class="mr-2 accent-[#5d6a57]" type="radio" name="decision" value="no" data-uuid="69b380dde5cec">
+                                    <span data-editable="true" data-uuid="69b380dde5cfb">Không thể đến</span>
+                                </label>
+                    </div>
+                    <div class="flex gap-5 py-1" data-uuid="69b380dde5d0b">
+                        <label class="flex items-center font-nunito text-sm cursor-pointer text-olive" data-uuid="69b380dde5d1a">
+                                    <input class="mr-2 accent-[#5d6a57]" type="radio" name="guest_of" value="groom" required="" data-uuid="69b380dde5d29">
+                                    <span data-editable="true" data-uuid="69b380dde5d38">Khách chú rể</span>
+                                </label>
+                        <label class="flex items-center font-nunito text-sm cursor-pointer text-olive" data-uuid="69b380dde5d48">
+                                    <input class="mr-2 accent-[#5d6a57]" type="radio" name="guest_of" value="bride" data-uuid="69b380dde5d57">
+                                    <span data-editable="true" data-uuid="69b380dde5d67">Khách cô dâu</span>
+                                </label>
+                    </div>
+                    <div data-uuid="69b380dde5d76">
+                        <select name="number_of_guests" class="vs-number-of-guests w-full rounded-xl border border-olive/15 px-4 py-3 text-sm focus:outline-none focus:border-olive/40 font-nunito bg-white/80 text-olive" data-uuid="69b380dde5d85">
+                                    <option value="1" data-uuid="69b380dde5d95">1 người</option>
+                                    <option value="2" data-uuid="69b380dde5da5">2 người</option>
+                                    <option value="3" data-uuid="69b380dde5db4">3 người</option>
+                                    <option value="4" data-uuid="69b380dde5dc4">4 người</option>
+                                    <option value="5" data-uuid="69b380dde5dd3">5 người</option>
+                                </select>
+                    </div>
+                    <div data-uuid="69b380dde5de3">
+                        <textarea name="message" rows="3" class="vs-attendance-message w-full rounded-xl border border-olive/15 px-4 py-3 text-sm focus:outline-none focus:border-olive/40 font-nunito bg-white/80 text-olive resize-none" placeholder="Nhập lời chúc của bạn *" data-uuid="69b380dde5df3"></textarea>
+                    </div>
+                    <button type="submit" data-editable="true" class="w-full bg-olive text-white font-nunito font-semibold py-3 rounded-full text-sm hover:opacity-90 transition-all duration-300" data-uuid="69b380dde5e04">
+                                Gửi Lời Chúc
+                            </button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- ===== FOOTER: QR + thank you ===== -->
+    <footer data-moveable="true" data-hidable="true" data-copyable="true" data-removable="true" class="text-center wow animate__fadeIn pb-8 px-5" data-uuid="69b380dde5e15">
+        <div class="mb-8" data-uuid="69b380dde5e35">
+            <!-- Red envelope button -->
+            <div class="vs-qr-btn" style="cursor:pointer;" data-uuid="69b380dde5e46">
+                <div class="vs-envelope-shake" style="position:relative;display:inline-block;width:180px;height:240px;margin:0 auto;" data-uuid="69b380dde5e56">
+                    <!-- Envelope SVG -->
+                    <svg viewBox="0 0 180 240" style="width:180px;height:240px;display:block;" xmlns="http://www.w3.org/2000/svg" data-uuid="69b380dde5e67">
+                        <!-- Main body -->
+                        <rect x="10" y="10" width="160" height="220" rx="12" fill="#c0392b" data-uuid="69b380dde5e77">
+                        </rect>
+                        <!-- Diamond pattern band -->
+                        <rect x="10" y="85" width="160" height="70" fill="#a93226" data-uuid="69b380dde5e88"></rect>
+                        <pattern id="vs-diamonds" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse" data-uuid="69b380dde5e99">
+                            <rect width="20" height="20" fill="none" data-uuid="69b380dde5ea9"></rect>
+                            <polygon points="10,2 18,10 10,18 2,10" fill="#c0392b" opacity="0.5" data-uuid="69b380dde5eb9"></polygon>
+                        </pattern>
+                        <rect x="10" y="85" width="160" height="70" fill="url(#vs-diamonds)" data-uuid="69b380dde5eca">
+                        </rect>
+                        <!-- Gold border lines -->
+                        <line x1="10" y1="85" x2="170" y2="85" stroke="#f1c40f" stroke-width="1.5" data-uuid="69b380dde5edc"></line>
+                        <line x1="10" y1="155" x2="170" y2="155" stroke="#f1c40f" stroke-width="1.5" data-uuid="69b380dde5eec"></line>
+                        <!-- Gold corner accents -->
+                        <path d="M10,10 L40,10 L10,40 Z" fill="#f1c40f" opacity="0.25" data-uuid="69b380dde5efd"></path>
+                        <path d="M170,10 L140,10 L170,40 Z" fill="#f1c40f" opacity="0.25" data-uuid="69b380dde5f39">
+                        </path>
+                        <path d="M10,230 L40,230 L10,200 Z" fill="#f1c40f" opacity="0.25" data-uuid="69b380dde5f4a">
+                        </path>
+                        <path d="M170,230 L140,230 L170,200 Z" fill="#f1c40f" opacity="0.25" data-uuid="69b380dde5f5b">
+                        </path>
+                        <!-- 囍 character -->
+                        <text x="90" y="132" text-anchor="middle" dominant-baseline="central" style="font-size:42px;font-weight:bold;fill:#f1c40f;font-family:serif;" data-uuid="69b380dde5f6c">囍</text>
+                        <!-- Top text -->
+                        <text x="90" y="55" text-anchor="middle" style="font-size:11px;fill:#f8d98b;font-family:'Nunito',sans-serif;letter-spacing:2px;" data-uuid="69b380dde5f7e">MỪNG CƯỚI</text>
+                        <!-- Bottom decorative line -->
+                        <line x1="55" y1="185" x2="125" y2="185" stroke="#f1c40f" stroke-width="0.8" opacity="0.5" data-uuid="69b380dde5f90"></line>
+                        <circle cx="90" cy="185" r="3" fill="#f1c40f" opacity="0.4" data-uuid="69b380dde5fa2"></circle>
+                        <circle cx="55" cy="185" r="2" fill="#f1c40f" opacity="0.3" data-uuid="69b380dde5fb3"></circle>
+                        <circle cx="125" cy="185" r="2" fill="#f1c40f" opacity="0.3" data-uuid="69b380dde5fc5"></circle>
+                    </svg>
+                    <!-- Floating coins -->
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="position:absolute;top:-8px;left:10px;width:22px;height:22px;opacity:0.8;" class="vs-coin-anim" data-uuid="69b380dde5fd6">
+                        <path d="M12 2l2.4 7.2L22 12l-7.6 2.8L12 22l-2.4-7.2L2 12l7.6-2.8z" fill="#f1c40f" data-uuid="69b380dde5fe9"></path>
+                    </svg>
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="position:absolute;top:0px;right:5px;width:18px;height:18px;opacity:0.7;" class="vs-coin-anim" data-delay="0.4s" data-uuid="69b380dde5ffa">
+                        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="#f1c40f" data-uuid="69b380dde600c"></path>
+                    </svg>
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="position:absolute;top:30px;left:-5px;width:16px;height:16px;opacity:0.6;" class="vs-coin-anim" data-delay="0.8s" data-uuid="69b380dde601e">
+                        <path d="M12 2l2.4 7.2L22 12l-7.6 2.8L12 22l-2.4-7.2L2 12l7.6-2.8z" fill="#f1c40f" data-uuid="69b380dde602f"></path>
+                    </svg>
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="position:absolute;top:25px;right:-8px;width:20px;height:20px;opacity:0.75;" class="vs-coin-anim" data-delay="1.2s" data-uuid="69b380dde6041">
+                        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="#f1c40f" data-uuid="69b380dde6053"></path>
+                    </svg>
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="position:absolute;bottom:20px;left:0px;width:15px;height:15px;opacity:0.5;" class="vs-coin-anim" data-delay="0.6s" data-uuid="69b380dde6064">
+                        <path d="M12 2l2.4 7.2L22 12l-7.6 2.8L12 22l-2.4-7.2L2 12l7.6-2.8z" fill="#f1c40f" data-uuid="69b380dde607d"></path>
+                    </svg>
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="position:absolute;bottom:15px;right:-3px;width:17px;height:17px;opacity:0.65;" class="vs-coin-anim" data-delay="1s" data-uuid="69b380dde6094">
+                        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="#f1c40f" data-uuid="69b380dde60ab"></path>
+                    </svg>
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="position:absolute;bottom:50px;left:-10px;width:14px;height:14px;opacity:0.55;" class="vs-coin-anim" data-delay="1.5s" data-uuid="69b380dde60c1">
+                        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="#f1c40f" data-uuid="69b380dde60d8"></path>
+                    </svg>
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="position:absolute;bottom:45px;right:-6px;width:19px;height:19px;opacity:0.7;" class="vs-coin-anim" data-delay="1.8s" data-uuid="69b380dde60ee">
+                        <path d="M12 2l2.4 7.2L22 12l-7.6 2.8L12 22l-2.4-7.2L2 12l7.6-2.8z" fill="#f1c40f" data-uuid="69b380dde6105"></path>
+                    </svg>
+                </div>
+                <p class="font-nunito text-olive-muted text-xs mt-3 mb-0" style="letter-spacing:0.1em;" data-uuid="69b380dde611c">Nhấn để mở</p>
+            </div>
+            <!-- QR content (hidden by default) -->
+            <div class="vs-qr-content" data-uuid="69b380dde6133">
+                <div class="inline-block p-4 border border-olive/15 rounded-2xl bg-white shadow-sm mb-2" data-uuid="69b380dde614a">
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&amp;data=https://yourwebsite.com" alt="QR Code" class="w-32 h-32 mx-auto" data-editable="true" data-uuid="69b380dde6161">
+                </div>
+                <p data-editable="true" class="font-nunito text-sm text-olive-light" data-uuid="69b380dde6179">
+                    000000<br data-uuid="69b380dde6193">
+                            Nguyễn Văn A — Sacombank
+                </p>
+                <div class="mt-4 text-center" data-uuid="69b380dde61b2">
+                    <span class="vs-qr-close cursor-pointer inline-block px-6 py-2 rounded-full select-none transition-all duration-300 hover:opacity-90 text-[10px] font-semibold tracking-[0.15em] uppercase" style="background:rgba(0,0,0,0.08);color:#666;" data-uuid="69b380dde61cc">Đóng</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Thank you pill with botanical frame -->
+        <div class="rounded-2xl bg-[#f2f7f3] border border-olive/10 px-6 py-5 mx-2 relative" data-uuid="69b380dde61e7">
+            <!-- Decorative corner accents -->
+            <svg class="absolute top-2 left-2 w-5 h-5 opacity-20" viewBox="0 0 20 20" fill="none" data-uuid="69b380dde61ff">
+                <path d="M0 20 L0 5 Q0 0 5 0 L20 0" stroke="#5d6a57" stroke-width="1.5" fill="none" data-uuid="69b380dde622d"></path>
+            </svg>
+            <svg class="absolute top-2 right-2 w-5 h-5 opacity-20" viewBox="0 0 20 20" fill="none" data-uuid="69b380dde6248">
+                <path d="M20 20 L20 5 Q20 0 15 0 L0 0" stroke="#5d6a57" stroke-width="1.5" fill="none" data-uuid="69b380dde6262"></path>
+            </svg>
+            <svg class="absolute bottom-2 left-2 w-5 h-5 opacity-20" viewBox="0 0 20 20" fill="none" data-uuid="69b380dde627f">
+                <path d="M0 0 L0 15 Q0 20 5 20 L20 20" stroke="#5d6a57" stroke-width="1.5" fill="none" data-uuid="69b380dde6292"></path>
+            </svg>
+            <svg class="absolute bottom-2 right-2 w-5 h-5 opacity-20" viewBox="0 0 20 20" fill="none" data-uuid="69b380dde62b0">
+                <path d="M20 0 L20 15 Q20 20 15 20 L0 20" stroke="#5d6a57" stroke-width="1.5" fill="none" data-uuid="69b380dde62c2"></path>
+            </svg>
+            <p class="font-baskerville text-olive text-sm leading-relaxed" data-editable="true" data-uuid="69b380dde62d4">
+                Sự hiện diện của quý khách là niềm vinh hạnh của gia
+                đình chúng tôi!
+            </p>
+        </div>
+
+        <!-- Bottom leaf flourish -->
+        <svg class="w-24 mx-auto mt-6 opacity-20" viewBox="0 0 100 30" fill="none" data-uuid="69b380dde62e6">
+            <path d="M50 28 Q40 20 30 22 Q20 24 10 18 Q5 14 2 8" stroke="#5d6a57" stroke-width="1.2" fill="none" data-uuid="69b380dde62f7"></path>
+            <path d="M50 28 Q60 20 70 22 Q80 24 90 18 Q95 14 98 8" stroke="#5d6a57" stroke-width="1.2" fill="none" data-uuid="69b380dde6309"></path>
+            <ellipse cx="20" cy="18" rx="6" ry="9" fill="#5d6a57" opacity="0.3" transform="rotate(20 20 18)" data-uuid="69b380dde631b"></ellipse>
+            <ellipse cx="80" cy="18" rx="6" ry="9" fill="#5d6a57" opacity="0.3" transform="rotate(-20 80 18)" data-uuid="69b380dde632d"></ellipse>
+            <circle cx="50" cy="28" r="2" fill="#5d6a57" opacity="0.4" data-uuid="69b380dde6340"></circle>
+        </svg>
+    </footer>
+    <script src="./vs-template-white/jquery.js" data-uuid="69b380dde6352"></script>
+    <script src="./vs-template-white/jquery-plugin-collection.js" data-uuid="69b380dde6364"></script>
+    <script data-uuid="69b380dde6376">
+        $(".popup-gmaps").magnificPopup({
+                type: "iframe",
+                mainClass: "mfp-fade",
+                removalDelay: 160,
+                preloader: false,
+                fixedContentPos: false,
+            });
+            $(".fancybox").fancybox();
+    </script>
+    <script data-uuid="69b380dde6388">
+        new WOW({
+                boxClass: "wow",
+                animateClass: "animate__animated",
+                offset: 100,
+                mobile: true,
+                live: true,
+                scrollContainer: null,
+                resetAnimation: false,
+            }).init();
+    </script>
+    <script data-uuid="69b380dde639a">
+        document.querySelectorAll('.vs-qr-content').forEach(function(c){c.classList.add('vs-hidden')});
+            document.querySelectorAll('.vs-qr-btn').forEach(function(b){
+                b.addEventListener('click',function(){
+                    var c=this.parentElement.querySelector('.vs-qr-content');
+                    if(c){c.classList.remove('vs-hidden');c.classList.add('vs-reveal');}
+                    this.style.display='none';
+                });
+            });
+            document.querySelectorAll('.vs-qr-close').forEach(function(x){
+                x.addEventListener('click',function(){
+                    var wrap=this.closest('.mb-8')||this.parentElement.parentElement;
+                    var c=wrap.querySelector('.vs-qr-content');
+                    var b=wrap.querySelector('.vs-qr-btn');
+                    if(c){c.classList.add('vs-hidden');c.classList.remove('vs-reveal');}
+                    if(b){b.style.display='';}
+                });
+            });
+            // Apply coin animation delays
+            document.querySelectorAll('.vs-coin-anim').forEach(function(coin){
+                var d=coin.getAttribute('data-delay');
+                if(d) coin.style.animationDelay=d;
+            });
+    </script>
+    <style data-uuid="69b380dde63ab">
+        @keyframes vs-envelope-shake {
+
+            0%,
+            100% {
+                transform: rotate(0deg);
+            }
+
+            10% {
+                transform: rotate(-3deg);
+            }
+
+            20% {
+                transform: rotate(3deg);
+            }
+
+            30% {
+                transform: rotate(-2deg);
+            }
+
+            40% {
+                transform: rotate(2deg);
+            }
+
+            50% {
+                transform: rotate(0deg);
+            }
+        }
+
+        @keyframes vs-coin-float {
+
+            0%,
+            100% {
+                transform: translateY(0px) rotate(0deg);
+                opacity: 0.7;
+            }
+
+            50% {
+                transform: translateY(-8px) rotate(15deg);
+                opacity: 1;
+            }
+        }
+
+        .vs-envelope-shake {
+            animation: vs-envelope-shake 2.5s ease-in-out infinite !important;
+        }
+
+        .vs-coin-anim {
+            animation: vs-coin-float 3s ease-in-out infinite !important;
+        }
+    </style>
+</div>
+<script>function addStyle(e){let t=document.createElement("style");t.textContent=e,document.head.append(t)}</script><script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script><script>new WOW().init();</script>
+<script>document.querySelectorAll(".vs-qr-btn").forEach(function(b){b.style.display="none"});document.querySelectorAll(".vs-qr-content").forEach(function(c){c.style.display="block"});document.querySelectorAll(".vs-qr-close").forEach(function(x){x.style.display="none"});</script><script src="/js/font-loader.js"></script></body></html>

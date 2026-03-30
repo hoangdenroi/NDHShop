@@ -85,7 +85,17 @@ class UserController extends Controller
             'balance'    => 'nullable|numeric|min:0',
         ]);
 
+        $oldBalance = $user->balance;
         $user->update($validated);
+
+        if (isset($validated['balance']) && $oldBalance != $user->balance) {
+            \App\Services\AuditLogService::log(
+                'admin_update_balance',
+                $user,
+                ['balance' => (float) $oldBalance],
+                ['balance' => (float) $user->balance]
+            );
+        }
 
         return redirect()->route('admin.users.index')
             ->with('success', 'Cập nhật người dùng thành công!');

@@ -15,23 +15,7 @@
             </a>
         </div>
 
-        {{-- Session messages --}}
-        @if(session('success'))
-            <div class="mb-6 p-4 bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/20 rounded-xl">
-                <p class="text-sm text-emerald-600 dark:text-emerald-400 flex items-center gap-2">
-                    <span class="material-symbols-outlined text-[16px]">check_circle</span>
-                    {{ session('success') }}
-                </p>
-            </div>
-        @endif
-        @if(session('error'))
-            <div class="mb-6 p-4 bg-rose-50 dark:bg-rose-500/10 border border-rose-200 dark:border-rose-500/20 rounded-xl">
-                <p class="text-sm text-rose-600 dark:text-rose-400 flex items-center gap-2">
-                    <span class="material-symbols-outlined text-[16px]">error</span>
-                    {{ session('error') }}
-                </p>
-            </div>
-        @endif
+        {{-- Session messages are handled via toast in app-layout.blade.php --}}
 
         {{-- Bảng danh sách --}}
         <div class="bg-white dark:bg-surface-dark border border-slate-200 dark:border-border-dark rounded-2xl overflow-hidden shadow-sm">
@@ -108,10 +92,18 @@
                                             <span class="size-1.5 rounded-full bg-rose-500"></span> Hết hạn
                                         </span>
                                     @elseif($isActive)
-                                        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-500 border border-emerald-500/20" 
-                                            title="{{ $gift->expires_at ? 'Đến: ' . $gift->expires_at->format('d/m/Y') : 'Vĩnh viễn' }}">
-                                            <span class="size-1.5 rounded-full bg-emerald-500"></span> Đang chạy
-                                        </span>
+                                        <div class="flex flex-col items-start gap-1.5">
+                                            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-500 border border-emerald-500/20" 
+                                                title="{{ $gift->expires_at ? 'Đến: ' . $gift->expires_at->format('d/m/Y') : 'Vĩnh viễn' }}">
+                                                <span class="size-1.5 rounded-full bg-emerald-500"></span> Đang chạy
+                                            </span>
+                                            @if($gift->isPremium() && $gift->canBeEdited())
+                                                <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500/10 text-amber-600 border border-amber-500/20 whitespace-nowrap" title="Thời gian còn lại để chỉnh sửa thiệp Premium">
+                                                    <span class="material-symbols-outlined text-[12px]">timer</span>
+                                                    Sửa: {{ $gift->edit_hours_left }}h
+                                                </span>
+                                            @endif
+                                        </div>
                                     @else
                                         <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-slate-500/10 text-slate-500 border border-slate-500/20">
                                             <span class="size-1.5 rounded-full bg-slate-500"></span> {{ $gift->status_label }}
@@ -152,14 +144,20 @@
                                             </a>
                                         @endif
 
-                                        {{-- Nút sửa (chỉ draft) --}}
-                                        @if($isDraft)
-                                            <a href="{{ route('app.gifts.edit', $gift->share_code ?? $gift->unitcode) }}"
+                                        {{-- Nút sửa (draft hoặc premium còn hạn 72h) --}}
+                                        @if($gift->canBeEdited())
+                                            @php
+                                                $editTitle = "Chỉnh sửa thiệp";
+                                                if (!$isDraft && $gift->isPremium()) {
+                                                    $editTitle = "Chỉnh sửa thiệp (Còn " . $gift->edit_hours_left . " giờ)";
+                                                }
+                                            @endphp
+                                            <a href="{{ route('app.gifts.edit', $gift->unitcode) }}"
                                                 class="p-1.5 text-slate-400 hover:text-amber-500 hover:bg-amber-500/10 rounded-lg transition-colors"
-                                                title="Chỉnh sửa thiệp">
+                                                title="{{ $editTitle }}">
                                                 <span class="material-symbols-outlined text-[18px]">edit</span>
                                             </a>
-                                        @endif
+                                        @endif  
 
                                         {{-- Nút xóa --}}
                                         <button x-data="{}" x-on:click.prevent="if(confirm('Bạn có chắc chắn muốn xóa trang quà tặng này không?')) { document.getElementById('delete-gift-{{ $gift->unitcode }}').submit(); }"
@@ -167,7 +165,7 @@
                                             title="Xóa thiệp">
                                             <span class="material-symbols-outlined text-[18px]">delete</span>
                                         </button>
-                                        <form id="delete-gift-{{ $gift->unitcode }}" action="{{ route('app.gifts.destroy', $gift->share_code ?? $gift->unitcode) }}" method="POST" class="hidden">
+                                        <form id="delete-gift-{{ $gift->unitcode }}" action="{{ route('app.gifts.destroy', $gift->unitcode) }}" method="POST" class="hidden">
                                             @csrf
                                             @method('DELETE')
                                         </form>

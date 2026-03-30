@@ -2,8 +2,13 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Prunable;
+use Illuminate\Database\Eloquent\Builder;
+
 class AuditLog extends BaseModel
 {
+    use Prunable;
+
     protected $fillable = [
         'user_id',
         'action',
@@ -24,5 +29,14 @@ class AuditLog extends BaseModel
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    /**
+     * Get the prunable model query.
+     * Xóa các log cũ hơn 90 ngày.
+     */
+    public function prunable(): Builder
+    {
+        return static::where('created_at', '<=', now()->subDays(90));
     }
 }

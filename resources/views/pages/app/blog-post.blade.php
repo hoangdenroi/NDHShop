@@ -11,20 +11,20 @@
                 </div>
                 <div class="flex flex-1 flex-col justify-center p-8 lg:p-12">
                     <div class="mb-4 inline-flex items-center rounded-full bg-primary/10 px-3 py-1 text-xs font-bold uppercase tracking-wider text-primary">
-                        Featured Post
+                        Bài viết nổi bật
                     </div>
                     <h1 class="mb-4 text-3xl font-extrabold leading-tight text-slate-900 dark:text-white lg:text-4xl">
-                        Mastering React Server Components: A Deep Dive into Performance
+                        Làm chủ React Server Components: Tối ưu hiệu suất chuyên sâu
                     </h1>
                     <p class="mb-6 text-lg text-slate-600 dark:text-slate-400">
-                        Learn how to optimize your application performance with the latest React patterns and best practices for server-side rendering in 2024.
+                        Tìm hiểu cách tối ưu hóa hiệu suất ứng dụng với các mẫu React mới nhất và các phương pháp tốt nhất cho server-side rendering trong năm 2024.
                     </p>
                     <div class="mb-8 flex items-center gap-4 text-sm text-slate-500">
-                        <span class="flex items-center gap-1"><span class="material-symbols-outlined text-base">calendar_today</span> Jan 15, 2024</span>
-                        <span class="flex items-center gap-1"><span class="material-symbols-outlined text-base">schedule</span> 12 min read</span>
+                        <span class="flex items-center gap-1"><span class="material-symbols-outlined text-base">calendar_today</span> 15/01/2024</span>
+                        <span class="flex items-center gap-1"><span class="material-symbols-outlined text-base">schedule</span> 12 phút đọc</span>
                     </div>
                     <a class="inline-flex w-fit items-center justify-center gap-2 rounded-lg bg-primary px-6 py-3 text-sm font-bold text-white hover:bg-primary/90 transition-all" href="#">
-                        Read Full Article <span class="material-symbols-outlined text-base">arrow_forward</span>
+                        Đọc toàn bộ bài viết <span class="material-symbols-outlined text-base">arrow_forward</span>
                     </a>
                 </div>
             </div>
@@ -34,12 +34,12 @@
     {{-- Filter Tabs --}}
     <section class="mb-8">
         <div class="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
-            <h2 class="text-2xl font-bold tracking-tight text-slate-900 dark:text-white">Recent Posts</h2>
+            <h2 class="text-2xl font-bold tracking-tight text-slate-900 dark:text-white">Bài viết gần đây</h2>
             <div class="flex flex-wrap gap-2">
-                <button class="rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-white">All Posts</button>
-                <button class="rounded-lg bg-white dark:bg-slate-800 px-4 py-2 text-sm font-semibold border border-slate-200 dark:border-slate-700 hover:border-primary/50 transition-colors">Tutorials</button>
-                <button class="rounded-lg bg-white dark:bg-slate-800 px-4 py-2 text-sm font-semibold border border-slate-200 dark:border-slate-700 hover:border-primary/50 transition-colors">News</button>
-                <button class="rounded-lg bg-white dark:bg-slate-800 px-4 py-2 text-sm font-semibold border border-slate-200 dark:border-slate-700 hover:border-primary/50 transition-colors">Dev Tips</button>
+                <button class="rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-white">Tất cả</button>
+                <button class="rounded-lg bg-white dark:bg-slate-800 px-4 py-2 text-sm font-semibold border border-slate-200 dark:border-slate-700 hover:border-primary/50 transition-colors">Hướng dẫn</button>
+                <button class="rounded-lg bg-white dark:bg-slate-800 px-4 py-2 text-sm font-semibold border border-slate-200 dark:border-slate-700 hover:border-primary/50 transition-colors">Tin tức</button>
+                <button class="rounded-lg bg-white dark:bg-slate-800 px-4 py-2 text-sm font-semibold border border-slate-200 dark:border-slate-700 hover:border-primary/50 transition-colors">Mẹo lập trình</button>
             </div>
         </div>
     </section>
@@ -53,20 +53,20 @@
             </div>
             <div class="flex flex-1 flex-col p-6">
                 <div class="mb-3 flex items-center justify-between">
-                    <span class="text-xs font-bold uppercase tracking-widest text-primary">Tutorials</span>
-                    <span class="text-xs text-slate-500">Jan 12, 2024</span>
+                    <span class="text-xs font-bold uppercase tracking-widest text-primary">Hướng dẫn</span>
+                    <span class="text-xs text-slate-500">12/01/2024</span>
                 </div>
                 <h3 class="mb-3 text-xl font-bold text-slate-900 dark:text-white group-hover:text-primary transition-colors">
-                    Building a SaaS with Next.js 14 and Tailwind
+                    Xây dựng ứng dụng SaaS với Next.js 14 và Tailwind
                 </h3>
                 <p class="mb-6 line-clamp-2 text-sm text-slate-600 dark:text-slate-400">
-                    A comprehensive guide to building modern software as a service applications using the latest web stack.
+                    Hướng dẫn toàn diện để xây dựng ứng dụng phần mềm dịch vụ hiện đại sử dụng bộ công nghệ web mới nhất.
                 </p>
                 <div class="mt-auto flex items-center justify-between border-t border-slate-100 dark:border-slate-800 pt-4">
                     <span class="text-xs text-slate-500 flex items-center gap-1">
-                        <span class="material-symbols-outlined text-sm">timer</span> 8 min read
+                        <span class="material-symbols-outlined text-sm">timer</span> 8 phút đọc
                     </span>
-                    <a class="text-sm font-bold text-primary hover:underline" href="#">Read more</a>
+                    <a class="text-sm font-bold text-primary hover:underline" href="#">Đọc thêm</a>
                 </div>
             </div>
         </div>
@@ -77,20 +77,20 @@
             </div>
             <div class="flex flex-1 flex-col p-6">
                 <div class="mb-3 flex items-center justify-between">
-                    <span class="text-xs font-bold uppercase tracking-widest text-primary">News</span>
-                    <span class="text-xs text-slate-500">Jan 10, 2024</span>
+                    <span class="text-xs font-bold uppercase tracking-widest text-primary">Tin tức</span>
+                    <span class="text-xs text-slate-500">10/01/2024</span>
                 </div>
                 <h3 class="mb-3 text-xl font-bold text-slate-900 dark:text-white group-hover:text-primary transition-colors">
-                    Top 10 VS Code Extensions for 2024 Productivity
+                    Top 10 Tiện ích VS Code tăng năng suất năm 2024
                 </h3>
                 <p class="mb-6 line-clamp-2 text-sm text-slate-600 dark:text-slate-400">
-                    Boost your development workflow with these essential extensions for Visual Studio Code.
+                    Tăng tốc quy trình phát triển của bạn với các tiện ích mở rộng thiết yếu cho VS Code.
                 </p>
                 <div class="mt-auto flex items-center justify-between border-t border-slate-100 dark:border-slate-800 pt-4">
                     <span class="text-xs text-slate-500 flex items-center gap-1">
-                        <span class="material-symbols-outlined text-sm">timer</span> 5 min read
+                        <span class="material-symbols-outlined text-sm">timer</span> 5 phút đọc
                     </span>
-                    <a class="text-sm font-bold text-primary hover:underline" href="#">Read more</a>
+                    <a class="text-sm font-bold text-primary hover:underline" href="#">Đọc thêm</a>
                 </div>
             </div>
         </div>
@@ -101,20 +101,20 @@
             </div>
             <div class="flex flex-1 flex-col p-6">
                 <div class="mb-3 flex items-center justify-between">
-                    <span class="text-xs font-bold uppercase tracking-widest text-primary">Development Tips</span>
-                    <span class="text-xs text-slate-500">Jan 08, 2024</span>
+                    <span class="text-xs font-bold uppercase tracking-widest text-primary">Mẹo lập trình</span>
+                    <span class="text-xs text-slate-500">08/01/2024</span>
                 </div>
                 <h3 class="mb-3 text-xl font-bold text-slate-900 dark:text-white group-hover:text-primary transition-colors">
-                    Understanding TypeScript Generics: The Easy Way
+                    Hiểu về TypeScript Generics một cách dễ dàng
                 </h3>
                 <p class="mb-6 line-clamp-2 text-sm text-slate-600 dark:text-slate-400">
-                    Clear and concise explanations for one of the most powerful features in TypeScript.
+                    Giải thích rõ ràng và ngắn gọn về một trong những tính năng mạnh mẽ nhất trong TypeScript.
                 </p>
                 <div class="mt-auto flex items-center justify-between border-t border-slate-100 dark:border-slate-800 pt-4">
                     <span class="text-xs text-slate-500 flex items-center gap-1">
-                        <span class="material-symbols-outlined text-sm">timer</span> 10 min read
+                        <span class="material-symbols-outlined text-sm">timer</span> 10 phút đọc
                     </span>
-                    <a class="text-sm font-bold text-primary hover:underline" href="#">Read more</a>
+                    <a class="text-sm font-bold text-primary hover:underline" href="#">Đọc thêm</a>
                 </div>
             </div>
         </div>
@@ -125,20 +125,20 @@
             </div>
             <div class="flex flex-1 flex-col p-6">
                 <div class="mb-3 flex items-center justify-between">
-                    <span class="text-xs font-bold uppercase tracking-widest text-primary">Tutorials</span>
-                    <span class="text-xs text-slate-500">Jan 05, 2024</span>
+                    <span class="text-xs font-bold uppercase tracking-widest text-primary">Hướng dẫn</span>
+                    <span class="text-xs text-slate-500">05/01/2024</span>
                 </div>
                 <h3 class="mb-3 text-xl font-bold text-slate-900 dark:text-white group-hover:text-primary transition-colors">
-                    Deploying to Vercel: A Complete CI/CD Guide
+                    Triển khai lên Vercel: Hướng dẫn CI/CD hoàn chỉnh
                 </h3>
                 <p class="mb-6 line-clamp-2 text-sm text-slate-600 dark:text-slate-400">
-                    Master the deployment pipeline and automate your workflow with Vercel and GitHub.
+                    Làm chủ quy trình triển khai và tự động hóa luồng công việc của bạn với Vercel và GitHub.
                 </p>
                 <div class="mt-auto flex items-center justify-between border-t border-slate-100 dark:border-slate-800 pt-4">
                     <span class="text-xs text-slate-500 flex items-center gap-1">
-                        <span class="material-symbols-outlined text-sm">timer</span> 6 min read
+                        <span class="material-symbols-outlined text-sm">timer</span> 6 phút đọc
                     </span>
-                    <a class="text-sm font-bold text-primary hover:underline" href="#">Read more</a>
+                    <a class="text-sm font-bold text-primary hover:underline" href="#">Đọc thêm</a>
                 </div>
             </div>
         </div>
@@ -149,20 +149,20 @@
             </div>
             <div class="flex flex-1 flex-col p-6">
                 <div class="mb-3 flex items-center justify-between">
-                    <span class="text-xs font-bold uppercase tracking-widest text-primary">News</span>
-                    <span class="text-xs text-slate-500">Jan 03, 2024</span>
+                    <span class="text-xs font-bold uppercase tracking-widest text-primary">Tin tức</span>
+                    <span class="text-xs text-slate-500">03/01/2024</span>
                 </div>
                 <h3 class="mb-3 text-xl font-bold text-slate-900 dark:text-white group-hover:text-primary transition-colors">
-                    State Management in Modern React Apps
+                    Quản lý State trong ứng dụng React hiện đại
                 </h3>
                 <p class="mb-6 line-clamp-2 text-sm text-slate-600 dark:text-slate-400">
-                    Comparing Redux, Zustand, and React Context for your next large-scale project.
+                    So sánh Redux, Zustand và React Context cho dự án quy mô lớn tiếp theo của bạn.
                 </p>
                 <div class="mt-auto flex items-center justify-between border-t border-slate-100 dark:border-slate-800 pt-4">
                     <span class="text-xs text-slate-500 flex items-center gap-1">
-                        <span class="material-symbols-outlined text-sm">timer</span> 12 min read
+                        <span class="material-symbols-outlined text-sm">timer</span> 12 phút đọc
                     </span>
-                    <a class="text-sm font-bold text-primary hover:underline" href="#">Read more</a>
+                    <a class="text-sm font-bold text-primary hover:underline" href="#">Đọc thêm</a>
                 </div>
             </div>
         </div>
@@ -173,32 +173,32 @@
             </div>
             <div class="flex flex-1 flex-col p-6">
                 <div class="mb-3 flex items-center justify-between">
-                    <span class="text-xs font-bold uppercase tracking-widest text-primary">Development Tips</span>
-                    <span class="text-xs text-slate-500">Jan 01, 2024</span>
+                    <span class="text-xs font-bold uppercase tracking-widest text-primary">Mẹo lập trình</span>
+                    <span class="text-xs text-slate-500">01/01/2024</span>
                 </div>
                 <h3 class="mb-3 text-xl font-bold text-slate-900 dark:text-white group-hover:text-primary transition-colors">
-                    CSS Grid vs Flexbox: When to use which?
+                    CSS Grid vs Flexbox: Khi nào dùng cái nào?
                 </h3>
                 <p class="mb-6 line-clamp-2 text-sm text-slate-600 dark:text-slate-400">
-                    Stop the confusion and learn the definitive rules for layout positioning in modern CSS.
+                    Hết nhầm lẫn và nắm vững nguyên tắc bố cục trong CSS hiện đại.
                 </p>
                 <div class="mt-auto flex items-center justify-between border-t border-slate-100 dark:border-slate-800 pt-4">
                     <span class="text-xs text-slate-500 flex items-center gap-1">
-                        <span class="material-symbols-outlined text-sm">timer</span> 7 min read
+                        <span class="material-symbols-outlined text-sm">timer</span> 7 phút đọc
                     </span>
-                    <a class="text-sm font-bold text-primary hover:underline" href="#">Read more</a>
+                    <a class="text-sm font-bold text-primary hover:underline" href="#">Đọc thêm</a>
                 </div>
             </div>
         </div>
     </section>
 
     {{-- Newsletter CTA --}}
-    <section class="mt-8 rounded-2xl bg-slate-900 p-8 text-center sm:p-16">
-        <h2 class="mb-4 text-3xl font-extrabold text-white">Get the latest developer updates</h2>
-        <p class="mx-auto mb-8 max-w-xl text-slate-400">Join 15,000+ developers receiving our weekly newsletter on React, Next.js, and modern web development.</p>
+    {{-- <section class="mt-8 rounded-2xl bg-slate-900 p-8 text-center sm:p-16">
+        <h2 class="mb-4 text-3xl font-extrabold text-white">Nhận cập nhật mới nhất</h2>
+        <p class="mx-auto mb-8 max-w-xl text-slate-400">Tham gia cùng 15,000+ người đọc nhận bản tin hàng tuần về công nghệ và phát triển web hiện đại.</p>
         <form class="mx-auto flex max-w-md flex-col gap-3 sm:flex-row">
-            <input class="h-12 flex-1 rounded-lg border-none bg-white/10 px-4 text-white placeholder:text-slate-500 focus:ring-2 focus:ring-primary/50" placeholder="Enter your email" type="email"/>
-            <button class="h-12 rounded-lg bg-primary px-8 font-bold text-white hover:bg-primary/90 transition-colors" type="submit">Subscribe</button>
+            <input class="h-12 flex-1 rounded-lg border-none bg-white/10 px-4 text-white placeholder:text-slate-500 focus:ring-2 focus:ring-primary/50" placeholder="Nhập email của bạn" type="email"/>
+            <button class="h-12 rounded-lg bg-primary px-8 font-bold text-white hover:bg-primary/90 transition-colors" type="submit">Đăng ký</button>
         </form>
-    </section>
+    </section> --}}
 @endsection

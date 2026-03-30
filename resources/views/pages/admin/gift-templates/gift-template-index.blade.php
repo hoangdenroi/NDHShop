@@ -13,8 +13,8 @@
                         class="bg-slate-100 dark:bg-background-dark border border-slate-200 dark:border-border-dark text-slate-700 dark:text-slate-300 text-sm rounded-lg pl-9 pr-8 py-2 w-full focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary cursor-pointer appearance-none transition-colors"
                         onchange="applyFilters()">
                         <option value="" {{ request('category') == '' ? 'selected' : '' }}>Tất cả chủ đề</option>
-                        @foreach($categories as $key => $label)
-                            <option value="{{ $key }}" {{ request('category') == $key ? 'selected' : '' }}>{{ $label }}</option>
+                        @foreach($categories as $cat)
+                            <option value="{{ $cat->id }}" {{ request('category') == $cat->id ? 'selected' : '' }}>{{ $cat->name }}</option>
                         @endforeach
                     </select>
                     <span
@@ -137,15 +137,15 @@
                                                 'name' => $template->name,
                                                 'slug' => $template->slug,
                                                 'thumbnail' => $template->thumbnail,
-                                                'category' => $template->category,
+                                                'category_id' => $template->category_id,
                                                 'html_code' => $template->decoded_html,
                                                 'css_code' => $template->decoded_css,
                                                 'js_code' => $template->decoded_js,
-                                                'schema' => json_encode($template->schema),
+                                                'schema' => $template->schema ? json_encode($template->schema, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT) : '',
                                                 'is_active' => $template->is_active,
                                                 'is_premium' => $template->is_premium,
                                                 'price' => $template->price,
-                                            ]) }})"
+                                            ], JSON_UNESCAPED_UNICODE) }})"
                                             class="p-1.5 text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-700 rounded transition-colors"
                                             title="Sửa">
                                             <span class="material-symbols-outlined text-[18px]">edit</span>

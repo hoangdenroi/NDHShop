@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <base href="https://api.vesey.vn/templates/">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thiệp Cưới - Vesey</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&amp;family=Inter:wght@300;400;500;600&amp;family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&amp;display=swap"
+    rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #F0F0EE;
+      overflow-x: hidden;
+    }
+
+    .font-display {
+      font-family: 'Playfair Display', serif;
+    }
+
+    .font-sans {
+      font-family: 'Inter', sans-serif;
+    }
+
+    .font-script {
+      font-family: 'Cormorant Garamond', serif;
+    }
+
+    /* Seoul Blossom color system */
+    .bg-seoul {
+      background-color: #FAFAF8;
+    }
+
+    .bg-seoul-alt {
+      background-color: #F5F3F0;
+    }
+
+    .text-dark {
+      color: #1A1A1A;
+    }
+
+    .text-muted {
+      color: #888888;
+    }
+
+    .text-rose {
+      color: #C4848A;
+    }
+
+    .text-sage {
+      color: #9CAF88;
+    }
+
+    /* Thin line divider */
+    .line-divider {
+      width: 40px;
+      height: 1px;
+      background: #DDDDDD;
+      margin: 0 auto;
+    }
+
+    /* Dot accent */
+    .dot-accent {
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: #C4848A;
+      display: inline-block;
+    }
+
+    /* Minimal frame */
+    .minimal-frame {
+      border: 1px solid #EEEEEE;
+      padding: 2px;
+    }
+
+    /* Form styling */
+    .form-input {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1px solid #EEEEEE;
+      border-radius: 8px;
+      background: #FFFFFF;
+      color: #1A1A1A;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      transition: border-color 0.3s;
+      outline: none;
+    }
+
+    .form-input:focus {
+      border-color: #C4848A;
+    }
+
+    .form-select {
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23888888' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 16px center;
+    }
+
+    /* Radio buttons */
+    .radio-option {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      border: 1px solid #EEEEEE;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      color: #1A1A1A;
+    }
+
+    .radio-option:has(input:checked) {
+      border-color: #C4848A;
+      background: rgba(196, 132, 138, 0.05);
+    }
+
+    .radio-option input[type="radio"] {
+      accent-color: #C4848A;
+    }
+
+    /* Scroll hint animation */
+    @keyframes gentle-bounce {
+
+      0%,
+      100% {
+        transform: translateY(0);
+        opacity: 0.3;
+      }
+
+      50% {
+        transform: translateY(6px);
+        opacity: 0.6;
+      }
+    }
+
+    .scroll-hint {
+      animation: gentle-bounce 2.5s ease-in-out infinite;
+    }
+
+    /* Timeline horizontal */
+    .h-timeline {
+      display: flex;
+      position: relative;
+    }
+
+    .h-timeline::before {
+      content: '';
+      position: absolute;
+      top: 6px;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: #EEEEEE;
+    }
+
+    .h-timeline-item {
+      flex: 1;
+      position: relative;
+      padding-top: 20px;
+      text-align: center;
+    }
+
+    .h-timeline-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      border: 2px solid #C4848A;
+      background: #FAFAF8;
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    /* Vertical timeline for love story */
+    .v-timeline-line {
+      position: absolute;
+      left: 11px;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      background: #EEEEEE;
+    }
+
+    .v-timeline-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #C4848A;
+      border: 2px solid #FAFAF8;
+      position: relative;
+      z-index: 1;
+      flex-shrink: 0;
+      margin-top: 4px;
+    }
+
+    /* ===== QR TOGGLE ===== */
+    .vs-qr-content.vs-hidden {
+      display: none;
+    }
+
+    .vs-qr-content.vs-reveal {
+      animation: qr-reveal 0.4s ease-out;
+    }
+
+    @keyframes qr-reveal {
+      from {
+        opacity: 0;
+        transform: translateY(-8px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <link rel="stylesheet" href="/css/vesey.css?v=20260313b">
+  <!-- ============================================================ --><!-- MAIN CONTAINER                                                --><!-- ============================================================ -->
+  <div class="mx-auto max-w-[640px] bg-seoul font-sans relative" data-uuid="69b380d4bd790">
+
+    <!-- ==================== SECTION 1: HERO ==================== -->
+    <section data-moveable="true" data-hidable="true" data-copyable="true" data-removable="true"
+      class="pt-12 pb-8 px-8 text-center bg-seoul" data-uuid="69b380d4bd799">
+
+      <!-- Text above photo -->
+      <div class="mb-6 wow animate__animated animate__fadeIn" data-wow-duration="0.8s" data-uuid="69b380d4bd79b">
+        <p data-editable="true" class="font-sans text-muted text-[9px] tracking-[0.5em] uppercase mb-3"
+          data-uuid="69b380d4bd79c">{{GREETING}}</p>
+        <h1 data-editable="true" class="font-display text-4xl text-dark leading-tight" data-uuid="69b380d4bd79e">Thu Hà
+        </h1>
+        <div class="flex items-center justify-center gap-3 my-2" data-uuid="69b380d4bd79f">
+          <span class="w-6 h-[0.5px] bg-[#DDDDDD]" data-uuid="69b380d4bd7a0"></span>
+          <span data-editable="true" class="font-script text-rose text-xl italic" data-uuid="69b380d4bd7a1">&amp;</span>
+          <span class="w-6 h-[0.5px] bg-[#DDDDDD]" data-uuid="69b380d4bd7a3"></span>
+        </div>
+        <h1 data-editable="true" class="font-display text-4xl text-dark leading-tight" data-uuid="69b380d4bd7a4">Quang
+          Minh</h1>
+        <p data-editable="true" class="font-sans text-muted text-[10px] tracking-[0.3em] uppercase mt-3"
+          data-uuid="69b380d4bd7a6">{{WEDDING_DATE_SHORT}}</p>
+      </div>
+
+      <!-- Center photo with padding -->
+      <div class="px-4 wow animate__animated animate__fadeInUp" data-wow-duration="0.8s" data-wow-delay="0.15s"
+        data-uuid="69b380d4bd7a7">
+        <div class="minimal-frame" data-uuid="69b380d4bd7a9">
+          <img data-editable="true" src="{{COVER_IMAGE}}" alt="Ảnh cưới" class="w-full object-cover"
+            style="aspect-ratio: 3/4;" data-uuid="69b380d4bd7aa">
+        </div>
+      </div>
+
+      <!-- Scroll hint -->
+      <div class="flex justify-center pt-6 scroll-hint" data-uuid="69b380d4bd7ac">
+        <svg class="w-4 h-4 text-muted opacity-30" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+          data-uuid="69b380d4bd7ad">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 14l-7 7m0 0l-7-7m7 7V3"
+            data-uuid="69b380d4bd7b2"></path>
+        </svg>
+      </div>
+    </section>
+
+    <!-- ==================== SECTION 2: FORMAL INVITATION ==================== -->
+    <section data-moveable="true" data-hidable="true" data-copyable="true" data-removable="true"
+      class="py-12 px-6 text-center bg-seoul-alt" data-uuid="69b380d4bd7b3">
+      <div class="wow animate__animated animate__fadeIn" data-wow-duration="0.8s" data-uuid="69b380d4bd7b5">
+
+        <div class="dot-accent mx-auto mb-6" data-uuid="69b380d4bd7ba"></div>
+
+        <!-- Two-column parents -->
+        <div class="flex justify-center gap-6 mb-6" data-uuid="69b380d4bd7bb">
+          <!-- Nhà Trai -->
+          <div class="flex-1 text-center" data-uuid="69b380d4bd7bd">
+            <p data-editable="true"
+              class="font-sans text-rose text-[10px] tracking-[0.3em] uppercase font-semibold mb-3"
+              data-uuid="69b380d4bd7c2">Nhà Trai</p>
+            <p data-editable="true" class="font-script text-dark text-sm leading-relaxed italic"
+              data-uuid="69b380d4bd7c4">{{GROOM_FATHER_NAME}}</p>
+            <p data-editable="true" class="font-script text-dark text-sm leading-relaxed italic"
+              data-uuid="69b380d4bd7c8">{{GROOM_MOTHER_NAME}}</p>
+          </div>
+          <!-- Nhà Gái -->
+          <div class="flex-1 text-center" data-uuid="69b380d4bd7d0">
+            <p data-editable="true"
+              class="font-sans text-rose text-[10px] tracking-[0.3em] uppercase font-semibold mb-3"
+              data-uuid="69b380d4bd7d2">Nhà Gái</p>
+            <p data-editable="true" class="font-script text-dark text-sm leading-relaxed italic"
+              data-uuid="69b380d4bd7d4">{{BRIDE_FATHER_NAME}}</p>
+            <p data-editable="true" class="font-script text-dark text-sm leading-relaxed italic"
+              data-uuid="69b380d4bd7d6">{{BRIDE_MOTHER_NAME}}</p>
+          </div>
+        </div>
+
+        <!-- Divider -->
+        <div class="line-divider mb-6" data-uuid="69b380d4bd7d8"></div>
+
+        <!-- Main heading -->
+        <h2 data-editable="true" class="font-display text-2xl text-dark font-semibold tracking-wide mb-3"
+          data-uuid="69b380d4bd7db">TRÂN TRỌNG KÍNH MỜI</h2>
+
+        <p data-editable="true" class="vs-attendance-name-text font-sans text-dark text-sm mb-1"
+          data-uuid="69b380d4bd7de">{{INVITATION_TO}}</p>
+        <p data-editable="true" class="font-script text-muted text-sm italic mb-6" data-uuid="69b380d4bd7df">(Tới dự Lễ
+          Thành Hôn của hai con chúng tôi)</p>
+
+        <!-- Couple names -->
+        <h3 data-editable="true" class="font-display text-3xl text-rose font-light tracking-wide mb-6"
+          data-uuid="69b380d4bd7e1">{{GROOM_NAME_SHORT}} ❤ {{BRIDE_NAME_SHORT}}</h3>
+
+        <!-- Time & Date -->
+        <p data-editable="true" class="font-sans text-dark text-sm mb-1" data-uuid="69b380d4bd7e3">Tổ chức vào lúc 17
+          giờ
+          30</p>
+        <p data-editable="true" class="font-display text-dark text-base font-semibold mb-1" data-uuid="69b380d4bd7e5">
+          Thứ
+          Sáu, ngày 22 tháng 08 năm 2025</p>
+        <p data-editable="true" class="font-script text-muted text-sm italic mb-4" data-uuid="69b380d4bd7e6">(Tức ngày
+          28
+          tháng 06 năm Ất Tỵ)</p>
+
+        <!-- Venue -->
+        <p data-editable="true" class="font-sans text-dark text-sm leading-relaxed mb-6" data-uuid="69b380d4bd7e8">
+          {{WEDDING_VENUE}}
+        </p>
+
+        <!-- Divider -->
+        <div class="line-divider mb-5" data-uuid="69b380d4bd7ec"></div>
+
+        <!-- Closing blessing -->
+        <p data-editable="true" class="font-script text-rose text-sm italic leading-relaxed max-w-xs mx-auto"
+          data-uuid="69b380d4bd7ee">
+          Sự hiện diện của Quý khách là niềm vinh hạnh của gia đình chúng tôi!
+        </p>
+      </div>
+    </section>
+
+    <!-- ==================== SECTION 3: INVITATION TEXT ==================== -->
+    <section data-moveable="true" data-hidable="true" data-copyable="true" data-removable="true"
+      class="py-12 px-10 text-center bg-seoul" data-uuid="69b380d4bd7ef">
+      <div class="wow animate__animated animate__fadeIn" data-wow-duration="0.8s" data-wow-delay="0.1s"
+        data-uuid="69b380d4bd7f1">
+
+        <p data-editable="true" class="font-script text-dark text-lg leading-[2.2] italic" data-uuid="69b380d4bd7f3">
+          Tình yêu không cần hoàn hảo,<br data-uuid="69b380d4bd7f5">
+          chỉ cần chân thành.<br data-uuid="69b380d4bd7f7">
+          Chúng tôi đã tìm thấy nhau<br data-uuid="69b380d4bd7f9">
+          giữa muôn vàn người,<br data-uuid="69b380d4bd7fb">
+          và hôm nay xin được chia sẻ<br data-uuid="69b380d4bd7fd">
+          niềm hạnh phúc này cùng bạn.
+        </p>
+
+        <div class="line-divider mt-8" data-uuid="69b380d4bd7ff"></div>
+      </div>
+    </section>
+
+    <!-- ==================== SECTION 4: COUPLE PHOTOS ==================== -->
+    <section data-moveable="true" data-hidable="true" data-copyable="true" data-removable="true"
+      class="py-12 px-8 bg-seoul-alt" data-uuid="69b380d4bd801">
+      <div class="wow animate__animated animate__fadeInUp" data-wow-duration="0.8s" data-uuid="69b380d4bd803">
+
+        <p data-editable="true" class="font-sans text-muted text-[9px] tracking-[0.5em] uppercase text-center mb-2"
+          data-uuid="69b380d4bd805">The Couple</p>
+        <h2 data-editable="true" class="font-display text-2xl text-dark text-center mb-8" data-uuid="69b380d4bd808">Cô
+          Dâu
+          &amp; Chú Rể</h2>
+
+        <!-- Rectangular photos side-by-side with thin border -->
+        <div class="flex gap-3" data-uuid="69b380d4bd80a">
+          <div class="flex-1 wow animate__animated animate__fadeInLeft" data-wow-duration="0.8s" data-wow-delay="0.15s"
+            data-uuid="69b380d4bd80c">
+            <div class="minimal-frame" data-uuid="69b380d4bd80e">
+              <img data-editable="true" src="{{GROOM_IMAGE}}" alt="Chú rể" class="w-full object-cover"
+                style="aspect-ratio: 3/4;" data-uuid="69b380d4bd810">
+            </div>
+            <div class="text-center mt-3" data-uuid="69b380d4bd812">
+              <h3 data-editable="true" class="font-display text-lg text-dark" data-uuid="69b380d4bd814">
+                {{GROOM_NAME_SHORT}}</h3>
+              <p data-editable="true" class="font-sans text-muted text-[10px] tracking-[0.2em] uppercase mt-0.5"
+                data-uuid="69b380d4bd817">Chú Rể</p>
+            </div>
+          </div>
+
+          <div class="flex-1 wow animate__animated animate__fadeInRight" data-wow-duration="0.8s" data-wow-delay="0.15s"
+            data-uuid="69b380d4bd819">
+            <div class="minimal-frame" data-uuid="69b380d4bd81c">
+              <img data-editable="true" src="{{BRIDE_IMAGE}}" alt="Cô dâu" class="w-full object-cover"
+                style="aspect-ratio: 3/4;" data-uuid="69b380d4bd81e">
+            </div>
+            <div class="text-center mt-3" data-uuid="69b380d4bd820">
+              <h3 data-editable="true" class="font-display text-lg text-dark" data-uuid="69b380d4bd825">
+                {{BRIDE_NAME_SHORT}}</h3>
+              <p data-editable="true" class="font-sans text-muted text-[10px] tracking-[0.2em] uppercase mt-0.5"
+                data-uuid="69b380d4bd827">Cô Dâu</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SECTION 5: QUOTE ==================== -->
+    <section data-moveable="true" data-hidable="true" data-copyable="true" data-removable="true"
+      class="py-10 px-10 text-center bg-seoul" data-uuid="69b380d4bd829">
+      <div class="wow animate__animated animate__fadeIn" data-wow-duration="0.8s" data-uuid="69b380d4bd82c">
+        <p data-editable="true" class="font-script text-dark/80 text-base leading-[2] italic" data-uuid="69b380d4bd831">
+          "Hạnh phúc là khi tìm được người<br data-uuid="69b380d4bd834">
+          khiến trái tim mình muốn gọi là nhà."
+        </p>
+        <p data-editable="true" class="font-sans text-muted text-[10px] tracking-[0.2em] uppercase mt-3"
+          data-uuid="69b380d4bd836">{{QUOTE_AUTHOR}}</p>
+      </div>
+    </section>
+
+    <!-- ==================== SECTION 6: GALLERY ==================== -->
+    <section data-moveable="true" data-hidable="true" data-copyable="true" data-removable="true"
+      class="py-12 px-8 bg-seoul-alt" data-uuid="69b380d4bd838">
+      <div class="text-center mb-8 wow animate__animated animate__fadeIn" data-wow-duration="0.8s"
+        data-uuid="69b380d4bd83b">
+        <p data-editable="true" class="font-sans text-muted text-[9px] tracking-[0.5em] uppercase mb-2"
+          data-uuid="69b380d4bd840">Gallery</p>
+        <h2 data-editable="true" class="font-display text-2xl text-dark" data-uuid="69b380d4bd843">Khoảnh Khắc</h2>
+      </div>
+
+      <!-- Magazine layout: alternating 2-up and 1-up full-width -->
+      <div class="space-y-2 wow animate__animated animate__fadeInUp" data-wow-duration="0.8s" data-wow-delay="0.15s"
+        data-uuid="69b380d4bd846">
+
+        <!-- Full width -->
+        <div class="minimal-frame" data-uuid="69b380d4bd84b">
+          <img data-editable="true" src="{{GALLERY_1}}" alt="Gallery 1" class="w-full object-cover"
+            style="aspect-ratio: 16/9;" data-uuid="69b380d4bd84e">
+        </div>
+
+        <!-- 2-up -->
+        <div class="flex gap-2" data-uuid="69b380d4bd850">
+          <div class="flex-1 minimal-frame" data-uuid="69b380d4bd853">
+            <img data-editable="true" src="{{GALLERY_2}}" alt="Gallery 2" class="w-full object-cover"
+              style="aspect-ratio: 1/1;" data-uuid="69b380d4bd856">
+          </div>
+          <div class="flex-1 minimal-frame" data-uuid="69b380d4bd85a">
+            <img data-editable="true" src="{{GALLERY_3}}" alt="Gallery 3" class="w-full object-cover"
+              style="aspect-ratio: 1/1;" data-uuid="69b380d4bd85d">
+          </div>
+        </div>
+
+        <!-- Full width -->
+        <div class="minimal-frame" data-uuid="69b380d4bd863">
+          <img data-editable="true" src="{{GALLERY_4}}" alt="Gallery 4" class="w-full object-cover"
+            style="aspect-ratio: 16/9;" data-uuid="69b380d4bd865">
+        </div>
+
+        <!-- 2-up -->
+        <div class="flex gap-2" data-uuid="69b380d4bd868">
+          <div class="flex-1 minimal-frame" data-uuid="69b380d4bd86d">
+            <img data-editable="true" src="{{GALLERY_5}}" alt="Gallery 5" class="w-full object-cover"
+              style="aspect-ratio: 1/1;" data-uuid="69b380d4bd870">
+          </div>
+          <div class="flex-1 minimal-frame" data-uuid="69b380d4bd873">
+            <img data-editable="true" src="{{GALLERY_6}}" alt="Gallery 6" class="w-full object-cover"
+              style="aspect-ratio: 1/1;" data-uuid="69b380d4bd875">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SECTION 7: LOVE STORY TIMELINE ==================== -->
+    <section data-moveable="true" data-hidable="true" data-copyable="true" data-removable="true"
+      class="py-12 px-8 bg-seoul" data-uuid="69b380d4bd87b">
+      <div class="text-center mb-10 wow animate__animated animate__fadeIn" data-wow-duration="0.8s"
+        data-uuid="69b380d4bd87e">
+        <p data-editable="true" class="font-sans text-muted text-[9px] tracking-[0.5em] uppercase mb-2"
+          data-uuid="69b380d4bd881">Our Story</p>
+        <h2 data-editable="true" class="font-display text-2xl text-dark" data-uuid="69b380d4bd885">Chuyện Của Chúng Tôi
+        </h2>
+      </div>
+
+      <div class="relative pl-8 space-y-8 max-w-md mx-auto" data-uuid="69b380d4bd888">
+        <div class="v-timeline-line" data-uuid="69b380d4bd88b"></div>
+
+        <!-- Event 1 -->
+        <div class="flex gap-4 wow animate__animated animate__fadeInUp" data-wow-duration="0.8s" data-wow-delay="0.1s"
+          data-uuid="69b380d4bd88f">
+          <div class="v-timeline-dot" data-uuid="69b380d4bd892"></div>
+          <div data-uuid="69b380d4bd895">
+            <p data-editable="true" class="font-sans text-rose text-[10px] tracking-[0.15em] uppercase font-medium"
+              data-uuid="69b380d4bd898">{{STORY_1_DATE}}</p>
+            <h3 data-editable="true" class="font-display text-base text-dark mt-1" data-uuid="69b380d4bd89b">Lần đầu gặp
+              gỡ</h3>
+            <p data-editable="true" class="font-sans text-muted text-xs leading-relaxed mt-1" data-uuid="69b380d4bd89e">
+              {{STORY_1_DESC}}</p>
+          </div>
+        </div>
+
+        <!-- Event 2 -->
+        <div class="flex gap-4 wow animate__animated animate__fadeInUp" data-wow-duration="0.8s" data-wow-delay="0.2s"
+          data-uuid="69b380d4bd8a2">
+          <div class="v-timeline-dot" data-uuid="69b380d4bd8a5"></div>
+          <div data-uuid="69b380d4bd8a8">
+            <p data-editable="true" class="font-sans text-rose text-[10px] tracking-[0.15em] uppercase font-medium"
+              data-uuid="69b380d4bd8ab">{{STORY_2_DATE}}</p>
+            <h3 data-editable="true" class="font-display text-base text-dark mt-1" data-uuid="69b380d4bd8af">Chính thức
+              yêu nhau</h3>
+            <p data-editable="true" class="font-sans text-muted text-xs leading-relaxed mt-1" data-uuid="69b380d4bd8b3">
+              {{STORY_2_DESC}}</p>
+          </div>
+        </div>
+
+        <!-- Event 3 -->
+        <div class="flex gap-4 wow animate__animated animate__fadeInUp" data-wow-duration="0.8s" data-wow-delay="0.3s"
+          data-uuid="69b380d4bd8b6">
+          <div class="v-timeline-dot" data-uuid="69b380d4bd8ba"></div>
+          <div data-uuid="69b380d4bd8bd">
+            <p data-editable="true" class="font-sans text-rose text-[10px] tracking-[0.15em] uppercase font-medium"
+              data-uuid="69b380d4bd8c0">{{STORY_3_DATE}}</p>
+            <h3 data-editable="true" class="font-display text-base text-dark mt-1" data-uuid="69b380d4bd8c4">
+              {{STORY_3_TITLE}}</h3>
+            <p data-editable="true" class="font-sans text-muted text-xs leading-relaxed mt-1" data-uuid="69b380d4bd8c7">
+              {{STORY_3_DESC}}</p>
+          </div>
+        </div>
+
+        <!-- Event 4 -->
+        <div class="flex gap-4 wow animate__animated animate__fadeInUp" data-wow-duration="0.8s" data-wow-delay="0.4s"
+          data-uuid="69b380d4bd8ca">
+          <div class="v-timeline-dot" data-uuid="69b380d4bd8ce"></div>
+          <div data-uuid="69b380d4bd8d1">
+            <p data-editable="true" class="font-sans text-rose text-[10px] tracking-[0.15em] uppercase font-medium"
+              data-uuid="69b380d4bd8d5">{{STORY_4_DATE}}</p>
+            <h3 data-editable="true" class="font-display text-base text-dark mt-1" data-uuid="69b380d4bd8d8">Ngày trọng
+              đại</h3>
+            <p data-editable="true" class="font-sans text-muted text-xs leading-relaxed mt-1" data-uuid="69b380d4bd8db">
+              {{STORY_4_DESC}}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SECTION 8: COUNTDOWN ==================== -->
+    <section data-moveable="true" data-hidable="true" data-copyable="true" data-removable="true"
+      class="relative py-20 px-8 text-center overflow-hidden" data-uuid="69b380d4bd8df">
+      <img data-editable="true"
+        src="https://d2y5jh3q6eekr6.cloudfront.net/a04dd868-bcb9-4907-86de-b8ebfbdfa3e5/690e9037a52201762562103.jpg"
+        alt="Countdown background" class="absolute inset-0 w-full h-full object-cover" data-uuid-dummy
+        data-uuid="69b380d4bd8e2">
+      <div class="absolute inset-0 bg-gradient-to-b from-black/40 via-black/50 to-black/40 pointer-events-none"
+        data-uuid="69b380d4bd8e6"></div>
+
+      <div class="relative z-10 wow animate__animated animate__fadeIn" data-wow-duration="0.8s"
+        data-uuid="69b380d4bd8ea">
+        <p data-editable="true" class="font-sans text-white/50 text-[9px] tracking-[0.5em] uppercase mb-2"
+          data-uuid="69b380d4bd8ed">Save The Date</p>
+        <h2 data-editable="true" class="font-display text-2xl text-white mb-10" data-uuid="69b380d4bd8f1">Đếm Ngược</h2>
+
+        <div id="vs-start-time" style="display:none;" data-uuid="69b380d4bd8f4">{{COUNTDOWN_TIME}}</div>
+
+        <div class="flex justify-center gap-3" data-uuid="69b380d4bd8f8">
+          <div class="bg-white/15 backdrop-blur-sm rounded-xl px-5 py-4 min-w-[68px]" data-uuid="69b380d4bd8fc">
+            <span class="vs-time-days font-display text-3xl text-white block" data-uuid="69b380d4bd8ff">00</span>
+            <span class="font-sans text-white/50 text-[8px] tracking-[0.15em] uppercase mt-2 block"
+              data-uuid="69b380d4bd903">Ngày</span>
+          </div>
+          <div class="bg-white/15 backdrop-blur-sm rounded-xl px-5 py-4 min-w-[68px]" data-uuid="69b380d4bd906">
+            <span class="vs-time-hours font-display text-3xl text-white block" data-uuid="69b380d4bd90a">00</span>
+            <span class="font-sans text-white/50 text-[8px] tracking-[0.15em] uppercase mt-2 block"
+              data-uuid="69b380d4bd90e">Giờ</span>
+          </div>
+          <div class="bg-white/15 backdrop-blur-sm rounded-xl px-5 py-4 min-w-[68px]" data-uuid="69b380d4bd914">
+            <span class="vs-time-minutes font-display text-3xl text-white block" data-uuid="69b380d4bd917">00</span>
+            <span class="font-sans text-white/50 text-[8px] tracking-[0.15em] uppercase mt-2 block"
+              data-uuid="69b380d4bd91b">Phút</span>
+          </div>
+          <div class="bg-white/15 backdrop-blur-sm rounded-xl px-5 py-4 min-w-[68px]" data-uuid="69b380d4bd91f">
+            <span class="vs-time-seconds font-display text-3xl text-white block" data-uuid="69b380d4bd922">00</span>
+            <span class="font-sans text-white/50 text-[8px] tracking-[0.15em] uppercase mt-2 block"
+              data-uuid="69b380d4bd926">Giây</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SECTION 9: EVENT DETAILS ==================== -->
+    <section data-moveable="true" data-hidable="true" data-copyable="true" data-removable="true"
+      class="py-12 px-8 bg-seoul" data-uuid="69b380d4bd92a">
+      <div class="text-center mb-10 wow animate__animated animate__fadeIn" data-wow-duration="0.8s"
+        data-uuid="69b380d4bd92e">
+        <p data-editable="true" class="font-sans text-muted text-[9px] tracking-[0.5em] uppercase mb-2"
+          data-uuid="69b380d4bd932">Events</p>
+        <h2 data-editable="true" class="font-display text-2xl text-dark" data-uuid="69b380d4bd936">Sự Kiện Cưới</h2>
+      </div>
+
+      <!-- Horizontal timeline with 2 events -->
+      <div class="h-timeline max-w-sm mx-auto wow animate__animated animate__fadeInUp" data-wow-duration="0.8s"
+        data-wow-delay="0.1s" data-uuid="69b380d4bd93b">
+
+        <!-- Event 1 -->
+        <div class="h-timeline-item pr-3" data-uuid="69b380d4bd93f">
+          <div class="h-timeline-dot" data-uuid="69b380d4bd943"></div>
+          <p data-editable="true" class="font-sans text-rose text-[9px] tracking-[0.2em] uppercase font-medium mb-1"
+            data-uuid="69b380d4bd947">{{EVENT_1_NAME}}</p>
+          <p data-editable="true" class="font-sans text-dark text-xs font-medium" data-uuid="69b380d4bd94b">
+            {{EVENT_1_TIME}}</p>
+          <p data-editable="true" class="font-sans text-muted text-[10px] mt-0.5" data-uuid="69b380d4bd950">Thứ Sáu,
+            22/08/2025</p>
+          <p data-editable="true" class="font-sans text-muted text-[10px] leading-relaxed mt-2"
+            data-uuid="69b380d4bd956">
+            123 Đường Trần Phú,<br data-uuid="69b380d4bd95b">Quận Ba Đình, Hà Nội
+          </p>
+          <div class="mt-3" data-uuid="69b380d4bd961">
+            <a href="{{EVENT_MAP}}" target="_blank" rel="noopener noreferrer"
+              class="vs-popup-gmaps inline-flex items-center gap-1.5 px-4 py-1.5 border border-[#C4848A] text-[#C4848A] rounded-full text-[9px] font-medium tracking-[0.1em] uppercase hover:bg-[#C4848A] hover:text-white transition-colors cursor-pointer"
+              data-editable="true" data-uuid="69b380d4bd967">
+              <svg class="w-2.5 h-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" data-uuid="69b380d4bd96d">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                  data-uuid="69b380d4bd973"></path>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" data-uuid="69b380d4bd97a"></path>
+              </svg>
+              Bản Đồ
+            </a>
+          </div>
+        </div>
+
+        <!-- Event 2 -->
+        <div class="h-timeline-item pl-3" data-uuid="69b380d4bd985">
+          <div class="h-timeline-dot" data-uuid="69b380d4bd98b"></div>
+          <p data-editable="true" class="font-sans text-rose text-[9px] tracking-[0.2em] uppercase font-medium mb-1"
+            data-uuid="69b380d4bd991">{{EVENT_2_NAME}}</p>
+          <p data-editable="true" class="font-sans text-dark text-xs font-medium" data-uuid="69b380d4bd996">
+            {{EVENT_2_TIME}}</p>
+          <p data-editable="true" class="font-sans text-muted text-[10px] mt-0.5" data-uuid="69b380d4bd99b">Thứ Sáu,
+            22/08/2025</p>
+          <p data-editable="true" class="font-sans text-muted text-[10px] leading-relaxed mt-2"
+            data-uuid="69b380d4bd99f">
+            Trung Tâm Tiệc Cưới XYZ,<br data-uuid="69b380d4bd9a3">456 Kim Mã, Ba Đình, Hà Nội
+          </p>
+          <div class="mt-3" data-uuid="69b380d4bd9a8">
+            <a href="https://maps.google.com/?q=" target="_blank" rel="noopener noreferrer"
+              class="vs-popup-gmaps inline-flex items-center gap-1.5 px-4 py-1.5 border border-[#C4848A] text-[#C4848A] rounded-full text-[9px] font-medium tracking-[0.1em] uppercase hover:bg-[#C4848A] hover:text-white transition-colors cursor-pointer"
+              data-editable="true" data-uuid="69b380d4bd9ac">
+              <svg class="w-2.5 h-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" data-uuid="69b380d4bd9b1">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                  data-uuid="69b380d4bd9b5"></path>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" data-uuid="69b380d4bd9ba"></path>
+              </svg>
+              Bản Đồ
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SECTION 10: RSVP ==================== -->
+    <section data-moveable="true" data-hidable="true" data-copyable="true" data-removable="true"
+      class="py-12 px-8 bg-seoul-alt" data-uuid="69b380d4bd9be">
+      <div class="text-center mb-8 wow animate__animated animate__fadeIn" data-wow-duration="0.8s"
+        data-uuid="69b380d4bd9c3">
+        <p data-editable="true" class="font-sans text-muted text-[9px] tracking-[0.5em] uppercase mb-2"
+          data-uuid="69b380d4bd9c7">RSVP</p>
+        <h2 data-editable="true" class="font-display text-2xl text-dark mb-2" data-uuid="69b380d4bd9cc">Xác Nhận Tham Dự
+        </h2>
+        <p data-editable="true" class="font-sans text-muted text-xs" data-uuid="69b380d4bd9d1">Xin vui lòng xác nhận
+          trước
+          ngày 15/08/2025</p>
+      </div>
+
+      <form class="vs-attendance-form max-w-sm mx-auto space-y-4 wow animate__animated animate__fadeInUp"
+        data-wow-duration="0.8s" data-wow-delay="0.15s" data-uuid="69b380d4bd9d5">
+
+        <div data-uuid="69b380d4bd9da">
+          <label data-editable="true" class="font-sans text-dark text-[11px] font-medium mb-1.5 block"
+            data-uuid="69b380d4bd9df">Họ và tên *</label>
+          <input type="text" name="name" required="" class="vs-attendance-name form-input"
+            placeholder="Nhập họ tên của bạn" data-uuid="69b380d4bd9e4">
+        </div>
+
+        <div data-uuid="69b380d4bd9e9">
+          <label data-editable="true" class="font-sans text-dark text-[11px] font-medium mb-1.5 block"
+            data-uuid="69b380d4bd9ed">Bạn sẽ tham dự? *</label>
+          <div class="flex flex-col gap-2" data-uuid="69b380d4bd9f2">
+            <label class="radio-option" data-uuid="69b380d4bd9f7">
+              <input type="radio" name="decision" value="yes" required="" data-uuid="69b380d4bda06">
+              <span data-editable="true" data-uuid="69b380d4bda0b">Có, tôi sẽ đến</span>
+            </label>
+            <label class="radio-option" data-uuid="69b380d4bda10">
+              <input type="radio" name="decision" value="no" data-uuid="69b380d4bda18">
+              <span data-editable="true" data-uuid="69b380d4bda1d">Rất tiếc, tôi không thể tham dự</span>
+            </label>
+          </div>
+        </div>
+
+        <div data-uuid="69b380d4bda22">
+          <label data-editable="true" class="font-sans text-dark text-[11px] font-medium mb-1.5 block"
+            data-uuid="69b380d4bda27">Bạn là khách của? *</label>
+          <div class="flex gap-2" data-uuid="69b380d4bda2c">
+            <label class="radio-option flex-1 justify-center" data-uuid="69b380d4bda34">
+              <input type="radio" name="guest_of" value="bride" required="" data-uuid="69b380d4bda39">
+              <span data-editable="true" data-uuid="69b380d4bda42">Cô dâu</span>
+            </label>
+            <label class="radio-option flex-1 justify-center" data-uuid="69b380d4bda48">
+              <input type="radio" name="guest_of" value="groom" data-uuid="69b380d4bda4d">
+              <span data-editable="true" data-uuid="69b380d4bda54">Chú rể</span>
+            </label>
+          </div>
+        </div>
+
+        <div data-uuid="69b380d4bda59">
+          <label data-editable="true" class="font-sans text-dark text-[11px] font-medium mb-1.5 block"
+            data-uuid="69b380d4bda5e">Số người đi cùng (bao gồm bạn)</label>
+          <select name="number_of_guests" class="vs-number-of-guests form-input form-select" data-uuid="69b380d4bda66">
+            <option value="1" data-uuid="69b380d4bda6d">1 người</option>
+            <option value="2" data-uuid="69b380d4bda73">2 người</option>
+            <option value="3" data-uuid="69b380d4bda78">3 người</option>
+            <option value="4" data-uuid="69b380d4bda7d">4 người</option>
+            <option value="5" data-uuid="69b380d4bda82">5 người</option>
+            <option value="5" data-uuid="69b380d4bda87">Trên 5 người</option>
+          </select>
+        </div>
+
+        <div data-uuid="69b380d4bda8c">
+          <label data-editable="true" class="font-sans text-dark text-[11px] font-medium mb-1.5 block"
+            data-uuid="69b380d4bda92">Lời nhắn</label>
+          <textarea name="message" rows="3" class="vs-attendance-message form-input"
+            placeholder="Gửi lời chúc đến cô dâu chú rể..." data-uuid="69b380d4bda97"></textarea>
+        </div>
+
+        <button type="submit" data-editable="true"
+          class="w-full py-3 bg-[#C4848A] text-white font-sans text-[11px] font-medium tracking-[0.2em] uppercase rounded-full hover:bg-[#A86D73] transition-colors cursor-pointer border-0"
+          data-uuid="69b380d4bda9d">
+          Gửi Xác Nhận
+        </button>
+      </form>
+    </section>
+
+    <!-- ==================== SECTION 11: QR GIFT ==================== -->
+    <section data-moveable="true" data-hidable="true" data-copyable="true" data-removable="true"
+      class="py-12 px-8 text-center bg-seoul" data-uuid="69b380d4bdaa2">
+      <div class="wow animate__animated animate__fadeIn" data-wow-duration="0.8s" data-uuid="69b380d4bdaa8">
+        <p data-editable="true" class="font-sans text-muted text-[9px] tracking-[0.5em] uppercase mb-2"
+          data-uuid="69b380d4bdaad">Gift</p>
+        <h2 data-editable="true" class="font-display text-2xl text-dark mb-8" data-uuid="69b380d4bdab3">Mừng Cưới</h2>
+
+        <div class="mb-8" data-uuid="69b380d4bdab8">
+          <!-- Red envelope button -->
+          <div class="vs-qr-btn" style="cursor:pointer;" data-uuid="69b380d4bdabf">
+            <div class="vs-envelope-shake"
+              style="position:relative;display:inline-block;width:180px;height:240px;margin:0 auto;"
+              data-uuid="69b380d4bdac4">
+              <svg viewBox="0 0 180 240" style="width:180px;height:240px;display:block;"
+                xmlns="http://www.w3.org/2000/svg" data-uuid="69b380d4bdaca">
+                <rect x="10" y="10" width="160" height="220" rx="12" fill="#c0392b" data-uuid="69b380d4bdad0"></rect>
+                <rect x="10" y="85" width="160" height="70" fill="#a93226" data-uuid="69b380d4bdad5"></rect>
+                <pattern id="vs-diamonds" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse"
+                  data-uuid="69b380d4bdadb">
+                  <rect width="20" height="20" fill="none" data-uuid="69b380d4bdae1"></rect>
+                  <polygon points="10,2 18,10 10,18 2,10" fill="#c0392b" opacity="0.5" data-uuid="69b380d4bdae7">
+                  </polygon>
+                </pattern>
+                <rect x="10" y="85" width="160" height="70" fill="url(#vs-diamonds)" data-uuid="69b380d4bdaed"></rect>
+                <line x1="10" y1="85" x2="170" y2="85" stroke="#f1c40f" stroke-width="1.5" data-uuid="69b380d4bdaf2">
+                </line>
+                <line x1="10" y1="155" x2="170" y2="155" stroke="#f1c40f" stroke-width="1.5" data-uuid="69b380d4bdaf8">
+                </line>
+                <path d="M10,10 L40,10 L10,40 Z" fill="#f1c40f" opacity="0.25" data-uuid="69b380d4bdafe"></path>
+                <path d="M170,10 L140,10 L170,40 Z" fill="#f1c40f" opacity="0.25" data-uuid="69b380d4bdb04"></path>
+                <path d="M10,230 L40,230 L10,200 Z" fill="#f1c40f" opacity="0.25" data-uuid="69b380d4bdb0a"></path>
+                <path d="M170,230 L140,230 L170,200 Z" fill="#f1c40f" opacity="0.25" data-uuid="69b380d4bdb11"></path>
+                <text x="90" y="132" text-anchor="middle" dominant-baseline="central"
+                  style="font-size:42px;font-weight:bold;fill:#f1c40f;font-family:serif;"
+                  data-uuid="69b380d4bdb17">囍</text>
+                <text x="90" y="55" text-anchor="middle"
+                  style="font-size:11px;fill:#f8d98b;font-family:sans-serif;letter-spacing:2px;"
+                  data-uuid="69b380d4bdb1d">MỪNG CƯỚI</text>
+                <line x1="55" y1="185" x2="125" y2="185" stroke="#f1c40f" stroke-width="0.8" opacity="0.5"
+                  data-uuid="69b380d4bdb23"></line>
+                <circle cx="90" cy="185" r="3" fill="#f1c40f" opacity="0.4" data-uuid="69b380d4bdb29"></circle>
+                <circle cx="55" cy="185" r="2" fill="#f1c40f" opacity="0.3" data-uuid="69b380d4bdb2f"></circle>
+                <circle cx="125" cy="185" r="2" fill="#f1c40f" opacity="0.3" data-uuid="69b380d4bdb36"></circle>
+              </svg>
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
+                style="position:absolute;top:-8px;left:10px;width:22px;height:22px;opacity:0.8;" class="vs-coin-anim"
+                data-uuid="69b380d4bdb3c">
+                <path d="M12 2l2.4 7.2L22 12l-7.6 2.8L12 22l-2.4-7.2L2 12l7.6-2.8z" fill="#f1c40f"
+                  data-uuid="69b380d4bdb4b"></path>
+              </svg>
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
+                style="position:absolute;top:0px;right:5px;width:18px;height:18px;opacity:0.7;" class="vs-coin-anim"
+                data-delay="0.4s" data-uuid="69b380d4bdb51">
+                <path
+                  d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"
+                  fill="#f1c40f" data-uuid="69b380d4bdb57"></path>
+              </svg>
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
+                style="position:absolute;top:30px;left:-5px;width:16px;height:16px;opacity:0.6;" class="vs-coin-anim"
+                data-delay="0.8s" data-uuid="69b380d4bdb5e">
+                <path d="M12 2l2.4 7.2L22 12l-7.6 2.8L12 22l-2.4-7.2L2 12l7.6-2.8z" fill="#f1c40f"
+                  data-uuid="69b380d4bdb64"></path>
+              </svg>
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
+                style="position:absolute;top:25px;right:-8px;width:20px;height:20px;opacity:0.75;" class="vs-coin-anim"
+                data-delay="1.2s" data-uuid="69b380d4bdb6a">
+                <path
+                  d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"
+                  fill="#f1c40f" data-uuid="69b380d4bdb71"></path>
+              </svg>
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
+                style="position:absolute;bottom:20px;left:0px;width:15px;height:15px;opacity:0.5;" class="vs-coin-anim"
+                data-delay="0.6s" data-uuid="69b380d4bdb7a">
+                <path d="M12 2l2.4 7.2L22 12l-7.6 2.8L12 22l-2.4-7.2L2 12l7.6-2.8z" fill="#f1c40f"
+                  data-uuid="69b380d4bdb81"></path>
+              </svg>
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
+                style="position:absolute;bottom:15px;right:-3px;width:17px;height:17px;opacity:0.65;"
+                class="vs-coin-anim" data-delay="1s" data-uuid="69b380d4bdb87">
+                <path
+                  d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"
+                  fill="#f1c40f" data-uuid="69b380d4bdb8d"></path>
+              </svg>
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
+                style="position:absolute;bottom:50px;left:-10px;width:14px;height:14px;opacity:0.55;"
+                class="vs-coin-anim" data-delay="1.5s" data-uuid="69b380d4bdb93">
+                <path
+                  d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"
+                  fill="#f1c40f" data-uuid="69b380d4bdb99"></path>
+              </svg>
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
+                style="position:absolute;bottom:45px;right:-6px;width:19px;height:19px;opacity:0.7;"
+                class="vs-coin-anim" data-delay="1.8s" data-uuid="69b380d4bdb9f">
+                <path d="M12 2l2.4 7.2L22 12l-7.6 2.8L12 22l-2.4-7.2L2 12l7.6-2.8z" fill="#f1c40f"
+                  data-uuid="69b380d4bdba5"></path>
+              </svg>
+            </div>
+            <p style="color:#999;font-size:12px;letter-spacing:0.1em;margin-top:12px;margin-bottom:0;"
+              data-uuid="69b380d4bdbab">Nhấn để mở</p>
+          </div>
+          <div class="vs-qr-content" data-uuid="69b380d4bdbb2">
+            <div class="bg-white border border-[#EEEEEE] rounded-xl p-8 max-w-xs mx-auto" data-uuid="69b380d4bdbb8">
+              <img data-editable="true" src="{{BANK_QR_IMAGE}}" alt="QR Code" class="w-28 h-28 mx-auto mb-4"
+                data-uuid="69b380d4bdbbe">
+              <p data-editable="true" class="font-display text-dark text-sm mb-1" data-uuid="69b380d4bdbc6">Lê Quang
+                Minh
+              </p>
+              <p data-editable="true" class="font-sans text-muted text-[10px] tracking-wider uppercase"
+                data-uuid="69b380d4bdbcc">{{BANK_NAME}}</p>
+              <p data-editable="true" class="font-sans text-dark text-sm tracking-widest mt-1 font-medium"
+                data-uuid="69b380d4bdbd2">{{BANK_ACCOUNT_NUMBER}}</p>
+            </div>
+            <div class="mt-4 text-center" data-uuid="69b380d4bdbd9">
+              <span
+                class="vs-qr-close cursor-pointer inline-block px-6 py-2 rounded-full select-none transition-all duration-300 hover:opacity-90 text-[10px] font-semibold tracking-[0.15em] uppercase"
+                style="background:rgba(0,0,0,0.08);color:#666;" data-uuid="69b380d4bdbdf">Đóng</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SECTION 12: FOOTER ==================== -->
+    <section data-moveable="true" data-hidable="true" data-copyable="true" data-removable="true"
+      class="py-10 px-8 text-center bg-seoul-alt" data-uuid="69b380d4bdbe6">
+
+      <div class="dot-accent mx-auto mb-5" data-uuid="69b380d4bdbec"></div>
+
+      <h2 data-editable="true" class="font-display text-xl text-dark" data-uuid="69b380d4bdbf3">Thu Hà &amp; Quang Minh
+      </h2>
+      <p data-editable="true" class="font-sans text-muted text-[10px] tracking-[0.3em] uppercase mt-2"
+        data-uuid="69b380d4bdbf9">22 . 08 . 2025</p>
+
+      <p class="font-sans text-muted/40 text-[10px] mt-8" data-uuid="69b380d4bdc00">
+        Tạo bởi <a href="https://vesey.vn" class="underline hover:text-rose transition-colors"
+          data-uuid="69b380d4bdc06">Vesey.vn</a>
+      </p>
+    </section>
+
+  </div><!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js" data-uuid="69b380d4bdc0d"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js" data-uuid="69b380d4bdc14"></script>
+  <script data-uuid="69b380d4bdc1a">
+    new WOW({
+      boxClass: 'wow',
+      animateClass: 'animate__animated',
+      offset: 100,
+      mobile: true,
+      live: true,
+      scrollContainer: null,
+      resetAnimation: false,
+    }).init();
+  </script>
+  <script data-uuid="69b380d4bdc21">
+    document.querySelectorAll('.vs-qr-content').forEach(function (c) { c.classList.add('vs-hidden') });
+    document.querySelectorAll('.vs-qr-btn').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var c = this.parentElement.querySelector('.vs-qr-content');
+        if (c) { c.classList.remove('vs-hidden'); c.classList.add('vs-reveal'); }
+        this.style.display = 'none';
+      });
+    });
+    document.querySelectorAll('.vs-qr-close').forEach(function (x) {
+      x.addEventListener('click', function () {
+        var wrap = this.closest('.mb-8') || this.parentElement.parentElement;
+        var c = wrap.querySelector('.vs-qr-content');
+        var b = wrap.querySelector('.vs-qr-btn');
+        if (c) { c.classList.add('vs-hidden'); c.classList.remove('vs-reveal'); }
+        if (b) { b.style.display = ''; }
+      });
+    });
+    document.querySelectorAll('.vs-coin-anim').forEach(function (coin) {
+      var d = coin.getAttribute('data-delay');
+      if (d) coin.style.animationDelay = d;
+    });
+  </script>
+  <style data-uuid="69b380d4bdc2b">
+    @keyframes vs-envelope-shake {
+
+      0%,
+      100% {
+        transform: rotate(0deg);
+      }
+
+      10% {
+        transform: rotate(-3deg);
+      }
+
+      20% {
+        transform: rotate(3deg);
+      }
+
+      30% {
+        transform: rotate(-2deg);
+      }
+
+      40% {
+        transform: rotate(2deg);
+      }
+
+      50% {
+        transform: rotate(0deg);
+      }
+    }
+
+    @keyframes vs-coin-float {
+
+      0%,
+      100% {
+        transform: translateY(0px) rotate(0deg);
+        opacity: 0.7;
+      }
+
+      50% {
+        transform: translateY(-8px) rotate(15deg);
+        opacity: 1;
+      }
+    }
+
+    .vs-envelope-shake {
+      animation: vs-envelope-shake 2.5s ease-in-out infinite !important;
+    }
+
+    .vs-coin-anim {
+      animation: vs-coin-float 3s ease-in-out infinite !important;
+    }
+  </style>
+  <script>function addStyle(e) { let t = document.createElement("style"); t.textContent = e, document.head.append(t) }</script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
+  <script>new WOW().init();</script>
+  <script>document.querySelectorAll(".vs-qr-btn").forEach(function (b) { b.style.display = "none" }); document.querySelectorAll(".vs-qr-content").forEach(function (c) { c.style.display = "block" }); document.querySelectorAll(".vs-qr-close").forEach(function (x) { x.style.display = "none" });</script>
+  <script src="/js/font-loader.js"></script>
+</body>
+
+</html>

@@ -15,8 +15,6 @@
                 </p>
             </div>
 
-            {{-- Trạng thái session --}}
-            <x-ui.auth-session-status class="mb-4" :status="session('status')" />
 
             {{-- Form --}}
             <form method="POST" action="{{ route('password.email') }}" class="space-y-5">
@@ -32,7 +30,7 @@
                             id="email" name="email" type="email" value="{{ old('email') }}"
                             placeholder="email@example.com" required autofocus />
                     </div>
-                    <x-ui.input-error :messages="$errors->get('email')" class="mt-1" />
+
                 </div>
 
                 {{-- Nút gửi --}}

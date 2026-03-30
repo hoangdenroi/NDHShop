@@ -25,6 +25,16 @@ Route::prefix('apps')->group(function () {
     // Gallery mẫu thiệp
     Route::get('/gift-templates', [\App\Http\Controllers\App\GiftController::class, 'index'])->name('app.gifts.templates');
 
+    Route::get('/src-app-game', [\App\Http\Controllers\App\SrcAppGameController::class, 'index'])->name('app.src-app-game');
+
+    // Chi tiết sản phẩm
+    Route::get('/product/{slug}', [\App\Http\Controllers\App\ProductDetailController::class, 'show'])->name('app.product.detail');
+
+    // Mua sắm (Giỏ hàng)
+    Route::post('/cart/add', [\App\Http\Controllers\App\CartController::class, 'add'])->name('app.cart.add');
+    Route::post('/cart/remove', [\App\Http\Controllers\App\CartController::class, 'remove'])->name('app.cart.remove');
+    Route::get('/cart/count', [\App\Http\Controllers\App\CartController::class, 'count'])->name('app.cart.count');
+
 });
 
 Route::get('/auth/google', [SocialiteController::class, 'redirect'])->name('google.login');
@@ -40,12 +50,24 @@ Route::prefix('apps')->middleware('auth')->group(function () {
 
     Route::patch('/profile', [ProfileController::class, 'update'])->name('app.profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('app.profile.destroy');
+    // API: Dữ liệu cho Profile Tabs
+    Route::get('/api/v1/profile/orders', [\App\Http\Controllers\App\ProfileController::class, 'orders'])->name('api.profile.orders');
+    Route::get('/api/v1/profile/favorites', [\App\Http\Controllers\App\ProfileController::class, 'favorites'])->name('api.profile.favorites');
+    Route::get('/api/v1/profile/history', [\App\Http\Controllers\App\ProfileController::class, 'history'])->name('api.profile.history');
+    Route::get('/api/v1/notifications', [\App\Http\Controllers\App\ProfileController::class, 'notifications'])->name('api.notifications');
+    Route::post('/api/v1/notifications/read-all', [\App\Http\Controllers\App\ProfileController::class, 'markAllRead'])->name('api.notifications.read-all');
+
+    // Thanh toán giỏ hàng
+    Route::get('/checkout', [\App\Http\Controllers\App\CheckoutController::class, 'index'])->name('app.checkout');
+    Route::post('/checkout', [\App\Http\Controllers\App\CheckoutController::class, 'process'])->name('app.checkout.process');
+    Route::post('/checkout/apply-coupon', [\App\Http\Controllers\App\CheckoutController::class, 'applyCoupon'])->name('app.checkout.apply-coupon');
+    Route::get('/checkout/success', [\App\Http\Controllers\App\CheckoutController::class, 'success'])->name('app.checkout.success');
 
     // Quà tặng của tôi (My Gifts)
     Route::get('/my-gifts', [\App\Http\Controllers\App\GiftController::class, 'myGifts'])->name('app.gifts.my-gifts');
-    Route::get('/my-gifts/{gift:share_code}/edit', [\App\Http\Controllers\App\GiftController::class, 'edit'])->name('app.gifts.edit');
-    Route::put('/my-gifts/{gift:share_code}', [\App\Http\Controllers\App\GiftController::class, 'update'])->name('app.gifts.update');
-    Route::delete('/my-gifts/{gift:share_code}', [\App\Http\Controllers\App\GiftController::class, 'destroy'])->name('app.gifts.destroy');
+    Route::get('/my-gifts/{gift:unitcode}/edit', [\App\Http\Controllers\App\GiftController::class, 'edit'])->name('app.gifts.edit');
+    Route::put('/my-gifts/{gift:unitcode}', [\App\Http\Controllers\App\GiftController::class, 'update'])->name('app.gifts.update');
+    Route::delete('/my-gifts/{gift:unitcode}', [\App\Http\Controllers\App\GiftController::class, 'destroy'])->name('app.gifts.destroy');
 
     // Tạo thiệp từ template (dùng slug để SEO-friendly)
     Route::get('/gift-templates/{template:slug}', [\App\Http\Controllers\App\GiftController::class, 'create'])->name('app.gifts.create');
@@ -57,6 +79,17 @@ Route::prefix('apps')->middleware('auth')->group(function () {
     Route::post('/my-gifts/{gift:unitcode}/payment', [\App\Http\Controllers\App\GiftPaymentController::class, 'processPayment'])->name('app.gifts.process-payment');
     Route::get('/my-gifts/{gift:share_code}/success', [\App\Http\Controllers\App\GiftPaymentController::class, 'success'])->name('app.gifts.success');
     Route::post('/my-gifts/{gift:share_code}/upgrade', [\App\Http\Controllers\App\GiftPaymentController::class, 'upgradePlan'])->name('app.gifts.upgrade');
+
+    // Yêu thích
+    Route::post('/wishlist/toggle', [\App\Http\Controllers\App\WishlistController::class, 'toggle'])->name('app.wishlist.toggle');
+    Route::get('/wishlist', [\App\Http\Controllers\App\WishlistController::class, 'index'])->name('app.wishlist.index');
+
+    // Database
+    Route::get('/database', [\App\Http\Controllers\App\DatabaseController::class, 'index'])->name('app.database');
+
+    // Storage
+    Route::get('/storage', [\App\Http\Controllers\App\StorageController::class, 'index'])->name('app.storage');
+
 });
 
 // api web auth (gọi từ Blade bằng AJAX, dùng session cookie để xác thực)
@@ -93,6 +126,9 @@ Route::middleware('auth')->group(function () {
 
         return response()->json(['success' => true]);
     })->name('api.v1.settings.language');
+
+    // Upload ảnh lên Cloudinary
+    Route::post('/api/v1/upload-image', [\App\Http\Controllers\App\ImageUploadController::class, 'upload'])->name('api.v1.upload-image');
 });
 
 require __DIR__.'/auth.php';

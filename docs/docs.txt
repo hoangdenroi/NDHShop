@@ -5,6 +5,16 @@ ngrok http 8000
 php artisan gift:expire
  2>&1
 
+ {
+  "fields": [
+    { "key": "TITLE", "type": "text", "label": "Tiêu đề", "required": true },
+    { "key": "IMAGE", "type": "image", "label": "Ảnh tự upload", "limit": 2 },
+    { "key": "MUSIC", "type": "asset_picker", "asset_type": "audio", "label": "Chọn Nhạc nền (từ kho)" },
+    { "key": "STICKER", "type": "asset_picker", "asset_type": "gif", "label": "Chọn Sticker động" }
+  ]
+}
+
+
 TÀI LIỆU TỔNG KẾT KIẾN TRÚC DỰ ÁN (SAAS CUSTOM GIFT PLATFORM)
 
 1. TỔNG QUAN HỆ THỐNG

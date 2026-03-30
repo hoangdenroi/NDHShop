@@ -70,8 +70,8 @@
                      class="absolute inset-0 bg-slate-900/60 backdrop-blur-sm lg:hidden"></div>
 
                 {{-- Filter Content --}}
-                <div class="absolute inset-y-0 left-0 w-80 max-w-[80vw] bg-white dark:bg-surface-dark lg:bg-transparent lg:dark:bg-transparent p-6 lg:p-0 overflow-y-auto lg:overflow-visible transition-transform duration-300 lg:translate-x-0 lg:static lg:w-full flex flex-col gap-8 shadow-xl lg:shadow-none"
-                     :class="mobileFiltersOpen ? 'translate-x-0' : '-translate-x-full'">
+                <div class="absolute inset-y-0 left-0 w-80 max-w-[80vw] bg-white dark:bg-surface-dark lg:bg-transparent lg:dark:bg-transparent p-6 lg:p-0 overflow-y-auto lg:overflow-visible transition-transform duration-300 -translate-x-full lg:translate-x-0 lg:static lg:w-full flex flex-col gap-8 shadow-xl lg:shadow-none"
+                     :class="mobileFiltersOpen ? '!translate-x-0' : '-translate-x-full'">
                     
                     <div class="flex items-center justify-between lg:hidden pb-4 border-b border-slate-200 dark:border-border-dark mb-2">
                         <h3 class="font-bold text-slate-900 dark:text-white">Bộ lọc</h3>
@@ -86,7 +86,10 @@
 
                         {{-- Category Filter --}}
                         <div class="flex flex-col gap-3">
-                            <h4 class="text-sm font-bold text-slate-900 dark:text-white mb-1">Danh mục</h4>
+                            <div class="flex items-center justify-between mb-1">
+                                <h4 class="text-sm font-bold text-slate-900 dark:text-white">Danh mục</h4>
+                                <button @click="resetFilters" class="text-[10px] text-primary bg-primary/10 px-2 py-1 rounded font-bold hover:bg-primary/20 lg:hidden">Xóa tất cả</button>
+                            </div>
                             <div class="flex flex-col gap-2 max-h-[60vh] lg:max-h-60 overflow-y-auto scrollbar-hide">
                                 @foreach($sidebarCategories as $sidebarCat)
                                     <label class="flex items-center gap-3 cursor-pointer group">

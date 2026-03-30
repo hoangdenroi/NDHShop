@@ -18,8 +18,17 @@ class NewPasswordController extends Controller
     /**
      * Display the password reset view.
      */
-    public function create(Request $request): View
+    public function create(Request $request): View|RedirectResponse
     {
+        $user = User::where('email', $request->email)->first();
+
+        // Kiểm tra user có tồn tại và token có còn hạn, hợp lệ hay không (dùng hệ thống broker chuẩn của Laravel)
+        if (!$user || !Password::broker()->tokenExists($user, $request->route('token'))) {
+            return redirect()->route('password.request')
+                ->with('toast_message', 'Liên kết đặt lại mật khẩu không hợp lệ hoặc đã hết hạn.')
+                ->with('toast_type', 'error');
+        }
+
         return view('auth.reset-password', ['request' => $request]);
     }
 

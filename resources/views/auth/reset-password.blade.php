@@ -32,7 +32,7 @@
                             id="email" name="email" type="email" value="{{ old('email', $request->email) }}"
                             placeholder="email@example.com" required autofocus autocomplete="username" />
                     </div>
-                    <x-ui.input-error :messages="$errors->get('email')" class="mt-1" />
+
                 </div>
 
                 {{-- Mật khẩu mới --}}
@@ -50,7 +50,7 @@
                             <span class="material-symbols-outlined text-[20px]">visibility</span>
                         </button>
                     </div>
-                    <x-ui.input-error :messages="$errors->get('password')" class="mt-1" />
+
                 </div>
 
                 {{-- Xác nhận mật khẩu --}}
@@ -68,7 +68,7 @@
                             <span class="material-symbols-outlined text-[20px]">visibility</span>
                         </button>
                     </div>
-                    <x-ui.input-error :messages="$errors->get('password_confirmation')" class="mt-1" />
+
                 </div>
 
                 {{-- Nút đặt lại --}}

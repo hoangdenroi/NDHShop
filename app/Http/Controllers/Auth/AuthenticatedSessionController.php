@@ -24,9 +24,32 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request): RedirectResponse
     {
+        $cartId = $request->session()->get('cart_id');
+
         $request->authenticate();
 
         $request->session()->regenerate();
+
+        // Đồng bộ giỏ hàng từ khách sang user
+        if ($cartId) {
+            $sessionCart = \App\Models\Cart::find($cartId);
+            if ($sessionCart && is_null($sessionCart->user_id)) {
+                $userCart = \App\Models\Cart::firstOrCreate(['user_id' => $request->user()->id]);
+                
+                // Gộp items
+                foreach ($sessionCart->items as $item) {
+                    $existing = $userCart->items()->where('product_id', $item->product_id)->first();
+                    if (!$existing) {
+                        $item->update(['cart_id' => $userCart->id]);
+                    } else {
+                        $item->delete(); // Ngăn trùng tự add số lượng vì giới hạn 1
+                    }
+                }
+                
+                $sessionCart->delete();
+                $request->session()->forget('cart_id');
+            }
+        }
 
         $request->user()->update([
             'last_login_at' => now(),

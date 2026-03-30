@@ -3,17 +3,19 @@
     <div class="container mx-auto px-4 py-8 max-w-2xl">
         {{-- Breadcrumb --}}
         <div class="mb-8">
-            <a href="{{ route('app.gifts.choose-plan', $gift->unitcode) }}" class="inline-flex items-center gap-2 text-sm font-semibold text-slate-500 hover:text-primary transition-colors mb-4">
+            {{-- <a href="{{ route('app.gifts.choose-plan', $gift->unitcode) }}"
+                class="inline-flex items-center gap-2 text-sm font-semibold text-slate-500 hover:text-primary transition-colors mb-4">
                 <span class="material-symbols-outlined text-[18px]">arrow_back</span>
                 Quay lại chọn gói
-            </a>
+            </a> --}}
             <h1 class="text-2xl md:text-3xl font-black text-slate-900 dark:text-white">
                 Xác nhận <span class="text-primary">thanh toán</span>
             </h1>
         </div>
 
         {{-- Order Summary --}}
-        <div class="bg-white dark:bg-surface-dark border border-slate-200 dark:border-border-dark rounded-2xl overflow-hidden shadow-sm mb-6">
+        <div
+            class="bg-white dark:bg-surface-dark border border-slate-200 dark:border-border-dark rounded-2xl overflow-hidden shadow-sm mb-6">
             <div class="bg-primary/5 border-b border-primary/10 p-5">
                 <h2 class="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
                     <span class="material-symbols-outlined text-primary">receipt_long</span>
@@ -25,7 +27,8 @@
                 {{-- Gift info --}}
                 <div class="flex items-center justify-between">
                     <span class="text-sm text-slate-500">Trang quà tặng</span>
-                    <span class="text-sm font-bold text-slate-900 dark:text-white">{{ \Illuminate\Support\Str::limit($gift->meta_title, 30) }}</span>
+                    <span
+                        class="text-sm font-bold text-slate-900 dark:text-white">{{ \Illuminate\Support\Str::limit($gift->meta_title, 30) }}</span>
                 </div>
                 <div class="flex items-center justify-between">
                     <span class="text-sm text-slate-500">Mẫu</span>
@@ -34,7 +37,7 @@
                 <div class="flex items-center justify-between">
                     <span class="text-sm text-slate-500">Gói dịch vụ</span>
                     <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold
-                        {{ $plan === 'premium' ? 'bg-primary/10 text-primary' : 'bg-slate-100 text-slate-600' }}">
+                                {{ $plan === 'premium' ? 'bg-primary/10 text-primary' : 'bg-slate-100 text-slate-600' }}">
                         {{ $plan === 'premium' ? '⭐ Premium' : 'Basic' }}
                     </span>
                 </div>
@@ -76,7 +79,8 @@
                 <div class="mt-3 p-3 bg-rose-50 dark:bg-rose-500/10 border border-rose-200 dark:border-rose-500/20 rounded-xl">
                     <p class="text-sm text-rose-600 dark:text-rose-400 flex items-center gap-2">
                         <span class="material-symbols-outlined text-[16px]">warning</span>
-                        Số dư không đủ. Vui lòng nạp thêm <strong>{{ number_format($amount - $user->balance, 0, ',', '.') }}đ</strong> để tiếp tục.
+                        Số dư không đủ. Vui lòng nạp thêm
+                        <strong>{{ number_format($amount - $user->balance, 0, ',', '.') }}đ</strong> để tiếp tục.
                     </p>
                 </div>
             @endif
@@ -93,13 +97,14 @@
         @endif
 
         {{-- Button thanh toán --}}
-        <form method="POST" action="{{ route('app.gifts.process-payment', $gift->unitcode) }}" x-data="{ processing: false }">
+        <form method="POST" action="{{ route('app.gifts.process-payment', $gift->unitcode) }}"
+            x-data="{ processing: false }" x-on:submit="processing = true">
             @csrf
             <input type="hidden" name="plan" value="{{ $plan }}">
 
             @if($amount == 0)
                 {{-- Gói miễn phí → kích hoạt ngay --}}
-                <button type="submit" @click="processing = true" :disabled="processing"
+                <button type="submit" :disabled="processing"
                     class="w-full py-4 bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-500/90 hover:to-emerald-600/90 text-white font-bold text-lg rounded-xl shadow-lg shadow-emerald-500/30 transition-all transform hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2">
                     <template x-if="!processing">
                         <span class="flex items-center gap-2">
@@ -109,13 +114,18 @@
                     </template>
                     <template x-if="processing">
                         <span class="flex items-center gap-2">
-                            <svg class="animate-spin h-5 w-5" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path></svg>
+                            <svg class="animate-spin h-5 w-5" viewBox="0 0 24 24">
+                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"
+                                    fill="none"></circle>
+                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z">
+                                </path>
+                            </svg>
                             Đang xử lý...
                         </span>
                     </template>
                 </button>
             @else
-                <button type="submit" @click="processing = true" :disabled="processing || !{{ $hasEnoughBalance ? 'true' : 'false' }}"
+                <button type="submit" :disabled="processing || !{{ $hasEnoughBalance ? 'true' : 'false' }}"
                     class="w-full py-4 bg-gradient-to-r from-primary to-purple-600 hover:from-primary/90 hover:to-purple-600/90 text-white font-bold text-lg rounded-xl shadow-lg shadow-primary/30 transition-all transform hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2">
                     <template x-if="!processing">
                         <span class="flex items-center gap-2">
@@ -125,7 +135,12 @@
                     </template>
                     <template x-if="processing">
                         <span class="flex items-center gap-2">
-                            <svg class="animate-spin h-5 w-5" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path></svg>
+                            <svg class="animate-spin h-5 w-5" viewBox="0 0 24 24">
+                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"
+                                    fill="none"></circle>
+                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z">
+                                </path>
+                            </svg>
                             Đang xử lý...
                         </span>
                     </template>

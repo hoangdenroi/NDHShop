@@ -11,6 +11,8 @@ class Order extends BaseModel
         'payment_method',
         'payment_status',
         'total_amount',
+        'coupon_code',
+        'discount_amount',
         'note'
     ];
 

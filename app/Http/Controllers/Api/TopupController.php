@@ -140,9 +140,24 @@ class TopupController extends Controller
 
                 if ($user) {
                     $userId = $user->id;
+                    $oldBalance = $user->balance ?? 0;
                     // Cộng tiền cho user
-                    $user->balance = ($user->balance ?? 0) + $validated['transferAmount'];
+                    $user->balance = $oldBalance + $validated['transferAmount'];
                     $user->save();
+
+                    // Ghi log nạp tiền
+                    \App\Services\AuditLogService::log(
+                        'topup_bank_transfer',
+                        $user,
+                        ['balance' => (float) $oldBalance],
+                        [
+                            'balance' => (float) $user->balance,
+                            'amount' => (float) $validated['transferAmount'],
+                            'gateway' => $validated['gateway'],
+                            'transaction_no' => $gatewayTransactionId
+                        ],
+                        $userId
+                    );
 
                     // Tạo thông báo Gửi SSE Real-time
                     \App\Models\Notification::create([

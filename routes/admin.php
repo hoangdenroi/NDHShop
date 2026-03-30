@@ -54,4 +54,31 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::post('/gift-templates', [\App\Http\Controllers\Admin\gift_templates\GiftTemplateController::class, 'store'])->name('admin.gift-templates.store');
     Route::put('/gift-templates/{template}', [\App\Http\Controllers\Admin\gift_templates\GiftTemplateController::class, 'update'])->name('admin.gift-templates.update');
     Route::delete('/gift-templates/{template}', [\App\Http\Controllers\Admin\gift_templates\GiftTemplateController::class, 'destroy'])->name('admin.gift-templates.destroy');
+
+    // Gift Categories
+    Route::get('/gift-categories', [\App\Http\Controllers\Admin\gift_categories\GiftCategoryController::class, 'index'])->name('admin.gift-categories.index');
+    Route::post('/gift-categories', [\App\Http\Controllers\Admin\gift_categories\GiftCategoryController::class, 'store'])->name('admin.gift-categories.store');
+    Route::put('/gift-categories/{category}', [\App\Http\Controllers\Admin\gift_categories\GiftCategoryController::class, 'update'])->name('admin.gift-categories.update');
+    Route::delete('/gift-categories/{category}', [\App\Http\Controllers\Admin\gift_categories\GiftCategoryController::class, 'destroy'])->name('admin.gift-categories.destroy');
+
+    // Gift Assets
+    Route::get('/gift-assets', [\App\Http\Controllers\Admin\gift_assets\GiftAssetController::class, 'index'])->name('admin.gift-assets.index');
+    Route::post('/gift-assets', [\App\Http\Controllers\Admin\gift_assets\GiftAssetController::class, 'store'])->name('admin.gift-assets.store');
+    Route::post('/gift-assets/bulk', [\App\Http\Controllers\Admin\gift_assets\GiftAssetController::class, 'storeBulk'])->name('admin.gift-assets.store-bulk');
+    Route::put('/gift-assets/{asset}', [\App\Http\Controllers\Admin\gift_assets\GiftAssetController::class, 'update'])->name('admin.gift-assets.update');
+    Route::delete('/gift-assets/{asset}', [\App\Http\Controllers\Admin\gift_assets\GiftAssetController::class, 'destroy'])->name('admin.gift-assets.destroy');
+
+    // Coupons
+    Route::get('/coupons', [\App\Http\Controllers\Admin\coupons\CouponController::class, 'index'])->name('admin.coupons.index');
+    Route::post('/coupons', [\App\Http\Controllers\Admin\coupons\CouponController::class, 'store'])->name('admin.coupons.store');
+    Route::put('/coupons/{coupon}', [\App\Http\Controllers\Admin\coupons\CouponController::class, 'update'])->name('admin.coupons.update');
+    Route::delete('/coupons/{coupon}', [\App\Http\Controllers\Admin\coupons\CouponController::class, 'destroy'])->name('admin.coupons.destroy');
+
+    // Orders
+    Route::get('/orders', [\App\Http\Controllers\Admin\orders\OrderController::class, 'index'])->name('admin.orders.index');
+    Route::get('/orders/{order}', [\App\Http\Controllers\Admin\orders\OrderController::class, 'show'])->name('admin.orders.show');
+    Route::patch('/orders/{order}/status', [\App\Http\Controllers\Admin\orders\OrderController::class, 'updateStatus'])->name('admin.orders.update-status');
+
+    // Audit Logs
+    Route::get('/audit-logs', [\App\Http\Controllers\Admin\audit_logs\AuditLogController::class, 'index'])->name('admin.audit-logs.index');
 });

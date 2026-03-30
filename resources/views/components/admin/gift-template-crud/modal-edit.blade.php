@@ -50,10 +50,10 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                         <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Chủ đề *</label>
-                        <select name="category" required
+                        <select name="category_id" required
                             class="w-full bg-slate-100 dark:bg-background-dark border border-slate-200 dark:border-border-dark text-slate-700 dark:text-slate-300 text-sm rounded-lg px-3 py-2 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary">
-                            @foreach($categories as $key => $label)
-                                <option value="{{ $key }}" :selected="templateData.category === '{{ $key }}'">{{ $label }}</option>
+                            @foreach($categories as $cat)
+                                <option value="{{ $cat->id }}" :selected="templateData.category_id == {{ $cat->id }}">{{ $cat->name }}</option>
                             @endforeach
                         </select>
                     </div>

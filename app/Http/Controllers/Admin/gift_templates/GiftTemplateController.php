@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\gift_templates;
 
 use App\Http\Controllers\Controller;
+use App\Models\GiftCategory;
 use App\Models\GiftTemplate;
 use Illuminate\Http\Request;
 
@@ -22,7 +23,7 @@ class GiftTemplateController extends Controller
 
         // Lọc theo category
         if ($request->filled('category')) {
-            $query->where('category', $request->category);
+            $query->where('category_id', $request->category);
         }
 
         // Lọc trạng thái
@@ -44,7 +45,7 @@ class GiftTemplateController extends Controller
         }
 
         $templates = $query->orderByDesc('id')->paginate(10)->withQueryString();
-        $categories = GiftTemplate::CATEGORIES;
+        $categories = GiftCategory::active()->ordered()->get();
 
         return view('pages.admin.gift-templates.gift-template-index', compact('templates', 'categories'));
     }
@@ -58,7 +59,7 @@ class GiftTemplateController extends Controller
             'name' => 'required|string|max:255',
             'slug' => 'required|string|max:255|unique:gift_templates,slug',
             'thumbnail' => 'nullable|url|max:2048',
-            'category' => 'required|string|in:'.implode(',', array_keys(GiftTemplate::CATEGORIES)),
+            'category_id' => 'required|integer|exists:gift_categories,id',
             'html_code' => 'required|string',
             'css_code' => 'nullable|string',
             'js_code' => 'nullable|string',
@@ -100,7 +101,7 @@ class GiftTemplateController extends Controller
             'name' => 'required|string|max:255',
             'slug' => 'required|string|max:255|unique:gift_templates,slug,'.$template->id,
             'thumbnail' => 'nullable|url|max:2048',
-            'category' => 'required|string|in:'.implode(',', array_keys(GiftTemplate::CATEGORIES)),
+            'category_id' => 'required|integer|exists:gift_categories,id',
             'html_code' => 'required|string',
             'css_code' => 'nullable|string',
             'js_code' => 'nullable|string',

@@ -52,7 +52,13 @@ class GiftPaymentService
      */
     public function processPayment(GiftPage $giftPage, User $user, string $plan): GiftOrder
     {
-        $amount = self::getPrice($plan);
+        // Ưu tiên giá template premium, fallback sang giá plan mặc định
+        $template = $giftPage->template;
+        if ($template && $template->is_premium && $template->price > 0) {
+            $amount = (int) $template->price;
+        } else {
+            $amount = self::getPrice($plan);
+        }
 
         // Gói basic miễn phí → không cần validate balance
         if ($amount > 0 && !$this->validateBalance($user, $amount)) {
@@ -92,6 +98,14 @@ class GiftPaymentService
                 'plan'        => $plan,
                 'amount'      => $amount,
             ]);
+
+            \App\Services\AuditLogService::log(
+                'purchased_gift_template',
+                $giftOrder,
+                ['balance' => (float) ($user->balance + $amount)],
+                ['balance' => (float) $user->balance, 'plan' => $plan, 'amount' => (float) $amount],
+                $user->id
+            );
 
             return $giftOrder;
         });
@@ -146,6 +160,14 @@ class GiftPaymentService
                 'gift_id'    => $giftPage->id,
                 'order_code' => $giftOrder->order_code,
             ]);
+
+            \App\Services\AuditLogService::log(
+                'upgraded_gift_premium',
+                $giftOrder,
+                ['balance' => (float) ($user->balance + $amount)],
+                ['balance' => (float) $user->balance, 'amount' => (float) $amount],
+                $user->id
+            );
 
             return $giftOrder;
         });

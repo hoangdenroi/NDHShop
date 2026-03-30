@@ -18,10 +18,10 @@
                    class="whitespace-nowrap px-4 py-2 rounded-lg text-sm font-semibold transition-all {{ request('category') ? 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800' : 'bg-primary text-white shadow-md shadow-primary/20' }}">
                     Tất cả
                 </a>
-                @foreach($categories as $key => $label)
-                    <a href="{{ route('app.gifts.templates', ['category' => $key]) }}"
-                       class="whitespace-nowrap px-4 py-2 rounded-lg text-sm font-semibold transition-all {{ request('category') === $key ? 'bg-primary text-white shadow-md shadow-primary/20' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800' }}">
-                        {{ $label }}
+                @foreach($categories as $cat)
+                    <a href="{{ route('app.gifts.templates', ['category' => $cat->id]) }}"
+                       class="whitespace-nowrap px-4 py-2 rounded-lg text-sm font-semibold transition-all {{ request('category') == $cat->id ? 'bg-primary text-white shadow-md shadow-primary/20' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800' }}">
+                        {{ $cat->name }}
                     </a>
                 @endforeach
             </div>

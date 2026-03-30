@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\App;
 
 use App\Http\Controllers\Controller;
+use App\Models\GiftCategory;
 use App\Models\GiftPage;
 use App\Models\GiftTemplate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class GiftController extends Controller
 {
@@ -19,12 +21,12 @@ class GiftController extends Controller
 
         // Lọc theo category
         if ($request->filled('category')) {
-            $query->byCategory($request->category);
+            $query->byCategory((int) $request->category);
         }
 
         // Ưu tiên hiển thị mẫu premium trước, rồi đến mới nhất
         $templates = $query->orderByDesc('is_premium')->latest('id')->paginate(16)->withQueryString();
-        $categories = GiftTemplate::CATEGORIES;
+        $categories = GiftCategory::active()->ordered()->get();
 
         return view('pages.app.gifts.templates', compact('templates', 'categories'));
     }
@@ -38,7 +40,20 @@ class GiftController extends Controller
             abort(404, 'Mẫu template không tồn tại hoặc đã bị khóa.');
         }
 
-        return view('pages.app.gifts.create', compact('template'));
+        $schema = $template->getSchemaFields();
+        $assetTypes = collect($schema)->where('type', 'asset_picker')->pluck('asset_type')->unique()->filter()->toArray();
+        $preloadedAssets = \App\Models\GiftAsset::whereIn('type', $assetTypes)
+            ->where('is_active', true)
+            ->where(function ($q) use ($template) {
+                // Chỉ lấy tài nguyên dùng chung hoặc thuộc danh mục của mẫu thiệp
+                $q->whereNull('category_id')
+                  ->orWhere('category_id', $template->category_id);
+            })
+            ->orderBy('sort_order')
+            ->get()
+            ->groupBy('type');
+
+        return view('pages.app.gifts.create', compact('template', 'preloadedAssets'));
     }
 
     /**
@@ -53,32 +68,42 @@ class GiftController extends Controller
 
         // Validate dữ liệu từ form dựa trên schema của mẫu
         $rules = $this->buildSchemaRules($template);
+        $validated = $request->validate($rules);
 
-        $validated = $request->validate(array_merge($rules, [
-            'meta_title' => 'nullable|string|max:255',
-            'meta_image' => 'nullable|url|max:2048',
-        ]));
+        // Wrap trong transaction để đảm bảo atomicity
+        $giftPage = DB::transaction(function () use ($request, $template) {
+            $pageData = $this->processPageData($request->input('data', []));
+            $metaTitle = $pageData['TITLE'] ?? 'Quà tặng từ '.Auth::user()->name;
 
-        // Lấy data user nhập (dựa trên schema) và xử lý tách dòng
-        $pageData = $this->processPageData($request->input('data', []));
+            // Tạo gift page ở trạng thái DRAFT
+            $giftPage = GiftPage::create([
+                'user_id' => Auth::id(),
+                'template_id' => $template->id,
+                'page_data' => $pageData,
+                'meta_title' => $metaTitle,
+                'meta_image' => $pageData['IMAGE'] ?? $pageData['IMAGE1'] ?? $template->thumbnail,
+                'status' => GiftPage::STATUS_DRAFT,
+                'plan' => GiftPage::PLAN_BASIC,
+                'is_active' => false,
+            ]);
 
-        // Tạo gift page ở trạng thái DRAFT
-        $giftPage = GiftPage::create([
-            'user_id' => Auth::id(),
-            'template_id' => $template->id,
-            'page_data' => $pageData,
-            'meta_title' => $validated['meta_title'] ?? $pageData['TITLE'] ?? 'Quà tặng từ '.Auth::user()->name,
-            'meta_image' => $validated['meta_image'] ?? $pageData['IMAGE'] ?? $template->thumbnail,
-            'status' => GiftPage::STATUS_DRAFT,
-            'plan' => GiftPage::PLAN_BASIC,
-            'is_active' => false,
-        ]);
+            // Tăng usage count — trong cùng transaction
+            $template->incrementUsage();
 
-        // Tăng usage count của template
-        $template->incrementUsage();
+            return $giftPage;
+        });
 
+        // Template premium → redirect thẳng sang xác nhận thanh toán
+        if ($template->is_premium && $template->price > 0) {
+            return redirect()->route('app.gifts.payment', [
+                'gift' => $giftPage->unitcode,
+                'plan' => GiftPage::PLAN_PREMIUM,
+            ])->with('toast_type', 'success')->with('toast_message', 'Đã lưu nội dung thiệp! Xác nhận thanh toán để kích hoạt.');
+        }
+
+        // Template thường → chọn gói
         return redirect()->route('app.gifts.choose-plan', $giftPage->unitcode)
-            ->with('success', 'Đã lưu nội dung thiệp! Tiếp tục chọn gói dịch vụ.');
+            ->with('toast_type', 'success')->with('toast_message', 'Đã lưu nội dung thiệp! Tiếp tục chọn gói dịch vụ.');
     }
 
     /**
@@ -93,7 +118,15 @@ class GiftController extends Controller
         // Chỉ cho chọn plan khi ở trạng thái draft
         if ($gift->status !== GiftPage::STATUS_DRAFT) {
             return redirect()->route('app.gifts.my-gifts')
-                ->with('info', 'Gift này đã được kích hoạt.');
+                ->with('toast_type', 'info')->with('toast_message', 'Gift này đã được kích hoạt.');
+        }
+
+        // Template premium → không cho chọn gói, redirect thẳng sang thanh toán
+        if ($gift->template && $gift->template->is_premium && $gift->template->price > 0) {
+            return redirect()->route('app.gifts.payment', [
+                'gift' => $gift->unitcode,
+                'plan' => GiftPage::PLAN_PREMIUM,
+            ]);
         }
 
         $plans = [
@@ -109,6 +142,7 @@ class GiftController extends Controller
                 'disabled' => [
                     'Không có thống kê lượt xem',
                     'Không chỉnh sửa sau khi kích hoạt',
+                    'Giới hạn ảnh và nhạc nền',
                     'Không hỗ trợ kỹ thuật',
                 ],
             ],
@@ -121,7 +155,8 @@ class GiftController extends Controller
                     'Hiển thị vĩnh viễn',
                     'Không có watermark NDHShop',
                     'Thống kê lượt xem chi tiết',
-                    'Cho phép chỉnh sửa sau khi kích hoạt',
+                    'Sửa nội dung (trong vòng 72h)',
+                    'Không giới hạn ảnh và nhạc nền từ nguồn thứ 3',
                     'Hỗ trợ kỹ thuật 24/7',
                 ],
                 'disabled' => [],
@@ -137,7 +172,7 @@ class GiftController extends Controller
     public function myGifts()
     {
         $gifts = GiftPage::where('user_id', Auth::id())
-            ->with('template')
+            ->with(['template', 'giftOrder'])
             ->latest()
             ->paginate(10);
 
@@ -145,7 +180,7 @@ class GiftController extends Controller
     }
 
     /**
-     * Form chỉnh sửa thiệp đã tạo (chỉ khi draft).
+     * Form chỉnh sửa thiệp đã tạo.
      */
     public function edit(GiftPage $gift)
     {
@@ -153,9 +188,28 @@ class GiftController extends Controller
             abort(403);
         }
 
+        if (!$gift->canBeEdited()) {
+            $msg = $gift->isPremium() ? 'Thiệp Premium chỉ cho phép chỉnh sửa trong vòng 72 giờ kể từ khi kích hoạt!' : 'Chỉ gói Premium mới được phép chỉnh sửa sau khi kích hoạt!';
+            return redirect()->route('app.gifts.my-gifts')
+                ->with('toast_type', 'error')->with('toast_message', $msg);
+        }
+
         $template = $gift->template;
 
-        return view('pages.app.gifts.edit', compact('gift', 'template'));
+        $schema = $template->getSchemaFields();
+        $assetTypes = collect($schema)->where('type', 'asset_picker')->pluck('asset_type')->unique()->filter()->toArray();
+        $preloadedAssets = \App\Models\GiftAsset::whereIn('type', $assetTypes)
+            ->where('is_active', true)
+            ->where(function ($q) use ($template) {
+                // Chỉ lấy tài nguyên dùng chung hoặc thuộc danh mục của mẫu thiệp
+                $q->whereNull('category_id')
+                  ->orWhere('category_id', $template->category_id);
+            })
+            ->orderBy('sort_order')
+            ->get()
+            ->groupBy('type');
+
+        return view('pages.app.gifts.edit', compact('gift', 'template', 'preloadedAssets'));
     }
 
     /**
@@ -165,6 +219,12 @@ class GiftController extends Controller
     {
         if ($gift->user_id !== Auth::id()) {
             abort(403);
+        }
+
+        if (!$gift->canBeEdited()) {
+            $msg = $gift->isPremium() ? 'Thiệp Premium chỉ cho phép chỉnh sửa trong vòng 72 giờ kể từ khi kích hoạt!' : 'Chỉ gói Premium mới được phép chỉnh sửa sau khi kích hoạt!';
+            return redirect()->route('app.gifts.my-gifts')
+                ->with('toast_type', 'error')->with('toast_message', $msg);
         }
 
         $template = $gift->template;
@@ -177,20 +237,23 @@ class GiftController extends Controller
             'meta_image' => 'nullable|url|max:2048',
         ]));
 
-        $pageData = $this->processPageData($request->input('data', []));
+        // Wrap trong transaction để đảm bảo atomicity
+        DB::transaction(function () use ($request, $gift, $validated) {
+            $pageData = $this->processPageData($request->input('data', []));
 
-        $gift->update([
-            'page_data' => $pageData,
-            'meta_title' => $validated['meta_title'] ?? $pageData['TITLE'] ?? $gift->meta_title,
-            'meta_image' => $validated['meta_image'] ?? $pageData['IMAGE_1'] ?? $gift->meta_image,
-        ]);
+            $gift->update([
+                'page_data' => $pageData,
+                'meta_title' => $validated['meta_title'] ?? $pageData['TITLE'] ?? $gift->meta_title,
+                'meta_image' => $validated['meta_image'] ?? $pageData['IMAGE_1'] ?? $gift->meta_image,
+            ]);
 
-        // Nếu gift đang active → cập nhật cache rendered_html
-        if ($gift->status === GiftPage::STATUS_ACTIVE) {
-            app(\App\Services\GiftRenderService::class)->refreshCache($gift);
-        }
+            // Nếu gift đang active → cập nhật cache rendered_html
+            if ($gift->status === GiftPage::STATUS_ACTIVE) {
+                app(\App\Services\GiftRenderService::class)->refreshCache($gift);
+            }
+        });
 
-        return redirect()->route('app.gifts.my-gifts')->with('success', 'Cập nhật trang quà tặng thành công!');
+        return redirect()->route('app.gifts.my-gifts')->with('toast_type', 'success')->with('toast_message', 'Cập nhật trang quà tặng thành công!');
     }
 
     /**
@@ -204,7 +267,7 @@ class GiftController extends Controller
 
         $gift->softDelete();
 
-        return back()->with('success', 'Đã xóa trang quà tặng.');
+        return back()->with('toast_type', 'success')->with('toast_message', 'Đã xóa trang quà tặng.');
     }
 
     // ──── Private Methods ────

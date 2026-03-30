@@ -15,14 +15,6 @@
                 </p>
             </div>
 
-            {{-- Thông báo đã gửi lại liên kết --}}
-            @if (session('status') == 'verification-link-sent')
-                <div class="mb-6 p-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-xl">
-                    <p class="text-sm font-medium text-green-700 dark:text-green-400 text-center">
-                        Liên kết xác minh mới đã được gửi đến email của bạn.
-                    </p>
-                </div>
-            @endif
 
             {{-- Các nút hành động --}}
             <div class="space-y-3">

@@ -14,7 +14,7 @@ class GiftTemplate extends BaseModel
         'name',
         'slug',
         'thumbnail',
-        'category',
+        'category_id',
         'html_code',
         'css_code',
         'js_code',
@@ -29,23 +29,21 @@ class GiftTemplate extends BaseModel
         'schema'     => 'array',
         'is_active'  => 'boolean',
         'is_premium' => 'boolean',
-        'is_deleted' => 'boolean',
-        'price'      => 'integer',
-        'usage_count'=> 'integer',
-    ];
-
-    /**
-     * Danh sách categories hợp lệ.
-     */
-    public const CATEGORIES = [
-        'tet'       => 'Tết',
-        'sinh-nhat' => 'Sinh nhật',
-        'valentine' => 'Valentine',
-        'cuoi'      => 'Đám cưới',
-        'other'     => 'Khác',
+        'is_deleted'  => 'boolean',
+        'category_id' => 'integer',
+        'price'       => 'integer',
+        'usage_count' => 'integer',
     ];
 
     // ──── Relationships ────
+
+    /**
+     * Category (chủ đề) của template.
+     */
+    public function category()
+    {
+        return $this->belongsTo(GiftCategory::class, 'category_id');
+    }
 
     public function giftPages()
     {
@@ -87,9 +85,9 @@ class GiftTemplate extends BaseModel
         return $query->where('is_active', true);
     }
 
-    public function scopeByCategory($query, string $category)
+    public function scopeByCategory($query, int $categoryId)
     {
-        return $query->where('category', $category);
+        return $query->where('category_id', $categoryId);
     }
 
     public function scopeFree($query)
@@ -136,10 +134,10 @@ class GiftTemplate extends BaseModel
     }
 
     /**
-     * Lấy tên category hiển thị.
+     * Lấy tên category hiển thị thông qua relationship.
      */
     public function getCategoryLabelAttribute(): string
     {
-        return self::CATEGORIES[$this->category] ?? $this->category;
+        return $this->category?->name ?? 'Không xác định';
     }
 }

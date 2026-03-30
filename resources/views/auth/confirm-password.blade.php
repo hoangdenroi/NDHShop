@@ -34,7 +34,7 @@
                             <span class="material-symbols-outlined text-[20px]">visibility</span>
                         </button>
                     </div>
-                    <x-ui.input-error :messages="$errors->get('password')" class="mt-1" />
+
                 </div>
 
                 {{-- Nút xác nhận --}}

@@ -58,4 +58,212 @@ class ProfileController extends Controller
 
         return Redirect::route('app.home');
     }
+
+    /**
+     * API: Lấy danh sách đơn hàng của user.
+     */
+    public function orders(Request $request)
+    {
+        $query = \App\Models\Order::where('user_id', Auth::id())
+            ->with(['items.product.assets' => function ($q) {
+                $q->orderBy('sort_order', 'asc');
+            }])
+            ->latest();
+
+        // Tìm kiếm theo mã đơn hàng hoặc tên sản phẩm
+        if ($search = $request->input('search')) {
+            $search = trim($search);
+            $query->where(function ($q) use ($search) {
+                $q->where('order_code', 'like', "%{$search}%")
+                  ->orWhereHas('items.product', function ($q2) use ($search) {
+                      $q2->where('name', 'like', "%{$search}%");
+                  });
+            });
+        }
+
+        $orders = $query->paginate(10);
+
+        $data = $orders->getCollection()->map(function ($order) {
+            return [
+                'id' => $order->id,
+                'order_code' => $order->order_code,
+                'status' => $order->status,
+                'payment_status' => $order->payment_status,
+                'total_amount' => (float) $order->total_amount,
+                'discount_amount' => (float) $order->discount_amount,
+                'coupon_code' => $order->coupon_code,
+                'created_at' => $order->created_at->format('d/m/Y H:i'),
+                'items' => $order->items->map(function ($item) {
+                    $imageAsset = $item->product->assets->where('type', 'image')->first();
+                    $fileAsset = $item->product->assets->where('type', 'file')->first();
+                    return [
+                        'product_id' => $item->product_id,
+                        'name' => $item->product->name,
+                        'slug' => $item->product->slug,
+                        'price' => (float) $item->price,
+                        'image' => $imageAsset ? $imageAsset->url_or_path : asset('images/placeholder.png'),
+                        'download_url' => $fileAsset ? $fileAsset->url_or_path : null,
+                    ];
+                }),
+            ];
+        });
+
+        return response()->json([
+            'data' => $data,
+            'has_more' => $orders->hasMorePages(),
+            'next_page' => $orders->currentPage() + 1,
+        ]);
+    }
+
+    /**
+     * API: Lấy danh sách lịch sử giao dịch (Audit Logs) của user.
+     */
+    public function history(Request $request)
+    {
+        $logs = \App\Models\AuditLog::where('user_id', Auth::id())
+            ->whereIn('action', [
+                'topup_bank_transfer', 
+                'admin_update_balance', 
+                'purchased_product_order', 
+                'order_refund_balance', 
+                'purchased_gift_template', 
+                'upgraded_gift_premium'
+            ])
+            ->orderBy('created_at', 'desc')
+            ->paginate(15);
+
+        $data = $logs->getCollection()->map(function ($log) {
+            $title = match ($log->action) {
+                'topup_bank_transfer' => 'Nạp tiền tự động (SePay)',
+                'admin_update_balance' => 'Cập nhật số dư bởi Hệ thống',
+                'purchased_product_order' => 'Mua Sản Phẩm',
+                'order_refund_balance' => 'Hoàn Tiền (Hủy đơn)',
+                'purchased_gift_template' => 'Thanh toán mẫu Website Quà Tặng',
+                'upgraded_gift_premium' => 'Nâng cấp Premium (Website Quà Tặng)',
+                default => 'Thao tác: ' . strtoupper($log->action),
+            };
+
+            $amountChange = null;
+            $rawChange = 0;
+            if (isset($log->old_values['balance']) && isset($log->new_values['balance'])) {
+                $rawChange = $log->new_values['balance'] - $log->old_values['balance'];
+                $amountChange = $rawChange > 0 ? '+' . number_format($rawChange, 0, ',', '.') . 'đ' : number_format($rawChange, 0, ',', '.') . 'đ';
+            }
+
+            $details = [];
+            if (isset($log->new_values['order_code'])) $details[] = 'Mã đơn: ' . $log->new_values['order_code'];
+            if (isset($log->new_values['transaction_no'])) $details[] = 'Mã GD: ' . $log->new_values['transaction_no'];
+            if (isset($log->new_values['gateway'])) $details[] = 'Ngân hàng: ' . $log->new_values['gateway'];
+
+            return [
+                'id' => $log->id,
+                'title' => $title,
+                'action' => $log->action,
+                'amount_change' => $amountChange,
+                'amount_change_raw' => $rawChange,
+                'details' => empty($details) ? null : implode(' | ', $details),
+                'created_at' => $log->created_at->format('d/m/Y H:i'),
+            ];
+        });
+
+        return response()->json([
+            'data' => $data,
+            'has_more' => $logs->hasMorePages(),
+            'next_page' => $logs->currentPage() + 1,
+        ]);
+    }
+
+    /**
+     * API: Lấy danh sách sản phẩm yêu thích của user.
+     */
+    public function favorites(Request $request)
+    {
+        // Lấy danh sách product_id đã mua thành công
+        $purchasedProductIds = \App\Models\OrderItem::whereHas('order', function ($q) {
+            $q->where('user_id', Auth::id())->where('status', 'completed');
+        })->pluck('product_id')->unique()->toArray();
+
+        $favorites = \App\Models\Wishlist::where('user_id', Auth::id())
+            ->with(['product.assets' => function ($q) {
+                $q->orderBy('sort_order', 'asc');
+            }, 'product.category'])
+            ->latest()
+            ->paginate(10);
+
+        $data = $favorites->getCollection()->map(function ($item) use ($purchasedProductIds) {
+            $asset = $item->product->assets->where('type', 'image')->first();
+            return [
+                'id' => $item->id,
+                'product_id' => $item->product_id,
+                'name' => $item->product->name,
+                'slug' => $item->product->slug,
+                'price' => (float) $item->product->price,
+                'sale_price' => $item->product->sale_price ? (float) $item->product->sale_price : null,
+                'platform' => $item->product->platform,
+                'category' => $item->product->category->name ?? null,
+                'image' => $asset ? $asset->url_or_path : asset('images/placeholder.png'),
+                'added_at' => $item->created_at->format('d/m/Y'),
+                'is_purchased' => in_array($item->product_id, $purchasedProductIds),
+            ];
+        });
+
+        return response()->json([
+            'data' => $data,
+            'has_more' => $favorites->hasMorePages(),
+            'next_page' => $favorites->currentPage() + 1,
+        ]);
+    }
+
+    /**
+     * API: Lấy danh sách thông báo của user đang đăng nhập
+     * Bảo mật: chỉ lấy notification thuộc về user hiện tại (auth()->id())
+     */
+    public function notifications()
+    {
+        $userId = Auth::id();
+
+        $notifications = \App\Models\Notification::where('user_id', $userId)
+            ->where('scope', 'personal')
+            ->latest()
+            ->take(20)
+            ->get()
+            ->map(function ($noti) {
+                return [
+                    'id' => $noti->id,
+                    'title' => $noti->title,
+                    'message' => $noti->message,
+                    'type' => $noti->type,
+                    'is_read' => $noti->is_read,
+                    'action_url' => $noti->action_url,
+                    'created_at' => $noti->created_at->diffForHumans(),
+                ];
+            });
+
+        $unreadCount = \App\Models\Notification::where('user_id', $userId)
+            ->where('scope', 'personal')
+            ->where('is_read', false)
+            ->count();
+
+        return response()->json([
+            'notifications' => $notifications,
+            'unread_count' => $unreadCount,
+        ]);
+    }
+
+    /**
+     * API: Đánh dấu tất cả thông báo đã đọc
+     * Bảo mật: chỉ update những notification thuộc về user hiện tại
+     */
+    public function markAllRead()
+    {
+        \App\Models\Notification::where('user_id', Auth::id())
+            ->where('scope', 'personal')
+            ->where('is_read', false)
+            ->update([
+                'is_read' => true,
+                'read_at' => now(),
+            ]);
+
+        return response()->json(['success' => true]);
+    }
 }

@@ -40,10 +40,17 @@ class GiftPaymentController extends Controller
         // Chỉ cho thanh toán khi ở trạng thái draft
         if ($gift->status !== GiftPage::STATUS_DRAFT) {
             return redirect()->route('app.gifts.my-gifts')
-                ->with('info', 'Gift này đã được kích hoạt.');
+                ->with('toast_type', 'info')->with('toast_message', 'Gift này đã được kích hoạt.');
         }
 
-        $amount = GiftPaymentService::getPrice($plan);
+        // Tính giá: template premium dùng giá template, còn lại dùng giá plan
+        $template = $gift->template;
+        if ($template && $template->is_premium && $template->price > 0) {
+            $amount = (int) $template->price;
+        } else {
+            $amount = GiftPaymentService::getPrice($plan);
+        }
+
         $user = Auth::user();
         $hasEnoughBalance = $this->paymentService->validateBalance($user, $amount);
 
@@ -114,7 +121,7 @@ class GiftPaymentController extends Controller
         }
 
         if ($gift->isPremium()) {
-            return back()->with('info', 'Gift này đã là gói Premium.');
+            return back()->with('toast_type', 'info')->with('toast_message', 'Gift này đã là gói Premium.');
         }
 
         $user = Auth::user();

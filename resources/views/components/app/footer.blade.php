@@ -113,16 +113,58 @@
                         Nhận các bài viết mới về thiết kế, sản phẩm và mã giảm giá hàng tháng trực tiếp qua email của
                         bạn.
                     </p>
-                    <form class="flex flex-col gap-2">
+                    <form x-data="{
+                            email: '',
+                            loading: false,
+                            successMsg: '',
+                            errorMsg: '',
+                            submit() {
+                                this.loading = true;
+                                this.successMsg = '';
+                                this.errorMsg = '';
+                                fetch('/api/v1/newsletter/subscribe', {
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                        'Accept': 'application/json'
+                                    },
+                                    body: JSON.stringify({ email: this.email })
+                                })
+                                .then(res => res.json())
+                                .then(data => {
+                                    this.loading = false;
+                                    if(data.success) {
+                                        this.successMsg = data.message;
+                                        this.email = '';
+                                    } else {
+                                        if(data.errors) {
+                                            this.errorMsg = Object.values(data.errors)[0][0];
+                                        } else {
+                                            this.errorMsg = data.message || 'Lỗi hệ thống';
+                                        }
+                                    }
+                                })
+                                .catch(err => {
+                                    this.loading = false;
+                                    this.errorMsg = 'Có lỗi xảy ra.';
+                                });
+                            }
+                        }" @submit.prevent="submit" class="flex flex-col gap-2">
+                        
+                        <template x-if="successMsg">
+                            <p class="text-xs text-green-500 font-medium" x-text="successMsg"></p>
+                        </template>
+                        <template x-if="errorMsg">
+                            <p class="text-xs text-red-500 font-medium" x-text="errorMsg"></p>
+                        </template>
+
                         <div class="relative group">
-                            <span
-                                class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-lg text-gray-400 group-focus-within:text-primary transition-colors">email</span>
-                            <input type="email" placeholder="Email của bạn..."
-                                class="w-full pl-10 pr-4 py-2.5 text-sm bg-gray-50 dark:bg-gray-900 border transition-all rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary disabled:opacity-50 disabled:cursor-not-allowed">
+                            <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-lg text-gray-400 group-focus-within:text-primary transition-colors">email</span>
+                            <input x-model="email" required type="email" placeholder="Email của bạn..." class="w-full pl-10 pr-4 py-2.5 text-sm bg-gray-50 dark:bg-gray-900 border transition-all rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary disabled:opacity-50 disabled:cursor-not-allowed">
                         </div>
-                        <button type="submit"
-                            class="w-full py-2.5 px-4 bg-[#111318] dark:bg-white text-white dark:text-[#111318] text-xs font-bold uppercase tracking-widest rounded-xl hover:opacity-90 transition-all active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2">
-                            <span>Đăng ký</span>
+                        <button :disabled="loading" type="submit" class="w-full py-2.5 px-4 bg-[#111318] dark:bg-white text-white dark:text-[#111318] text-xs font-bold uppercase tracking-widest rounded-xl hover:opacity-90 transition-all active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2">
+                            <span x-show="!loading">Đăng ký</span>
+                            <span x-show="loading">Đang chờ...</span>
                         </button>
                     </form>
                 </div>

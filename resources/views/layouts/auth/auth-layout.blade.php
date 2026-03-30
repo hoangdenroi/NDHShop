@@ -90,9 +90,49 @@
                     window.dispatchEvent(new CustomEvent('toast', { detail: {
                         type: '{{ session('toast_type', 'info') }}',
                         title: '{{ session('toast_type') === 'warning' ? 'Cảnh báo' : (session('toast_type') === 'error' ? 'Lỗi' : (session('toast_type') === 'success' ? 'Thành công' : 'Thông báo')) }}',
-                        message: '{{ session('toast_message') }}',
+                        message: '{!! addslashes(session('toast_message')) !!}',
                         link: '{{ session('toast_link', '') }}' || null,
                         linkText: '{{ session('toast_link_text', '') }}' || null
+                    }}));
+                }, 100);
+            });
+        </script>
+        @endif
+
+        {{-- Validation Errors Toast --}}
+        @if ($errors->any())
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                setTimeout(() => {
+                    @foreach ($errors->all() as $error)
+                    window.dispatchEvent(new CustomEvent('toast', { detail: {
+                        type: 'error',
+                        title: 'Thất bại',
+                        message: '{!! addslashes($error) !!}'
+                    }}));
+                    @endforeach
+                }, 100);
+            });
+        </script>
+        @endif
+
+        {{-- Auth Status Toast --}}
+        @if (session('status'))
+        @php
+            $statusMsg = session('status');
+            if ($statusMsg === 'verification-link-sent') {
+                $statusMsg = 'Liên kết xác minh mới đã được gửi đến email của bạn.';
+            } else {
+                $statusMsg = __($statusMsg);
+            }
+        @endphp
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                setTimeout(() => {
+                    window.dispatchEvent(new CustomEvent('toast', { detail: {
+                        type: 'success',
+                        title: 'Thành công',
+                        message: '{!! addslashes($statusMsg) !!}'
                     }}));
                 }, 100);
             });

@@ -4,13 +4,17 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
 
 class SocialiteController extends Controller
 {
-    public function redirect()
+    public function redirect(Request $request)
     {
+        // Lưu trạng thái "ghi nhớ đăng nhập" vào session trước khi redirect sang Google
+        $request->session()->put('socialite_remember', $request->boolean('remember'));
+
         return Socialite::driver('google')->redirect();
     }
 
@@ -42,7 +46,9 @@ class SocialiteController extends Controller
                 ]);
             }
 
-            Auth::login($user);
+            // Đọc trạng thái "ghi nhớ đăng nhập" từ session
+            $remember = session()->pull('socialite_remember', false);
+            Auth::login($user, $remember);
 
             return redirect()->intended(url('/'));
         } catch (\Exception $e) {

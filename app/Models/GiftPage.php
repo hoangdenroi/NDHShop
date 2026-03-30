@@ -11,7 +11,7 @@ use Illuminate\Support\Str;
  * 1. User tạo gift → status = draft (chưa có share_code)
  * 2. Chọn plan (basic/premium) → thanh toán
  * 3. Thanh toán thành công → status = active, generate share_code
- * 4. Link chia sẻ: /g/{share_code}
+ * 4. Link chia sẻ: /gifts/{share_code}
  */
 class GiftPage extends BaseModel
 {
@@ -129,11 +129,45 @@ class GiftPage extends BaseModel
 
     /**
      * Kiểm tra gift có thể chỉnh sửa không.
-     * Chỉ cho edit khi ở trạng thái draft.
+     * Chỉ cho edit khi ở trạng thái draft, HOẶC gói PREMIUM (trong 72h).
      */
     public function canBeEdited(): bool
     {
-        return $this->status === self::STATUS_DRAFT;
+        if ($this->status === self::STATUS_DRAFT) {
+            return true;
+        }
+
+        // Nếu đã kích hoạt (active/pending...), chỉ cho phép sửa nếu là gói Premium và còn hạn 72h
+        if ($this->isPremium()) {
+            return $this->edit_hours_left > 0;
+        }
+
+        return false;
+    }
+
+    /**
+     * Lấy mốc thời gian kích hoạt thiệp.
+     */
+    public function getActivatedAtAttribute()
+    {
+        return $this->giftOrder?->paid_at ?? $this->created_at;
+    }
+
+    /**
+     * Lấy số giờ còn lại để sửa (dành cho gói Premium).
+     */
+    public function getEditHoursLeftAttribute(): int
+    {
+        if ($this->status === self::STATUS_DRAFT) {
+            return 999; // Không giới hạn cho draft
+        }
+        
+        $expiryTime = $this->activated_at->copy()->addHours(72);
+        if ($expiryTime->isPast()) {
+            return 0;
+        }
+        
+        return now()->diffInHours($expiryTime);
     }
 
     /**
@@ -160,7 +194,7 @@ class GiftPage extends BaseModel
         if (!$this->share_code) {
             return '#'; // Chưa có share_code (draft)
         }
-        return url("/g/{$this->share_code}");
+        return url("/gifts/{$this->share_code}");
     }
 
     /**

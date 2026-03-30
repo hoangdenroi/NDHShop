@@ -47,5 +47,16 @@ class AppServiceProvider extends ServiceProvider
         \Illuminate\Support\Facades\RateLimiter::for('downloads', function (\Illuminate\Http\Request $request) {
             return \Illuminate\Cache\RateLimiting\Limit::perMinute(10)->by($request->user()?->id ?: $request->ip());
         });
+
+        // --- Audit Logs cho Authentication ---
+        \Illuminate\Support\Facades\Event::listen(\Illuminate\Auth\Events\Login::class, function (\Illuminate\Auth\Events\Login $event) {
+            \App\Services\AuditLogService::log('login', $event->user, null, null, $event->user->id);
+        });
+
+        \Illuminate\Support\Facades\Event::listen(\Illuminate\Auth\Events\Logout::class, function (\Illuminate\Auth\Events\Logout $event) {
+            if ($event->user) {
+                \App\Services\AuditLogService::log('logout', $event->user, null, null, $event->user->id);
+            }
+        });
     }
 }
