@@ -18,6 +18,10 @@
                 <div class="ml-3 w-0 flex-1 pt-0.5">
                     <p class="text-sm font-bold text-slate-900 dark:text-white" x-text="toast.title"></p>
                     <p class="mt-1 text-sm text-slate-500 dark:text-slate-400" x-text="toast.message"></p>
+                    {{-- Khối output mở rộng (dành cho chạy lệnh hệ thống) --}}
+                    <template x-if="toast.output">
+                        <pre class="mt-2 text-[11px] bg-slate-50 dark:bg-slate-900/50 text-slate-600 dark:text-slate-300 rounded-lg p-2 whitespace-pre-wrap max-h-32 overflow-y-auto font-mono border border-slate-100 dark:border-slate-700/50 break-words" x-text="toast.output"></pre>
+                    </template>
                     {{-- Link tùy chọn (ví dụ: "Nạp tiền ngay") --}}
                     <template x-if="toast.link">
                         <a :href="toast.link" class="inline-flex items-center gap-1 mt-2 text-xs font-bold text-primary hover:underline">

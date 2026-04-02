@@ -34,6 +34,13 @@ class User extends Authenticatable
         'theme',
         'notification',
         'language',
+        // Cloud Plan
+        'cloud_plan',
+        'cloud_plan_billing_cycle',
+        'cloud_plan_expires_at',
+        'cloud_plan_grace_ends_at',
+        'cloud_db_override',
+        'cloud_storage_override',
     ];
 
     /**
@@ -62,6 +69,9 @@ class User extends Authenticatable
             'is_deleted' => 'boolean',
             'theme' => 'array',
             'notification' => 'array',
+            // Cloud Plan
+            'cloud_plan_expires_at' => 'datetime',
+            'cloud_plan_grace_ends_at' => 'datetime',
         ];
     }
 
@@ -79,5 +89,84 @@ class User extends Authenticatable
     public function wishlists()
     {
         return $this->hasMany(Wishlist::class);
+    }
+
+    // ──── Cloud Plan Relationships ────
+
+    public function cloudPlanOrders()
+    {
+        return $this->hasMany(CloudPlanOrder::class);
+    }
+
+    public function cloudDatabases()
+    {
+        return $this->hasMany(CloudDatabase::class);
+    }
+
+    public function apiKeys()
+    {
+        return $this->hasMany(ApiKey::class);
+    }
+
+    // ──── Cloud Plan Helpers ────
+
+    /**
+     * Lấy plan thực tế cho Database (override ưu tiên hơn gói chung).
+     */
+    public function getDbPlan(): string
+    {
+        return $this->cloud_db_override ?? $this->cloud_plan ?? 'free';
+    }
+
+    /**
+     * Lấy plan thực tế cho Storage (override ưu tiên hơn gói chung).
+     */
+    public function getStoragePlan(): string
+    {
+        return $this->cloud_storage_override ?? $this->cloud_plan ?? 'free';
+    }
+
+    /**
+     * Lấy quota config cho Database.
+     */
+    public function getDbQuota(): array
+    {
+        return config('cloud_plan.plans.' . $this->getDbPlan(), config('cloud_plan.plans.free'));
+    }
+
+    /**
+     * Lấy quota config cho Storage.
+     */
+    public function getStorageQuota(): array
+    {
+        return config('cloud_plan.plans.' . $this->getStoragePlan(), config('cloud_plan.plans.free'));
+    }
+
+    /**
+     * Gói cloud plan còn hiệu lực không.
+     */
+    public function isCloudPlanActive(): bool
+    {
+        if ($this->cloud_plan === 'free') {
+            return true;
+        }
+
+        return $this->cloud_plan_expires_at && $this->cloud_plan_expires_at->isFuture();
+    }
+
+    /**
+     * Đang trong grace period không.
+     */
+    public function isInGracePeriod(): bool
+    {
+        return $this->cloud_plan_grace_ends_at && $this->cloud_plan_grace_ends_at->isFuture();
+    }
+
+    /**
+     * Gói cloud plan hiện tại có phải Free không.
+     */
+    public function isFreePlan(): bool
+    {
+        return $this->cloud_plan === 'free';
     }
 }

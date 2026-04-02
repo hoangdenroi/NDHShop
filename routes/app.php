@@ -35,6 +35,9 @@ Route::prefix('apps')->group(function () {
     Route::post('/cart/remove', [\App\Http\Controllers\App\CartController::class, 'remove'])->name('app.cart.remove');
     Route::get('/cart/count', [\App\Http\Controllers\App\CartController::class, 'count'])->name('app.cart.count');
 
+    // VPS
+    Route::get('/vps', [\App\Http\Controllers\App\VpsController::class, 'index'])->name('app.vps');
+
 });
 
 Route::get('/auth/google', [SocialiteController::class, 'redirect'])->name('google.login');
@@ -89,6 +92,19 @@ Route::prefix('apps')->middleware('auth')->group(function () {
 
     // Storage
     Route::get('/storage', [\App\Http\Controllers\App\StorageController::class, 'index'])->name('app.storage');
+
+    // Cloud Plan — Nâng cấp / Gia hạn / Hạ gói
+    Route::prefix('cloud-plan')->name('app.cloud-plan.')->group(function () {
+        Route::get('/current', [\App\Http\Controllers\App\CloudPlanController::class, 'current'])->name('current');
+        Route::get('/calculate-price', [\App\Http\Controllers\App\CloudPlanController::class, 'calculatePrice'])->name('calculate-price');
+        Route::get('/refund-preview', [\App\Http\Controllers\App\CloudPlanController::class, 'refundPreview'])->name('refund-preview');
+        Route::post('/upgrade', [\App\Http\Controllers\App\CloudPlanController::class, 'upgrade'])->name('upgrade');
+        Route::post('/renew', [\App\Http\Controllers\App\CloudPlanController::class, 'renew'])->name('renew');
+        Route::post('/downgrade', [\App\Http\Controllers\App\CloudPlanController::class, 'downgrade'])->name('downgrade');
+        Route::post('/apply-coupon', [\App\Http\Controllers\App\CloudPlanController::class, 'applyCoupon'])->name('apply-coupon');
+        Route::post('/create-database', [\App\Http\Controllers\App\CloudPlanController::class, 'createDatabase'])->name('create-database');
+        Route::delete('/database/{cloudDatabase}', [\App\Http\Controllers\App\CloudPlanController::class, 'deleteDatabase'])->name('delete-database');
+    });
 
 });
 

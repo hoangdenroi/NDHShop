@@ -21,7 +21,11 @@
                     <span class="material-symbols-outlined text-emerald-500 text-base">check_circle</span> 1 database
                 </li>
                 <li class="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-300">
-                    <span class="material-symbols-outlined text-emerald-500 text-base">check_circle</span> 50 MB / DB
+                    <span class="material-symbols-outlined text-emerald-500 text-base">check_circle</span> 5
+                    Connections
+                </li>
+                <li class="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-300">
+                    <span class="material-symbols-outlined text-emerald-500 text-base">check_circle</span> 200 MB / DB
                 </li>
                 <li class="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-300">
                     <span class="material-symbols-outlined text-emerald-500 text-base">check_circle</span> MySQL only
@@ -85,7 +89,11 @@
                     <span class="material-symbols-outlined text-emerald-500 text-base">check_circle</span> 5 databases
                 </li>
                 <li class="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-300">
-                    <span class="material-symbols-outlined text-emerald-500 text-base">check_circle</span> 500 MB / DB
+                    <span class="material-symbols-outlined text-emerald-500 text-base">check_circle</span> 20
+                    Connections
+                </li>
+                <li class="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-300">
+                    <span class="material-symbols-outlined text-emerald-500 text-base">check_circle</span> 1 GB / DB
                 </li>
                 <li class="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-300">
                     <span class="material-symbols-outlined text-emerald-500 text-base">check_circle</span> MySQL +
@@ -147,7 +155,11 @@
             <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Database</p>
             <ul class="space-y-2">
                 <li class="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-300">
-                    <span class="material-symbols-outlined text-emerald-500 text-base">check_circle</span> 20 databases
+                    <span class="material-symbols-outlined text-emerald-500 text-base">check_circle</span> 15 databases
+                </li>
+                <li class="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-300">
+                    <span class="material-symbols-outlined text-emerald-500 text-base">check_circle</span> 50
+                    Connections
                 </li>
                 <li class="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-300">
                     <span class="material-symbols-outlined text-emerald-500 text-base">check_circle</span> 5 GB / DB
@@ -207,7 +219,8 @@
             <p class="font-semibold mb-1">Lưu ý khi hết hạn gói</p>
             <p class="text-xs text-amber-700 dark:text-amber-400">Khi gói hết hạn, các resource vượt quota Free sẽ bị
                 <strong>tạm dừng</strong>. Bạn có <strong>7 ngày</strong> để gia hạn. Sau 7 ngày, dữ liệu sẽ bị xóa vĩnh
-                viễn.</p>
+                viễn.
+            </p>
         </div>
     </div>
 

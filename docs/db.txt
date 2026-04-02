@@ -161,3 +161,21 @@ is_published (boolean, mặc định false) - Trạng thái ẩn/hiện
 published_at (timestamp, nullable) - Tính năng hẹn giờ lên bài hoặc ngày hiển thị chính thức
 view_count (integer, mặc định 0) - Lượt xem
 created_at, updated_at
+
+
+
+
+
+
+Lời khuyên thiết kế (Architecture Path) từ tớ dành cho NDHShop:
+Để đảm bảo vừa ngon, bổ, rẻ lại Scale được, sau này dự án lớn bạn nên áp dụng Mô Hình Lai (Hybrid) chia theo gói dịch vụ:
+
+Khách hàng gói Free / Pro (Shared Server Node):
+
+Vẫn xài mô hình hiện tại (CREATE DATABASE chung 1 ổ).
+Cách scale: Khi VPS hiện tại đạt 80% RAM, bạn chỉ cần đi thuê thêm 1 cái VPS khác (Node số 2), cài trắng MySQL lên đó. Sau đó thêm thông tin kết nối Node 2 vào Config của NDHShop (Cơ sở dữ liệu chúng ta đã thiết kế có sẵn cột server_id hoặc cấu hình mảng Servers). Web chỉ việc điều chuyển User mới qua lưu trên Node 2. Gọn lẹ, tiết kiệm tiền túi tối đa.
+Khách hàng gói Max / Doanh nghiệp lớn (Dedicated Container):
+
+Bạn sẽ bán gói với giá rất cao.
+Gói này khi User kích hoạt, code sẽ gọi Docker SDK API để spin thẳng 1 Container Database mới toanh độc quyền cho khách. Khi đó bạn hoàn toàn thu đủ tiền bù chi phí RAM để duy trì Container.
+Tạm kết: Thời điểm hiện tại, với kiến trúc hiện có mà chúng ta đã xây dựng, bạn đang có lợi thế tốt nhất với số vốn nhỏ. Không nên áp dụng việc tạo Container ở thì hiện tại vì nó sẽ bóp chết túi tiền thuê máy chủ của bạn trước khi nền tảng kịp lớn!

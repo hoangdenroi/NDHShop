@@ -81,4 +81,8 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
     // Audit Logs
     Route::get('/audit-logs', [\App\Http\Controllers\Admin\audit_logs\AuditLogController::class, 'index'])->name('admin.audit-logs.index');
+
+    // Cron Management
+    Route::get('/cron', [\App\Http\Controllers\Admin\CronController::class, 'index'])->name('admin.cron.index');
+    Route::post('/cron/run', [\App\Http\Controllers\Admin\CronController::class, 'run'])->name('admin.cron.run');
 });

@@ -123,7 +123,7 @@
             <span class="material-symbols-outlined text-[20px]">dns</span>
             <span class="text-sm font-medium">Quản lý server</span>
         </a>
-        <a class="{{ request()->routeIs('admin.cron-gifts.*') ? $activeClass : $defaultClass }}" href="#">
+        <a class="{{ request()->routeIs('admin.cron.*') ? $activeClass : $defaultClass }}" href="{{ route('admin.cron.index') }}">
             <span class="material-symbols-outlined text-[20px]">schedule</span>
             <span class="text-sm font-medium">Cron</span>
         </a>

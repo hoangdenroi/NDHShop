@@ -17,7 +17,7 @@
         rel="stylesheet" />
 
     <style>
-        <style>[x-cloak] {
+        [x-cloak] {
             display: none !important;
         }
 

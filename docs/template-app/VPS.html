@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>CodeMarket | High-Performance Cloud VPS</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "secondary-fixed-dim": "#b4c5ff",
+              "on-tertiary-fixed-variant": "#7d2d00",
+              "on-surface": "#131b2e",
+              "surface-container": "#eaedff",
+              "inverse-on-surface": "#eef0ff",
+              "surface-container-high": "#e2e7ff",
+              "surface-variant": "#dae2fd",
+              "background": "#faf8ff",
+              "on-tertiary-container": "#ffede6",
+              "on-secondary-fixed-variant": "#31447b",
+              "surface-dim": "#d2d9f4",
+              "surface-container-highest": "#dae2fd",
+              "secondary-fixed": "#dbe1ff",
+              "outline": "#737686",
+              "on-primary-fixed-variant": "#003ea8",
+              "error": "#ba1a1a",
+              "on-surface-variant": "#434655",
+              "surface-tint": "#0053db",
+              "primary": "#004ac6",
+              "on-tertiary-fixed": "#360f00",
+              "tertiary-fixed": "#ffdbcd",
+              "error-container": "#ffdad6",
+              "primary-fixed-dim": "#b4c5ff",
+              "tertiary-container": "#bc4800",
+              "tertiary": "#943700",
+              "on-error": "#ffffff",
+              "primary-fixed": "#dbe1ff",
+              "tertiary-fixed-dim": "#ffb596",
+              "on-primary": "#ffffff",
+              "on-background": "#131b2e",
+              "secondary": "#495c95",
+              "surface-container-low": "#f2f3ff",
+              "primary-container": "#2563eb",
+              "outline-variant": "#c3c6d7",
+              "inverse-surface": "#283044",
+              "surface-container-lowest": "#ffffff",
+              "on-primary-fixed": "#00174b",
+              "on-tertiary": "#ffffff",
+              "surface": "#faf8ff",
+              "on-secondary-fixed": "#00174b",
+              "on-error-container": "#93000a",
+              "on-secondary": "#ffffff",
+              "inverse-primary": "#b4c5ff",
+              "on-secondary-container": "#394c84",
+              "surface-bright": "#faf8ff",
+              "on-primary-container": "#eeefff",
+              "secondary-container": "#acbfff"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .font-manrope { font-family: 'Manrope', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .glass-card { background: rgba(255, 255, 255, 0.6); backdrop-filter: blur(20px); }
+        .tonal-elevation { box-shadow: 0 12px 40px rgba(19, 27, 46, 0.06); }
+    </style>
+</head>
+<body class="bg-surface text-on-surface">
+<!-- TopNavBar -->
+<nav class="bg-[#faf8ff] dark:bg-slate-950 sticky top-0 z-50">
+<div class="flex justify-between items-center w-full px-6 py-3 max-w-screen-2xl mx-auto">
+<div class="flex items-center gap-8">
+<span class="text-2xl font-black text-blue-700 dark:text-blue-500 font-manrope tracking-tight">CodeMarket</span>
+<div class="hidden md:flex items-center gap-6 font-manrope tracking-tight font-semibold">
+<a class="text-blue-700 dark:text-blue-400 border-b-2 border-blue-600 px-1 py-1" href="#">Home</a>
+<a class="text-slate-600 dark:text-slate-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 transition-colors px-1 py-1" href="#">Source Code</a>
+<a class="text-slate-600 dark:text-slate-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 transition-colors px-1 py-1" href="#">Apps</a>
+<a class="text-slate-600 dark:text-slate-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 transition-colors px-1 py-1" href="#">Games</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative hidden lg:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="pl-10 pr-4 py-2 bg-surface-container-low border-none rounded-full w-64 focus:ring-2 focus:ring-primary text-sm" placeholder="Search resources..." type="text"/>
+</div>
+<div class="flex items-center gap-3">
+<button class="p-2 text-on-surface-variant hover:bg-surface-variant rounded-full transition-colors relative">
+<span class="material-symbols-outlined" data-icon="shopping_cart">shopping_cart</span>
+<span class="absolute top-1 right-1 w-2 h-2 bg-primary rounded-full"></span>
+</button>
+<button class="p-2 text-on-surface-variant hover:bg-surface-variant rounded-full transition-colors">
+<span class="material-symbols-outlined" data-icon="favorite">favorite</span>
+</button>
+</div>
+<div class="h-6 w-[1px] bg-outline-variant mx-2"></div>
+<div class="flex items-center gap-2">
+<button class="px-4 py-2 text-sm font-semibold text-primary hover:bg-primary/5 rounded-lg transition-all">Login</button>
+<button class="px-5 py-2 text-sm font-semibold bg-primary text-white rounded-lg shadow-lg shadow-primary/20 hover:scale-95 transition-all">Sign Up</button>
+</div>
+</div>
+</div>
+</nav>
+<main>
+<!-- Hero Banner -->
+<section class="relative overflow-hidden bg-surface py-20 px-6">
+<div class="max-w-screen-2xl mx-auto flex flex-col lg:flex-row items-center gap-12">
+<div class="flex-1 space-y-8 z-10">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary-container/10 text-primary text-xs font-bold tracking-widest uppercase">
+<span class="w-2 h-2 bg-primary rounded-full animate-pulse"></span>
+                        Next-Gen Infrastructure
+                    </div>
+<h1 class="text-6xl md:text-7xl font-extrabold font-manrope text-on-surface leading-[1.1] tracking-tight">
+                        High-Performance <br/>
+<span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-primary-container">Cloud VPS</span>
+</h1>
+<p class="text-xl text-on-surface-variant max-w-xl leading-relaxed">
+                        Deploy lightning-fast virtual servers in seconds. Optimized for heavy workloads, data integrity, and global scalability with NVMe storage.
+                    </p>
+<div class="flex items-center gap-4">
+<button class="px-8 py-4 bg-gradient-to-br from-primary to-primary-container text-white font-bold rounded-xl shadow-xl shadow-primary/30 flex items-center gap-2 hover:scale-[0.98] transition-transform">
+                            Explore Pricing
+                            <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+<div class="flex -space-x-3">
+<img class="w-10 h-10 rounded-full border-2 border-surface object-cover" data-alt="portrait of a software engineer in soft studio lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCQHeW3uTFxqunieMABMX8PIZkBA5U0pVcmTelaiGKHgn-acbLdLaEOGlz2v1kkyDfXN03XRChdYH5Fhr1_in-MPaXnmHr2EVjOLwnk-as-DAxtFK1B0qJnIt2AC1KcQ-4qWSeWW-_aJbdjPWiJYkedVY5M6vaaGFot1xc_wJRQ4TJt7ihM7zp0uLAObeRy5wF43zlJIDF8-0fvdQAAKOZkuuwTITvGzCG8rfNbcWswR9CMoDii-LnUGuZdU5FddUUQM-2JAlNBsew"/>
+<img class="w-10 h-10 rounded-full border-2 border-surface object-cover" data-alt="portrait of a female tech founder with a friendly smile" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC4TouOezfuv3ozK_W0GB8jKicLz5mNmzMnTzfb70nJlDymLBhaE4tjlvF0QCbQbAYZzwg1VAPMdnNTl_HY63r3eoguaOfTxG3Nvi1fFpwHZIIK_LaqLzN7QyBGnymblxeyqmGvmoGbViTJRRd7bUxhq8HcQ7Qt-VaPg1gepODLepsQt7TocWxORe5Mzk3aUoySdI7e0XciMZZN1Ul55te40VSURcrUO90KvhsxNY-AQgB5sF_2ZyANDB7aWPu5VQBvLXHfebmHTUQ"/>
+<img class="w-10 h-10 rounded-full border-2 border-surface object-cover" data-alt="portrait of a young developer looking confident" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDQAcsth7ekeU_AZjrH9eiQ48p4imBEWSrbaPLqv1wt_ybfnFw4k4ppo8222AS7ncs5-b3LkL8Ji_h4R0jXkrv9wtIWdL0RAbH8W47Uw_N4pkRhA-Ao-qqa6DovKHxSczxVv6cJsXb5bQUB31s7lwcwgrBh4iKgYNRn3DeLGVb1ofZLgrC7IVffxGkDygGTz1xUn0M-FMyuW4iNxVCWBnJvVmid0A-FxxJr5jbNsdS8xIC-HZTtF09haiexxzTuibpGl-yv88cYPoE"/>
+<div class="w-10 h-10 rounded-full border-2 border-surface bg-surface-variant flex items-center justify-center text-[10px] font-bold">+2k</div>
+</div>
+<span class="text-sm font-medium text-on-surface-variant">Trusted by developers globally</span>
+</div>
+</div>
+<div class="flex-1 relative">
+<div class="absolute -top-24 -right-24 w-96 h-96 bg-primary/10 rounded-full blur-[100px]"></div>
+<div class="absolute -bottom-24 -left-24 w-72 h-72 bg-secondary-container/20 rounded-full blur-[80px]"></div>
+<div class="relative z-10 glass-card p-4 rounded-[2rem] shadow-2xl shadow-primary/10 border border-white/40">
+<img class="rounded-[1.5rem] w-full h-[500px] object-cover" data-alt="abstract digital representation of global network and cloud server data streams in vibrant blue and violet" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAm0dS3taZEr_sI2Xmcp7IPlIl931tc0kds4Zs9kaRkmd01iusFvELBAAt1Fv-YNsVCSos73w2Li6WBCmH34KdadbPImn0FyjgjHyjTekWMVjPUXdUkwbrwNirTj6PzMVZC9PglKD4EQ7sT10fnqgnjuY-M4m7_epc1K78V2BWKKwbArL8AOo9-F1e8T9BfC7Lp1sOdFCnwaqjHjjAz5CY3unsQFlYiVH89wDO1ZmcfAPcRVsJGTNLEnJh_hPY0manj61EXidePL9k"/>
+</div>
+</div>
+</div>
+</section>
+<!-- Pricing Section -->
+<section class="bg-surface-container-low py-24 px-6 relative">
+<div class="max-w-screen-2xl mx-auto">
+<div class="text-center mb-16 space-y-4">
+<h2 class="text-4xl font-extrabold font-manrope text-on-surface tracking-tight">Flexible Scalability</h2>
+<p class="text-on-surface-variant max-w-2xl mx-auto">Choose the engine that powers your ambition. From startup prototypes to enterprise clusters, we have the architecture ready.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+<!-- Plan 1 -->
+<div class="bg-surface-container-lowest p-8 rounded-[2rem] transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-primary/5 flex flex-col group border border-transparent hover:border-primary/10">
+<div class="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center mb-6 text-primary group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">cloud</span>
+</div>
+<h3 class="text-2xl font-bold font-manrope text-on-surface mb-2">VPS Platinum 1</h3>
+<div class="flex items-baseline gap-1 mb-8">
+<span class="text-4xl font-extrabold text-primary">$46.00</span>
+<span class="text-sm font-medium text-on-surface-variant">/ year</span>
+</div>
+<div class="space-y-4 mb-10 flex-grow">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-xl">memory</span>
+<span class="text-sm font-medium text-on-surface-variant">1 vCPU Core</span>
+</div>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-xl">database</span>
+<span class="text-sm font-medium text-on-surface-variant">2GB RAM DDR4</span>
+</div>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-xl">storage</span>
+<span class="text-sm font-medium text-on-surface-variant">30GB SSD NVMe</span>
+</div>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-xl">speed</span>
+<span class="text-sm font-medium text-on-surface-variant">Unlimited Bandwidth</span>
+</div>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-xl">public</span>
+<span class="text-sm font-medium text-on-surface-variant">USA / Europe</span>
+</div>
+</div>
+<button class="w-full py-4 bg-surface-container-low text-primary font-bold rounded-xl hover:bg-primary hover:text-white transition-all">MUA NGAY</button>
+</div>
+<!-- Plan 2 (Featured) -->
+<div class="bg-surface-container-lowest p-8 rounded-[2rem] transition-all duration-300 hover:-translate-y-2 shadow-xl shadow-primary/10 flex flex-col group relative ring-2 ring-primary/20">
+<div class="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 bg-primary text-white text-[10px] font-black uppercase tracking-[0.2em] rounded-full">Most Popular</div>
+<div class="w-14 h-14 bg-primary rounded-2xl flex items-center justify-center mb-6 text-white group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">cloud</span>
+</div>
+<h3 class="text-2xl font-bold font-manrope text-on-surface mb-2">VPS Platinum 2</h3>
+<div class="flex items-baseline gap-1 mb-8">
+<span class="text-4xl font-extrabold text-primary">$89.00</span>
+<span class="text-sm font-medium text-on-surface-variant">/ year</span>
+</div>
+<div class="space-y-4 mb-10 flex-grow">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-xl">memory</span>
+<span class="text-sm font-medium text-on-surface-variant font-semibold text-on-surface">2 vCPU Cores</span>
+</div>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-xl">database</span>
+<span class="text-sm font-medium text-on-surface-variant font-semibold text-on-surface">4GB RAM DDR4</span>
+</div>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-xl">storage</span>
+<span class="text-sm font-medium text-on-surface-variant font-semibold text-on-surface">60GB SSD NVMe</span>
+</div>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-xl">speed</span>
+<span class="text-sm font-medium text-on-surface-variant">Unlimited Bandwidth</span>
+</div>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-xl">public</span>
+<span class="text-sm font-medium text-on-surface-variant">Global Access</span>
+</div>
+</div>
+<button class="w-full py-4 bg-primary text-white font-bold rounded-xl shadow-lg shadow-primary/20 hover:scale-95 transition-all">MUA NGAY</button>
+</div>
+<!-- Plan 3 -->
+<div class="bg-surface-container-lowest p-8 rounded-[2rem] transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-primary/5 flex flex-col group border border-transparent hover:border-primary/10">
+<div class="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center mb-6 text-primary group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">cloud</span>
+</div>
+<h3 class="text-2xl font-bold font-manrope text-on-surface mb-2">VPS Platinum 3</h3>
+<div class="flex items-baseline gap-1 mb-8">
+<span class="text-4xl font-extrabold text-primary">$156.00</span>
+<span class="text-sm font-medium text-on-surface-variant">/ year</span>
+</div>
+<div class="space-y-4 mb-10 flex-grow">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-xl">memory</span>
+<span class="text-sm font-medium text-on-surface-variant">4 vCPU Cores</span>
+</div>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-xl">database</span>
+<span class="text-sm font-medium text-on-surface-variant">8GB RAM DDR4</span>
+</div>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-xl">storage</span>
+<span class="text-sm font-medium text-on-surface-variant">120GB SSD NVMe</span>
+</div>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-xl">speed</span>
+<span class="text-sm font-medium text-on-surface-variant">Unlimited Bandwidth</span>
+</div>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-xl">public</span>
+<span class="text-sm font-medium text-on-surface-variant">Global Access</span>
+</div>
+</div>
+<button class="w-full py-4 bg-surface-container-low text-primary font-bold rounded-xl hover:bg-primary hover:text-white transition-all">MUA NGAY</button>
+</div>
+<!-- Plan 4 -->
+<div class="bg-surface-container-lowest p-8 rounded-[2rem] transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-primary/5 flex flex-col group border border-transparent hover:border-primary/10">
+<div class="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center mb-6 text-primary group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">cloud</span>
+</div>
+<h3 class="text-2xl font-bold font-manrope text-on-surface mb-2">VPS Platinum 4</h3>
+<div class="flex items-baseline gap-1 mb-8">
+<span class="text-4xl font-extrabold text-primary">$299.00</span>
+<span class="text-sm font-medium text-on-surface-variant">/ year</span>
+</div>
+<div class="space-y-4 mb-10 flex-grow">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-xl">memory</span>
+<span class="text-sm font-medium text-on-surface-variant">8 vCPU Cores</span>
+</div>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-xl">database</span>
+<span class="text-sm font-medium text-on-surface-variant">16GB RAM DDR4</span>
+</div>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-xl">storage</span>
+<span class="text-sm font-medium text-on-surface-variant">250GB SSD NVMe</span>
+</div>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-xl">speed</span>
+<span class="text-sm font-medium text-on-surface-variant">Unlimited Bandwidth</span>
+</div>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-xl">public</span>
+<span class="text-sm font-medium text-on-surface-variant">Global Access</span>
+</div>
+</div>
+<button class="w-full py-4 bg-surface-container-low text-primary font-bold rounded-xl hover:bg-primary hover:text-white transition-all">MUA NGAY</button>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-[#f2f3ff] dark:bg-slate-900 border-t border-slate-200/20">
+<div class="flex flex-col md:flex-row justify-between items-center px-12 py-12 w-full max-w-screen-2xl mx-auto">
+<div class="space-y-4 mb-8 md:mb-0">
+<span class="text-lg font-bold text-slate-900 dark:text-white font-manrope">CodeMarket</span>
+<p class="text-xs uppercase tracking-widest text-slate-500 font-inter">© 2024 CodeMarket. The Architectural Pulse of Data.</p>
+</div>
+<div class="flex flex-wrap gap-8 justify-center items-center">
+<a class="text-xs uppercase tracking-widest text-slate-500 hover:text-blue-600 underline decoration-blue-500/30 transition-all font-inter" href="#">Privacy Policy</a>
+<a class="text-xs uppercase tracking-widest text-slate-500 hover:text-blue-600 underline decoration-blue-500/30 transition-all font-inter" href="#">Terms of Service</a>
+<a class="text-xs uppercase tracking-widest text-slate-500 hover:text-blue-600 underline decoration-blue-500/30 transition-all font-inter" href="#">API Docs</a>
+<a class="text-xs uppercase tracking-widest text-slate-500 hover:text-blue-600 underline decoration-blue-500/30 transition-all font-inter" href="#">Status</a>
+</div>
+<div class="flex gap-4 mt-8 md:mt-0">
+<div class="w-10 h-10 rounded-full bg-white dark:bg-slate-800 flex items-center justify-center text-slate-400 hover:text-primary transition-colors cursor-pointer">
+<span class="material-symbols-outlined text-xl">language</span>
+</div>
+<div class="w-10 h-10 rounded-full bg-white dark:bg-slate-800 flex items-center justify-center text-slate-400 hover:text-primary transition-colors cursor-pointer">
+<span class="material-symbols-outlined text-xl">share</span>
+</div>
+</div>
+</div>
+</footer>
+</body></html>
