@@ -114,6 +114,41 @@
             </div>
         </div>
 
+        {{-- Menu quản lý VPS --}}
+        <div
+            x-data="{ openVps: {{ request()->routeIs('admin.vps-categories.*') || request()->routeIs('admin.vps-orders.*') || request()->routeIs('admin.vps-settings.*') ? 'true' : 'false' }} }">
+            <button @click="openVps = !openVps"
+                class="w-full flex items-center justify-between px-3 py-2.5 rounded-lg transition-colors {{ request()->routeIs('admin.vps-categories.*') || request()->routeIs('admin.vps-orders.*') || request()->routeIs('admin.vps-settings.*') ? 'bg-primary text-white' : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-surface-dark' }}">
+                <div class="flex items-center gap-3">
+                    <span class="material-symbols-outlined text-[20px]">dns</span>
+                    <span class="text-sm font-medium">Quản lý VPS</span>
+                </div>
+                <span class="material-symbols-outlined text-[20px] transition-transform duration-200"
+                    :class="openVps ? 'rotate-180' : ''">expand_more</span>
+            </button>
+
+            <div x-show="openVps" x-collapse class="mt-1 flex flex-col gap-1 pl-9 pr-3">
+                <a class="flex items-center gap-2 px-3 py-2 rounded-lg text-sm transition-colors {{ request()->routeIs('admin.vps-categories.*') ? 'text-primary font-bold bg-primary/10' : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-surface-dark' }}"
+                    href="{{ route('admin.vps-categories.index') }}">
+                    <span
+                        class="w-1.5 h-1.5 rounded-full {{ request()->routeIs('admin.vps-categories.*') ? 'bg-primary' : 'bg-slate-400' }}"></span>
+                    Gói VPS
+                </a>
+                <a class="flex items-center gap-2 px-3 py-2 rounded-lg text-sm transition-colors {{ request()->routeIs('admin.vps-orders.*') ? 'text-primary font-bold bg-primary/10' : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-surface-dark' }}"
+                    href="{{ route('admin.vps-orders.index') }}">
+                    <span
+                        class="w-1.5 h-1.5 rounded-full {{ request()->routeIs('admin.vps-orders.*') ? 'bg-primary' : 'bg-slate-400' }}"></span>
+                    Đơn hàng VPS
+                </a>
+                <a class="flex items-center gap-2 px-3 py-2 rounded-lg text-sm transition-colors {{ request()->routeIs('admin.vps-settings.*') ? 'text-primary font-bold bg-primary/10' : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-surface-dark' }}"
+                    href="{{ route('admin.vps-settings.index') }}">
+                    <span
+                        class="w-1.5 h-1.5 rounded-full {{ request()->routeIs('admin.vps-settings.*') ? 'bg-primary' : 'bg-slate-400' }}"></span>
+                    Cài đặt Hetzner
+                </a>
+            </div>
+        </div>
+
         <div class="text-xs font-bold text-slate-500 uppercase tracking-wider px-3 mb-2 mt-6">System</div>
         <a class="{{ request()->routeIs('admin.audit-logs.*') ? $activeClass : $defaultClass }}" href="{{ route('admin.audit-logs.index') }}">
             <span class="material-symbols-outlined text-[20px]">history</span>

@@ -85,4 +85,26 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     // Cron Management
     Route::get('/cron', [\App\Http\Controllers\Admin\CronController::class, 'index'])->name('admin.cron.index');
     Route::post('/cron/run', [\App\Http\Controllers\Admin\CronController::class, 'run'])->name('admin.cron.run');
+
+    // ==========================================
+    // VPS Management
+    // ==========================================
+
+    // Gói VPS
+    Route::get('/vps/categories', [\App\Http\Controllers\Admin\vps\VpsCategoryController::class, 'index'])->name('admin.vps-categories.index');
+    Route::post('/vps/categories', [\App\Http\Controllers\Admin\vps\VpsCategoryController::class, 'store'])->name('admin.vps-categories.store');
+    Route::put('/vps/categories/{category}', [\App\Http\Controllers\Admin\vps\VpsCategoryController::class, 'update'])->name('admin.vps-categories.update');
+    Route::delete('/vps/categories/{category}', [\App\Http\Controllers\Admin\vps\VpsCategoryController::class, 'destroy'])->name('admin.vps-categories.destroy');
+
+    // Đơn hàng VPS
+    Route::get('/vps/orders', [\App\Http\Controllers\Admin\vps\VpsOrderController::class, 'index'])->name('admin.vps-orders.index');
+    Route::get('/vps/orders/{order}', [\App\Http\Controllers\Admin\vps\VpsOrderController::class, 'show'])->name('admin.vps-orders.show');
+    Route::patch('/vps/orders/{order}/cancel', [\App\Http\Controllers\Admin\vps\VpsOrderController::class, 'cancel'])->name('admin.vps-orders.cancel');
+    Route::post('/vps/orders/{order}/fulfill', [\App\Http\Controllers\Admin\vps\VpsOrderController::class, 'fulfill'])->name('admin.vps-orders.fulfill');
+
+    // Cài đặt Hetzner (Sync HĐH & Location)
+    Route::get('/vps/settings', [\App\Http\Controllers\Admin\vps\VpsSettingController::class, 'index'])->name('admin.vps-settings.index');
+    Route::post('/vps/settings/sync', [\App\Http\Controllers\Admin\vps\VpsSettingController::class, 'sync'])->name('admin.vps-settings.sync');
+    Route::patch('/vps/settings/os/{os}', [\App\Http\Controllers\Admin\vps\VpsSettingController::class, 'toggleOs'])->name('admin.vps-settings.toggle-os');
+    Route::patch('/vps/settings/locations/{location}', [\App\Http\Controllers\Admin\vps\VpsSettingController::class, 'toggleLocation'])->name('admin.vps-settings.toggle-location');
 });

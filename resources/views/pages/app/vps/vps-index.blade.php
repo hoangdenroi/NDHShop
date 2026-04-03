@@ -17,17 +17,16 @@
                 Triển khai máy chủ ảo siêu tốc chỉ trong vài giây. Tối ưu hóa cho khối lượng công việc lớn, toàn vẹn dữ liệu và khả năng mở rộng toàn cầu với lưu trữ NVMe.
             </p>
             <div class="flex items-center gap-4">
-                <button class="px-8 py-4 bg-gradient-to-br from-primary to-blue-600 text-white font-bold rounded-xl shadow-xl shadow-primary/30 flex items-center gap-2 hover:scale-[0.98] transition-transform">
+                <a href="#pricing" class="px-8 py-4 bg-gradient-to-br from-primary to-blue-600 text-white font-bold rounded-xl shadow-xl shadow-primary/30 flex items-center gap-2 hover:scale-[0.98] transition-transform">
                     Khám Phá Bảng Giá
                     <span class="material-symbols-outlined">arrow_forward</span>
-                </button>
-                <div class="flex -space-x-3">
-                    <img class="w-10 h-10 rounded-full border-2 border-white dark:border-slate-800 object-cover" data-alt="portrait of a software engineer in soft studio lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCQHeW3uTFxqunieMABMX8PIZkBA5U0pVcmTelaiGKHgn-acbLdLaEOGlz2v1kkyDfXN03XRChdYH5Fhr1_in-MPaXnmHr2EVjOLwnk-as-DAxtFK1B0qJnIt2AC1KcQ-4qWSeWW-_aJbdjPWiJYkedVY5M6vaaGFot1xc_wJRQ4TJt7ihM7zp0uLAObeRy5wF43zlJIDF8-0fvdQAAKOZkuuwTITvGzCG8rfNbcWswR9CMoDii-LnUGuZdU5FddUUQM-2JAlNBsew"/>
-                    <img class="w-10 h-10 rounded-full border-2 border-white dark:border-slate-800 object-cover" data-alt="portrait of a female tech founder with a friendly smile" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC4TouOezfuv3ozK_W0GB8jKicLz5mNmzMnTzfb70nJlDymLBhaE4tjlvF0QCbQbAYZzwg1VAPMdnNTl_HY63r3eoguaOfTxG3Nvi1fFpwHZIIK_LaqLzN7QyBGnymblxeyqmGvmoGbViTJRRd7bUxhq8HcQ7Qt-VaPg1gepODLepsQt7TocWxORe5Mzk3aUoySdI7e0XciMZZN1Ul55te40VSURcrUO90KvhsxNY-AQgB5sF_2ZyANDB7aWPu5VQBvLXHfebmHTUQ"/>
-                    <img class="w-10 h-10 rounded-full border-2 border-white dark:border-slate-800 object-cover" data-alt="portrait of a young developer looking confident" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDQAcsth7ekeU_AZjrH9eiQ48p4imBEWSrbaPLqv1wt_ybfnFw4k4ppo8222AS7ncs5-b3LkL8Ji_h4R0jXkrv9wtIWdL0RAbH8W47Uw_N4pkRhA-Ao-qqa6DovKHxSczxVv6cJsXb5bQUB31s7lwcwgrBh4iKgYNRn3DeLGVb1ofZLgrC7IVffxGkDygGTz1xUn0M-FMyuW4iNxVCWBnJvVmid0A-FxxJr5jbNsdS8xIC-HZTtF09haiexxzTuibpGl-yv88cYPoE"/>
-                    <div class="w-10 h-10 rounded-full border-2 border-white dark:border-slate-800 bg-slate-200 dark:bg-slate-800 flex items-center justify-center text-[10px] font-bold text-slate-700 dark:text-slate-300">+2k</div>
-                </div>
-                <span class="text-sm font-medium text-slate-600 dark:text-slate-400">Được tin dùng bởi các nhà phát triển toàn cầu</span>
+                </a>
+                @auth
+                    <a href="{{ route('app.vps.orders') }}" class="px-6 py-4 border border-primary/30 text-primary font-bold rounded-xl hover:bg-primary/5 transition-all flex items-center gap-2">
+                        <span class="material-symbols-outlined text-[20px]">history</span>
+                        Đơn hàng VPS
+                    </a>
+                @endauth
             </div>
         </div>
         <div class="flex-1 relative">
@@ -40,154 +39,70 @@
     </div>
 </section>
 
-<!-- Pricing Section -->
-<section class="bg-[#f2f3ff] dark:bg-slate-800/50 py-24 px-6 rounded-3xl relative">
+<!-- Pricing Section: Dynamic từ DB -->
+<section id="pricing" class="bg-[#f2f3ff] dark:bg-slate-800/50 py-24 px-6 rounded-3xl relative">
     <div class="max-w-screen-2xl mx-auto">
         <div class="text-center mb-16 space-y-4">
             <h2 class="text-4xl font-extrabold font-manrope text-slate-900 dark:text-white tracking-tight">Khả Năng Mở Rộng Linh Hoạt</h2>
             <p class="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">Lựa chọn động cơ tiếp sức cho tham vọng của bạn. Từ bản mẫu startup đến cụm máy chủ doanh nghiệp, chúng tôi đã sẵn sàng kiến trúc cho bạn.</p>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <!-- Plan 1 -->
-            <div class="bg-white dark:bg-slate-900 p-8 rounded-[2rem] transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-primary/5 flex flex-col group border border-transparent hover:border-primary/10">
-                <div class="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center mb-6 text-primary group-hover:scale-110 transition-transform">
-                    <span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">cloud</span>
+            @forelse($categories as $category)
+                <div class="bg-white dark:bg-slate-900 p-8 rounded-[2rem] transition-all duration-300 hover:-translate-y-2 flex flex-col group border border-transparent
+                    {{ $category->is_best_seller ? 'shadow-xl shadow-primary/10 ring-2 ring-primary/20 relative' : 'hover:shadow-2xl hover:shadow-primary/5 hover:border-primary/10' }}">
+
+                    @if($category->is_best_seller)
+                        <div class="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 bg-primary text-white text-[10px] font-black uppercase tracking-[0.2em] rounded-full">Phổ Biến Nhất</div>
+                    @endif
+
+                    <div class="w-14 h-14 {{ $category->is_best_seller ? 'bg-primary text-white' : 'bg-primary/10 text-primary' }} rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">cloud</span>
+                    </div>
+
+                    <h3 class="text-2xl font-bold font-manrope text-slate-900 dark:text-white mb-2">{{ $category->name }}</h3>
+
+                    <div class="flex items-baseline gap-1 mb-8">
+                        <span class="text-4xl font-extrabold text-primary">{{ number_format($category->price, 0, ',', '.') }}đ</span>
+                        <span class="text-sm font-medium text-slate-600 dark:text-slate-400">/ tháng</span>
+                    </div>
+
+                    <div class="space-y-4 mb-10 flex-grow">
+                        <div class="flex items-center gap-3">
+                            <span class="material-symbols-outlined text-primary text-xl">memory</span>
+                            <span class="text-sm font-medium text-slate-600 dark:text-slate-400">{{ $category->cpu }}</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="material-symbols-outlined text-primary text-xl">database</span>
+                            <span class="text-sm font-medium text-slate-600 dark:text-slate-400">{{ $category->ram }}</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="material-symbols-outlined text-primary text-xl">storage</span>
+                            <span class="text-sm font-medium text-slate-600 dark:text-slate-400">{{ $category->storage }}</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="material-symbols-outlined text-primary text-xl">speed</span>
+                            <span class="text-sm font-medium text-slate-600 dark:text-slate-400">{{ $category->bandwidth }}</span>
+                        </div>
+                        @if($category->warranty)
+                            <div class="flex items-center gap-3">
+                                <span class="material-symbols-outlined text-primary text-xl">verified</span>
+                                <span class="text-sm font-medium text-slate-600 dark:text-slate-400">{{ $category->warranty }}</span>
+                            </div>
+                        @endif
+                    </div>
+
+                    <a href="{{ route('app.vps.show', $category->slug) }}"
+                        class="w-full py-4 text-center font-bold rounded-xl transition-all block
+                        {{ $category->is_best_seller ? 'bg-primary text-white shadow-lg shadow-primary/20 hover:scale-95' : 'bg-[#f2f3ff] dark:bg-slate-800/50 text-primary hover:bg-primary hover:text-white' }}">
+                        MUA NGAY
+                    </a>
                 </div>
-                <h3 class="text-2xl font-bold font-manrope text-slate-900 dark:text-white mb-2">VPS Platinum 1</h3>
-                <div class="flex items-baseline gap-1 mb-8">
-                    <span class="text-4xl font-extrabold text-primary">$46.00</span>
-                    <span class="text-sm font-medium text-slate-600 dark:text-slate-400">/ năm</span>
+            @empty
+                <div class="col-span-full text-center py-16">
+                    <span class="material-symbols-outlined text-[64px] text-slate-300 dark:text-slate-600">dns</span>
+                    <p class="text-slate-500 mt-4">Chưa có gói VPS nào. Vui lòng quay lại sau!</p>
                 </div>
-                <div class="space-y-4 mb-10 flex-grow">
-                    <div class="flex items-center gap-3">
-                        <span class="material-symbols-outlined text-primary text-xl">memory</span>
-                        <span class="text-sm font-medium text-slate-600 dark:text-slate-400">1 Lõi vCPU</span>
-                    </div>
-                    <div class="flex items-center gap-3">
-                        <span class="material-symbols-outlined text-primary text-xl">database</span>
-                        <span class="text-sm font-medium text-slate-600 dark:text-slate-400">2GB RAM DDR4</span>
-                    </div>
-                    <div class="flex items-center gap-3">
-                        <span class="material-symbols-outlined text-primary text-xl">storage</span>
-                        <span class="text-sm font-medium text-slate-600 dark:text-slate-400">30GB SSD NVMe</span>
-                    </div>
-                    <div class="flex items-center gap-3">
-                        <span class="material-symbols-outlined text-primary text-xl">speed</span>
-                        <span class="text-sm font-medium text-slate-600 dark:text-slate-400">Băng Thông Không Giới Hạn</span>
-                    </div>
-                    <div class="flex items-center gap-3">
-                        <span class="material-symbols-outlined text-primary text-xl">public</span>
-                        <span class="text-sm font-medium text-slate-600 dark:text-slate-400">Mỹ / Châu Âu</span>
-                    </div>
-                </div>
-                <button class="w-full py-4 bg-[#f2f3ff] dark:bg-slate-800/50 text-primary font-bold rounded-xl hover:bg-primary hover:text-white transition-all">MUA NGAY</button>
-            </div>
-            
-            <!-- Plan 2 (Featured) -->
-            <div class="bg-white dark:bg-slate-900 p-8 rounded-[2rem] transition-all duration-300 hover:-translate-y-2 shadow-xl shadow-primary/10 flex flex-col group relative ring-2 ring-primary/20">
-                <div class="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 bg-primary text-white text-[10px] font-black uppercase tracking-[0.2em] rounded-full">Phổ Biến Nhất</div>
-                <div class="w-14 h-14 bg-primary rounded-2xl flex items-center justify-center mb-6 text-white group-hover:scale-110 transition-transform">
-                    <span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">cloud</span>
-                </div>
-                <h3 class="text-2xl font-bold font-manrope text-slate-900 dark:text-white mb-2">VPS Platinum 2</h3>
-                <div class="flex items-baseline gap-1 mb-8">
-                    <span class="text-4xl font-extrabold text-primary">$89.00</span>
-                    <span class="text-sm font-medium text-slate-600 dark:text-slate-400">/ năm</span>
-                </div>
-                <div class="space-y-4 mb-10 flex-grow">
-                    <div class="flex items-center gap-3">
-                        <span class="material-symbols-outlined text-primary text-xl">memory</span>
-                        <span class="text-sm font-medium text-slate-600 dark:text-slate-400 font-semibold text-slate-900 dark:text-white">2 Lõi vCPU</span>
-                    </div>
-                    <div class="flex items-center gap-3">
-                        <span class="material-symbols-outlined text-primary text-xl">database</span>
-                        <span class="text-sm font-medium text-slate-600 dark:text-slate-400 font-semibold text-slate-900 dark:text-white">4GB RAM DDR4</span>
-                    </div>
-                    <div class="flex items-center gap-3">
-                        <span class="material-symbols-outlined text-primary text-xl">storage</span>
-                        <span class="text-sm font-medium text-slate-600 dark:text-slate-400 font-semibold text-slate-900 dark:text-white">60GB SSD NVMe</span>
-                    </div>
-                    <div class="flex items-center gap-3">
-                        <span class="material-symbols-outlined text-primary text-xl">speed</span>
-                        <span class="text-sm font-medium text-slate-600 dark:text-slate-400">Băng Thông Không Giới Hạn</span>
-                    </div>
-                    <div class="flex items-center gap-3">
-                        <span class="material-symbols-outlined text-primary text-xl">public</span>
-                        <span class="text-sm font-medium text-slate-600 dark:text-slate-400">Truy Cập Toàn Cầu</span>
-                    </div>
-                </div>
-                <button class="w-full py-4 bg-primary text-white font-bold rounded-xl shadow-lg shadow-primary/20 hover:scale-95 transition-all">MUA NGAY</button>
-            </div>
-            
-            <!-- Plan 3 -->
-            <div class="bg-white dark:bg-slate-900 p-8 rounded-[2rem] transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-primary/5 flex flex-col group border border-transparent hover:border-primary/10">
-                <div class="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center mb-6 text-primary group-hover:scale-110 transition-transform">
-                    <span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">cloud</span>
-                </div>
-                <h3 class="text-2xl font-bold font-manrope text-slate-900 dark:text-white mb-2">VPS Platinum 3</h3>
-                <div class="flex items-baseline gap-1 mb-8">
-                    <span class="text-4xl font-extrabold text-primary">$156.00</span>
-                    <span class="text-sm font-medium text-slate-600 dark:text-slate-400">/ năm</span>
-                </div>
-                <div class="space-y-4 mb-10 flex-grow">
-                    <div class="flex items-center gap-3">
-                        <span class="material-symbols-outlined text-primary text-xl">memory</span>
-                        <span class="text-sm font-medium text-slate-600 dark:text-slate-400">4 Lõi vCPU</span>
-                    </div>
-                    <div class="flex items-center gap-3">
-                        <span class="material-symbols-outlined text-primary text-xl">database</span>
-                        <span class="text-sm font-medium text-slate-600 dark:text-slate-400">8GB RAM DDR4</span>
-                    </div>
-                    <div class="flex items-center gap-3">
-                        <span class="material-symbols-outlined text-primary text-xl">storage</span>
-                        <span class="text-sm font-medium text-slate-600 dark:text-slate-400">120GB SSD NVMe</span>
-                    </div>
-                    <div class="flex items-center gap-3">
-                        <span class="material-symbols-outlined text-primary text-xl">speed</span>
-                        <span class="text-sm font-medium text-slate-600 dark:text-slate-400">Băng Thông Không Giới Hạn</span>
-                    </div>
-                    <div class="flex items-center gap-3">
-                        <span class="material-symbols-outlined text-primary text-xl">public</span>
-                        <span class="text-sm font-medium text-slate-600 dark:text-slate-400">Truy Cập Toàn Cầu</span>
-                    </div>
-                </div>
-                <button class="w-full py-4 bg-[#f2f3ff] dark:bg-slate-800/50 text-primary font-bold rounded-xl hover:bg-primary hover:text-white transition-all">MUA NGAY</button>
-            </div>
-            
-            <!-- Plan 4 -->
-            <div class="bg-white dark:bg-slate-900 p-8 rounded-[2rem] transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-primary/5 flex flex-col group border border-transparent hover:border-primary/10">
-                <div class="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center mb-6 text-primary group-hover:scale-110 transition-transform">
-                    <span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">cloud</span>
-                </div>
-                <h3 class="text-2xl font-bold font-manrope text-slate-900 dark:text-white mb-2">VPS Platinum 4</h3>
-                <div class="flex items-baseline gap-1 mb-8">
-                    <span class="text-4xl font-extrabold text-primary">$299.00</span>
-                    <span class="text-sm font-medium text-slate-600 dark:text-slate-400">/ năm</span>
-                </div>
-                <div class="space-y-4 mb-10 flex-grow">
-                    <div class="flex items-center gap-3">
-                        <span class="material-symbols-outlined text-primary text-xl">memory</span>
-                        <span class="text-sm font-medium text-slate-600 dark:text-slate-400">8 Lõi vCPU</span>
-                    </div>
-                    <div class="flex items-center gap-3">
-                        <span class="material-symbols-outlined text-primary text-xl">database</span>
-                        <span class="text-sm font-medium text-slate-600 dark:text-slate-400">16GB RAM DDR4</span>
-                    </div>
-                    <div class="flex items-center gap-3">
-                        <span class="material-symbols-outlined text-primary text-xl">storage</span>
-                        <span class="text-sm font-medium text-slate-600 dark:text-slate-400">250GB SSD NVMe</span>
-                    </div>
-                    <div class="flex items-center gap-3">
-                        <span class="material-symbols-outlined text-primary text-xl">speed</span>
-                        <span class="text-sm font-medium text-slate-600 dark:text-slate-400">Băng Thông Không Giới Hạn</span>
-                    </div>
-                    <div class="flex items-center gap-3">
-                        <span class="material-symbols-outlined text-primary text-xl">public</span>
-                        <span class="text-sm font-medium text-slate-600 dark:text-slate-400">Truy Cập Toàn Cầu</span>
-                    </div>
-                </div>
-                <button class="w-full py-4 bg-[#f2f3ff] dark:bg-slate-800/50 text-primary font-bold rounded-xl hover:bg-primary hover:text-white transition-all">MUA NGAY</button>
-            </div>
+            @endforelse
         </div>
     </div>
 </section>

@@ -1,59 +1,74 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# NDHShop - Nền tảng Mua và Quản lý VPS
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+NDHShop là một nền tảng thương mại điện tử chuyên cung cấp dịch vụ mua bán và quản lý VPS (Virtual Private Server). Hệ thống được thiết kế tối ưu, giúp người dùng dễ dàng lựa chọn cấu hình, thanh toán và quản lý các máy chủ ảo của mình trên một giao diện hợp nhất và trực quan.
 
-## About Laravel
+## Môi trường hoạt động & Định hướng phát triển
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Ở giai đoạn đầu, NDHShop tập trung tích hợp và tự động hóa với nhà cung cấp **Hetzner** nhằm mang đến trải nghiệm chất lượng cao và mức giá hợp lý. Tuy nhiên, kiến trúc hệ thống được xây dựng linh hoạt, sẵn sàng hỗ trợ các nhà cung cấp đám mây lớn khác như **DigitalOcean**, **Vultr** và **Linode** trong tương lai để đáp ứng đa dạng yêu cầu của khách hàng.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+---
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## 🎯 Danh sách tính năng (Features)
 
-## Learning Laravel
+Hệ thống cung cấp các nhóm chức năng chính bao gồm:
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+### Dành cho Khách hàng (User Features)
+- **Tài khoản & Số dư:** Đăng ký, đăng nhập an toàn, nạp tiền vào tài khoản để thanh toán dịch vụ.
+- **Mua sắm VPS:** Chọn gói cấu hình, hệ điều hành mong muốn và tạo đơn hàng.
+- **Quản lý VPS:**
+  - Khởi động, Tắt, Khởi động lại máy chủ.
+  - Quản lý SSH Keys.
+  - Cài lại hệ điều hành (Reinstall OS).
+  - Thống kê tình trạng hoạt động.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Dành cho Quản trị viên (Admin Features)
+- **Quản lý sản phẩm:** Tạo mới và cấu hình các gói VPS, tùy chỉnh cấu hình chi tiết (CPU, RAM, Disk).
+- **Quản lý đơn hàng:** Duyệt/hủy đơn hàng, hỗ trợ kích hoạt thủ công cho các máy chủ không hỗ trợ API.
+- **Quản lý người dùng, giao dịch:** Kiểm soát dòng tiền, trạng thái giao dịch và lịch sử hoạt động.
 
-## Laravel Sponsors
+---
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## 🚀 TODO / Roadmap tích hợp API
 
-### Premium Partners
+Kế hoạch phát triển và tự động hóa hệ thống sẽ trải qua các giai đoạn sau:
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+- [x] Xây dựng UI/UX và thiết lập cơ sở dữ liệu cốt lõi (Core Database & UI).
+- [x] Tạo lập hệ thống quản lý giao dịch và số dư nội bộ.
+- [ ] **Planned Hetzner Integration:** Tích hợp API của Hetzner Cloud cho bước khởi tạo ban đầu.
+- [ ] **Provision VPS automatically:** Triển khai luồng tự động tạo (provisioning) máy chủ trên Hetzner ngay khi người dùng thanh toán đơn hàng thành công.
+- [ ] **Manage power state, SSH keys, reinstall OS:** Tích hợp quản trị vòng đời (Power On/Off, Reset, thay đổi OS ban đầu) thông qua API Hetzner trực tiếp trên Dashboard của trang web.
+- [ ] Mở rộng kiến trúc chuẩn bị hỗ trợ Vultr & DigitalOcean.
+- [ ] Triển khai các API kết nối Vultr và DigitalOcean.
 
-## Contributing
+---
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## 📁 Cấu trúc Project (Project Structure)
 
-## Code of Conduct
+Dự án được phát triển dựa trên framework Laravel với cấu trúc tiêu chuẩn, cùng với một số thành phần tùy chỉnh cho nghiệp vụ (Business Logic):
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+```text
+NDHShop/
+├── app/
+│   ├── Http/
+│   │   ├── Controllers/   # Xử lý logic API và Web
+│   │   └── Requests/      # Validate thông tin đầu vào
+│   ├── Models/            # Model cơ sở dữ liệu (User, Order, VpsPackage, Transaction...)
+│   └── Services/          # Dịch vụ backend API (HetznerService...)
+├── database/
+│   ├── migrations/        # Cấu trúc các bảng CSDL
+│   └── seeders/           # Dữ liệu khởi tạo mặc định
+├── resources/
+│   ├── views/             # Giao diện Blade templating (Admin & App panel)
+│   ├── css/               # Tailwind CSS / Styles
+│   └── js/                # Javascript / Alpine.js
+├── routes/
+│   ├── web.php          
+│   ├── api.php
+│   ├── admin.php          # Route dành riêng cho khu vực quản trị
+│   └── app.php            # Route ứng dụng dành cho người dùng 
+└── tests/                 # Unit & Feature tests hệ thống
+```
 
-## Security Vulnerabilities
+---
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+*Dự án đảm bảo các tiêu chuẩn bảo mật cơ bản như phòng chống XSS, SQL Injection và tuân thủ các quy tắc mã nguồn chuẩn mực.*

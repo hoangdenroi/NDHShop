@@ -41,4 +41,10 @@ return [
         'redirect' => env('GOOGLE_REDIRECT', 'http://127.0.0.1:8000/auth/google/callback'),
     ],
 
+    // Hetzner Cloud API — Quản lý VPS tự động
+    'hetzner' => [
+        'token' => env('HETZNER_API_TOKEN'),
+        'base_url' => env('HETZNER_API_URL', 'https://api.hetzner.cloud/v1'),
+    ],
+
 ];

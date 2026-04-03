@@ -35,9 +35,26 @@ Route::prefix('apps')->group(function () {
     Route::post('/cart/remove', [\App\Http\Controllers\App\CartController::class, 'remove'])->name('app.cart.remove');
     Route::get('/cart/count', [\App\Http\Controllers\App\CartController::class, 'count'])->name('app.cart.count');
 
-    // VPS
+    // VPS (public)
     Route::get('/vps', [\App\Http\Controllers\App\VpsController::class, 'index'])->name('app.vps');
 
+});
+
+// VPS (auth required) — đặt ngoài group trên để có middleware auth riêng
+Route::prefix('apps/vps')->middleware('auth')->group(function () {
+    Route::post('/{slug}/purchase', [\App\Http\Controllers\App\VpsController::class, 'purchase'])->name('app.vps.purchase');
+    Route::get('/orders', [\App\Http\Controllers\App\VpsController::class, 'orders'])->name('app.vps.orders');
+    Route::get('/orders/{order}', [\App\Http\Controllers\App\VpsController::class, 'orderDetail'])->name('app.vps.order-detail');
+    Route::post('/orders/{order}/cancel', [\App\Http\Controllers\App\VpsController::class, 'cancelOrder'])->name('app.vps.cancel');
+    Route::post('/orders/{order}/renew', [\App\Http\Controllers\App\VpsController::class, 'renewOrder'])->name('app.vps.renew');
+    Route::post('/orders/{order}/reboot', [\App\Http\Controllers\App\VpsController::class, 'reboot'])->name('app.vps.reboot');
+    Route::post('/orders/{order}/reset-password', [\App\Http\Controllers\App\VpsController::class, 'resetPassword'])->name('app.vps.reset-password');
+    Route::post('/orders/{order}/rebuild', [\App\Http\Controllers\App\VpsController::class, 'rebuild'])->name('app.vps.rebuild');
+});
+
+// Route show VPS nằm dưới cùng để không bị đụng với các route static như /orders
+Route::prefix('apps')->group(function () {
+    Route::get('/vps/{slug}', [\App\Http\Controllers\App\VpsController::class, 'show'])->name('app.vps.show');
 });
 
 Route::get('/auth/google', [SocialiteController::class, 'redirect'])->name('google.login');

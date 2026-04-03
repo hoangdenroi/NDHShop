@@ -12,3 +12,10 @@ Schedule::command('dbaas:monitor-activity')->everyTenMinutes();
 
 // Hàng ngày — kiểm tra hết hạn gói Cloud Plan, tạm dừng/xóa resource
 Schedule::command('cloud-plan:check-expiry')->daily();
+
+// Hàng ngày lúc 01:00 — kiểm tra VPS hết hạn, xóa server Hetzner
+Schedule::command('vps:check-expiration')->dailyAt('01:00');
+
+// Hàng tuần Chủ nhật lúc 03:00 — sync HĐH & Location từ Hetzner API
+Schedule::command('vps:sync-hetzner')->weeklyOn(0, '03:00');
+

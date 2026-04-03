@@ -179,3 +179,9 @@ Khách hàng gói Max / Doanh nghiệp lớn (Dedicated Container):
 Bạn sẽ bán gói với giá rất cao.
 Gói này khi User kích hoạt, code sẽ gọi Docker SDK API để spin thẳng 1 Container Database mới toanh độc quyền cho khách. Khi đó bạn hoàn toàn thu đủ tiền bù chi phí RAM để duy trì Container.
 Tạm kết: Thời điểm hiện tại, với kiến trúc hiện có mà chúng ta đã xây dựng, bạn đang có lợi thế tốt nhất với số vốn nhỏ. Không nên áp dụng việc tạo Container ở thì hiện tại vì nó sẽ bóp chết túi tiền thuê máy chủ của bạn trước khi nền tảng kịp lớn!
+
+
+
+
+
+DxDEpiQaOGwFxekKDLW2va2PsmsEdcWKIpzNCZ5gD1Cfjav6zbAk8mToakH8q9xA
