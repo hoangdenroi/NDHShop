@@ -19,6 +19,7 @@ class VpsCategory extends Model
         'slug',
         'hetzner_server_type',
         'provision_type',
+        'server_group',
         'price',
         'annual_price',
         'cpu',
@@ -32,6 +33,7 @@ class VpsCategory extends Model
         'status',
         'sort_order',
         'sold_count',
+        'metadata',
     ];
 
     protected $casts = [
@@ -41,6 +43,7 @@ class VpsCategory extends Model
         'is_best_seller' => 'boolean',
         'sort_order' => 'integer',
         'sold_count' => 'integer',
+        'metadata' => 'array',
     ];
 
     /**

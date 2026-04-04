@@ -58,7 +58,7 @@ class HetznerService
     ): array {
         $response = $this->client()->post('/servers', [
             'name' => $name,
-            'server_type' => $serverType,
+            'server_type' => strtolower(trim($serverType)),
             'image' => $image,
             'location' => $location,
             'start_after_create' => true,

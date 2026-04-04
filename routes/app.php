@@ -44,12 +44,12 @@ Route::prefix('apps')->group(function () {
 Route::prefix('apps/vps')->middleware('auth')->group(function () {
     Route::post('/{slug}/purchase', [\App\Http\Controllers\App\VpsController::class, 'purchase'])->name('app.vps.purchase');
     Route::get('/orders', [\App\Http\Controllers\App\VpsController::class, 'orders'])->name('app.vps.orders');
-    Route::get('/orders/{order}', [\App\Http\Controllers\App\VpsController::class, 'orderDetail'])->name('app.vps.order-detail');
-    Route::post('/orders/{order}/cancel', [\App\Http\Controllers\App\VpsController::class, 'cancelOrder'])->name('app.vps.cancel');
-    Route::post('/orders/{order}/renew', [\App\Http\Controllers\App\VpsController::class, 'renewOrder'])->name('app.vps.renew');
-    Route::post('/orders/{order}/reboot', [\App\Http\Controllers\App\VpsController::class, 'reboot'])->name('app.vps.reboot');
-    Route::post('/orders/{order}/reset-password', [\App\Http\Controllers\App\VpsController::class, 'resetPassword'])->name('app.vps.reset-password');
-    Route::post('/orders/{order}/rebuild', [\App\Http\Controllers\App\VpsController::class, 'rebuild'])->name('app.vps.rebuild');
+    Route::get('/orders/{order:order_code}', [\App\Http\Controllers\App\VpsController::class, 'orderDetail'])->name('app.vps.order-detail');
+    Route::post('/orders/{order:order_code}/cancel', [\App\Http\Controllers\App\VpsController::class, 'cancelOrder'])->name('app.vps.cancel');
+    Route::post('/orders/{order:order_code}/renew', [\App\Http\Controllers\App\VpsController::class, 'renewOrder'])->name('app.vps.renew');
+    Route::post('/orders/{order:order_code}/reboot', [\App\Http\Controllers\App\VpsController::class, 'reboot'])->name('app.vps.reboot');
+    Route::post('/orders/{order:order_code}/reset-password', [\App\Http\Controllers\App\VpsController::class, 'resetPassword'])->name('app.vps.reset-password');
+    Route::post('/orders/{order:order_code}/rebuild', [\App\Http\Controllers\App\VpsController::class, 'rebuild'])->name('app.vps.rebuild');
 });
 
 // Route show VPS nằm dưới cùng để không bị đụng với các route static như /orders

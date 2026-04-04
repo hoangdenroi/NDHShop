@@ -40,6 +40,7 @@ class VpsCategoryController extends Controller
             'name' => 'required|string|max:255',
             'provision_type' => 'required|in:auto,manual',
             'hetzner_server_type' => 'required_if:provision_type,auto|nullable|string|max:50',
+            'server_group' => 'required|string|in:cost-optimized,regular,general-purpose',
             'price' => 'required|integer|min:1000',
             'annual_price' => 'nullable|integer|min:1000',
             'cpu' => 'required|string|max:50',
@@ -56,6 +57,14 @@ class VpsCategoryController extends Controller
             'operating_system_ids.*' => 'exists:vps_operating_systems,id',
             'location_ids' => 'required|array|min:1',
             'location_ids.*' => 'exists:vps_locations,id',
+            'metadata' => 'nullable|array',
+            'metadata.available_months' => 'nullable|array',
+            'metadata.available_months.*' => 'integer|in:1,2,3,6,9,12,24,36',
+            'metadata.connection_methods' => 'nullable|array',
+            'metadata.connection_methods.*' => 'string|in:password,ssh',
+            'metadata.ip' => 'nullable|string|max:255',
+            'metadata.firewall' => 'nullable|string|max:255',
+            'metadata.backup' => 'nullable|string|max:255',
         ]);
 
         $validated['slug'] = Str::slug($validated['name']);
@@ -91,6 +100,7 @@ class VpsCategoryController extends Controller
             'name' => 'required|string|max:255',
             'provision_type' => 'required|in:auto,manual',
             'hetzner_server_type' => 'required_if:provision_type,auto|nullable|string|max:50',
+            'server_group' => 'required|string|in:cost-optimized,regular,general-purpose',
             'price' => 'required|integer|min:1000',
             'annual_price' => 'nullable|integer|min:1000',
             'cpu' => 'required|string|max:50',
@@ -107,6 +117,14 @@ class VpsCategoryController extends Controller
             'operating_system_ids.*' => 'exists:vps_operating_systems,id',
             'location_ids' => 'required|array|min:1',
             'location_ids.*' => 'exists:vps_locations,id',
+            'metadata' => 'nullable|array',
+            'metadata.available_months' => 'nullable|array',
+            'metadata.available_months.*' => 'integer|in:1,2,3,6,9,12,24,36',
+            'metadata.connection_methods' => 'nullable|array',
+            'metadata.connection_methods.*' => 'string|in:password,ssh',
+            'metadata.ip' => 'nullable|string|max:255',
+            'metadata.firewall' => 'nullable|string|max:255',
+            'metadata.backup' => 'nullable|string|max:255',
         ]);
 
         $validated['is_renewable'] = $request->boolean('is_renewable', true);

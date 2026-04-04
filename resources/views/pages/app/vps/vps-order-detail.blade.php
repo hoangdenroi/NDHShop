@@ -93,13 +93,23 @@
                 {{-- Nút hệ thống (Hủy + Gia hạn) --}}
                 <div class="bg-white dark:bg-slate-900 rounded-2xl p-6 border border-slate-200 dark:border-border-dark space-y-3">
                     @if($order->canRenew())
-                        <form method="POST" action="{{ route('app.vps.renew', $order) }}" x-data="{ months: 1 }">
+                        @php
+                            $availableMonths = [1, 3, 6, 12];
+                            if ($order->vpsCategory && !empty($order->vpsCategory->metadata['available_months'])) {
+                                $availableMonths = $order->vpsCategory->metadata['available_months'];
+                            }
+                            $availableMonths = array_map('intval', $availableMonths);
+                            sort($availableMonths);
+                            $firstMonth = !empty($availableMonths) ? $availableMonths[0] : 1;
+                        @endphp
+                        <form method="POST" action="{{ route('app.vps.renew', $order) }}" x-data="{ months: {{ $firstMonth }} }"
+                            @submit="if(!confirm('Xác nhận gia hạn VPS {{ $order->order_code }} thêm ' + months + ' tháng? với giá ' + (months * {{ $order->price }}) + 'đ')) $event.preventDefault()">
                             @csrf
                             <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Gia hạn thêm</label>
                             <div class="flex gap-2">
                                 <select name="duration_months" x-model="months"
                                     class="flex-1 border border-slate-300 dark:border-border-dark bg-white dark:bg-background-dark rounded-lg px-3 py-2 text-sm dark:text-white">
-                                    @foreach([1, 3, 6, 12] as $m)
+                                    @foreach($availableMonths as $m)
                                         <option value="{{ $m }}">{{ $m }} tháng</option>
                                     @endforeach
                                 </select>
@@ -114,7 +124,7 @@
 
                     @if($order->canCancel())
                         <form method="POST" action="{{ route('app.vps.cancel', $order) }}"
-                            onsubmit="return confirm('Xác nhận hủy VPS {{ $order->order_code }}?\nSố tiền hoàn lại: {{ number_format($order->refundAmount(), 0, ',', '.') }}đ')">
+                            onsubmit="return confirm('Xác nhận hủy VPS {{ $order->order_code }}?\nSố tiền hoàn lại: {{ number_format($order->refundAmount(), 0, ',', '.') }}đ\nLưu ý: Số tiền hoàn lại sẽ được cộng vào số dư tài khoản của bạn.\nBackup các dữ liệu quan trọng trước khi xác nhận hủy VPS')">
                             @csrf
                             <button type="submit"
                                 class="w-full px-4 py-2 border border-rose-300 text-rose-500 font-medium rounded-lg text-sm hover:bg-rose-500/10 transition-colors flex items-center justify-center gap-2">
