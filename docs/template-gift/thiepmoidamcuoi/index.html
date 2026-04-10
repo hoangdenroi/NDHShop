@@ -5,7 +5,7 @@
   <base href="https://api.vesey.vn/templates/">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Thiệp Cưới - Vesey</title>
+  <title>Thiệp Cưới - NDHShop</title>
 
   <script src="https://cdn.tailwindcss.com"></script>
 
@@ -245,15 +245,16 @@
       <div class="mb-6 wow animate__animated animate__fadeIn" data-wow-duration="0.8s" data-uuid="69b380d4bd79b">
         <p data-editable="true" class="font-sans text-muted text-[9px] tracking-[0.5em] uppercase mb-3"
           data-uuid="69b380d4bd79c">{{GREETING}}</p>
-        <h1 data-editable="true" class="font-display text-4xl text-dark leading-tight" data-uuid="69b380d4bd79e">Thu Hà
+        <h1 data-editable="true" class="font-display text-4xl text-dark leading-tight" data-uuid="69b380d4bd79e">{{
+          BRIDE_NAME_SHORT }}
         </h1>
         <div class="flex items-center justify-center gap-3 my-2" data-uuid="69b380d4bd79f">
           <span class="w-6 h-[0.5px] bg-[#DDDDDD]" data-uuid="69b380d4bd7a0"></span>
           <span data-editable="true" class="font-script text-rose text-xl italic" data-uuid="69b380d4bd7a1">&amp;</span>
           <span class="w-6 h-[0.5px] bg-[#DDDDDD]" data-uuid="69b380d4bd7a3"></span>
         </div>
-        <h1 data-editable="true" class="font-display text-4xl text-dark leading-tight" data-uuid="69b380d4bd7a4">Quang
-          Minh</h1>
+        <h1 data-editable="true" class="font-display text-4xl text-dark leading-tight" data-uuid="69b380d4bd7a4">{{
+          GROOM_NAME_SHORT }}</h1>
         <p data-editable="true" class="font-sans text-muted text-[10px] tracking-[0.3em] uppercase mt-3"
           data-uuid="69b380d4bd7a6">{{WEDDING_DATE_SHORT}}</p>
       </div>
@@ -325,19 +326,17 @@
           data-uuid="69b380d4bd7e1">{{GROOM_NAME_SHORT}} ❤ {{BRIDE_NAME_SHORT}}</h3>
 
         <!-- Time & Date -->
-        <p data-editable="true" class="font-sans text-dark text-sm mb-1" data-uuid="69b380d4bd7e3">Tổ chức vào lúc 17
-          giờ
-          30</p>
+        <p data-editable="true" class="font-sans text-dark text-sm mb-1" data-uuid="69b380d4bd7e3">{{ WEDDING_TIME_TEXT
+          }}</p>
         <p data-editable="true" class="font-display text-dark text-base font-semibold mb-1" data-uuid="69b380d4bd7e5">
-          Thứ
-          Sáu, ngày 22 tháng 08 năm 2025</p>
+          {{WEDDING_DATE_FULL}}</p>
         <p data-editable="true" class="font-script text-muted text-sm italic mb-4" data-uuid="69b380d4bd7e6">(Tức ngày
-          28
-          tháng 06 năm Ất Tỵ)</p>
+          {{LUNAR_DATE_FULL}})</p>
 
         <!-- Venue -->
         <p data-editable="true" class="font-sans text-dark text-sm leading-relaxed mb-6" data-uuid="69b380d4bd7e8">
-          {{WEDDING_VENUE}}
+          {{WEDDING_VENUE1}} <br data-uuid="69b380d4bd7e9">
+          {{WEDDING_VENUE2}}
         </p>
 
         <!-- Divider -->
@@ -358,12 +357,12 @@
         data-uuid="69b380d4bd7f1">
 
         <p data-editable="true" class="font-script text-dark text-lg leading-[2.2] italic" data-uuid="69b380d4bd7f3">
-          Tình yêu không cần hoàn hảo,<br data-uuid="69b380d4bd7f5">
-          chỉ cần chân thành.<br data-uuid="69b380d4bd7f7">
-          Chúng tôi đã tìm thấy nhau<br data-uuid="69b380d4bd7f9">
-          giữa muôn vàn người,<br data-uuid="69b380d4bd7fb">
-          và hôm nay xin được chia sẻ<br data-uuid="69b380d4bd7fd">
-          niềm hạnh phúc này cùng bạn.
+          {{ INVITATION_MESSAGE1 }}<br data-uuid="69b380d4bd7f5">
+          {{ INVITATION_MESSAGE2 }}<br data-uuid="69b380d4bd7f7">
+          {{ INVITATION_MESSAGE3 }}<br data-uuid="69b380d4bd7f9">
+          {{ INVITATION_MESSAGE4 }}<br data-uuid="69b380d4bd7fb">
+          {{ INVITATION_MESSAGE5 }}<br data-uuid="69b380d4bd7fd">
+          {{ INVITATION_MESSAGE6 }}
         </p>
 
         <div class="line-divider mt-8" data-uuid="69b380d4bd7ff"></div>
@@ -377,9 +376,10 @@
 
         <p data-editable="true" class="font-sans text-muted text-[9px] tracking-[0.5em] uppercase text-center mb-2"
           data-uuid="69b380d4bd805">The Couple</p>
-        <h2 data-editable="true" class="font-display text-2xl text-dark text-center mb-8" data-uuid="69b380d4bd808">Cô
-          Dâu
-          &amp; Chú Rể</h2>
+        <h2 data-editable="true" class="font-display text-2xl text-dark text-center mb-8" data-uuid="69b380d4bd808">Chú
+          Rể
+          &amp; Cô
+          Dâu</h2>
 
         <!-- Rectangular photos side-by-side with thin border -->
         <div class="flex gap-3" data-uuid="69b380d4bd80a">
@@ -419,8 +419,7 @@
       class="py-10 px-10 text-center bg-seoul" data-uuid="69b380d4bd829">
       <div class="wow animate__animated animate__fadeIn" data-wow-duration="0.8s" data-uuid="69b380d4bd82c">
         <p data-editable="true" class="font-script text-dark/80 text-base leading-[2] italic" data-uuid="69b380d4bd831">
-          "Hạnh phúc là khi tìm được người<br data-uuid="69b380d4bd834">
-          khiến trái tim mình muốn gọi là nhà."
+          {{QUOTE_TEXT}}
         </p>
         <p data-editable="true" class="font-sans text-muted text-[10px] tracking-[0.2em] uppercase mt-3"
           data-uuid="69b380d4bd836">{{QUOTE_AUTHOR}}</p>
@@ -554,10 +553,8 @@
     <!-- ==================== SECTION 8: COUNTDOWN ==================== -->
     <section data-moveable="true" data-hidable="true" data-copyable="true" data-removable="true"
       class="relative py-20 px-8 text-center overflow-hidden" data-uuid="69b380d4bd8df">
-      <img data-editable="true"
-        src="https://d2y5jh3q6eekr6.cloudfront.net/a04dd868-bcb9-4907-86de-b8ebfbdfa3e5/690e9037a52201762562103.jpg"
-        alt="Countdown background" class="absolute inset-0 w-full h-full object-cover" data-uuid-dummy
-        data-uuid="69b380d4bd8e2">
+      <img data-editable="true" src="{{COUNTDOWN_BG}}" alt="Countdown background"
+        class="absolute inset-0 w-full h-full object-cover" data-uuid-dummy data-uuid="69b380d4bd8e2">
       <div class="absolute inset-0 bg-gradient-to-b from-black/40 via-black/50 to-black/40 pointer-events-none"
         data-uuid="69b380d4bd8e6"></div>
 
@@ -567,30 +564,79 @@
           data-uuid="69b380d4bd8ed">Save The Date</p>
         <h2 data-editable="true" class="font-display text-2xl text-white mb-10" data-uuid="69b380d4bd8f1">Đếm Ngược</h2>
 
-        <div id="vs-start-time" style="display:none;" data-uuid="69b380d4bd8f4">{{COUNTDOWN_TIME}}</div>
+        <div id="vs-start-time" style="display:none;">{{COUNTDOWN_TIME}}</div>
 
-        <div class="flex justify-center gap-3" data-uuid="69b380d4bd8f8">
-          <div class="bg-white/15 backdrop-blur-sm rounded-xl px-5 py-4 min-w-[68px]" data-uuid="69b380d4bd8fc">
-            <span class="vs-time-days font-display text-3xl text-white block" data-uuid="69b380d4bd8ff">00</span>
-            <span class="font-sans text-white/50 text-[8px] tracking-[0.15em] uppercase mt-2 block"
-              data-uuid="69b380d4bd903">Ngày</span>
+        <div class="flex justify-center gap-3">
+          <div class="bg-white/15 backdrop-blur-sm rounded-xl px-5 py-4 min-w-[68px]">
+            <span class="vs-time-days font-display text-3xl text-white block">00</span>
+            <span class="font-sans text-white/50 text-[8px] tracking-[0.15em] uppercase mt-2 block">Ngày</span>
           </div>
-          <div class="bg-white/15 backdrop-blur-sm rounded-xl px-5 py-4 min-w-[68px]" data-uuid="69b380d4bd906">
-            <span class="vs-time-hours font-display text-3xl text-white block" data-uuid="69b380d4bd90a">00</span>
-            <span class="font-sans text-white/50 text-[8px] tracking-[0.15em] uppercase mt-2 block"
-              data-uuid="69b380d4bd90e">Giờ</span>
+
+          <div class="bg-white/15 backdrop-blur-sm rounded-xl px-5 py-4 min-w-[68px]">
+            <span class="vs-time-hours font-display text-3xl text-white block">00</span>
+            <span class="font-sans text-white/50 text-[8px] tracking-[0.15em] uppercase mt-2 block">Giờ</span>
           </div>
-          <div class="bg-white/15 backdrop-blur-sm rounded-xl px-5 py-4 min-w-[68px]" data-uuid="69b380d4bd914">
-            <span class="vs-time-minutes font-display text-3xl text-white block" data-uuid="69b380d4bd917">00</span>
-            <span class="font-sans text-white/50 text-[8px] tracking-[0.15em] uppercase mt-2 block"
-              data-uuid="69b380d4bd91b">Phút</span>
+
+          <div class="bg-white/15 backdrop-blur-sm rounded-xl px-5 py-4 min-w-[68px]">
+            <span class="vs-time-minutes font-display text-3xl text-white block">00</span>
+            <span class="font-sans text-white/50 text-[8px] tracking-[0.15em] uppercase mt-2 block">Phút</span>
           </div>
-          <div class="bg-white/15 backdrop-blur-sm rounded-xl px-5 py-4 min-w-[68px]" data-uuid="69b380d4bd91f">
-            <span class="vs-time-seconds font-display text-3xl text-white block" data-uuid="69b380d4bd922">00</span>
-            <span class="font-sans text-white/50 text-[8px] tracking-[0.15em] uppercase mt-2 block"
-              data-uuid="69b380d4bd926">Giây</span>
+
+          <div class="bg-white/15 backdrop-blur-sm rounded-xl px-5 py-4 min-w-[68px]">
+            <span class="vs-time-seconds font-display text-3xl text-white block">00</span>
+            <span class="font-sans text-white/50 text-[8px] tracking-[0.15em] uppercase mt-2 block">Giây</span>
           </div>
         </div>
+
+        <script>
+          document.addEventListener('DOMContentLoaded', function () {
+            var raw = (document.getElementById('vs-start-time') || {}).textContent || '';
+            raw = raw.trim();
+
+            // Nếu không có giá trị hoặc là placeholder rỗng thì ẩn section
+            if (!raw || raw === '0000-00-00T00:00:00') return;
+
+            // Thử parse date — hỗ trợ nhiều format phổ biến
+            // VD: "2025-08-22T17:00:00", "2025-08-22 17:00:00", "2025/08/22 17:00"
+            var targetDate = new Date(raw.replace(/\//g, '-').replace(' ', 'T'));
+
+            // Kiểm tra date hợp lệ (tránh NaN)
+            if (isNaN(targetDate.getTime())) return;
+
+            var dayEl = document.querySelector('.vs-time-days');
+            var hourEl = document.querySelector('.vs-time-hours');
+            var minuteEl = document.querySelector('.vs-time-minutes');
+            var secondEl = document.querySelector('.vs-time-seconds');
+
+            if (!dayEl || !hourEl || !minuteEl || !secondEl) return;
+
+            var target = targetDate.getTime();
+
+            function pad(n) { return String(n).padStart(2, '0'); }
+
+            function updateCountdown() {
+              var now = Date.now();
+              var distance = target - now;
+
+              if (distance <= 0) {
+                dayEl.textContent = '00';
+                hourEl.textContent = '00';
+                minuteEl.textContent = '00';
+                secondEl.textContent = '00';
+                clearInterval(timer);
+                return;
+              }
+
+              dayEl.textContent = pad(Math.floor(distance / 86400000));
+              hourEl.textContent = pad(Math.floor((distance / 3600000) % 24));
+              minuteEl.textContent = pad(Math.floor((distance / 60000) % 60));
+              secondEl.textContent = pad(Math.floor((distance / 1000) % 60));
+            }
+
+            updateCountdown();
+            var timer = setInterval(updateCountdown, 1000);
+          });
+        </script>
       </div>
     </section>
 
@@ -615,14 +661,15 @@
             data-uuid="69b380d4bd947">{{EVENT_1_NAME}}</p>
           <p data-editable="true" class="font-sans text-dark text-xs font-medium" data-uuid="69b380d4bd94b">
             {{EVENT_1_TIME}}</p>
-          <p data-editable="true" class="font-sans text-muted text-[10px] mt-0.5" data-uuid="69b380d4bd950">Thứ Sáu,
-            22/08/2025</p>
+          <p data-editable="true" class="font-sans text-muted text-[10px] mt-0.5" data-uuid="69b380d4bd950">
+            {{EVENT_1_DATE}}
+          </p>
           <p data-editable="true" class="font-sans text-muted text-[10px] leading-relaxed mt-2"
             data-uuid="69b380d4bd956">
-            123 Đường Trần Phú,<br data-uuid="69b380d4bd95b">Quận Ba Đình, Hà Nội
+            {{EVENT_1_ADDRESS}}
           </p>
           <div class="mt-3" data-uuid="69b380d4bd961">
-            <a href="{{EVENT_MAP}}" target="_blank" rel="noopener noreferrer"
+            <a href="{{EVENT_1_MAP}}" target="_blank" rel="noopener noreferrer"
               class="vs-popup-gmaps inline-flex items-center gap-1.5 px-4 py-1.5 border border-[#C4848A] text-[#C4848A] rounded-full text-[9px] font-medium tracking-[0.1em] uppercase hover:bg-[#C4848A] hover:text-white transition-colors cursor-pointer"
               data-editable="true" data-uuid="69b380d4bd967">
               <svg class="w-2.5 h-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" data-uuid="69b380d4bd96d">
@@ -644,14 +691,15 @@
             data-uuid="69b380d4bd991">{{EVENT_2_NAME}}</p>
           <p data-editable="true" class="font-sans text-dark text-xs font-medium" data-uuid="69b380d4bd996">
             {{EVENT_2_TIME}}</p>
-          <p data-editable="true" class="font-sans text-muted text-[10px] mt-0.5" data-uuid="69b380d4bd99b">Thứ Sáu,
-            22/08/2025</p>
+          <p data-editable="true" class="font-sans text-muted text-[10px] mt-0.5" data-uuid="69b380d4bd99b">
+            {{EVENT_2_DATE}}
+          </p>
           <p data-editable="true" class="font-sans text-muted text-[10px] leading-relaxed mt-2"
             data-uuid="69b380d4bd99f">
-            Trung Tâm Tiệc Cưới XYZ,<br data-uuid="69b380d4bd9a3">456 Kim Mã, Ba Đình, Hà Nội
+            {{EVENT_2_ADDRESS}}
           </p>
           <div class="mt-3" data-uuid="69b380d4bd9a8">
-            <a href="https://maps.google.com/?q=" target="_blank" rel="noopener noreferrer"
+            <a href="{{EVENT_2_MAP}}" target="_blank" rel="noopener noreferrer"
               class="vs-popup-gmaps inline-flex items-center gap-1.5 px-4 py-1.5 border border-[#C4848A] text-[#C4848A] rounded-full text-[9px] font-medium tracking-[0.1em] uppercase hover:bg-[#C4848A] hover:text-white transition-colors cursor-pointer"
               data-editable="true" data-uuid="69b380d4bd9ac">
               <svg class="w-2.5 h-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" data-uuid="69b380d4bd9b1">
@@ -669,7 +717,7 @@
     </section>
 
     <!-- ==================== SECTION 10: RSVP ==================== -->
-    <section data-moveable="true" data-hidable="true" data-copyable="true" data-removable="true"
+    <!-- <section data-moveable="true" data-hidable="true" data-copyable="true" data-removable="true"
       class="py-12 px-8 bg-seoul-alt" data-uuid="69b380d4bd9be">
       <div class="text-center mb-8 wow animate__animated animate__fadeIn" data-wow-duration="0.8s"
         data-uuid="69b380d4bd9c3">
@@ -748,7 +796,7 @@
           Gửi Xác Nhận
         </button>
       </form>
-    </section>
+    </section> -->
 
     <!-- ==================== SECTION 11: QR GIFT ==================== -->
     <section data-moveable="true" data-hidable="true" data-copyable="true" data-removable="true"
@@ -851,17 +899,21 @@
             <p style="color:#999;font-size:12px;letter-spacing:0.1em;margin-top:12px;margin-bottom:0;"
               data-uuid="69b380d4bdbab">Nhấn để mở</p>
           </div>
+          <!-- Dữ liệu ngân hàng từ schema, ẩn đi để JS đọc -->
+          <div id="vs-bank-data" style="display:none;">
+            <span id="vs-bank-account-name">{{BANK_ACCOUNT_NAME}}</span>
+            <span id="vs-bank-name">{{BANK_NAME}}</span>
+            <span id="vs-bank-account-number">{{BANK_ACCOUNT_NUMBER}}</span>
+          </div>
           <div class="vs-qr-content" data-uuid="69b380d4bdbb2">
             <div class="bg-white border border-[#EEEEEE] rounded-xl p-8 max-w-xs mx-auto" data-uuid="69b380d4bdbb8">
-              <img data-editable="true" src="{{BANK_QR_IMAGE}}" alt="QR Code" class="w-28 h-28 mx-auto mb-4"
-                data-uuid="69b380d4bdbbe">
-              <p data-editable="true" class="font-display text-dark text-sm mb-1" data-uuid="69b380d4bdbc6">Lê Quang
-                Minh
-              </p>
-              <p data-editable="true" class="font-sans text-muted text-[10px] tracking-wider uppercase"
-                data-uuid="69b380d4bdbcc">{{BANK_NAME}}</p>
-              <p data-editable="true" class="font-sans text-dark text-sm tracking-widest mt-1 font-medium"
-                data-uuid="69b380d4bdbd2">{{BANK_ACCOUNT_NUMBER}}</p>
+              <img id="vs-qr-image" src="" alt="QR Code" class="w-48 h-48 mx-auto mb-4 rounded-lg"
+                style="object-fit:contain;" data-uuid="69b380d4bdbbe">
+              <p id="vs-qr-account-name" class="font-display text-dark text-sm mb-1" data-uuid="69b380d4bdbc6"></p>
+              <p id="vs-qr-bank-name" class="font-sans text-muted text-[10px] tracking-wider uppercase"
+                data-uuid="69b380d4bdbcc"></p>
+              <p id="vs-qr-account-number" class="font-sans text-dark text-sm tracking-widest mt-1 font-medium"
+                data-uuid="69b380d4bdbd2"></p>
             </div>
             <div class="mt-4 text-center" data-uuid="69b380d4bdbd9">
               <span
@@ -879,14 +931,15 @@
 
       <div class="dot-accent mx-auto mb-5" data-uuid="69b380d4bdbec"></div>
 
-      <h2 data-editable="true" class="font-display text-xl text-dark" data-uuid="69b380d4bdbf3">Thu Hà &amp; Quang Minh
+      <h2 data-editable="true" class="font-display text-xl text-dark" data-uuid="69b380d4bdbf3">{{ GROOM_NAME_SHORT }}
+        &amp; {{ BRIDE_NAME_SHORT }}
       </h2>
       <p data-editable="true" class="font-sans text-muted text-[10px] tracking-[0.3em] uppercase mt-2"
-        data-uuid="69b380d4bdbf9">22 . 08 . 2025</p>
+        data-uuid="69b380d4bdbf9">{{ WEDDING_DATE_SHORT }}</p>
 
       <p class="font-sans text-muted/40 text-[10px] mt-8" data-uuid="69b380d4bdc00">
-        Tạo bởi <a href="https://vesey.vn" class="underline hover:text-rose transition-colors"
-          data-uuid="69b380d4bdc06">Vesey.vn</a>
+        Tạo bởi <a href="https://ndhshop.com" target="_blank" rel="noopener noreferrer"
+          class="underline hover:text-rose transition-colors" data-uuid="69b380d4bdc06">NDHShop</a>
       </p>
     </section>
 
@@ -982,6 +1035,82 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
   <script>new WOW().init();</script>
   <script>document.querySelectorAll(".vs-qr-btn").forEach(function (b) { b.style.display = "none" }); document.querySelectorAll(".vs-qr-content").forEach(function (c) { c.style.display = "block" }); document.querySelectorAll(".vs-qr-close").forEach(function (x) { x.style.display = "none" });</script>
+  <script>
+    /**
+     * VietQR - Tự động sinh mã QR chuyển khoản ngân hàng
+     * Đọc thông tin từ hidden elements (template variables) và gọi API VietQR
+     */
+    document.addEventListener('DOMContentLoaded', function () {
+      var accountName = (document.getElementById('vs-bank-account-name')?.textContent || '').trim();
+      var bankName = (document.getElementById('vs-bank-name')?.textContent || '').trim();
+      var accountNumber = (document.getElementById('vs-bank-account-number')?.textContent || '').trim();
+
+      // Loại bỏ khoảng trắng/dấu cách trong số tài khoản (vd: "9876 5432 10" -> "9876543210")
+      var cleanAccountNumber = accountNumber.replace(/\s+/g, '');
+
+      // Hiển thị thông tin ngân hàng lên UI
+      var nameEl = document.getElementById('vs-qr-account-name');
+      var bankEl = document.getElementById('vs-qr-bank-name');
+      var numEl = document.getElementById('vs-qr-account-number');
+      if (nameEl) nameEl.textContent = accountName;
+      if (bankEl) bankEl.textContent = bankName;
+      if (numEl) numEl.textContent = accountNumber;
+
+      // Nếu thiếu thông tin thì không gen QR
+      if (!bankName || !cleanAccountNumber) return;
+
+      // Gọi API VietQR lấy danh sách ngân hàng rồi tìm bankId
+      fetch('https://api.vietqr.io/v2/banks')
+        .then(function (res) { return res.json(); })
+        .then(function (data) {
+          if (!data || !data.data) return;
+
+          var banks = data.data;
+          var searchName = bankName.toLowerCase().trim();
+          var matched = null;
+
+          // Tìm kiếm ngân hàng theo shortName, code, hoặc name (ưu tiên exact match)
+          for (var i = 0; i < banks.length; i++) {
+            var b = banks[i];
+            var bShort = (b.shortName || '').toLowerCase();
+            var bCode = (b.code || '').toLowerCase();
+            var bName = (b.name || '').toLowerCase();
+
+            if (bShort === searchName || bCode === searchName) {
+              matched = b;
+              break;
+            }
+            if (bName.indexOf(searchName) !== -1 || searchName.indexOf(bShort) !== -1) {
+              matched = b;
+            }
+          }
+
+          if (!matched) {
+            console.warn('[VietQR] Không tìm thấy ngân hàng:', bankName);
+            return;
+          }
+
+          // Ưu tiên dùng code, fallback sang bin
+          var bankId = matched.code || matched.bin;
+          var template = 'qr_only';
+          var encodedName = encodeURIComponent(accountName);
+
+          // Tạo URL QR image từ img.vietqr.io
+          var qrUrl = 'https://img.vietqr.io/image/'
+            + bankId + '-' + cleanAccountNumber + '-' + template + '.png'
+            + '?accountName=' + encodedName;
+
+          var qrImg = document.getElementById('vs-qr-image');
+          if (qrImg) {
+            qrImg.src = qrUrl;
+            qrImg.alt = 'QR Chuyển khoản ' + bankName + ' - ' + accountName;
+          }
+        })
+        .catch(function (err) {
+          console.error('[VietQR] Lỗi khi lấy danh sách ngân hàng:', err);
+        });
+    });
+  </script>
   <script src="/js/font-loader.js"></script>
 </body>
 

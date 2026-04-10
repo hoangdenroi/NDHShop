@@ -39,7 +39,7 @@ class GiftRenderService
             if (str_contains($htmlCode, '</head>')) {
                 $htmlCode = str_replace('</head>', "{$styleTag}\n</head>", $htmlCode);
             } else {
-                $htmlCode = $styleTag . "\n" . $htmlCode;
+                $htmlCode = $styleTag."\n".$htmlCode;
             }
         }
 
@@ -49,7 +49,7 @@ class GiftRenderService
             if (str_contains($htmlCode, '</body>')) {
                 $htmlCode = str_replace('</body>', "{$scriptTag}\n</body>", $htmlCode);
             } else {
-                $htmlCode .= "\n" . $scriptTag;
+                $htmlCode .= "\n".$scriptTag;
             }
         }
 
@@ -58,7 +58,7 @@ class GiftRenderService
         foreach ($data as $key => $value) {
             $escapedValue = htmlspecialchars($value ?? '', ENT_QUOTES, 'UTF-8');
             // Regex: {{ có thể có space }} KEY {{ có thể có space }}
-            $pattern = '/\{\{\s*' . preg_quote($key, '/') . '\s*\}\}/';
+            $pattern = '/\{\{\s*'.preg_quote($key, '/').'\s*\}\}/';
             $htmlCode = preg_replace($pattern, $escapedValue, $htmlCode);
         }
 
@@ -84,7 +84,7 @@ class GiftRenderService
             if (str_contains($htmlCode, '</head>')) {
                 $htmlCode = str_replace('</head>', "{$styleTag}\n</head>", $htmlCode);
             } else {
-                $htmlCode = $styleTag . "\n" . $htmlCode;
+                $htmlCode = $styleTag."\n".$htmlCode;
             }
         }
 
@@ -94,14 +94,14 @@ class GiftRenderService
             if (str_contains($htmlCode, '</body>')) {
                 $htmlCode = str_replace('</body>', "{$scriptTag}\n</body>", $htmlCode);
             } else {
-                $htmlCode .= "\n" . $scriptTag;
+                $htmlCode .= "\n".$scriptTag;
             }
         }
 
         // 4. Thay thế placeholders
         foreach ($data as $key => $value) {
             $escapedValue = htmlspecialchars($value ?? '', ENT_QUOTES, 'UTF-8');
-            $pattern = '/\{\{\s*' . preg_quote($key, '/') . '\s*\}\}/';
+            $pattern = '/\{\{\s*'.preg_quote($key, '/').'\s*\}\}/';
             $htmlCode = preg_replace($pattern, $escapedValue, $htmlCode);
         }
 
@@ -117,7 +117,7 @@ class GiftRenderService
     public function getRenderedHtml(GiftPage $giftPage): string
     {
         // Ưu tiên cache
-        if (!empty($giftPage->rendered_html)) {
+        if (! empty($giftPage->rendered_html)) {
             return $giftPage->rendered_html;
         }
 
@@ -133,21 +133,23 @@ class GiftRenderService
      */
     public function injectWatermark(string $html, bool $isDemo = false): string
     {
+        $homeUrl = route('app.home');
+
         if ($isDemo) {
-            $watermark = <<<'HTML'
+            $watermark = <<<HTML
 <div style="position:fixed;top:16px;right:16px;z-index:99999;background:rgba(255,71,87,0.9);color:#fff;padding:8px 20px;border-radius:12px;font-size:13px;font-weight:bold;font-family:sans-serif;pointer-events:none;backdrop-filter:blur(4px);box-shadow:0 4px 12px rgba(255,71,87,0.3);letter-spacing:1px;">
     🎯 BẢN DEMO
 </div>
 <div class="ndh-watermark" style="position:fixed;bottom:12px;left:50%;transform:translateX(-50%);z-index:99999;background:rgba(0,0,0,0.7);color:#fff;padding:6px 16px;border-radius:20px;font-size:12px;font-family:sans-serif;pointer-events:auto;backdrop-filter:blur(4px);box-shadow:0 2px 8px rgba(0,0,0,0.2);">
-    <a href="/" target="_blank" style="color:#fff;text-decoration:none;display:flex;align-items:center;gap:4px;">
+    <a href="{$homeUrl}" target="_blank" style="color:#fff;text-decoration:none;display:flex;align-items:center;gap:4px;">
         ✨ Powered by <strong>NDHShop</strong>
     </a>
 </div>
 HTML;
         } else {
-            $watermark = <<<'HTML'
+            $watermark = <<<HTML
 <div class="ndh-watermark" style="position:fixed;bottom:12px;left:50%;transform:translateX(-50%);z-index:99999;background:rgba(0,0,0,0.7);color:#fff;padding:6px 16px;border-radius:20px;font-size:12px;font-family:sans-serif;pointer-events:auto;backdrop-filter:blur(4px);box-shadow:0 2px 8px rgba(0,0,0,0.2);">
-    <a href="/" target="_blank" style="color:#fff;text-decoration:none;display:flex;align-items:center;gap:4px;">
+    <a href="{$homeUrl}" target="_blank" style="color:#fff;text-decoration:none;display:flex;align-items:center;gap:4px;">
         ✨ Powered by <strong>NDHShop</strong>
     </a>
 </div>
@@ -160,7 +162,7 @@ HTML;
         }
 
         // Fallback: nối ở cuối
-        return $html . "\n" . $watermark;
+        return $html."\n".$watermark;
     }
 
     /**
@@ -191,7 +193,7 @@ HTML;
             return str_replace('<head>', "<head>\n{$metaTags}", $html);
         }
 
-        return $metaTags . "\n" . $html;
+        return $metaTags."\n".$html;
     }
 
     /**

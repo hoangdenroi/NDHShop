@@ -43,23 +43,29 @@ class SrcAppGameController extends Controller
             abort(404, 'Không tìm thấy danh mục SRC - APP - GAME');
         }
 
-        // Query base: tất cả sản phẩm thuộc category này
-        $query = Product::where('is_active', true)
-            ->where('is_deleted', false)
-            ->where('category_id', $categoryId)
-            ->withAvg('reviews', 'rating')
-            ->withCount('reviews')
-            ->with(['assets' => function ($q) {
-                $q->orderBy('sort_order', 'desc');
-            }]);
+        // Chèn params để phân biệt query phân trang
+        $page = $request->input('page', 1);
+        $cacheKey = "src_app_game_{$categoryId}_{$selectedGroup}_page_{$page}";
 
-        // Áp dụng bộ lọc theo nhóm (dựa trên platform)
-        if (!empty($selectedGroup) && isset(self::FILTER_GROUPS[$selectedGroup])) {
-            $platforms = self::FILTER_GROUPS[$selectedGroup];
-            $query->whereIn('platform', $platforms);
-        }
+        $products = Cache::remember($cacheKey, self::CACHE_TTL, function () use ($categoryId, $selectedGroup) {
+            // Query base: tất cả sản phẩm thuộc category này
+            $query = Product::where('is_active', true)
+                ->where('is_deleted', false)
+                ->where('category_id', $categoryId)
+                ->withAvg('reviews', 'rating')
+                ->withCount('reviews')
+                ->with(['assets' => function ($q) {
+                    $q->orderBy('sort_order', 'desc');
+                }]);
 
-        $products = $query->latest()->paginate(15);
+            // Áp dụng bộ lọc theo nhóm (dựa trên platform)
+            if (!empty($selectedGroup) && isset(self::FILTER_GROUPS[$selectedGroup])) {
+                $platforms = self::FILTER_GROUPS[$selectedGroup];
+                $query->whereIn('platform', $platforms);
+            }
+
+            return $query->latest()->paginate(15);
+        });
 
         // Lấy sidebar data (có cache)
         $sidebarGroups = $this->getSidebarGroups($categoryId);

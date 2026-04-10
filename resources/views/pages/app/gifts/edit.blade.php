@@ -26,7 +26,7 @@
                 <p class="text-xs text-slate-500 mt-1">Sửa đổi thông tin bên dưới để cập nhật món quà của bạn.</p>
             </div>
 
-            <form method="POST" action="{{ route('app.gifts.update', $gift->share_code) }}" class="p-5 grid grid-cols-2 gap-5">
+            <form method="POST" action="{{ route('app.gifts.update', $gift->unitcode) }}" class="p-5 grid grid-cols-2 gap-5">
                 @csrf
                 @method('PUT')
                 
@@ -199,11 +199,11 @@
                     </button>
 
                     {{-- Nút xem Demo mẫu --}}
-                    <a href="{{ route('app.gifts.demo', $template->slug) }}" target="_blank"
+                    <button type="submit" formtarget="_blank" formaction="{{ route('app.gifts.preview', $template->slug) }}"
                         class="w-full flex items-center justify-center gap-2 py-3 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-bold rounded-xl transition-colors">
                         <span class="material-symbols-outlined">visibility</span>
-                        Xem Demo mẫu
-                    </a>
+                        Xem Demo (với dữ liệu đã nhập)
+                    </button>
                 </div>
             </form>
         </div>

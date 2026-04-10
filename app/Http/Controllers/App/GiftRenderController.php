@@ -7,6 +7,7 @@ use App\Models\GiftAnalytic;
 use App\Models\GiftPage;
 use App\Models\GiftTemplate;
 use App\Services\GiftRenderService;
+use Illuminate\Http\Request;
 
 /**
  * GiftRenderController — Render trang quà tặng cho người nhận.
@@ -35,11 +36,11 @@ class GiftRenderController extends Controller
             return view('pages.app.gifts.expired', compact('giftPage'));
         }
 
-        // Tăng lượt xem
-        $giftPage->incrementViews();
-
-        // Tracking analytics chi tiết cho premium
+        // Tăng lượt xem (chỉ áp dụng cho Premium)
         if ($giftPage->isPremium()) {
+            $giftPage->incrementViews();
+
+            // Tracking analytics chi tiết cho premium
             GiftAnalytic::track($giftPage);
         }
 
@@ -82,6 +83,52 @@ class GiftRenderController extends Controller
 
         // Render template với data mặc định
         $htmlCode = $this->renderService->renderFromTemplate($template, $defaultData);
+
+        // Inject watermark DEMO
+        $htmlCode = $this->renderService->injectWatermark($htmlCode, true);
+
+        return response($htmlCode);
+    }
+
+    /**
+     * Bản xem thử thiệp dựa theo dữ liệu Request hiện tại thay vì mặc định
+     */
+    public function preview(Request $request, GiftTemplate $template)
+    {
+        if (!$template->is_active) {
+            abort(404, 'Mẫu thiệp này không khả dụng.');
+        }
+
+        // Lấy dữ liệu user nhập từ Request
+        $requestData = $request->input('data', []);
+        $processedRequestData = [];
+
+        // Tách các trường có chứa ký tự xuống dòng (\n) thành KEY1, KEY2... (VD: danh sách ảnh)
+        foreach ($requestData as $key => $value) {
+            $processedRequestData[$key] = $value;
+            if (is_string($value) && str_contains($value, "\n")) {
+                $lines = array_map('trim', explode("\n", str_replace("\r", '', $value)));
+                $i = 1;
+                foreach ($lines as $line) {
+                    if ($line !== '') {
+                        $processedRequestData[$key.$i] = $line;      // vd: GALLERY1
+                        $processedRequestData[$key.'_'.$i] = $line;  // vd: GALLERY_1 (linh hoạt hơn cho template)
+                        $i++;
+                    }
+                }
+            }
+        }
+
+        // Gộp với dữ liệu mặc định để nếu thiếu trường thì có sẵn dữ liệu demo
+        $defaultData = [];
+        foreach ($template->getSchemaFields() as $field) {
+            $defaultData[$field['key']] = $field['default'] ?? $field['label'] ?? $field['key'];
+        }
+
+        $mergedData = array_merge($defaultData, $processedRequestData);
+
+        // Render template với data đã nhập
+        $htmlCode = $this->renderService->renderFromTemplate($template, $mergedData);
 
         // Inject watermark DEMO
         $htmlCode = $this->renderService->injectWatermark($htmlCode, true);

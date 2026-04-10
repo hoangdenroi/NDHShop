@@ -44,6 +44,14 @@ class CronController extends Controller
                 'icon'        => 'redeem',
                 'color'       => 'emerald',
             ],
+            [
+                'command'     => 'vps:sync-hetzner',
+                'name'        => 'Sync Hetzner VPS',
+                'description' => 'Đồng bộ HĐH, Location, Server Types và giá từ Hetzner Cloud API.',
+                'schedule'    => 'Hàng ngày lúc 00:00',
+                'icon'        => 'cloud_sync',
+                'color'       => 'blue',
+            ],
         ];
     }
 
@@ -103,5 +111,60 @@ class CronController extends Controller
                 'message' => 'Lỗi: ' . $e->getMessage(),
             ], 500);
         }
+    }
+
+    /**
+     * Chạy tất cả command Artisan tuần tự.
+     */
+    public function runAll(Request $request)
+    {
+        $jobs = $this->getAvailableJobs();
+        $results = [];
+        $allSuccess = true;
+
+        foreach ($jobs as $job) {
+            try {
+                $exitCode = Artisan::call($job['command']);
+                $output = trim(Artisan::output());
+                $success = $exitCode === 0;
+
+                if (!$success) $allSuccess = false;
+
+                $results[] = [
+                    'command' => $job['command'],
+                    'name'    => $job['name'],
+                    'success' => $success,
+                    'output'  => $output,
+                ];
+            } catch (\Exception $e) {
+                $allSuccess = false;
+                $results[] = [
+                    'command' => $job['command'],
+                    'name'    => $job['name'],
+                    'success' => false,
+                    'output'  => $e->getMessage(),
+                ];
+            }
+        }
+
+        Log::info('Admin chạy tất cả Cron thủ công', [
+            'admin_id' => $request->user()->id,
+            'results'  => array_map(fn($r) => $r['command'] . ': ' . ($r['success'] ? 'OK' : 'FAIL'), $results),
+        ]);
+
+        // Tổng hợp output
+        $outputSummary = collect($results)->map(function ($r) {
+            $status = $r['success'] ? '✓' : '✗';
+            return "{$status} [{$r['command']}]" . ($r['output'] ? "\n  {$r['output']}" : '');
+        })->implode("\n");
+
+        return response()->json([
+            'success' => $allSuccess,
+            'message' => $allSuccess
+                ? 'Tất cả ' . count($results) . ' cron job đã chạy thành công!'
+                : 'Một số cron job gặp lỗi. Xem chi tiết bên dưới.',
+            'output'  => $outputSummary,
+            'results' => $results,
+        ]);
     }
 }

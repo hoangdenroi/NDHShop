@@ -17,17 +17,20 @@ return new class extends Migration
             $table->id();
             $table->string('name');                          // VD: "VPS Starter"
             $table->string('slug')->unique();                // SEO URL
-            $table->string('hetzner_server_type');            // VD: "cpx11" — map với Hetzner server_type
+            $table->string('hetzner_server_type')->nullable();      // VD: "cpx11" — map với Hetzner server_type
+            $table->enum('provision_type', ['auto', 'manual'])->default('auto');
             $table->unsignedBigInteger('price');              // Giá bán /tháng (VNĐ)
             $table->unsignedBigInteger('annual_price')->nullable(); // Giá bán /năm
             $table->string('cpu');                            // VD: "2 vCPU"
             $table->string('ram');                            // VD: "2 GB"
+            $table->string('server_group')->nullable();       // Nhóm máy chủ
             $table->string('storage');                        // VD: "40 GB NVMe"
             $table->string('bandwidth')->default('20 TB');
             $table->boolean('is_renewable')->default(true);
             $table->boolean('is_best_seller')->default(false);
             $table->string('warranty')->nullable();           // VD: "99.9% Uptime"
             $table->text('description')->nullable();
+            $table->json('metadata')->nullable();
             $table->enum('status', ['active', 'inactive'])->default('active');
             $table->unsignedInteger('sort_order')->default(0);
             $table->unsignedInteger('sold_count')->default(0);

@@ -15,7 +15,7 @@ return new class extends Migration
             $table->baseColumns();
             $table->foreignId('product_id')->constrained('products')->onDelete('cascade');
             $table->string('type');
-            $table->string('url_or_path');
+            $table->text('url_or_path');
             $table->string('file_size')->nullable();
             $table->boolean('is_primary')->default(false);
             $table->integer('sort_order')->default(0);

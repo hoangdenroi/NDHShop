@@ -21,6 +21,9 @@ Route::middleware('auth:web')->group(function () {
 // api public
 Route::post('/v1/topup/sepay-hook', [TopupController::class, 'sepayHook']);
 
+// API nhạc nền (public, có cache)
+Route::get('/v1/music/tracks', [\App\Http\Controllers\Api\MusicController::class, 'index'])->name('api.v1.music.tracks');
+
 // Cấu hình chống spam API Public: Giới hạn 5 lượt request / 1 phút / 1 IP
 Route::middleware('throttle:5,1')->group(function () {
     Route::post('/v1/contact/submit', [\App\Http\Controllers\Api\ContactController::class, 'submitContact']);

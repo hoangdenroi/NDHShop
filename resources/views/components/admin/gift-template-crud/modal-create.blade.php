@@ -2,7 +2,7 @@
 @props(['categories'])
 
 <x-ui.modal name="create-gift-template" maxWidth="2xl">
-    <form method="POST" action="{{ route('admin.gift-templates.store') }}" @class(['p-6']) x-data="{
+    <form method="POST" action="{{ route('admin.gift-templates.store') }}" enctype="multipart/form-data" @class(['p-6']) x-data="{
         activeTab: 'info',
         name: '',
         slug: '',
@@ -63,8 +63,8 @@
                 </div>
             </div>
             <div>
-                <label @class(['block', 'text-sm', 'font-medium', 'text-slate-700', 'dark:text-slate-300', 'mb-1'])>URL ảnh thumbnail</label>
-                <input type="url" name="thumbnail" placeholder="https://..."
+                <label @class(['block', 'text-sm', 'font-medium', 'text-slate-700', 'dark:text-slate-300', 'mb-1'])>File ảnh thumbnail</label>
+                <input type="file" name="thumbnail" accept="image/*"
                     @class(['w-full', 'bg-slate-100', 'dark:bg-background-dark', 'border', 'border-slate-200', 'dark:border-border-dark', 'text-slate-700', 'dark:text-slate-300', 'text-sm', 'rounded-lg', 'px-3', 'py-2', 'focus:outline-none', 'focus:border-primary', 'focus:ring-1', 'focus:ring-primary'])>
             </div>
             <div @class(['flex', 'items-center', 'gap-6'])>

@@ -38,6 +38,13 @@ Route::prefix('apps')->group(function () {
     // VPS (public)
     Route::get('/vps', [\App\Http\Controllers\App\VpsController::class, 'index'])->name('app.vps');
 
+    // Đánh giá sản phẩm (public: xem)
+    Route::get('/api/v1/products/{product}/reviews', [\App\Http\Controllers\App\ReviewController::class, 'productReviews'])->name('api.product.reviews');
+
+    // sale và khuyến mãi
+    Route::get('/sale-shopee', [\App\Http\Controllers\App\SaleShopeeController::class, 'index'])->name('app.sale-shopee');
+    Route::get('/sale-tiktok', [\App\Http\Controllers\App\SaleTiktokController::class, 'index'])->name('app.sale-tiktok');
+
 });
 
 // VPS (auth required) — đặt ngoài group trên để có middleware auth riêng
@@ -76,6 +83,10 @@ Route::prefix('apps')->middleware('auth')->group(function () {
     Route::get('/api/v1/profile/history', [\App\Http\Controllers\App\ProfileController::class, 'history'])->name('api.profile.history');
     Route::get('/api/v1/notifications', [\App\Http\Controllers\App\ProfileController::class, 'notifications'])->name('api.notifications');
     Route::post('/api/v1/notifications/read-all', [\App\Http\Controllers\App\ProfileController::class, 'markAllRead'])->name('api.notifications.read-all');
+
+    // Đánh giá sản phẩm (auth: tạo, xóa)
+    Route::post('/api/v1/reviews', [\App\Http\Controllers\App\ReviewController::class, 'store'])->name('api.reviews.store');
+    Route::delete('/api/v1/reviews/{review}', [\App\Http\Controllers\App\ReviewController::class, 'destroy'])->name('api.reviews.destroy');
 
     // Thanh toán giỏ hàng
     Route::get('/checkout', [\App\Http\Controllers\App\CheckoutController::class, 'index'])->name('app.checkout');

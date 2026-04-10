@@ -74,6 +74,12 @@
                 isFavorited: {{ auth()->check() && \App\Models\Wishlist::where('user_id', auth()->id())->where('product_id', $product->id)->exists() ? 'true' : 'false' }},
                 
                 toggleWishlist() {
+                    @if(!Auth::check())
+                        window.dispatchEvent(new CustomEvent('toast', { detail: { type: 'warning', title: 'Cảnh báo', message: 'Bạn cần đăng nhập để thao tác.' } }));
+                        setTimeout(() => window.location.href = '{{ route('login') }}', 1000);
+                        return;
+                    @endif
+
                     if (this.wishlistLoading) return;
                     this.wishlistLoading = true;
                     
@@ -102,6 +108,12 @@
                 },
 
                 addToCart() {
+                    @if(!Auth::check())
+                        window.dispatchEvent(new CustomEvent('toast', { detail: { type: 'warning', title: 'Cảnh báo', message: 'Bạn cần đăng nhập để mua hàng.' } }));
+                        setTimeout(() => window.location.href = '{{ route('login') }}', 1000);
+                        return;
+                    @endif
+
                     if (this.cartLoading) return;
                     this.cartLoading = true;
                     
@@ -129,6 +141,12 @@
                     .finally(() => this.cartLoading = false);
                 }
             }">
+                {{-- Lượt tải --}}
+                <div class="flex items-center text-slate-500 dark:text-slate-400 font-bold text-xs mr-1" title="Lượt tải">
+                    <span class="material-symbols-outlined text-[18px] mr-1">download</span>
+                    {{ number_format($product->downloads_count ?? 0, 0, ',', '.') }}
+                </div>
+                
                 <button title="Thêm vào yêu thích" @click.prevent="toggleWishlist"
                     class="flex items-center justify-center p-1 transition-colors group/fav"
                     :class="isFavorited ? 'text-primary' : 'text-slate-400 hover:text-primary dark:text-slate-500 dark:hover:text-primary'">

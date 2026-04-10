@@ -33,6 +33,7 @@ return new class extends Migration
             $table->unsignedSmallInteger('max_connections')->default(3);
             $table->unsignedInteger('max_storage_mb')->default(50);
             $table->decimal('storage_used_mb', 10, 2)->default(0);
+            $table->integer('active_connections')->default(0);
 
             // Theo dõi hoạt động (cho cleanup gói Free)
             $table->timestamp('last_activity_at')->nullable();

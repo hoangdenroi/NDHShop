@@ -11,6 +11,7 @@ class Product extends BaseModel
         'description',
         'price',
         'sale_price',
+        'downloads_count',
         'version',
         'platform',
         'developer',

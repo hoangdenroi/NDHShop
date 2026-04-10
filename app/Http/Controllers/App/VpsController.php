@@ -56,6 +56,9 @@ class VpsController extends Controller
             'operating_system' => 'required|string|max:100',
             'location' => 'required|string|max:50',
             'duration_months' => 'required|integer|min:1|max:24',
+            'connection_method' => 'required|in:password,ssh',
+            'ssh_key_name' => 'required_if:connection_method,ssh|nullable|string|max:100',
+            'ssh_key_content' => 'required_if:connection_method,ssh|nullable|string',
             'coupon_code' => 'nullable|string|max:50',
             'note' => 'nullable|string|max:500',
         ]);
@@ -67,6 +70,9 @@ class VpsController extends Controller
                 $request->operating_system,
                 $request->location,
                 $request->duration_months,
+                $request->connection_method,
+                $request->ssh_key_name,
+                $request->ssh_key_content,
                 $request->coupon_code,
                 $request->note
             );

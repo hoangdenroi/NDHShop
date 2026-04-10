@@ -35,4 +35,9 @@ class Order extends BaseModel
     {
         return $this->hasMany(UserLicense::class);
     }
+
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
+    }
 }

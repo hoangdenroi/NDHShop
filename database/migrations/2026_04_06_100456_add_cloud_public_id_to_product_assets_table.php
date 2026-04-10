@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('vps_categories', function (Blueprint $table) {
-            $table->json('metadata')->nullable()->after('description');
+        Schema::table('product_assets', function (Blueprint $table) {
+            $table->string('cloud_public_id')->nullable()->after('url_or_path');
         });
     }
 
@@ -21,8 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('vps_categories', function (Blueprint $table) {
-            $table->dropColumn('metadata');
+        Schema::table('product_assets', function (Blueprint $table) {
+            $table->dropColumn('cloud_public_id');
         });
     }
 };

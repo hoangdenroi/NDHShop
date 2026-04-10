@@ -7,6 +7,7 @@ class Review extends BaseModel
     protected $fillable = [
         'user_id',
         'product_id',
+        'order_id',
         'rating',
         'comment'
     ];
@@ -24,5 +25,10 @@ class Review extends BaseModel
     public function product()
     {
         return $this->belongsTo(Product::class);
+    }
+
+    public function order()
+    {
+        return $this->belongsTo(Order::class);
     }
 }

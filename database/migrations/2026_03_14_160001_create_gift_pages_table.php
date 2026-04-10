@@ -15,7 +15,7 @@ return new class extends Migration
         Schema::create('gift_pages', function (Blueprint $table) {
             $table->id();
             $table->string('unitcode', 26)->unique();
-            $table->string('share_code', 12)->unique();              // Code chia sẻ: "aB3xK9mZ"
+            $table->string('share_code', 12)->nullable()->unique();              // Code chia sẻ: "aB3xK9mZ"
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->foreignId('template_id')->constrained('gift_templates')->cascadeOnDelete();
             $table->json('page_data')->nullable();                   // Dữ liệu user nhập theo schema
@@ -23,6 +23,12 @@ return new class extends Migration
             $table->string('meta_image')->nullable();                // OG Image cho share
             $table->integer('view_count')->default(0);               // Lượt xem
             $table->timestamp('expires_at')->nullable();             // Hết hạn (gói cơ bản 30-60 ngày)
+            $table->boolean('is_premium')->default(false);
+            $table->timestamp('premium_expires_at')->nullable();
+            $table->string('seo_title')->nullable();
+            $table->text('seo_description')->nullable();
+            $table->string('seo_image')->nullable();
+            $table->boolean('allow_search_engine')->default(true);
             $table->boolean('is_active')->default(true);
             $table->boolean('is_deleted')->default(false);
             $table->timestamps();

@@ -1,30 +1,85 @@
 @props(['categories'])
 
 <div x-data="{
-    images: [{url: ''}],
+    images: [],
     files: [{url: ''}],
     primaryIndex: 0,
     slug: '',
-    
-    addImage() { if(this.images.length < 5) this.images.push({url: ''}); },
-    removeImage(index) { 
-        this.images.splice(index, 1); 
+
+    addImage() {
+        if(this.images.length < 5) {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = 'image/jpeg,image/png,image/webp,image/gif';
+            input.onchange = (e) => {
+                const file = e.target.files[0];
+                if (!file) return;
+                // Validate kích thước (20MB)
+                if (file.size > 20 * 1024 * 1024) {
+                    alert('Ảnh quá lớn! Tối đa 20MB mỗi ảnh.');
+                    return;
+                }
+                this.images.push({
+                    file: file,
+                    preview: URL.createObjectURL(file),
+                    name: file.name
+                });
+            };
+            input.click();
+        }
+    },
+    removeImage(index) {
+        if (this.images[index]?.preview) {
+            URL.revokeObjectURL(this.images[index].preview);
+        }
+        this.images.splice(index, 1);
         if(this.primaryIndex === index) this.primaryIndex = 0;
         else if (this.primaryIndex > index) this.primaryIndex--;
     },
     addFile() { if(this.files.length < 2) this.files.push({url: ''}); },
     removeFile(index) { this.files.splice(index, 1); },
     resetForm() {
-        this.images = [{url: ''}];
+        this.images.forEach(img => { if(img.preview) URL.revokeObjectURL(img.preview); });
+        this.images = [];
         this.files = [{url: ''}];
         this.primaryIndex = 0;
         this.slug = '';
         document.getElementById('form-create-product').reset();
+    },
+    handleDrop(e) {
+        e.preventDefault();
+        const files = e.dataTransfer.files;
+        for (let i = 0; i < files.length && this.images.length < 5; i++) {
+            const file = files[i];
+            if (!file.type.startsWith('image/')) continue;
+            if (file.size > 20 * 1024 * 1024) continue;
+            this.images.push({
+                file: file,
+                preview: URL.createObjectURL(file),
+                name: file.name
+            });
+        }
     }
 }" x-on:close-modal.window="if($event.detail === 'create-product') resetForm()">
 
     <x-ui.modal name="create-product" maxWidth="2xl">
-        <form id="form-create-product" method="POST" action="{{ route('admin.products.store') }}" class="p-6">
+        <form id="form-create-product" method="POST" action="{{ route('admin.products.store') }}" enctype="multipart/form-data" class="p-6"
+            x-on:submit="
+                {{-- Gắn file vào FormData trước khi submit --}}
+                const form = $event.target;
+                images.forEach((img, idx) => {
+                    if (img.file) {
+                        const dt = new DataTransfer();
+                        dt.items.add(img.file);
+                        let input = document.createElement('input');
+                        input.type = 'file';
+                        input.name = 'images[]';
+                        input.files = dt.files;
+                        input.style.display = 'none';
+                        form.appendChild(input);
+                    }
+                });
+            ">
             @csrf
 
             {{-- Header --}}
@@ -113,37 +168,53 @@
 
                 {{-- Cột phải: Hình ảnh và Cấu hình phụ --}}
                 <div class="space-y-4">
-                    {{-- Ảnh sản phẩm --}}
+                    {{-- Ảnh sản phẩm - Upload --}}
                     <div>
                         <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-                            Link URL ảnh sản phẩm (Tối đa 5)
+                            Ảnh sản phẩm (Tối đa 5 ảnh, mỗi ảnh tối đa 20MB)
                         </label>
-                        <div class="space-y-3">
+
+                        {{-- Khu vực Drag & Drop --}}
+                        <div x-show="images.length < 5"
+                            class="border-2 border-dashed border-slate-300 dark:border-border-dark rounded-lg p-4 text-center cursor-pointer hover:border-primary hover:bg-primary/5 transition-all"
+                            x-on:click="addImage()"
+                            x-on:dragover.prevent="$el.classList.add('border-primary', 'bg-primary/5')"
+                            x-on:dragleave.prevent="$el.classList.remove('border-primary', 'bg-primary/5')"
+                            x-on:drop.prevent="$el.classList.remove('border-primary', 'bg-primary/5'); handleDrop($event)">
+                            <span class="material-symbols-outlined text-slate-400 text-[32px]">cloud_upload</span>
+                            <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">Kéo thả ảnh vào đây hoặc <span class="text-primary font-medium">nhấn để chọn</span></p>
+                            <p class="text-xs text-slate-400 mt-0.5">JPG, PNG, WebP, GIF • Tối đa 20MB</p>
+                        </div>
+
+                        {{-- Danh sách ảnh đã chọn --}}
+                        <div class="space-y-2 mt-3" x-show="images.length > 0">
                             <template x-for="(image, index) in images" :key="index">
-                                <div class="flex items-center gap-2">
-                                    <label class="cursor-pointer flex items-center gap-1 shrink-0"
-                                        title="Đặt làm ảnh chính">
+                                <div class="flex items-center gap-2 p-2 bg-slate-50 dark:bg-background-dark rounded-lg border border-slate-200 dark:border-border-dark">
+                                    {{-- Radio chọn ảnh chính --}}
+                                    <label class="cursor-pointer flex items-center shrink-0" title="Đặt làm ảnh chính">
                                         <input type="radio" name="primary_image_index" :value="index"
                                             x-model="primaryIndex" class="text-amber-500 focus:ring-amber-500 w-4 h-4">
                                     </label>
-                                    <input type="text" name="image_urls[]" x-model="image.url" placeholder="https://..."
-                                        class="flex-1 min-w-0 px-3 py-2 bg-white dark:bg-background-dark border border-slate-300 dark:border-border-dark rounded-lg text-sm transition-colors">
-                                    <template x-if="image.url">
-                                        <img :src="image.url"
-                                            class="w-16 h-10 min-w-[64px] object-contain bg-slate-50 dark:bg-slate-800 rounded shadow-sm border border-slate-200 dark:border-border-dark shrink-0"
-                                            x-on:error="$event.target.style.display='none'"
-                                            onload="this.style.display='block'">
-                                    </template>
+
+                                    {{-- Preview ảnh --}}
+                                    <img :src="image.preview"
+                                        class="w-16 h-12 min-w-[64px] object-contain bg-white dark:bg-slate-800 rounded shadow-sm border border-slate-200 dark:border-border-dark shrink-0">
+
+                                    {{-- Tên file --}}
+                                    <div class="flex-1 min-w-0">
+                                        <p class="text-sm text-slate-700 dark:text-slate-300 truncate" x-text="image.name"></p>
+                                        <p class="text-xs text-slate-400" x-show="primaryIndex == index">
+                                            <span class="text-amber-500 font-medium">★ Ảnh chính</span>
+                                        </p>
+                                    </div>
+
+                                    {{-- Nút xóa --}}
                                     <button type="button" x-on:click="removeImage(index)"
-                                        class="text-rose-500 hover:bg-rose-50 p-1.5 rounded shrink-0" title="Xóa">
+                                        class="text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-500/10 p-1.5 rounded shrink-0" title="Xóa">
                                         <span class="material-symbols-outlined text-[18px]">close</span>
                                     </button>
                                 </div>
                             </template>
-                            <button type="button" x-show="images.length < 5" x-on:click="addImage"
-                                class="text-sm font-medium text-primary hover:underline flex items-center gap-1">
-                                <span class="material-symbols-outlined text-[18px]">add</span> Thêm link ảnh
-                            </button>
                         </div>
                     </div>
 

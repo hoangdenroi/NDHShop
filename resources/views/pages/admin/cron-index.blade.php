@@ -6,6 +6,22 @@
                 <h1 class="text-2xl font-bold text-slate-900 dark:text-white">Quản lý Cron Job</h1>
                 <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">Chạy thủ công hoặc giám sát các tác vụ tự động trong hệ thống.</p>
             </div>
+            <button @click="runAllCommands()"
+                :disabled="runningAll"
+                class="inline-flex items-center gap-2 px-5 py-3 rounded-xl text-sm font-bold transition-all shadow-lg disabled:opacity-50 disabled:cursor-not-allowed bg-gradient-to-br from-primary to-blue-600 text-white hover:scale-[0.97] shadow-primary/30">
+                <template x-if="!runningAll">
+                    <span class="flex items-center gap-2">
+                        <span class="material-symbols-outlined text-lg">play_circle</span>
+                        Chạy Tất Cả ({{ count($jobs) }})
+                    </span>
+                </template>
+                <template x-if="runningAll">
+                    <span class="flex items-center gap-2">
+                        <svg class="animate-spin h-4 w-4" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path></svg>
+                        Đang chạy tất cả...
+                    </span>
+                </template>
+            </button>
         </div>
 
 
@@ -66,6 +82,8 @@
     function cronManager() {
         return {
             runningCommand: null,
+            runningAll: false,
+
             showToast(message, type = 'success', output = '') {
                 window.dispatchEvent(new CustomEvent('toast', {
                     detail: {
@@ -102,6 +120,33 @@
                     this.showToast('Không thể kết nối máy chủ.', 'error');
                 } finally {
                     this.runningCommand = null;
+                }
+            },
+
+            async runAllCommands() {
+                this.runningAll = true;
+
+                try {
+                    const res = await fetch('{{ route("admin.cron.run-all") }}', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                            'Accept': 'application/json'
+                        }
+                    });
+                    const data = await res.json();
+
+                    this.showToast(
+                        data.message,
+                        data.success ? 'success' : 'warning',
+                        data.output || ''
+                    );
+                } catch (e) {
+                    console.error(e);
+                    this.showToast('Không thể kết nối máy chủ.', 'error');
+                } finally {
+                    this.runningAll = false;
                 }
             }
         }

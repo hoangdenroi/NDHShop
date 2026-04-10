@@ -1,6 +1,71 @@
 @extends('layouts.app.app-layout')
 @section('content')
-    <div x-data="{ showConfirm: false, selectedPlan: {} }" class="container mx-auto px-4 py-8 max-w-5xl">
+    <div x-data="{ 
+        showConfirm: false, 
+        selectedPlan: {},
+        couponCode: '',
+        couponApplied: false,
+        couponLoading: false,
+        discount: 0,
+        appliedCode: '',
+        
+        get total() {
+            return Math.max(0, (this.selectedPlan.price || 0) - this.discount);
+        },
+        
+        get totalFormatted() {
+            if (this.total === 0) return 'Miễn phí';
+            return new Intl.NumberFormat('vi-VN').format(this.total) + 'đ';
+        },
+        
+        formatMoney(val) {
+            return new Intl.NumberFormat('vi-VN').format(val) + 'đ';
+        },
+        
+        applyCoupon() {
+            if (!this.couponCode.trim() || this.selectedPlan.price === 0) return;
+            this.couponLoading = true;
+
+            fetch('{{ route('app.checkout.apply-coupon') }}', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name=csrf-token]').content,
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({ code: this.couponCode, subtotal: this.selectedPlan.price || 0 })
+            })
+            .then(res => res.json().then(data => ({ status: res.status, body: data })))
+            .then(res => {
+                this.couponLoading = false;
+                if (res.body.success) {
+                    this.discount = res.body.discount;
+                    this.appliedCode = res.body.coupon_code;
+                    this.couponApplied = true;
+                    window.dispatchEvent(new CustomEvent('toast', {
+                        detail: { type: 'success', title: 'Thành công', message: res.body.message }
+                    }));
+                } else {
+                    window.dispatchEvent(new CustomEvent('toast', {
+                        detail: { type: 'error', title: 'Lỗi', message: res.body.message || 'Mã giảm giá không hợp lệ.' }
+                    }));
+                }
+            })
+            .catch(() => {
+                this.couponLoading = false;
+                window.dispatchEvent(new CustomEvent('toast', {
+                    detail: { type: 'error', title: 'Lỗi', message: 'Không thể áp dụng mã giảm giá.' }
+                }));
+            });
+        },
+
+        removeCoupon() {
+            this.discount = 0;
+            this.appliedCode = '';
+            this.couponApplied = false;
+            this.couponCode = '';
+        }
+    }" class="container mx-auto px-4 py-8 max-w-5xl">
         {{-- Breadcrumb --}}
         <div class="mb-8">
             <a href="{{ route('app.gifts.templates') }}" class="inline-flex items-center gap-2 text-sm font-semibold text-slate-500 hover:text-primary transition-colors mb-4">
@@ -73,10 +138,9 @@
                                 key: '{{ $planKey }}',
                                 name: '{{ $plan['name'] }}',
                                 price: {{ $plan['price'] }},
-                                priceFormatted: '{{ $plan['price'] == 0 ? 'Miễn phí' : number_format($plan['price'], 0, ',', '.') . 'đ' }}',
                                 duration: '{{ $plan['duration'] }}',
                                 isPremium: {{ $isPremium ? 'true' : 'false' }}
-                            }; showConfirm = true"
+                            }; removeCoupon(); showConfirm = true"
                             class="w-full py-3.5 rounded-xl font-bold text-sm transition-all transform hover:-translate-y-0.5
                                 {{ $isPremium 
                                     ? 'bg-gradient-to-r from-primary to-purple-600 hover:from-primary/90 hover:to-purple-600/90 text-white shadow-lg shadow-primary/30' 
@@ -145,10 +209,50 @@
                                 <span class="text-sm text-slate-500">Trang quà tặng</span>
                                 <span class="text-sm font-semibold text-slate-700 dark:text-slate-300">{{ Str::limit($gift->meta_title ?? 'Quà tặng', 25) }}</span>
                             </div>
+                            <div class="border-t border-slate-200 dark:border-slate-700" x-show="selectedPlan.price > 0"></div>
+                            <div class="flex justify-between items-center" x-show="selectedPlan.price > 0">
+                                <div class="w-full">
+                                    <h3 class="text-xs font-bold text-slate-900 dark:text-white mb-2 flex items-center gap-1">
+                                        <span class="material-symbols-outlined text-primary text-[16px]">confirmation_number</span>
+                                        Mã giảm giá
+                                    </h3>
+
+                                    {{-- Khi chưa áp dụng --}}
+                                    <div x-show="!couponApplied" class="flex gap-2">
+                                        <input type="text" x-model="couponCode" placeholder="Nhập mã giảm giá (nếu có)..."
+                                            @keydown.enter.prevent="applyCoupon()"
+                                            class="flex-1 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 px-3 py-2 text-xs font-medium text-slate-900 dark:text-white placeholder:text-slate-400 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all uppercase">
+                                        <button type="button" @click="applyCoupon()" :disabled="couponLoading || !couponCode.trim()"
+                                            class="px-3 py-2 rounded-lg bg-primary text-white text-xs font-bold hover:bg-primary/90 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-1 shrink-0">
+                                            <span class="material-symbols-outlined text-[14px]" :class="couponLoading ? 'animate-spin' : ''" x-text="couponLoading ? 'progress_activity' : 'check'"></span>
+                                            Áp dụng
+                                        </button>
+                                    </div>
+
+                                    {{-- Khi đã áp dụng --}}
+                                    <div x-show="couponApplied" x-cloak class="flex items-center justify-between p-2 bg-green-50 dark:bg-green-500/10 border border-green-200 dark:border-green-500/20 rounded-lg">
+                                        <div class="flex items-center gap-1.5 min-w-0">
+                                            <span class="material-symbols-outlined text-green-500 text-[16px] shrink-0">check_circle</span>
+                                            <span class="text-xs font-bold text-green-700 dark:text-green-400 truncate">Mã <span x-text="appliedCode"></span></span>
+                                            <span class="text-xs text-green-600 shrink-0">(-<span x-text="formatMoney(discount)"></span>)</span>
+                                        </div>
+                                        <button type="button" @click="removeCoupon()" class="text-slate-400 hover:text-rose-500 transition-colors shrink-0 p-1">
+                                            <span class="material-symbols-outlined text-[16px]">close</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="border-t border-slate-200 dark:border-slate-700" x-show="couponApplied && selectedPlan.price > 0" x-cloak></div>
+                            <div class="flex justify-between items-center" x-show="couponApplied && selectedPlan.price > 0" x-cloak>
+                                <span class="text-sm text-emerald-600 flex items-center gap-1">
+                                    <span class="material-symbols-outlined text-[16px]">local_offer</span> Giảm giá
+                                </span>
+                                <span class="text-sm font-bold text-emerald-600" x-text="'-' + formatMoney(discount)"></span>
+                            </div>
                             <div class="border-t border-slate-200 dark:border-slate-700"></div>
                             <div class="flex justify-between items-center">
                                 <span class="text-sm font-bold text-slate-900 dark:text-white">Tổng thanh toán</span>
-                                <span class="text-lg font-black" :class="selectedPlan.price === 0 ? 'text-emerald-500' : 'text-primary'" x-text="selectedPlan.priceFormatted"></span>
+                                <span class="text-lg font-black" :class="total === 0 ? 'text-emerald-500' : 'text-primary'" x-text="totalFormatted"></span>
                             </div>
                         </div>
 
@@ -170,12 +274,13 @@
                         <form method="POST" action="{{ route('app.gifts.process-payment', $gift->unitcode) }}" class="flex-1">
                             @csrf
                             <input type="hidden" name="plan" :value="selectedPlan.key">
+                            <input type="hidden" name="coupon_code" :value="appliedCode">
                             <button type="submit"
                                 class="w-full py-3 rounded-xl font-bold text-sm text-white transition-all"
                                 :class="selectedPlan.isPremium
                                     ? 'bg-gradient-to-r from-primary to-purple-600 hover:from-primary/90 hover:to-purple-600/90 shadow-lg shadow-primary/30'
                                     : 'bg-emerald-500 hover:bg-emerald-600 shadow-lg shadow-emerald-500/30'">
-                                <span x-text="selectedPlan.price === 0 ? '✓ Xác nhận kích hoạt' : '💳 Xác nhận thanh toán'"></span>
+                                <span x-text="total === 0 ? '✓ Xác nhận kích hoạt' : '💳 Xác nhận thanh toán'"></span>
                             </button>
                         </form>
                     </div>

@@ -14,7 +14,7 @@
 }" @open-edit-gift-template.window="templateData = $event.detail; activeTab = 'info'; $dispatch('open-modal', 'edit-gift-template')">
 
     <x-ui.modal name="edit-gift-template" maxWidth="2xl">
-        <form method="POST" :action="'{{ route('admin.gift-templates.update', '__ID__') }}'.replace('__ID__', templateData.id)" class="p-6">
+        <form method="POST" :action="'{{ route('admin.gift-templates.update', '__ID__') }}'.replace('__ID__', templateData.id)" enctype="multipart/form-data" class="p-6">
             @csrf
             @method('PUT')
 
@@ -64,9 +64,12 @@
                     </div>
                 </div>
                 <div>
-                    <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">URL ảnh thumbnail</label>
-                    <input type="url" name="thumbnail" :value="templateData.thumbnail"
-                        class="w-full bg-slate-100 dark:bg-background-dark border border-slate-200 dark:border-border-dark text-slate-700 dark:text-slate-300 text-sm rounded-lg px-3 py-2 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary">
+                    <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">File ảnh thumbnail (Để trống nếu không thay đổi)</label>
+                    <div class="flex items-center gap-4">
+                        <img x-show="templateData.thumbnail" :src="templateData.thumbnail" class="w-16 h-16 object-cover rounded-lg border border-slate-200 dark:border-border-dark" alt="Thumbnail">
+                        <input type="file" name="thumbnail" accept="image/*"
+                            class="w-full bg-slate-100 dark:bg-background-dark border border-slate-200 dark:border-border-dark text-slate-700 dark:text-slate-300 text-sm rounded-lg px-3 py-2 flex-1 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary">
+                    </div>
                 </div>
                 <div class="flex items-center gap-6">
                     <label class="flex items-center gap-2 cursor-pointer">

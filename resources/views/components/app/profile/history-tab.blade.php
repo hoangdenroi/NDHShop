@@ -1,12 +1,18 @@
-<div x-show="activeTab === 'history'" x-transition:enter="transition ease-out duration-200"
-    x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-cloak x-data="{
+<div x-show="activeTab === 'history'" x-cloak x-data="{
         history: [],
-        loading: true,
+        loading: false,
         hasMore: false,
         page: 1,
 
         init() {
-            this.fetchHistory();
+            if (this.activeTab === 'history') {
+                this.fetchHistory();
+            }
+            this.$watch('activeTab', (val) => {
+                if (val === 'history' && this.history.length === 0 && !this.loading) {
+                    this.fetchHistory();
+                }
+            });
         },
 
         async fetchHistory() {

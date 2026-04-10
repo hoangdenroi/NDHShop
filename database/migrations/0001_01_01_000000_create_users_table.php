@@ -20,8 +20,18 @@ return new class extends Migration
             $table->decimal('balance', 19, 4)->default(0);
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('google_id')->nullable();
             $table->string('role')->default('user');
             $table->string('status')->default('active');
+            $table->json('theme')->nullable();
+            $table->json('notification')->nullable();
+            $table->string('language', 10)->default('vi');
+            $table->string('cloud_plan')->default('free');
+            $table->string('cloud_plan_billing_cycle')->default('monthly');
+            $table->timestamp('cloud_plan_expires_at')->nullable();
+            $table->timestamp('cloud_plan_grace_ends_at')->nullable();
+            $table->string('cloud_db_override')->nullable();
+            $table->string('cloud_storage_override')->nullable();
             $table->timestamp('last_change_password_at')->nullable();
             $table->timestamp('last_login_at')->nullable();
             $table->rememberToken();

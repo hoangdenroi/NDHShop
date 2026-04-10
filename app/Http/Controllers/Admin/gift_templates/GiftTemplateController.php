@@ -6,9 +6,26 @@ use App\Http\Controllers\Controller;
 use App\Models\GiftCategory;
 use App\Models\GiftTemplate;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class GiftTemplateController extends Controller
 {
+    /**
+     * Upload ảnh lên Cloudinary
+     */
+    private function uploadToCloudinary($file): ?string
+    {
+        try {
+            $result = cloudinary()->uploadApi()->upload($file->getRealPath(), [
+                'folder' => 'ndhshop/gift_templates',
+            ]);
+            return $result['secure_url'] ?? $result['url'];
+        } catch (\Exception $e) {
+            Log::error('Upload Cloudinary thất bại: ' . $e->getMessage());
+            return null;
+        }
+    }
+
     /**
      * Danh sách templates — có filter và search.
      */
@@ -58,7 +75,7 @@ class GiftTemplateController extends Controller
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'slug' => 'required|string|max:255|unique:gift_templates,slug',
-            'thumbnail' => 'nullable|url|max:2048',
+            'thumbnail' => 'nullable|image|mimes:jpg,jpeg,png,webp,gif|max:5120',
             'category_id' => 'required|integer|exists:gift_categories,id',
             'html_code' => 'required|string',
             'css_code' => 'nullable|string',
@@ -76,6 +93,16 @@ class GiftTemplateController extends Controller
         }
         if (! empty($validated['js_code'])) {
             $validated['js_code'] = GiftTemplate::encodeCode($validated['js_code']);
+        }
+
+        // Handle Thumbnail Upload
+        if ($request->hasFile('thumbnail')) {
+            $url = $this->uploadToCloudinary($request->file('thumbnail'));
+            if ($url) {
+                $validated['thumbnail'] = $url;
+            } else {
+                unset($validated['thumbnail']);
+            }
         }
 
         // Parse schema JSON
@@ -100,7 +127,7 @@ class GiftTemplateController extends Controller
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'slug' => 'required|string|max:255|unique:gift_templates,slug,'.$template->id,
-            'thumbnail' => 'nullable|url|max:2048',
+            'thumbnail' => 'nullable|image|mimes:jpg,jpeg,png,webp,gif|max:5120',
             'category_id' => 'required|integer|exists:gift_categories,id',
             'html_code' => 'required|string',
             'css_code' => 'nullable|string',
@@ -118,6 +145,19 @@ class GiftTemplateController extends Controller
         }
         if (! empty($validated['js_code'])) {
             $validated['js_code'] = GiftTemplate::encodeCode($validated['js_code']);
+        }
+
+        // Handle Thumbnail Upload
+        if ($request->hasFile('thumbnail')) {
+            $url = $this->uploadToCloudinary($request->file('thumbnail'));
+            if ($url) {
+                $validated['thumbnail'] = $url;
+            } else {
+                unset($validated['thumbnail']); // Giữ nguyên ảnh cũ nếu upload lỗi (có thể tùy chọn)
+            }
+        } else {
+            // Nếu không upload ảnh mới, loại bỏ key validation để tránh null
+            unset($validated['thumbnail']);
         }
 
         // Parse schema JSON

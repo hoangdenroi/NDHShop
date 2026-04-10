@@ -147,6 +147,10 @@ class CheckoutController extends Controller
                         'product_id' => $item->product_id,
                         'price' => $item->price,
                     ]);
+
+                    // Tăng lượt tải (downloads_count) cho sản phẩm (bằng 1 hoặc quantity nếu có)
+                    $quantity = $item->quantity ?? 1;
+                    \App\Models\Product::where('id', $item->product_id)->increment('downloads_count', $quantity);
                 }
 
                 // 5. Trừ số dư bằng query trực tiếp (atomic decrement)

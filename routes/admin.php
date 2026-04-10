@@ -85,6 +85,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     // Cron Management
     Route::get('/cron', [\App\Http\Controllers\Admin\CronController::class, 'index'])->name('admin.cron.index');
     Route::post('/cron/run', [\App\Http\Controllers\Admin\CronController::class, 'run'])->name('admin.cron.run');
+    Route::post('/cron/run-all', [\App\Http\Controllers\Admin\CronController::class, 'runAll'])->name('admin.cron.run-all');
 
     // ==========================================
     // VPS Management
@@ -107,4 +108,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::post('/vps/settings/sync', [\App\Http\Controllers\Admin\vps\VpsSettingController::class, 'sync'])->name('admin.vps-settings.sync');
     Route::patch('/vps/settings/os/{os}', [\App\Http\Controllers\Admin\vps\VpsSettingController::class, 'toggleOs'])->name('admin.vps-settings.toggle-os');
     Route::patch('/vps/settings/locations/{location}', [\App\Http\Controllers\Admin\vps\VpsSettingController::class, 'toggleLocation'])->name('admin.vps-settings.toggle-location');
+
+    // Server
+    Route::get('/server', [\App\Http\Controllers\Admin\ServerController::class, 'index'])->name('admin.server.index');
 });

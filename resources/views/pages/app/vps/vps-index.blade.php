@@ -50,8 +50,17 @@
     </section>
 
     <!-- Pricing Section: Dynamic từ DB -->
+    @php
+        $groupedCategories = $categories->groupBy('server_group');
+        $tabs = [
+            'cost-optimized' => ['name' => 'Tối Ưu Chi Phí', 'desc' => 'Tối ưu chi phí hiệu quả. Phù hợp cho ứng dụng nhỏ, tác vụ nhẹ và môi trường thử nghiệm (Staging).'],
+            'regular' => ['name' => 'Hiệu Suất Tiêu Chuẩn', 'desc' => 'Hiệu năng CPU cao dựa trên kiến trúc chuẩn. Lý tưởng cho khối lượng công việc đa dạng xử lý mức trung bình.'],
+            'general-purpose' => ['name' => 'Đa Dụng (Dedicated)', 'desc' => 'Cung cấp vCPU chuyên dụng mạnh mẽ. Mang lại tính nhất quán cho các hệ thống Core kinh doanh khắt khe.'],
+        ];
+        $firstTab = array_key_first($tabs);
+    @endphp
     <section id="pricing" class="bg-[#f2f3ff] dark:bg-slate-800/50 py-24 px-6 rounded-3xl relative">
-        <div class="max-w-screen-2xl mx-auto" x-data="{ activeTab: 'regular' }">
+        <div class="max-w-screen-2xl mx-auto" x-data="{ activeTab: '{{ $firstTab }}' }">
             <div class="text-center mb-16 space-y-4">
                 <h2 class="text-4xl font-extrabold font-manrope text-slate-900 dark:text-white tracking-tight">Khả Năng Mở
                     Rộng Linh Hoạt</h2>
@@ -59,14 +68,7 @@
                     bạn. Từ bản mẫu startup đến cụm máy chủ doanh nghiệp, chúng tôi đã sẵn sàng kiến trúc cho bạn.</p>
             </div>
 
-            @php
-                $groupedCategories = $categories->groupBy('server_group');
-                $tabs = [
-                    'regular' => ['name' => 'Hiệu Suất Tiêu Chuẩn', 'desc' => 'Hiệu năng CPU cao dựa trên kiến trúc chuẩn. Lý tưởng cho khối lượng công việc đa dạng xử lý mức trung bình.'],
-                    'cost-optimized' => ['name' => 'Tối Ưu Chi Phí', 'desc' => 'Tối ưu chi phí hiệu quả. Phù hợp cho ứng dụng nhỏ, tác vụ nhẹ và môi trường thử nghiệm (Staging).'],
-                    'general-purpose' => ['name' => 'Đa Dụng (Dedicated)', 'desc' => 'Cung cấp vCPU chuyên dụng mạnh mẽ. Mang lại tính nhất quán cho các hệ thống Core kinh doanh khắt khe.'],
-                ];
-            @endphp
+
 
             @if($categories->count() > 0)
                 <!-- Custom Tabs Menu -->
@@ -93,14 +95,34 @@
                 @foreach($tabs as $key => $tab)
                     <div x-show="activeTab === '{{ $key }}'" x-transition:enter="transition ease-out duration-300"
                         x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-100 translate-y-0"
-                        style="display: none;">
+                        style="display: none;" @if($key === 'cost-optimized') x-data="{ arch: 'arm' }" @endif>
+
+                        @if($key === 'cost-optimized')
+                            <div
+                                class="flex items-center mb-8 p-1.5 bg-white dark:bg-slate-900 rounded-2xl w-fit shadow-sm border border-slate-200 dark:border-border-dark mx-auto md:mx-0">
+                                <button @click="arch = 'arm'"
+                                    :class="arch === 'arm' ? 'bg-slate-100 dark:bg-slate-800 text-primary font-bold shadow-sm ring-1 ring-black/5 dark:ring-white/10' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'"
+                                    class="px-6 py-2.5 rounded-xl text-sm transition-all focus:outline-none flex items-center gap-2">
+                                    <span class="material-symbols-outlined text-[18px]">bolt</span> Arm64 (Ampere)
+                                </button>
+                                <button @click="arch = 'x86'"
+                                    :class="arch === 'x86' ? 'bg-slate-100 dark:bg-slate-800 text-primary font-bold shadow-sm ring-1 ring-black/5 dark:ring-white/10' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'"
+                                    class="px-6 py-2.5 rounded-xl text-sm transition-all focus:outline-none flex items-center gap-2">
+                                    <span class="material-symbols-outlined text-[18px]">memory</span> x86 (Intel/AMD)
+                                </button>
+                            </div>
+                        @else
+                            {{-- Spacing matching the radio toggle height --}}
+                            <div class="h-8 mb-8 hidden md:block"></div>
+                        @endif
 
                         @if($groupedCategories->has($key))
                             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                                 @foreach($groupedCategories[$key] as $category)
-                                    <div
+                                    @php $isArm = str_starts_with($category->hetzner_server_type, 'cax'); @endphp
+                                    <div @if($key === 'cost-optimized') x-show="arch === '{{ $isArm ? 'arm' : 'x86' }}'" x-transition @endif
                                         class="bg-white dark:bg-slate-900 p-8 rounded-[2rem] transition-all duration-300 hover:-translate-y-2 flex flex-col group border border-transparent
-                                                        {{ $category->is_best_seller ? 'shadow-xl shadow-primary/10 ring-2 ring-primary/20 relative' : 'hover:shadow-2xl hover:shadow-primary/5 hover:border-primary/10' }}">
+                                                                                                {{ $category->is_best_seller ? 'shadow-xl shadow-primary/10 ring-2 ring-primary/20 relative' : 'hover:shadow-2xl hover:shadow-primary/5 hover:border-primary/10' }}">
 
                                         @if($category->is_best_seller)
                                             <div
@@ -115,7 +137,8 @@
                                         </div>
 
                                         <h3 class="text-2xl font-bold font-manrope text-slate-900 dark:text-white mb-2">
-                                            {{ $category->name }}</h3>
+                                            {{ $category->name }}
+                                        </h3>
 
                                         <div class="flex items-baseline gap-1 mb-8">
                                             <span
@@ -147,17 +170,17 @@
                                             <div class="flex items-center gap-3">
                                                 <span class="material-symbols-outlined text-primary text-xl">public</span>
                                                 <span
-                                                    class="text-sm font-medium text-slate-600 dark:text-slate-400">{{ $category->metadata['ip'] }}</span>
+                                                    class="text-sm font-medium text-slate-600 dark:text-slate-400">{{ $category->metadata['ip'] ?? '1 IPv4' }}</span>
                                             </div>
                                             <div class="flex items-center gap-3">
                                                 <span class="material-symbols-outlined text-primary text-xl">security</span>
                                                 <span
-                                                    class="text-sm font-medium text-slate-600 dark:text-slate-400">{{ $category->metadata['firewall'] }}</span>
+                                                    class="text-sm font-medium text-slate-600 dark:text-slate-400">{{ $category->metadata['firewall'] ?? 'Tường lửa cơ bản' }}</span>
                                             </div>
                                             <div class="flex items-center gap-3">
                                                 <span class="material-symbols-outlined text-primary text-xl">backup</span>
                                                 <span
-                                                    class="text-sm font-medium text-slate-600 dark:text-slate-400">{{ $category->metadata['backup'] }}</span>
+                                                    class="text-sm font-medium text-slate-600 dark:text-slate-400">{{ $category->metadata['backup'] ?? 'Thủ công' }}</span>
                                             </div>
                                             @if($category->warranty)
                                                 <div class="flex items-center gap-3">
@@ -170,7 +193,7 @@
 
                                         <a href="{{ route('app.vps.show', $category->slug) }}"
                                             class="w-full py-4 text-center font-bold rounded-xl transition-all block
-                                                            {{ $category->is_best_seller ? 'bg-primary text-white shadow-lg shadow-primary/20 hover:scale-95' : 'bg-[#f2f3ff] dark:bg-slate-800/50 text-primary hover:bg-primary hover:text-white' }}">
+                                                                                                    {{ $category->is_best_seller ? 'bg-primary text-white shadow-lg shadow-primary/20 hover:scale-95' : 'bg-[#f2f3ff] dark:bg-slate-800/50 text-primary hover:bg-primary hover:text-white' }}">
                                             MUA NGAY
                                         </a>
                                     </div>

@@ -11,9 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->string('google_id')->nullable()->after('email');
-            $table->string('password')->nullable()->change();
+        Schema::table('products', function (Blueprint $table) {
+            $table->unsignedInteger('downloads_count')->default(0)->after('sale_price');
         });
     }
 
@@ -22,8 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('google_id');
+        Schema::table('products', function (Blueprint $table) {
+            $table->dropColumn('downloads_count');
         });
     }
 };

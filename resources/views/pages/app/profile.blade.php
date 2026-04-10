@@ -3,13 +3,14 @@
 @section('content')
 <div x-data="{ 
     activeTab: new URLSearchParams(window.location.search).get('tab') || 
-               {{ session('status') === 'password-updated' || session('status') === 'profile-updated' || $errors->updatePassword->isNotEmpty() || $errors->has('email') ? "'settings'" : "'profile'" }} 
+               {{ session('status') === 'password-updated' || session('status') === 'profile-updated' || $errors->updatePassword->isNotEmpty() || $errors->has('email') ? "'settings'" : "'profile'" }},
+    isFullscreen: false
 }" class="flex flex-col lg:flex-row gap-8 w-full">
     {{-- Sidebar --}}
     <aside class="w-full lg:w-72 shrink-0 flex flex-col gap-6">
         {{-- Thẻ thông tin người dùng --}}
         <div class="bg-white dark:bg-slate-800 rounded-xl p-6 border border-slate-100 dark:border-slate-700 shadow-sm flex flex-col items-center text-center">
-            <div class="h-24 w-24 rounded-full bg-primary text-white flex items-center justify-center mb-4 ring-4 ring-slate-50 dark:ring-slate-700 text-3xl font-bold overflow-hidden">
+            <div @click="isFullscreen = true" class="h-24 w-24 rounded-full bg-primary text-white flex items-center justify-center mb-4 ring-4 ring-slate-50 dark:ring-slate-700 text-3xl font-bold overflow-hidden cursor-pointer hover:ring-primary/50 transition-all">
                 @if(Auth::user()->avatar_url)
                     <img src="{{ Auth::user()->avatar_url }}" alt="Avatar" class="h-full w-full object-cover">
                 @else
@@ -92,5 +93,34 @@
         <x-app.profile.settings-tab />
 
     </main>
+
+    {{-- Modal phóng to ảnh --}}
+    <div x-show="isFullscreen" style="display: none;"
+        class="fixed inset-0 z-[100] flex items-center justify-center bg-slate-900/90 backdrop-blur-sm p-4"
+        x-transition:enter="transition ease-out duration-300"
+        x-transition:enter-start="opacity-0"
+        x-transition:enter-end="opacity-100"
+        x-transition:leave="transition ease-in duration-200"
+        x-transition:leave-start="opacity-100"
+        x-transition:leave-end="opacity-0"
+        @click.self="isFullscreen = false"
+        @keydown.escape.window="isFullscreen = false">
+        {{-- Nút đóng tuyệt đối ở góc màn hình --}}
+        <button type="button" @click="isFullscreen = false" 
+            class="absolute top-6 right-6 text-white/70 hover:text-white bg-slate-800/80 hover:bg-slate-700 rounded-full p-3 backdrop-blur-md transition-all shadow-xl z-[110]">
+            <span class="material-symbols-outlined text-[28px]">close</span>
+        </button>
+
+        {{-- Container chứa ảnh luôn nằm giữa --}}
+        <div class="relative max-w-[95vw] max-h-[90vh] flex items-center justify-center" @click.stop>
+            @if(Auth::user()->avatar_url)
+                <img src="{{ Auth::user()->avatar_url }}" alt="Avatar fullscreen" class="max-w-full max-h-[90vh] object-contain rounded-xl shadow-2xl">
+            @else
+                <div class="h-48 w-48 rounded-full bg-primary text-white flex items-center justify-center text-6xl font-bold shadow-2xl">
+                    {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
+                </div>
+            @endif
+        </div>
+    </div>
 </div>
 @endsection

@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('operating_system');                    // HĐH đã chọn (VD: "ubuntu-22.04")
             $table->string('location');                            // Location đã chọn (VD: "fsn1")
             $table->string('ip_address')->nullable();              // IPv4
+            $table->string('username')->nullable();                // Mặc định là root cho Hetzner
             $table->string('ipv6_address')->nullable();            // IPv6
             $table->text('root_password')->nullable();             // Mật khẩu root (encrypted)
             $table->text('note')->nullable();                      // Ghi chú của khách

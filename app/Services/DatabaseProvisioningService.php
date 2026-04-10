@@ -5,7 +5,6 @@ namespace App\Services;
 use App\Models\CloudDatabase;
 use App\Models\User;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Str;
 use PDO;
 use PDOException;
 
@@ -47,7 +46,7 @@ class DatabaseProvisioningService
             $isNewUser = false;
         } else {
             $dbUser = 'ndh_u'.$user->id.'_'.\Illuminate\Support\Str::random(4);
-            $password = \Illuminate\Support\Str::random(24);
+            $password = \Illuminate\Support\Str::random(20).'@1Ab';
         }
 
         try {
@@ -242,16 +241,34 @@ class DatabaseProvisioningService
         $quotedUser = $this->quoteIdentifier($dbUser);
         $quotedPass = $pdo->quote($password);
 
-        // Tạo user
-        if ($isNewUser) {
-            $pdo->exec("CREATE USER \"{$quotedUser}\" WITH PASSWORD {$quotedPass}");
-        }
+        // 1. Đảm bảo role tồn tại (PostgreSQL không có CREATE ROLE IF NOT EXISTS)
+        //    NOCREATEDB + NOCREATEROLE: chặn user tự tạo DB/role khác
+        $pdo->exec("
+            DO \$\$
+            BEGIN
+                CREATE ROLE \"{$quotedUser}\" WITH LOGIN PASSWORD {$quotedPass} NOCREATEDB NOCREATEROLE;
+            EXCEPTION WHEN duplicate_object THEN
+                ALTER ROLE \"{$quotedUser}\" WITH PASSWORD {$quotedPass} NOCREATEDB NOCREATEROLE;
+            END
+            \$\$;
+        ");
 
-        // Tạo database với owner
+        // 2. Chặn user kết nối tới các database mặc định (postgres, template1)
+        //    Chỉ cho phép kết nối tới DB của chính họ
+        $pdo->exec("REVOKE CONNECT ON DATABASE postgres FROM \"{$quotedUser}\"");
+        $pdo->exec("REVOKE CONNECT ON DATABASE template1 FROM \"{$quotedUser}\"");
+
+        // 3. Gán role tạm cho admin để có quyền SET OWNER
+        $pdo->exec("GRANT \"{$quotedUser}\" TO CURRENT_USER");
+
+        // 4. Tạo database với owner
         $pdo->exec("CREATE DATABASE \"{$quotedDb}\" OWNER \"{$quotedUser}\" ENCODING 'UTF8'");
 
-        // GRANT
+        // 5. Cấp quyền trên DB vừa tạo
         $pdo->exec("GRANT ALL PRIVILEGES ON DATABASE \"{$quotedDb}\" TO \"{$quotedUser}\"");
+
+        // 6. Thu hồi quyền role khỏi admin (dọn dẹp, không cần giữ)
+        $pdo->exec("REVOKE \"{$quotedUser}\" FROM CURRENT_USER");
     }
 
     private function dropPostgreSQL(PDO $pdo, string $dbName, string $dbUser, bool $dropUser): void
@@ -262,7 +279,7 @@ class DatabaseProvisioningService
         // Disconnect tất cả sessions trước khi drop
         $pdo->exec("SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname = '{$quotedDb}' AND pid <> pg_backend_pid()");
         $pdo->exec("DROP DATABASE IF EXISTS \"{$quotedDb}\"");
-        
+
         if ($dropUser) {
             $pdo->exec("DROP USER IF EXISTS \"{$quotedUser}\"");
         }

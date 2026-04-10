@@ -30,6 +30,18 @@
             <form method="POST" action="{{ route('app.gifts.store', $template->slug) }}" class="p-5 grid grid-cols-2 gap-5">
                 @csrf
 
+                {{-- OG Meta: Tiêu đề link --}}
+                <div class="col-span-2">
+                    <label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-1.5 flex items-center gap-1">
+                        Tiêu đề Link (SEO) <span class="text-xs font-normal text-slate-400 ml-auto">(Tùy chọn)</span>
+                    </label>
+                    <input type="text" name="meta_title" value="{{ old('meta_title') }}" placeholder="VD: Gửi tặng Vợ yêu nhân ngày 8/3..."
+                        class="w-full bg-slate-50 dark:bg-background-dark border border-slate-200 dark:border-border-dark text-slate-700 dark:text-slate-300 text-sm rounded-xl px-4 py-2.5 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors placeholder:text-slate-400">
+                    @error('meta_title') <p class="text-rose-500 text-xs mt-1">{{ $message }}</p> @enderror
+                </div>
+
+                <hr class="col-span-2 border-slate-100 dark:border-border-dark">
+
                 {{-- Dynamic Fields từ Schema --}}
                 @foreach($template->getSchemaFields() as $field)
                     @php
@@ -214,11 +226,11 @@
                     @endif
 
                     {{-- Nút xem Demo mẫu --}}
-                    <a href="{{ route('app.gifts.demo', $template->slug) }}" target="_blank"
+                    <button type="submit" formtarget="_blank" formaction="{{ route('app.gifts.preview', $template->slug) }}"
                         class="w-full flex items-center justify-center gap-2 py-3 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-bold rounded-xl transition-colors">
                         <span class="material-symbols-outlined">visibility</span>
-                        Xem Demo mẫu
-                    </a>
+                        Xem Demo (với dữ liệu đã nhập)
+                    </button>
                 </div>
             </form>
         </div>

@@ -1,12 +1,18 @@
-<div x-show="activeTab === 'favorites'" x-transition:enter="transition ease-out duration-200"
-    x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-cloak x-data="{
+<div x-show="activeTab === 'favorites'" x-cloak x-data="{
         favorites: [],
-        loading: true,
+        loading: false,
         hasMore: false,
         page: 1,
 
         init() {
-            this.fetchFavorites();
+            if (this.activeTab === 'favorites') {
+                this.fetchFavorites();
+            }
+            this.$watch('activeTab', (val) => {
+                if (val === 'favorites' && this.favorites.length === 0 && !this.loading) {
+                    this.fetchFavorites();
+                }
+            });
         },
 
         async fetchFavorites() {

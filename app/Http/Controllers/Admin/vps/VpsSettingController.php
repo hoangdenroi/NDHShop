@@ -31,52 +31,19 @@ class VpsSettingController extends Controller
     public function sync()
     {
         try {
-            $hetzner = app(HetznerService::class);
-
-            // Sync HĐH (images)
-            $images = $hetzner->getImages();
-            $syncedOs = 0;
-            foreach ($images as $image) {
-                $name = $image['description'] ?? $image['name'];
-                $hetznerName = $image['name'] ?? null;
-
-                if (!$hetznerName) continue;
-
-                VpsOperatingSystem::updateOrCreate(
-                    ['hetzner_name' => $hetznerName],
-                    [
-                        'name' => $name,
-                        'os_flavor' => $image['os_flavor'] ?? null,
-                        'architecture' => $image['architecture'] ?? 'x86',
-                    ]
-                );
-                $syncedOs++;
-            }
-
-            // Sync Locations
-            $locations = $hetzner->getLocations();
-            $syncedLoc = 0;
-            foreach ($locations as $loc) {
-                VpsLocation::updateOrCreate(
-                    ['hetzner_name' => $loc['name']],
-                    [
-                        'name' => $loc['description'] ?? $loc['name'],
-                        'city' => $loc['city'] ?? null,
-                        'country' => $loc['country'] ?? null,
-                        'network_zone' => $loc['network_zone'] ?? null,
-                    ]
-                );
-                $syncedLoc++;
-            }
+            // Chạy Artisan command để lấy HĐH, Location và Server Types một cách tự động
+            \Illuminate\Support\Facades\Artisan::call('vps:sync-hetzner');
+            $output = \Illuminate\Support\Facades\Artisan::output();
 
             return back()
                 ->with('toast_type', 'success')
-                ->with('toast_message', "Sync thành công! {$syncedOs} HĐH, {$syncedLoc} Location.");
+                ->with('toast_message', "Đồng bộ thành công! Kiểm tra logs hoặc danh sách gói VPS để xem chi tiết.")
+                ->with('sync_output', $output);
 
         } catch (\Exception $e) {
             return back()
                 ->with('toast_type', 'error')
-                ->with('toast_message', 'Sync thất bại: ' . $e->getMessage());
+                ->with('toast_message', 'Đồng bộ thất bại: ' . $e->getMessage());
         }
     }
 

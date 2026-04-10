@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('product_assets', function (Blueprint $table) {
-            $table->text('url_or_path')->change();
+        Schema::table('reviews', function (Blueprint $table) {
+            $table->foreignId('order_id')->nullable()->constrained('orders')->onDelete('cascade')->after('product_id');
         });
     }
 
@@ -21,8 +21,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('product_assets', function (Blueprint $table) {
-            $table->string('url_or_path', 255)->change();
+        Schema::table('reviews', function (Blueprint $table) {
+            $table->dropForeign(['order_id']);
+            $table->dropColumn('order_id');
         });
     }
 };

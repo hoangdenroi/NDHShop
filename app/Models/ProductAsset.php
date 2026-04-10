@@ -8,6 +8,7 @@ class ProductAsset extends BaseModel
         'product_id',
         'type',
         'url_or_path',
+        'cloud_public_id',
         'file_size',
         'is_primary',
         'sort_order'

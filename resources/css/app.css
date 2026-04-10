@@ -12,3 +12,64 @@ input[type="number"] {
     -moz-appearance: textfield;
     appearance: textfield;
 }
+
+/* ========== Floating Action Buttons (FAB) ========== */
+.fab-btn {
+    @apply w-14 h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center
+           text-white shadow-lg transition-all duration-300;
+}
+
+.fab-btn:hover {
+    @apply shadow-xl;
+    transform: scale(1.08);
+}
+
+/* Màu nền cho từng nút */
+.fab-music {
+    background: linear-gradient(135deg, #a855f7, #ec4899);
+}
+.fab-music:hover {
+    background: linear-gradient(135deg, #9333ea, #db2777);
+}
+
+.fab-zalo {
+    background-color: #0068ff;
+}
+.fab-zalo:hover {
+    background-color: #0054cc;
+}
+
+.fab-phone {
+    background-color: #22c55e;
+}
+.fab-phone:hover {
+    background-color: #16a34a;
+}
+
+/* Nút toggle trên mobile */
+.fab-toggle-btn {
+    background-color: var(--color-primary, #0d59f2);
+}
+.fab-toggle-btn:hover {
+    filter: brightness(0.9);
+}
+.fab-toggle-open {
+    background-color: #64748b !important;
+}
+
+/* Animation pulse - thu hút chú ý */
+.fab-pulse {
+    animation: fab-pulse-ring 1.5s ease-out infinite;
+}
+
+@keyframes fab-pulse-ring {
+    0% {
+        box-shadow: 0 0 0 0 rgba(var(--color-primary-rgb, 13, 89, 242), 0.8);
+    }
+    70% {
+        box-shadow: 0 0 0 20px rgba(var(--color-primary-rgb, 13, 89, 242), 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(var(--color-primary-rgb, 13, 89, 242), 0);
+    }
+}

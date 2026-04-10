@@ -189,7 +189,7 @@
                         </div>
                         <div class="flex items-center gap-3 text-sm text-slate-600 dark:text-slate-300">
                             <span class="material-symbols-outlined text-slate-400">download</span>
-                            <span>Tải về nhanh chóng</span>
+                            <span>{{ number_format($product->downloads_count ?? 0, 0, ',', '.') }} lượt tải về</span>
                         </div>
                     </div>
                 </div>
@@ -233,13 +233,141 @@
                     <!-- Tab Content: Reviews -->
                     <div x-show="activeTab === 'reviews'" x-cloak x-transition:enter="transition ease-out duration-300"
                         x-transition:enter-start="opacity-0 translate-y-2"
-                        x-transition:enter-end="opacity-100 translate-y-0">
-                        <div
-                            class="flex flex-col items-center justify-center py-12 text-slate-500 text-center rounded-xl border border-dashed border-slate-300 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-800/20">
-                            <span class="material-symbols-outlined text-4xl mb-3 opacity-30">rate_review</span>
-                            <p class="font-medium text-slate-700 dark:text-slate-300">Chưa có đánh giá nào</p>
-                            <p class="text-sm mt-1">Sản phẩm này chưa nhận được đánh giá nào. Hãy là người đầu tiên đánh giá
-                                trải nghiệm của mình.</p>
+                        x-transition:enter-end="opacity-100 translate-y-0"
+                        x-data="{
+                            reviews: [],
+                            stats: null,
+                            reviewPage: 1,
+                            hasMoreReviews: false,
+                            loadingReviews: false,
+                            loaded: false,
+
+                            async fetchReviews(reset = false) {
+                                if (reset) {
+                                    this.reviews = [];
+                                    this.reviewPage = 1;
+                                    this.hasMoreReviews = false;
+                                }
+                                this.loadingReviews = true;
+                                try {
+                                    const res = await fetch(`{{ route('api.product.reviews', $product->id) }}?page=${this.reviewPage}`, {
+                                        headers: { 'Accept': 'application/json' }
+                                    });
+                                    const data = await res.json();
+                                    this.reviews = reset ? data.data : [...this.reviews, ...data.data];
+                                    this.hasMoreReviews = data.has_more;
+                                    this.reviewPage = data.next_page;
+                                    this.stats = data.stats;
+                                } catch (e) {
+                                    console.error(e);
+                                }
+                                this.loadingReviews = false;
+                                this.loaded = true;
+                            },
+
+                            renderStars(rating) {
+                                return '★'.repeat(rating) + '☆'.repeat(5 - rating);
+                            },
+
+                            getInitial(name) {
+                                return name ? name.charAt(0).toUpperCase() : '?';
+                            },
+
+                            barWidth(count) {
+                                if (!this.stats || this.stats.total === 0) return '0%';
+                                return Math.round((count / this.stats.total) * 100) + '%';
+                            }
+                        }"
+                        x-init="$watch('$store.activeTab ?? activeTab', val => { if (val === 'reviews' && !loaded) fetchReviews(true) })"
+                        @click="if (!loaded) fetchReviews(true)">
+
+                        {{-- Loading --}}
+                        <div x-show="loadingReviews && reviews.length === 0" class="py-12 flex flex-col items-center">
+                            <span class="material-symbols-outlined text-[32px] text-primary animate-spin">progress_activity</span>
+                            <p class="text-sm text-slate-400 mt-3">Đang tải đánh giá...</p>
+                        </div>
+
+                        {{-- Nội dung khi đã load --}}
+                        <div x-show="loaded" x-cloak>
+
+                            {{-- Empty state --}}
+                            <div x-show="reviews.length === 0 && !loadingReviews"
+                                class="flex flex-col items-center justify-center py-12 text-slate-500 text-center rounded-xl border border-dashed border-slate-300 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-800/20">
+                                <span class="material-symbols-outlined text-4xl mb-3 opacity-30">rate_review</span>
+                                <p class="font-medium text-slate-700 dark:text-slate-300">Chưa có đánh giá nào</p>
+                                <p class="text-sm mt-1">Sản phẩm này chưa nhận được đánh giá nào. Hãy là người đầu tiên đánh giá
+                                    trải nghiệm của mình.</p>
+                            </div>
+
+                            {{-- Có đánh giá --}}
+                            <div x-show="reviews.length > 0" class="space-y-6">
+
+                                {{-- Thống kê tổng quan --}}
+                                <div x-show="stats" class="p-5 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-700">
+                                    <div class="flex items-center gap-6">
+                                        {{-- Điểm trung bình --}}
+                                        <div class="text-center shrink-0">
+                                            <div class="text-4xl font-extrabold text-slate-900 dark:text-white" x-text="stats?.average || 0"></div>
+                                            <div class="text-amber-400 text-lg mt-1" x-text="renderStars(Math.round(stats?.average || 0))"></div>
+                                            <div class="text-xs text-slate-400 mt-1" x-text="(stats?.total || 0) + ' đánh giá'"></div>
+                                        </div>
+                                        {{-- Biểu đồ phân phối --}}
+                                        <div class="flex-1 space-y-1.5">
+                                            <template x-for="star in [5, 4, 3, 2, 1]" :key="star">
+                                                <div class="flex items-center gap-2">
+                                                    <span class="text-xs text-slate-500 w-4 text-right shrink-0" x-text="star"></span>
+                                                    <span class="material-symbols-outlined text-[14px] text-amber-400" style="font-variation-settings: 'FILL' 1;">star</span>
+                                                    <div class="flex-1 h-2 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
+                                                        <div class="h-full bg-amber-400 rounded-full transition-all duration-500"
+                                                            :style="'width: ' + barWidth(stats?.distribution?.[star] || 0)"></div>
+                                                    </div>
+                                                    <span class="text-xs text-slate-400 w-6 text-right shrink-0" x-text="stats?.distribution?.[star] || 0"></span>
+                                                </div>
+                                            </template>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {{-- Danh sách đánh giá --}}
+                                <div class="space-y-4">
+                                    <template x-for="review in reviews" :key="review.id">
+                                        <div class="p-4 rounded-xl border border-slate-100 dark:border-slate-700 hover:border-slate-200 dark:hover:border-slate-600 transition-colors">
+                                            <div class="flex items-start gap-3">
+                                                {{-- Avatar --}}
+                                                <template x-if="review.user_avatar">
+                                                    <img :src="review.user_avatar"
+                                                        class="w-10 h-10 rounded-full object-cover border border-slate-100 dark:border-slate-700 shrink-0" alt="">
+                                                </template>
+                                                <template x-if="!review.user_avatar">
+                                                    <div class="w-10 h-10 rounded-full bg-primary/10 text-primary font-bold text-sm flex items-center justify-center shrink-0"
+                                                        x-text="getInitial(review.user_name)"></div>
+                                                </template>
+                                                {{-- Nội dung --}}
+                                                <div class="flex-1 min-w-0">
+                                                    <div class="flex items-center justify-between gap-2">
+                                                        <span class="text-sm font-semibold text-slate-900 dark:text-white truncate" x-text="review.user_name"></span>
+                                                        <span class="text-xs text-slate-400 shrink-0" x-text="review.created_at"></span>
+                                                    </div>
+                                                    <div class="text-amber-400 text-sm mt-0.5" x-text="renderStars(review.rating)"></div>
+                                                    <template x-if="review.comment">
+                                                        <p class="text-sm text-slate-600 dark:text-slate-400 mt-2 leading-relaxed" x-text="review.comment"></p>
+                                                    </template>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </template>
+                                </div>
+
+                                {{-- Tải thêm --}}
+                                <div x-show="hasMoreReviews" class="text-center pt-2">
+                                    <button @click="fetchReviews()" :disabled="loadingReviews"
+                                        class="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-700 text-sm font-semibold text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600 disabled:opacity-50 transition-colors">
+                                        <span class="material-symbols-outlined text-[18px]" :class="loadingReviews ? 'animate-spin' : ''"
+                                            x-text="loadingReviews ? 'progress_activity' : 'expand_more'"></span>
+                                        <span x-text="loadingReviews ? 'Đang tải...' : 'Tải thêm đánh giá'"></span>
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </section>

@@ -142,6 +142,11 @@
                                                 title="Xem thử thiệp">
                                                 <span class="material-symbols-outlined text-[18px]">open_in_new</span>
                                             </a>
+                                            <a href="{{ route('app.gifts.success', $gift->share_code) }}"
+                                                class="p-1.5 text-slate-400 hover:text-emerald-500 hover:bg-emerald-500/10 rounded-lg transition-colors"
+                                                title="Chia sẻ thiệp">
+                                                <span class="material-symbols-outlined text-[18px]">share</span>
+                                            </a>
                                         @endif
 
                                         {{-- Nút sửa (draft hoặc premium còn hạn 72h) --}}

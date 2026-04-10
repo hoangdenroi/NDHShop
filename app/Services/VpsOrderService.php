@@ -43,6 +43,9 @@ class VpsOrderService
         string $os,
         string $location,
         int $months,
+        string $connectionMethod = 'password',
+        ?string $sshKeyName = null,
+        ?string $sshKeyContent = null,
         ?string $couponCode = null,
         ?string $note = null
     ): VpsOrder {
@@ -133,12 +136,28 @@ class VpsOrderService
             try {
                 $order->update(['status' => 'provisioning']);
 
+                // Mặc định tên cho sshKeyHetzner
+                $sshKeysArray = [];
+
+                // Xử lý tạo SSH Key bên Hetzner nếu user chọn kết nối bằng SSH
+                if ($connectionMethod === 'ssh' && $sshKeyName && $sshKeyContent) {
+                    $uniqueKeyName = 'ndhshop-' . strtolower($order->order_code) . '-' . Str::slug($sshKeyName);
+                    // Tạo SSH Key trên Hetzner
+                    $sshKeyId = $this->hetzner->createSshKey($uniqueKeyName, trim($sshKeyContent));
+                    if ($sshKeyId) {
+                        $sshKeysArray[] = $sshKeyId;
+                        // Lưu SSH key name vào note để admin hoặc user theo dõi sau
+                        $order->update(['note' => trim($order->note . "\n\n[SSH Key Name]: " . $sshKeyName)]);
+                    }
+                }
+
                 $serverName = 'ndhshop-' . strtolower($order->order_code);
                 $result = $this->hetzner->createServer(
                     $serverName,
                     $category->hetzner_server_type,
                     $os,
-                    $location
+                    $location,
+                    $sshKeysArray
                 );
 
                 $order->update([
@@ -155,7 +174,7 @@ class VpsOrderService
                     'vps_order_id' => $order->id,
                     'user_id' => $user->id,
                     'action' => 'provisioned',
-                    'detail' => "Server Hetzner tạo thành công. IP: {$result['ipv4']}, Hetzner ID: {$result['server_id']}",
+                    'detail' => "Server tạo thành công. IP: {$result['ipv4']}, ID: {$result['server_id']}",
                 ]);
 
             } catch (\Exception $e) {
@@ -168,7 +187,7 @@ class VpsOrderService
                         'vps_order_id' => $order->id,
                         'user_id' => $user->id,
                         'action' => 'failed',
-                        'detail' => 'Tạo server Hetzner thất bại, đã hoàn tiền. Lỗi: ' . $e->getMessage(),
+                        'detail' => 'Tạo server thất bại, đã hoàn tiền. Lỗi: ' . $e->getMessage(),
                         'amount' => $order->price,
                     ]);
                 });

@@ -150,15 +150,18 @@
         </div>
 
         <div class="text-xs font-bold text-slate-500 uppercase tracking-wider px-3 mb-2 mt-6">System</div>
-        <a class="{{ request()->routeIs('admin.audit-logs.*') ? $activeClass : $defaultClass }}" href="{{ route('admin.audit-logs.index') }}">
+        <a class="{{ request()->routeIs('admin.audit-logs.*') ? $activeClass : $defaultClass }}"
+            href="{{ route('admin.audit-logs.index') }}">
             <span class="material-symbols-outlined text-[20px]">history</span>
             <span class="text-sm font-medium">Lịch sử thao tác</span>
         </a>
-        <a class="{{ request()->routeIs('admin.server-health.*') ? $activeClass : $defaultClass }}" href="#">
+        <a class="{{ request()->routeIs('admin.server.index.*') ? $activeClass : $defaultClass }}"
+            href="{{ route('admin.server.index') }}">
             <span class="material-symbols-outlined text-[20px]">dns</span>
             <span class="text-sm font-medium">Quản lý server</span>
         </a>
-        <a class="{{ request()->routeIs('admin.cron.*') ? $activeClass : $defaultClass }}" href="{{ route('admin.cron.index') }}">
+        <a class="{{ request()->routeIs('admin.cron.*') ? $activeClass : $defaultClass }}"
+            href="{{ route('admin.cron.index') }}">
             <span class="material-symbols-outlined text-[20px]">schedule</span>
             <span class="text-sm font-medium">Cron</span>
         </a>

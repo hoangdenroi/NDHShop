@@ -13,9 +13,12 @@ return new class extends Migration
     {
         Schema::create('settings', function (Blueprint $table) {
             $table->baseColumns();
-            $table->string('key')->unique();
+            $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('cascade');
+            $table->string('key');
             $table->json('value')->nullable();
             $table->string('description')->nullable();
+
+            $table->unique(['user_id', 'key']);
             $table->timestamps();
         });
     }

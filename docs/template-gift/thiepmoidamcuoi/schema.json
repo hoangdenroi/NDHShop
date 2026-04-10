@@ -1,342 +1,343 @@
 {
-  "fields": [
-    {
-      "key": "GREETING",
-      "type": "text",
-      "label": "Câu chào mừng",
-      "default": "We're getting married",
-      "width": "full"
-    },
-    {
-      "key": "BRIDE_NAME_SHORT",
-      "type": "text",
-      "label": "Tên Cô Dâu (Ngắn)",
-      "default": "Thu Hà",
-      "width": "half"
-    },
-    {
-      "key": "GROOM_NAME_SHORT",
-      "type": "text",
-      "label": "Tên Chú Rể (Ngắn)",
-      "default": "Quang Minh",
-      "width": "half"
-    },
-    {
-      "key": "WEDDING_DATE_SHORT",
-      "type": "text",
-      "label": "Ngày Cưới (Ngắn)",
-      "default": "22 . 08 . 2025",
-      "width": "half"
-    },
-    {
-      "key": "COVER_IMAGE",
-      "type": "image",
-      "label": "Ảnh Cover Chính",
-      "width": "full"
-    },
-    {
-      "key": "GROOM_FATHER_NAME",
-      "type": "text",
-      "label": "Tên Bố Chú Rể",
-      "default": "Ông Lê Văn A",
-      "width": "half"
-    },
-    {
-      "key": "GROOM_MOTHER_NAME",
-      "type": "text",
-      "label": "Tên Mẹ Chú Rể",
-      "default": "Bà Lê Thị B",
-      "width": "half"
-    },
-    {
-      "key": "BRIDE_FATHER_NAME",
-      "type": "text",
-      "label": "Tên Bố Cô Dâu",
-      "default": "Ông Phạm Văn C",
-      "width": "half"
-    },
-    {
-      "key": "BRIDE_MOTHER_NAME",
-      "type": "text",
-      "label": "Tên Mẹ Cô Dâu",
-      "default": "Bà Phạm Thị D",
-      "width": "half"
-    },
-    {
-      "key": "INVITATION_TO",
-      "type": "text",
-      "label": "Kính Mời",
-      "default": "Bạn cùng gia đình",
-      "width": "full"
-    },
-    {
-      "key": "WEDDING_TIME_TEXT",
-      "type": "text",
-      "label": "Giờ Cưới (Chữ)",
-      "default": "Tổ chức vào lúc 17 giờ 30",
-      "width": "half"
-    },
-    {
-      "key": "WEDDING_DATE_FULL",
-      "type": "text",
-      "label": "Ngày Cưới Đầy Đủ (Dương)",
-      "default": "Thứ Sáu, ngày 22 tháng 08 năm 2025",
-      "width": "half"
-    },
-    {
-      "key": "LUNAR_DATE_FULL",
-      "type": "text",
-      "label": "Ngày Cưới Đầy Đủ (Âm)",
-      "default": "Tức ngày 28 tháng 06 năm Ất Tỵ",
-      "width": "half"
-    },
-    {
-      "key": "WEDDING_VENUE",
-      "type": "textarea",
-      "label": "Địa Điểm Cưới (tổng quát)",
-      "default": "Tại gia đình Nhà Trai: 123 Đường Trần Phú,<br>Quận Ba Đình, Hà Nội",
-      "width": "full"
-    },
-    {
-      "key": "INVITATION_MESSAGE",
-      "type": "textarea",
-      "label": "Lời Mời (Dài)",
-      "default": "Tình yêu không cần hoàn hảo,<br>chỉ cần chân thành.<br>Chúng tôi đã tìm thấy nhau<br>giữa muôn vàn người,<br>và hôm nay xin được chia sẻ<br>niềm hạnh phúc này cùng bạn.",
-      "width": "full"
-    },
-    {
-      "key": "GROOM_IMAGE",
-      "type": "image",
-      "label": "Ảnh Chú Rể",
-      "width": "half"
-    },
-    {
-      "key": "BRIDE_IMAGE",
-      "type": "image",
-      "label": "Ảnh Cô Dâu",
-      "width": "half"
-    },
-    {
-      "key": "QUOTE_TEXT",
-      "type": "textarea",
-      "label": "Trích Dẫn Tình Yêu",
-      "default": "\"Hạnh phúc là khi tìm được người<br>khiến trái tim mình muốn gọi là nhà.\"",
-      "width": "full"
-    },
-    {
-      "key": "QUOTE_AUTHOR",
-      "type": "text",
-      "label": "Tác Giả Trích Dẫn",
-      "default": "Khuyết danh",
-      "width": "full"
-    },
-    {
-      "key": "GALLERY",
-      "type": "image",
-      "label": "Khoảnh Khắc (Gallery)",
-      "limit": 6,
-      "width": "full"
-    },
-    {
-      "key": "STORY_1_DATE",
-      "type": "text",
-      "label": "Chuyện tình 1 - Thời gian",
-      "default": "06 / 2021",
-      "width": "half"
-    },
-    {
-      "key": "STORY_1_TITLE",
-      "type": "text",
-      "label": "Chuyện tình 1 - Tiêu đề",
-      "default": "Lần đầu gặp gỡ",
-      "width": "half"
-    },
-    {
-      "key": "STORY_1_DESC",
-      "type": "textarea",
-      "label": "Chuyện tình 1 - Mô tả",
-      "default": "Gặp nhau tại buổi triển lãm nghệ thuật, cùng dừng trước một bức tranh.",
-      "width": "full"
-    },
-    {
-      "key": "STORY_2_DATE",
-      "type": "text",
-      "label": "Chuyện tình 2 - Thời gian",
-      "default": "11 / 2021",
-      "width": "half"
-    },
-    {
-      "key": "STORY_2_TITLE",
-      "type": "text",
-      "label": "Chuyện tình 2 - Tiêu đề",
-      "default": "Chính thức yêu nhau",
-      "width": "half"
-    },
-    {
-      "key": "STORY_2_DESC",
-      "type": "textarea",
-      "label": "Chuyện tình 2 - Mô tả",
-      "default": "Sau những lần hẹn cà phê, chúng tôi nhận ra không thể thiếu nhau.",
-      "width": "full"
-    },
-    {
-      "key": "STORY_3_DATE",
-      "type": "text",
-      "label": "Chuyện tình 3 - Thời gian",
-      "default": "01 / 2025",
-      "width": "half"
-    },
-    {
-      "key": "STORY_3_TITLE",
-      "type": "text",
-      "label": "Chuyện tình 3 - Tiêu đề",
-      "default": "Cầu hôn",
-      "width": "half"
-    },
-    {
-      "key": "STORY_3_DESC",
-      "type": "textarea",
-      "label": "Chuyện tình 3 - Mô tả",
-      "default": "Một buổi tối bình yên bên bờ biển, anh đã nói lời hẹn ước.",
-      "width": "full"
-    },
-    {
-      "key": "STORY_4_DATE",
-      "type": "text",
-      "label": "Chuyện tình 4 - Thời gian",
-      "default": "08 / 2025",
-      "width": "half"
-    },
-    {
-      "key": "STORY_4_TITLE",
-      "type": "text",
-      "label": "Chuyện tình 4 - Tiêu đề",
-      "default": "Ngày trọng đại",
-      "width": "half"
-    },
-    {
-      "key": "STORY_4_DESC",
-      "type": "textarea",
-      "label": "Chuyện tình 4 - Mô tả",
-      "default": "Chúng tôi chính thức trở thành gia đình, cùng viết tiếp câu chuyện.",
-      "width": "full"
-    },
-    {
-      "key": "COUNTDOWN_BG",
-      "type": "image",
-      "label": "Ảnh Nền Đếm Ngược",
-      "width": "full"
-    },
-    {
-      "key": "COUNTDOWN_TIME",
-      "type": "text",
-      "label": "Thời Gian Đếm Ngược",
-      "default": "2025-08-22T17:00:00",
-      "width": "full"
-    },
-    {
-      "key": "EVENT_1_NAME",
-      "type": "text",
-      "label": "Sự Kiện 1 - Tên",
-      "default": "Lễ Vu Quy",
-      "width": "full"
-    },
-    {
-      "key": "EVENT_1_TIME",
-      "type": "text",
-      "label": "Sự Kiện 1 - Giờ",
-      "default": "08:00",
-      "width": "half"
-    },
-    {
-      "key": "EVENT_1_DATE",
-      "type": "text",
-      "label": "Sự Kiện 1 - Ngày",
-      "default": "Thứ Sáu, 22/08/2025",
-      "width": "half"
-    },
-    {
-      "key": "EVENT_1_ADDRESS",
-      "type": "textarea",
-      "label": "Sự Kiện 1 - Địa chỉ",
-      "default": "123 Đường Trần Phú,<br>Quận Ba Đình, Hà Nội",
-      "width": "full"
-    },
-    {
-      "key": "EVENT_1_MAP",
-      "type": "text",
-      "label": "Sự Kiện 1 - Link Map",
-      "default": "https://maps.google.com/?q=",
-      "width": "full"
-    },
-    {
-      "key": "EVENT_2_NAME",
-      "type": "text",
-      "label": "Sự Kiện 2 - Tên",
-      "default": "Tiệc Cưới",
-      "width": "full"
-    },
-    {
-      "key": "EVENT_2_TIME",
-      "type": "text",
-      "label": "Sự Kiện 2 - Giờ",
-      "default": "17:30",
-      "width": "half"
-    },
-    {
-      "key": "EVENT_2_DATE",
-      "type": "text",
-      "label": "Sự Kiện 2 - Ngày",
-      "default": "Thứ Sáu, 22/08/2025",
-      "width": "half"
-    },
-    {
-      "key": "EVENT_2_ADDRESS",
-      "type": "textarea",
-      "label": "Sự Kiện 2 - Địa chỉ",
-      "default": "Trung Tâm Tiệc Cưới XYZ,<br>456 Kim Mã, Ba Đình, Hà Nội",
-      "width": "full"
-    },
-    {
-      "key": "EVENT_2_MAP",
-      "type": "text",
-      "label": "Sự Kiện 2 - Link Map",
-      "default": "https://maps.google.com/?q=",
-      "width": "full"
-    },
-    {
-      "key": "BANK_ACCOUNT_NAME",
-      "type": "text",
-      "label": "Tên Tài Khoản",
-      "default": "Lê Quang Minh",
-      "width": "half"
-    },
-    {
-      "key": "BANK_NAME",
-      "type": "text",
-      "label": "Ngân Hàng",
-      "default": "Techcombank",
-      "width": "half"
-    },
-    {
-      "key": "BANK_ACCOUNT_NUMBER",
-      "type": "text",
-      "label": "Số Tài Khoản",
-      "default": "9876 5432 1098",
-      "width": "half"
-    },
-    {
-      "key": "BANK_QR_IMAGE",
-      "type": "image",
-      "label": "Ảnh QR Code",
-      "width": "half"
-    },
-    {
-      "key": "MUSIC",
-      "type": "asset_picker",
-      "asset_type": "audio",
-      "label": "Nhạc Nền",
-      "width": "full"
-    }
-  ]
+    "fields": [
+        {
+            "key": "GREETING",
+            "type": "text",
+            "label": "Câu chào mừng",
+            "default": "We're getting married",
+            "width": "full"
+        },
+        {
+            "key": "BRIDE_NAME_SHORT",
+            "type": "text",
+            "label": "Tên Cô Dâu (Ngắn)",
+            "default": "Thu Hà",
+            "width": "half"
+        },
+        {
+            "key": "GROOM_NAME_SHORT",
+            "type": "text",
+            "label": "Tên Chú Rể (Ngắn)",
+            "default": "Quang Minh",
+            "width": "half"
+        },
+        {
+            "key": "WEDDING_DATE_SHORT",
+            "type": "text",
+            "label": "Ngày Cưới (Ngắn)",
+            "default": "22 . 08 . 2025",
+            "width": "half"
+        },
+        {
+            "key": "COVER_IMAGE",
+            "type": "image",
+            "label": "Ảnh Cover Chính",
+            "width": "full",
+            "limit": 1
+        },
+        {
+            "key": "GROOM_FATHER_NAME",
+            "type": "text",
+            "label": "Tên Bố Chú Rể",
+            "default": "Ông Lê Văn A",
+            "width": "half"
+        },
+        {
+            "key": "GROOM_MOTHER_NAME",
+            "type": "text",
+            "label": "Tên Mẹ Chú Rể",
+            "default": "Bà Lê Thị B",
+            "width": "half"
+        },
+        {
+            "key": "BRIDE_FATHER_NAME",
+            "type": "text",
+            "label": "Tên Bố Cô Dâu",
+            "default": "Ông Phạm Văn C",
+            "width": "half"
+        },
+        {
+            "key": "BRIDE_MOTHER_NAME",
+            "type": "text",
+            "label": "Tên Mẹ Cô Dâu",
+            "default": "Bà Phạm Thị D",
+            "width": "half"
+        },
+        {
+            "key": "INVITATION_TO",
+            "type": "text",
+            "label": "Kính Mời",
+            "default": "Bạn cùng gia đình",
+            "width": "full"
+        },
+        {
+            "key": "WEDDING_TIME_TEXT",
+            "type": "text",
+            "label": "Giờ Cưới (Chữ)",
+            "default": "Tổ chức vào lúc 17 giờ 30",
+            "width": "half"
+        },
+        {
+            "key": "WEDDING_DATE_FULL",
+            "type": "text",
+            "label": "Ngày Cưới Đầy Đủ (Dương)",
+            "default": "Thứ Sáu, ngày 22 tháng 08 năm 2025",
+            "width": "half"
+        },
+        {
+            "key": "LUNAR_DATE_FULL",
+            "type": "text",
+            "label": "Ngày Cưới Đầy Đủ (Âm)",
+            "default": "Tức ngày 28 tháng 06 năm Ất Tỵ",
+            "width": "half"
+        },
+        {
+            "key": "WEDDING_VENUE",
+            "type": "textarea",
+            "label": "Địa Điểm Cưới (tổng quát)",
+            "default": "Tại gia đình Nhà Trai: 123 Đường Trần Phú, Quận Ba Đình, Hà Nội",
+            "width": "full",
+            "limit": 2
+        },
+        {
+            "key": "INVITATION_MESSAGE",
+            "type": "textarea",
+            "label": "Lời Mời (Dài)",
+            "default": "Tình yêu không cần hoàn hảo,chỉ cần chân thành.Chúng tôi đã tìm thấy nhau giữa muôn vàn người,và hôm nay xin được chia sẻ niềm hạnh phúc này cùng bạn.",
+            "width": "full",
+            "limit": 6
+        },
+        {
+            "key": "GROOM_IMAGE",
+            "type": "image",
+            "label": "Ảnh Chú Rể",
+            "width": "half",
+            "limit": 1
+        },
+        {
+            "key": "BRIDE_IMAGE",
+            "type": "image",
+            "label": "Ảnh Cô Dâu",
+            "width": "half",
+            "limit": 1
+        },
+        {
+            "key": "QUOTE_TEXT",
+            "type": "textarea",
+            "label": "Trích Dẫn Tình Yêu",
+            "default": "Hạnh phúc là khi tìm được người khiến trái tim mình muốn gọi là nhà.",
+            "width": "full",
+            "limit": 4
+        },
+        {
+            "key": "QUOTE_AUTHOR",
+            "type": "text",
+            "label": "Tác Giả Trích Dẫn",
+            "default": "Khuyết danh",
+            "width": "full"
+        },
+        {
+            "key": "GALLERY",
+            "type": "image",
+            "label": "Khoảnh Khắc (Gallery)",
+            "limit": 6,
+            "width": "full"
+        },
+        {
+            "key": "STORY_1_DATE",
+            "type": "text",
+            "label": "Chuyện tình 1 - Thời gian",
+            "default": "06 \/ 2021",
+            "width": "half"
+        },
+        {
+            "key": "STORY_1_TITLE",
+            "type": "text",
+            "label": "Chuyện tình 1 - Tiêu đề",
+            "default": "Lần đầu gặp gỡ",
+            "width": "half"
+        },
+        {
+            "key": "STORY_1_DESC",
+            "type": "textarea",
+            "label": "Chuyện tình 1 - Mô tả",
+            "default": "Gặp nhau tại buổi triển lãm nghệ thuật, cùng dừng trước một bức tranh.",
+            "width": "full"
+        },
+        {
+            "key": "STORY_2_DATE",
+            "type": "text",
+            "label": "Chuyện tình 2 - Thời gian",
+            "default": "11 \/ 2021",
+            "width": "half"
+        },
+        {
+            "key": "STORY_2_TITLE",
+            "type": "text",
+            "label": "Chuyện tình 2 - Tiêu đề",
+            "default": "Chính thức yêu nhau",
+            "width": "half"
+        },
+        {
+            "key": "STORY_2_DESC",
+            "type": "textarea",
+            "label": "Chuyện tình 2 - Mô tả",
+            "default": "Sau những lần hẹn cà phê, chúng tôi nhận ra không thể thiếu nhau.",
+            "width": "full"
+        },
+        {
+            "key": "STORY_3_DATE",
+            "type": "text",
+            "label": "Chuyện tình 3 - Thời gian",
+            "default": "01 \/ 2025",
+            "width": "half"
+        },
+        {
+            "key": "STORY_3_TITLE",
+            "type": "text",
+            "label": "Chuyện tình 3 - Tiêu đề",
+            "default": "Cầu hôn",
+            "width": "half"
+        },
+        {
+            "key": "STORY_3_DESC",
+            "type": "textarea",
+            "label": "Chuyện tình 3 - Mô tả",
+            "default": "Một buổi tối bình yên bên bờ biển, anh đã nói lời hẹn ước.",
+            "width": "full"
+        },
+        {
+            "key": "STORY_4_DATE",
+            "type": "text",
+            "label": "Chuyện tình 4 - Thời gian",
+            "default": "08 \/ 2025",
+            "width": "half"
+        },
+        {
+            "key": "STORY_4_TITLE",
+            "type": "text",
+            "label": "Chuyện tình 4 - Tiêu đề",
+            "default": "Ngày trọng đại",
+            "width": "half"
+        },
+        {
+            "key": "STORY_4_DESC",
+            "type": "textarea",
+            "label": "Chuyện tình 4 - Mô tả",
+            "default": "Chúng tôi chính thức trở thành gia đình, cùng viết tiếp câu chuyện.",
+            "width": "full"
+        },
+        {
+            "key": "COUNTDOWN_BG",
+            "type": "image",
+            "label": "Ảnh Nền Đếm Ngược",
+            "width": "full",
+            "limit": 1
+        },
+        {
+            "key": "COUNTDOWN_TIME",
+            "type": "text",
+            "label": "Thời Gian Đếm Ngược",
+            "default": "2025-08-22T17:00:00",
+            "width": "full"
+        },
+        {
+            "key": "EVENT_1_NAME",
+            "type": "text",
+            "label": "Sự Kiện 1 - Tên",
+            "default": "Lễ Vu Quy",
+            "width": "full"
+        },
+        {
+            "key": "EVENT_1_TIME",
+            "type": "text",
+            "label": "Sự Kiện 1 - Giờ",
+            "default": "08:00",
+            "width": "half"
+        },
+        {
+            "key": "EVENT_1_DATE",
+            "type": "text",
+            "label": "Sự Kiện 1 - Ngày",
+            "default": "Thứ Sáu, 22\/08\/2025",
+            "width": "half"
+        },
+        {
+            "key": "EVENT_1_ADDRESS",
+            "type": "textarea",
+            "label": "Sự Kiện 1 - Địa chỉ",
+            "default": "123 Đường Trần Phú,<br>Quận Ba Đình, Hà Nội",
+            "width": "full"
+        },
+        {
+            "key": "EVENT_1_MAP",
+            "type": "text",
+            "label": "Sự Kiện 1 - Link Map",
+            "default": "https:\/\/maps.google.com\/?q=",
+            "width": "full"
+        },
+        {
+            "key": "EVENT_2_NAME",
+            "type": "text",
+            "label": "Sự Kiện 2 - Tên",
+            "default": "Tiệc Cưới",
+            "width": "full"
+        },
+        {
+            "key": "EVENT_2_TIME",
+            "type": "text",
+            "label": "Sự Kiện 2 - Giờ",
+            "default": "17:30",
+            "width": "half"
+        },
+        {
+            "key": "EVENT_2_DATE",
+            "type": "text",
+            "label": "Sự Kiện 2 - Ngày",
+            "default": "Thứ Sáu, 22\/08\/2025",
+            "width": "half"
+        },
+        {
+            "key": "EVENT_2_ADDRESS",
+            "type": "textarea",
+            "label": "Sự Kiện 2 - Địa chỉ",
+            "default": "Trung Tâm Tiệc Cưới XYZ,<br>456 Kim Mã, Ba Đình, Hà Nội",
+            "width": "full"
+        },
+        {
+            "key": "EVENT_2_MAP",
+            "type": "text",
+            "label": "Sự Kiện 2 - Link Map",
+            "default": "https:\/\/maps.google.com\/?q=",
+            "width": "full"
+        },
+        {
+            "key": "BANK_ACCOUNT_NAME",
+            "type": "text",
+            "label": "Tên Tài Khoản",
+            "default": "Nguyễn Văn A",
+            "width": "half"
+        },
+        {
+            "key": "BANK_NAME",
+            "type": "text",
+            "label": "Ngân Hàng",
+            "default": "Techcombank",
+            "width": "half"
+        },
+        {
+            "key": "BANK_ACCOUNT_NUMBER",
+            "type": "text",
+            "label": "Số Tài Khoản",
+            "default": "9876543210",
+            "width": "half"
+        },
+        {
+            "key": "MUSIC",
+            "type": "asset_picker",
+            "asset_type": "audio",
+            "label": "Nhạc Nền",
+            "width": "full"
+        }
+    ]
 }

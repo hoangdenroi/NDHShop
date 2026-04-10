@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('name');                          // Tên mẫu: "Pháo hoa Tết 2026"
             $table->string('slug')->unique();                // URL-friendly slug
             $table->string('thumbnail')->nullable();         // URL ảnh preview
-            $table->string('category')->default('other');    // tet, sinh-nhat, valentine...
+            $table->foreignId('category_id')->nullable()->constrained('gift_categories')->nullOnDelete();
             $table->longText('html_code');                   // HTML (Base64 encoded)
             $table->longText('css_code')->nullable();        // CSS (Base64 encoded)
             $table->longText('js_code')->nullable();         // JS hiệu ứng (Base64 encoded)

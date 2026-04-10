@@ -27,13 +27,52 @@ class ProfileController extends Controller
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
-        $request->user()->fill($request->validated());
+        $user = $request->user();
+        $data = $request->validated();
+        
+        // Remove file handle from massive assignment array
+        if (isset($data['avatar_file'])) {
+            unset($data['avatar_file']);
+        }
+        $user->fill($data);
 
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
+        // Xử lý upload avatar lên Cloudinary
+        if ($request->hasFile('avatar_file')) {
+            $file = $request->file('avatar_file');
+
+            // Xóa file cũ trên Cloudinary thông qua extract URL
+            if ($user->avatar_url && str_contains($user->avatar_url, 'res.cloudinary.com')) {
+                try {
+                    $urlParts = explode('/', $user->avatar_url);
+                    $uploadIndex = array_search('upload', $urlParts);
+                    if ($uploadIndex !== false && isset($urlParts[$uploadIndex + 2])) {
+                        $publicIdWithExt = implode('/', array_slice($urlParts, $uploadIndex + 2));
+                        $publicId = pathinfo($publicIdWithExt, PATHINFO_DIRNAME) . '/' . pathinfo($publicIdWithExt, PATHINFO_FILENAME);
+                        cloudinary()->uploadApi()->destroy($publicId);
+                    }
+                } catch (\Exception $e) {
+                    \Illuminate\Support\Facades\Log::error('Lỗi xóa avatar cũ Cloudinary: ' . $e->getMessage());
+                }
+            }
+
+            // Upload file mới
+            try {
+                $uploadResult = cloudinary()->uploadApi()->upload(
+                    $file->getRealPath(),
+                    ['folder' => 'ndhshop/users']
+                );
+                $user->avatar_url = $uploadResult['secure_url'];
+            } catch (\Exception $e) {
+                \Illuminate\Support\Facades\Log::error('Lỗi up avatar mới: ' . $e->getMessage());
+                throw \Illuminate\Validation\ValidationException::withMessages(['avatar_file' => 'Không thể tải ảnh hệ thống lúc này.']);
+            }
         }
 
-        $request->user()->save();
+        if ($user->isDirty('email')) {
+            $user->email_verified_at = null;
+        }
+
+        $user->save();
 
         return Redirect::back()->with('status', 'profile-updated');
     }
@@ -64,7 +103,9 @@ class ProfileController extends Controller
      */
     public function orders(Request $request)
     {
-        $query = \App\Models\Order::where('user_id', Auth::id())
+        $userId = Auth::id();
+
+        $query = \App\Models\Order::where('user_id', $userId)
             ->with(['items.product.assets' => function ($q) {
                 $q->orderBy('sort_order', 'asc');
             }])
@@ -83,7 +124,14 @@ class ProfileController extends Controller
 
         $orders = $query->paginate(10);
 
-        $data = $orders->getCollection()->map(function ($order) {
+        // Lấy tất cả reviews (kể cả đã xóa mềm) của user cho các đơn hàng hiện tại
+        $orderIds = $orders->getCollection()->pluck('id')->toArray();
+        $userReviews = \App\Models\Review::withDeleted()
+            ->where('user_id', $userId)
+            ->whereIn('order_id', $orderIds)
+            ->get();
+
+        $data = $orders->getCollection()->map(function ($order) use ($userReviews) {
             return [
                 'id' => $order->id,
                 'order_code' => $order->order_code,
@@ -93,9 +141,16 @@ class ProfileController extends Controller
                 'discount_amount' => (float) $order->discount_amount,
                 'coupon_code' => $order->coupon_code,
                 'created_at' => $order->created_at->format('d/m/Y H:i'),
-                'items' => $order->items->map(function ($item) {
+                'items' => $order->items->map(function ($item) use ($order, $userReviews) {
                     $imageAsset = $item->product->assets->where('type', 'image')->first();
                     $fileAsset = $item->product->assets->where('type', 'file')->first();
+
+                    // Tìm review của user cho sản phẩm này trong đơn hàng này (kể cả đã xóa)
+                    $review = $userReviews
+                        ->where('product_id', $item->product_id)
+                        ->where('order_id', $order->id)
+                        ->first();
+
                     return [
                         'product_id' => $item->product_id,
                         'name' => $item->product->name,
@@ -103,6 +158,13 @@ class ProfileController extends Controller
                         'price' => (float) $item->price,
                         'image' => $imageAsset ? $imageAsset->url_or_path : asset('images/placeholder.png'),
                         'download_url' => $fileAsset ? $fileAsset->url_or_path : null,
+                        // Trạng thái review: null = chưa đánh giá, có data = đã đánh giá, is_deleted = đã xóa
+                        'review' => $review ? [
+                            'id' => $review->id,
+                            'rating' => $review->rating,
+                            'comment' => $review->comment,
+                            'is_deleted' => (bool) $review->is_deleted,
+                        ] : null,
                     ];
                 }),
             ];

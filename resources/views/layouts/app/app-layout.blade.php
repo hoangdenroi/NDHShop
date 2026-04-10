@@ -89,6 +89,8 @@
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+
 </head>
 
 <body
@@ -110,6 +112,76 @@
             {{-- Footer --}}
             <x-app.footer />
         </div>
+
+        <div id="global-widgets" data-turbo-permanent>
+            {{-- Floating Action Buttons (FAB) - Liên hệ nhanh + Nghe nhạc --}}
+            {{-- <x-app.music-player /> --}}
+
+            {{-- YouTube Hidden Player - nằm trong permanent zone để không bị hủy khi navigate --}}
+            {{-- <div id="youtube-hidden-player" class="hidden"></div> --}}
+
+            <div x-data="{ open: false }" class="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3">
+
+                {{-- Desktop: Hiển thị tất cả nút theo hàng dọc --}}
+                <div class="hidden md:flex flex-col gap-3">
+                    {{-- Nghe nhạc --}}
+                    {{-- <button @click="$dispatch('toggle-music-panel')" class="fab-btn fab-music" title="Nghe nhạc">
+                        <span class="material-symbols-outlined text-2xl">music_note</span>
+                    </button> --}}
+                    {{-- Zalo --}}
+                    <a href="https://zalo.me/0388937608" target="_blank" rel="noopener noreferrer"
+                        class="fab-btn fab-zalo" title="Chat qua Zalo">
+                        <span class="material-symbols-outlined text-2xl">chat</span>
+                    </a>
+
+                    {{-- Gọi điện --}}
+                    <a href="tel:+84388937608" class="fab-btn fab-phone" title="Gọi điện">
+                        <span class="material-symbols-outlined text-2xl">call</span>
+                    </a>
+                </div>
+
+                {{-- Mobile: Toggle menu --}}
+                <div class="md:hidden flex flex-col items-end gap-3">
+
+                    {{-- Các nút khi menu mở --}}
+                    <div x-show="open" x-cloak x-transition:enter="transition ease-out duration-200"
+                        x-transition:enter-start="opacity-0 translate-y-4"
+                        x-transition:enter-end="opacity-100 translate-y-0"
+                        x-transition:leave="transition ease-in duration-150"
+                        x-transition:leave-start="opacity-100 translate-y-0"
+                        x-transition:leave-end="opacity-0 translate-y-4" class="flex flex-col gap-3">
+                        {{-- Nghe nhạc --}}
+                        {{-- <button @click="$dispatch('toggle-music-panel')" class="fab-btn fab-music"
+                            title="Nghe nhạc">
+                            <span class="material-symbols-outlined text-2xl">music_note</span>
+                        </button> --}}
+                        {{-- Zalo --}}
+                        <a href="https://zalo.me/0388937608" target="_blank" rel="noopener noreferrer"
+                            @click="open = false" class="fab-btn fab-zalo" title="Chat qua Zalo">
+                            <span class="material-symbols-outlined text-2xl">chat</span>
+                        </a>
+
+                        {{-- Gọi điện --}}
+                        <a href="tel:+84388937608" @click="open = false" class="fab-btn fab-phone" title="Gọi điện">
+                            <span class="material-symbols-outlined text-2xl">call</span>
+                        </a>
+                    </div>
+
+                    {{-- Nút Toggle --}}
+                    <button @click="open = !open; if(!open) $dispatch('close-music-panel')"
+                        class="fab-btn fab-toggle-btn" :class="{ 'fab-toggle-open': open, 'fab-pulse': !open }"
+                        title="Menu liên hệ">
+                        {{-- Logo khi đóng, icon X khi mở --}}
+                        <img x-show="!open" src="{{ asset('NDHShop.jpg') }}" alt="Logo"
+                            class="object-cover rounded-full"
+                            style="width: calc(100% - 2px); height: calc(100% - 2px);">
+                        <span x-show="open" x-cloak
+                            class="material-symbols-outlined text-4xl font-light transition-transform duration-300"
+                            style="transform: rotate(45deg);">add</span>
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
 
     {{-- Toast Notifications Component --}}
@@ -118,20 +190,27 @@
     {{-- Dispatch toast từ session flash (ví dụ: khi bị redirect do chưa đăng nhập) --}}
     @if(session('toast_message'))
         <script>
-            // Dùng setTimeout để đảm bảo Alpine.js đã khởi tạo xong toast component
-            document.addEventListener('DOMContentLoaded', () => {
-                setTimeout(() => {
-                    window.dispatchEvent(new CustomEvent('toast', {
-                        detail: {
-                            type: '{{ session('toast_type', 'info') }}',
-                            title: '{{ session('toast_type') === 'warning' ? 'Cảnh báo' : (session('toast_type') === 'error' ? 'Lỗi' : (session('toast_type') === 'success' ? 'Thành công' : 'Thông báo')) }}',
-                            message: '{{ session('toast_message') }}',
-                            link: '{{ session('toast_link', '') }}' || null,
-                            linkText: '{{ session('toast_link_text', '') }}' || null
-                        }
-                    }));
-                }, 100);
-            });
+            (function () {
+                const initToast = () => {
+                    setTimeout(() => {
+                        window.dispatchEvent(new CustomEvent('toast', {
+                            detail: {
+                                type: '{{ session('toast_type', 'info') }}',
+                                title: '{{ session('toast_type') === 'warning' ? 'Cảnh báo' : (session('toast_type') === 'error' ? 'Lỗi' : (session('toast_type') === 'success' ? 'Thành công' : 'Thông báo')) }}',
+                                message: '{{ session('toast_message') }}',
+                                link: '{{ session('toast_link', '') }}' || null,
+                                linkText: '{{ session('toast_link_text', '') }}' || null
+                            }
+                        }));
+                    }, 100);
+                };
+
+                if (document.readyState === 'loading') {
+                    document.addEventListener('DOMContentLoaded', initToast);
+                } else {
+                    initToast(); // Khi Turbo load trang mới không có DOMContentLoaded
+                }
+            })();
         </script>
     @endif
 

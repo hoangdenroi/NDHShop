@@ -41,15 +41,9 @@
                                     ['icon' => 'storage', 'label' => 'Storage', 'value' => $category->storage],
                                     ['icon' => 'speed', 'label' => 'Bandwidth', 'value' => $category->bandwidth],
                                 ];
-                                if (!empty($category->metadata['ip'])) {
-                                    $specs[] = ['icon' => 'public', 'label' => 'IP', 'value' => $category->metadata['ip']];
-                                }
-                                if (!empty($category->metadata['firewall'])) {
-                                    $specs[] = ['icon' => 'security', 'label' => 'Firewall', 'value' => $category->metadata['firewall']];
-                                }
-                                if (!empty($category->metadata['backup'])) {
-                                    $specs[] = ['icon' => 'backup', 'label' => 'Backup', 'value' => $category->metadata['backup']];
-                                }
+                                $specs[] = ['icon' => 'public', 'label' => 'IP', 'value' => $category->metadata['ip'] ?? '1 IPv4'];
+                                $specs[] = ['icon' => 'security', 'label' => 'Firewall', 'value' => $category->metadata['firewall'] ?? 'Tường lửa cơ bản'];
+                                $specs[] = ['icon' => 'backup', 'label' => 'Backup', 'value' => $category->metadata['backup'] ?? 'Thủ công'];
                             @endphp
                             @foreach($specs as $spec)
                                 <div class="flex items-center justify-between">
@@ -200,10 +194,21 @@
                                                 <input type="radio" name="location" value="{{ $location->hetzner_name }}"
                                                     x-model="selectedLocation" class="sr-only peer" {{ $loop->first ? 'checked' : '' }}>
                                                 <div
-                                                    class="p-3 rounded-xl border-2 border-slate-200 dark:border-border-dark peer-checked:border-primary peer-checked:bg-primary/5 transition-all hover:border-primary/50 text-center">
+                                                    class="p-3 rounded-xl border-2 border-slate-200 dark:border-border-dark peer-checked:border-primary peer-checked:bg-primary/5 transition-all hover:border-primary/50 text-center relative flex flex-col items-center justify-center min-h-[5rem]">
                                                     <p class="text-sm font-bold text-slate-900 dark:text-white">
                                                         {{ $location->city ?? $location->name }}</p>
                                                     <p class="text-xs text-slate-500 mt-0.5">({{ $location->country }})</p>
+                                                    
+                                                    @php
+                                                        $addonPrice = data_get($category->metadata, "location_addons.{$location->hetzner_name}", 0);
+                                                    @endphp
+                                                    @if($addonPrice > 0)
+                                                        <div class="mt-1.5">
+                                                            <span class="text-[10px] font-medium text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-500/10 px-2 py-0.5 rounded-full border border-amber-200/50 dark:border-amber-500/20">
+                                                                +{{ number_format($addonPrice, 0, ',', '.') }}đ
+                                                            </span>
+                                                        </div>
+                                                    @endif
                                                 </div>
                                             </label>
                                         @endforeach
@@ -278,12 +283,12 @@
                                                 Tên SSH Key <span class="text-rose-500">*</span>
                                             </label>
                                             <input type="text" name="ssh_key_name" x-model="sshKeyName" :required="connectionMethod === 'ssh'"
-                                                placeholder="Ví dụ: Laptop cá nhân"
+                                                placeholder="Ví dụ: Key server"
                                                 class="w-full border border-slate-300 dark:border-border-dark bg-white dark:bg-background-dark rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 dark:text-white">
                                         </div>
                                         <div>
                                             <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
-                                                Public Key <span class="text-rose-500">*</span>
+                                                SSH Public Key <span class="text-rose-500">*</span>
                                             </label>
                                             <textarea name="ssh_key_content" x-model="sshKeyContent" :required="connectionMethod === 'ssh'" rows="3"
                                                 placeholder="ssh-rsa AAAAB3..."
@@ -340,9 +345,14 @@
                                 {{-- Tổng tiền + Nút mua --}}
                                 <div class="bg-slate-50 dark:bg-background-dark rounded-xl p-5 space-y-3">
                                     <div class="flex items-center justify-between text-sm">
-                                        <span class="text-slate-500">Giá gói / tháng</span>
+                                        <span class="text-slate-500">Giá gói cơ bản</span>
                                         <span
                                             class="text-slate-900 dark:text-white font-medium">{{ number_format($category->price, 0, ',', '.') }}đ</span>
+                                    </div>
+                                    <div class="flex items-center justify-between text-sm" x-show="locationAddons[selectedLocation] > 0" x-transition style="display: none;">
+                                        <span class="text-slate-500">Phụ phí Location</span>
+                                        <span class="text-slate-900 dark:text-white font-medium"
+                                            x-text="'+' + formatVND(locationAddons[selectedLocation])"></span>
                                     </div>
                                     <div class="flex items-center justify-between text-sm">
                                         <span class="text-slate-500">Thời hạn</span>
@@ -396,7 +406,7 @@
             return {
                 selectedFlavor: '{{ $firstFlavor }}',
                 selectedOs: '{{ $operatingSystems->first()?->hetzner_name ?? '' }}',
-                selectedLocation: '{{ $locations->first()?->hetzner_name ?? '' }}',
+                selectedLocation: '{{ $locations->filter(fn($loc) => empty(($category->metadata["location_addons"] ?? [])[$loc->hetzner_name]))->first()?->hetzner_name ?? $locations->first()?->hetzner_name ?? "" }}',
                 months: {{ !empty($availableMonths) ? $availableMonths[0] : 1 }},
                 connectionMethod: '{{ $firstConnectionMethod ?? "password" }}',
                 sshKeyName: '',
@@ -407,13 +417,19 @@
                 couponDiscount: 0,
                 couponMessage: '',
                 couponError: false,
+                locationAddons: @json($category->metadata['location_addons'] ?? new stdClass()),
 
                 formatVND(amount) {
                     return new Intl.NumberFormat('vi-VN').format(amount) + 'đ';
                 },
 
+                get basePrice() {
+                    const addon = this.locationAddons[this.selectedLocation] || 0;
+                    return {{ $category->price }} + addon;
+                },
+
                 get totalAmount() {
-                    const subtotal = {{ $category->price }} * this.months;
+                    const subtotal = this.basePrice * this.months;
                     return Math.max(0, subtotal - this.couponDiscount);
                 },
 
@@ -424,7 +440,7 @@
                         return;
                     }
 
-                    const subtotal = {{ $category->price }} * this.months;
+                    const subtotal = this.basePrice * this.months;
                     const toast = window.Toast || { error: console.error, success: console.log };
 
                     try {

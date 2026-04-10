@@ -17,16 +17,34 @@ class GiftController extends Controller
      */
     public function index(Request $request)
     {
-        $query = GiftTemplate::active();
+        // Cache danh mục 1 giờ
+        $categories = \Illuminate\Support\Facades\Cache::remember('gift_categories_active', 3600, function () {
+            return GiftCategory::active()->ordered()->get();
+        });
 
-        // Lọc theo category
-        if ($request->filled('category')) {
-            $query->byCategory((int) $request->category);
-        }
+        // Tạo cache key dựa theo bộ lọc để lưu templates
+        $categoryId = $request->filled('category') ? (int) $request->category : 'all';
+        $page = $request->filled('page') ? (int) $request->page : 1;
+        $cacheKey = "gift_templates_c_{$categoryId}_p_{$page}";
 
-        // Ưu tiên hiển thị mẫu premium trước, rồi đến mới nhất
-        $templates = $query->orderByDesc('is_premium')->latest('id')->paginate(16)->withQueryString();
-        $categories = GiftCategory::active()->ordered()->get();
+        // Tạm cache query template mỗi 30 phút (1800 giây)
+        $templates = \Illuminate\Support\Facades\Cache::remember($cacheKey, 1800, function () use ($request) {
+            $query = GiftTemplate::active();
+
+            // Lọc theo category
+            if ($request->filled('category')) {
+                $query->byCategory((int) $request->category);
+            }
+
+            // Ưu tiên premium có lượt dùng cao nhất, tiếp đến miễn phí lượt dùng cao, rồi mới xét mới nhất
+            return $query->orderByDesc('is_premium')
+                         ->orderByDesc('usage_count')
+                         ->latest('id')
+                         ->paginate(16);
+        });
+
+        // Nối query string (ví dụ &category=...) vào phân trang
+        $templates->appends($request->query());
 
         return view('pages.app.gifts.templates', compact('templates', 'categories'));
     }
@@ -47,7 +65,7 @@ class GiftController extends Controller
             ->where(function ($q) use ($template) {
                 // Chỉ lấy tài nguyên dùng chung hoặc thuộc danh mục của mẫu thiệp
                 $q->whereNull('category_id')
-                  ->orWhere('category_id', $template->category_id);
+                    ->orWhere('category_id', $template->category_id);
             })
             ->orderBy('sort_order')
             ->get()
@@ -68,12 +86,16 @@ class GiftController extends Controller
 
         // Validate dữ liệu từ form dựa trên schema của mẫu
         $rules = $this->buildSchemaRules($template);
-        $validated = $request->validate($rules);
+        
+        $validated = $request->validate(array_merge($rules, [
+            'meta_title' => 'nullable|string|max:255',
+        ]));
 
         // Wrap trong transaction để đảm bảo atomicity
-        $giftPage = DB::transaction(function () use ($request, $template) {
+        $giftPage = DB::transaction(function () use ($request, $template, $validated) {
             $pageData = $this->processPageData($request->input('data', []));
-            $metaTitle = $pageData['TITLE'] ?? 'Quà tặng từ '.Auth::user()->name;
+            $defaultTitle = 'Bạn nhận được món quà từ ' . Auth::user()->name;
+            $metaTitle = $validated['meta_title'] ?? $pageData['TITLE'] ?? $defaultTitle;
 
             // Tạo gift page ở trạng thái DRAFT
             $giftPage = GiftPage::create([
@@ -156,7 +178,7 @@ class GiftController extends Controller
                     'Không có watermark NDHShop',
                     'Thống kê lượt xem chi tiết',
                     'Sửa nội dung (trong vòng 72h)',
-                    'Không giới hạn ảnh và nhạc nền từ nguồn thứ 3',
+                    'Không giới hạn ảnh và nhạc nền',
                     'Hỗ trợ kỹ thuật 24/7',
                 ],
                 'disabled' => [],
@@ -188,8 +210,9 @@ class GiftController extends Controller
             abort(403);
         }
 
-        if (!$gift->canBeEdited()) {
+        if (! $gift->canBeEdited()) {
             $msg = $gift->isPremium() ? 'Thiệp Premium chỉ cho phép chỉnh sửa trong vòng 72 giờ kể từ khi kích hoạt!' : 'Chỉ gói Premium mới được phép chỉnh sửa sau khi kích hoạt!';
+
             return redirect()->route('app.gifts.my-gifts')
                 ->with('toast_type', 'error')->with('toast_message', $msg);
         }
@@ -203,7 +226,7 @@ class GiftController extends Controller
             ->where(function ($q) use ($template) {
                 // Chỉ lấy tài nguyên dùng chung hoặc thuộc danh mục của mẫu thiệp
                 $q->whereNull('category_id')
-                  ->orWhere('category_id', $template->category_id);
+                    ->orWhere('category_id', $template->category_id);
             })
             ->orderBy('sort_order')
             ->get()
@@ -221,8 +244,9 @@ class GiftController extends Controller
             abort(403);
         }
 
-        if (!$gift->canBeEdited()) {
+        if (! $gift->canBeEdited()) {
             $msg = $gift->isPremium() ? 'Thiệp Premium chỉ cho phép chỉnh sửa trong vòng 72 giờ kể từ khi kích hoạt!' : 'Chỉ gói Premium mới được phép chỉnh sửa sau khi kích hoạt!';
+
             return redirect()->route('app.gifts.my-gifts')
                 ->with('toast_type', 'error')->with('toast_message', $msg);
         }
@@ -240,10 +264,11 @@ class GiftController extends Controller
         // Wrap trong transaction để đảm bảo atomicity
         DB::transaction(function () use ($request, $gift, $validated) {
             $pageData = $this->processPageData($request->input('data', []));
+            $defaultTitle = 'Bạn nhận được món quà từ ' . Auth::user()->name;
 
             $gift->update([
                 'page_data' => $pageData,
-                'meta_title' => $validated['meta_title'] ?? $pageData['TITLE'] ?? $gift->meta_title,
+                'meta_title' => $validated['meta_title'] ?? $pageData['TITLE'] ?? $gift->meta_title ?? $defaultTitle,
                 'meta_image' => $validated['meta_image'] ?? $pageData['IMAGE_1'] ?? $gift->meta_image,
             ]);
 
@@ -329,6 +354,7 @@ class GiftController extends Controller
                 foreach ($lines as $line) {
                     if ($line !== '') {
                         $pageData[$key.$i] = $line;
+                        $pageData[$key.'_'.$i] = $line;
                         $i++;
                     }
                 }

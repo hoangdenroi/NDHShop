@@ -60,3 +60,6 @@ Thay vì cài Windows cho mỗi khách từ đầu, bạn chỉ cần tạo MỘ
 Sau khi ưng ý bản Windows đó, bạn chụp lại bản lưu trữ bằng tính năng Take Snapshot, lúc này Hetzner sẽ gom hệ điều hành thành 1 tấm ảnh đúc (Custom Image) có 1 cái Mã ID riêng (VD: 12345678).
 Về trang quản trị trên Web của bạn, ở mục cấu hình Hệ Điều Hành (OS), bạn khai báo tên Image của Hetzner không phải là ubuntu-20.04 nữa, mà thay bằng cái ID Snapshot kia.
 Xong! Bất kỳ khi nào khách hàng bấm mua Tự Động bản Windows đó, API của web bạn sẽ yêu cầu Hetzner bế thẳng bản đúc Snapshot sinh ra chiếc VPS mới trong vài chục giây cho khách cực kỳ tiện lợi
+
+
+php artisan optimize:clear
